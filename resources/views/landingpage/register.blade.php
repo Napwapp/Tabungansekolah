@@ -57,7 +57,7 @@
 					@endif
                     
                     <!-- inputan -->
-					<div class="wrap-input100 validate-input" data-validate = "Nama Lengkap Wajib diisi required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "Nama Lengkap Wajib diisi">
 						<input class="input100" type="text" name="namalengkap" id="namalengkap">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Nama Lengkap</span>
@@ -122,7 +122,7 @@
 					
 					<div class="text-center p-t-khusus p-b-20">
 						<span class="txt2">
-							<a href="{{ route('auth') }}">Sudah punya akun? Login disini</a>
+							<a href="{{route('auth') }}">Sudah punya akun? Login disini</a>
 						</span>
 					</div>
 
