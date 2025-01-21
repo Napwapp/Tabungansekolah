@@ -429,7 +429,7 @@
 
         <div class="bag-school">
           <h1>SMKN1 BINONG</h1>
-          <!-- <img src="{{asset('assets/')img/smkn1_binong.png" alt="school"> -->
+          <!-- <img src="{{asset('assets/img/smkn1_binong.png')}}" alt="school"> -->
       </div>
 
       </div>
