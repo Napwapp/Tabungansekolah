@@ -59,7 +59,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="{{route('')}}}">Login</a>
+      <a class="btn-getstarted" href="{{route('auth')}}}">Login</a>
 
     </div>
   </header>
