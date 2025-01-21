@@ -59,7 +59,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="{{route('auth')}}}">Login</a>
+      <a class="btn-getstarted" href="{{route('auth')}}">Login</a>
 
     </div>
   </header>
@@ -429,7 +429,7 @@
 
         <div class="bag-school">
           <h1>SMKN1 BINONG</h1>
-          <!-- <img src="{{asset('assets/')}}img/smkn1_binong.png" alt="school"> -->
+          <!-- <img src="{{asset('assets/')img/smkn1_binong.png" alt="school"> -->
       </div>
 
       </div>
