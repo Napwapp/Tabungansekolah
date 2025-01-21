@@ -41,11 +41,11 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form action="{{ route('auth') }}" class="login100-form validate-form" method="POST">
+                <form action="{{route('auth') }}" class="login100-form validate-form" method="POST">
                     @csrf
                     <a href="/" class="btn btn-sm btn-primary">Kembali</a>
                     <span class="login100-form-title p-b-43">
-                        Login to continue
+                        Login
                     </span>
 
                     @if ($errors->any())
@@ -67,7 +67,7 @@
                     @endif
 
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" value="{{ old('email') }} ">
+                        <input class="input100" type="text" name="email" value="{{old('email')}}">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
@@ -125,7 +125,7 @@
                 </form>
 
                 <div class="login100-more"
-                    style= "background-image: url('{{ asset('landingpage/Halamanlogin/images/bg-01.jpg') }}');"></div>
+                    style= "background-image: url('{{asset("landingpage/Halamanlogin/images/bg-01.jpg")}}');"></div>
             </div>
         </div>
     </div>

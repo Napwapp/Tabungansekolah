@@ -24,7 +24,7 @@ Route::post('/sesi',[AuthController::class,'login']);
 
 // untuk register
 Route::get('/reg',[AuthController::class,'create'])->name('registrasi');
-Route::post('/reg',[AuthController::class,'register']);
+Route::post('/reg',[AuthController::class,'register'])->name('registrasi.post');
 
 // route admin dan user
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');

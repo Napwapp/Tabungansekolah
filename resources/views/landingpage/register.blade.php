@@ -32,10 +32,10 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="{{ route('auth') }}" class="login100-form validate-form" method="POST">
+				<form action="{{ route('registrasi.post') }}" class="login100-form validate-form" method="POST">
                     @csrf
 					<span class="login100-form-title p-b-43">
-						Login to continue
+						Login
 					</span>
 					
 					@if ($errors->any())

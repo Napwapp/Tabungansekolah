@@ -1,307 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan SMKN1 BINONG</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="default.css">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Append Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/default.css">
+
+  <!-- =======================================================
+  * Template Name: Append
+  * Template URL: https://bootstrapmade.com/append-bootstrap-website-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-<body>
-<script src="script.js"></script>
-<div class="container">
-    <header>
-        <section id="header" class="header">
-            <div class="logosmk">
-                <img src="img/smkn1_binong.png" alt="Logo SMK Negeri 1 Binong Subang">
-                <h1>SMK NEGERI 1 <br> BINONG SUBANG</h1>
-            </div>
-            <div class="navigasi">
-                <a href="#beranda" aria-label="Beranda">Beranda</a>
-                <a href="#tentangkami" aria-label="Tentang Kami">Tentang Kami</a>
-                <a href="#pengisi" aria-label="Panduan Pengguna">Panduan Pengguna</a>
-                <a href="#carakerja" aria-label="Cara Kerja">Cara Kerja</a>
-                <a href="#kontak" aria-label="Kontak">Kontak</a>
-                <a href="Halaman login/index.html" class="login-button" aria-label="Login">LOGIN</a>
-            </div>
-        </section>  
-    </header>
-    
-    <!-- Beranda -->
-    <section id="beranda" class="beranda"> 
-            <div class="foto">
-                <span class="text-foto scroll-element">
-                    <h1>MENGAPA HARUS MENABUNG</h1>
-                </span>
-            </div>
-            <div class="main"> 
-                <div class="red-section scroll-element">                    
-                        <p>Menabung adalah langkah penting untuk mempersiapkan masa depan yang lebih baik. Dengan menabung, kita bisa memiliki cadangan dana untuk kebutuhan darurat, biaya pendidikan, atau mewujudkan impian tertentu.</p>
-                        <br>
-                        <h3>Pentingnya Disiplin dalam Menabung</h3>
-                        <p>Disiplin menabung membantu membangun kebiasaan finansial yang sehat. Dengan menyisihkan sebagian dari pendapatan secara rutin, kita dapat menghindari pemborosan dan memastikan stabilitas keuangan.</p>
-                        <br>
-                        <h3>Meraih Tujuan Keuangan</h3>
-                        <p>Menetapkan tujuan keuangan yang jelas memudahkan kita untuk tetap termotivasi dalam menabung. Baik untuk membeli rumah, memulai bisnis, atau liburan impian, semua dapat dicapai dengan perencanaan dan konsistensi.</p>
-                </div>
-                <div class="button-container">
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="assets/img/smkn1_binong.png" alt="">
+        <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#" class="active">Beranda</a></li>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#features">Panduan</a></li>
+          <li><a href="blog.html"></a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="Halaman login/index.html">Login</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in">  
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2 data-aos="fade-up" data-aos-delay="100">Menabung hari ini,Untuk Masa Depan Yang Lebih Pasti</h2>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+     <div class="kosong"></div>
+    <section id="about" class="about section light-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-xl-center gy-5">
+
+          <div class="col-xl-5 content">
+            <h3>Tentang Kami</h3>
+            <h2>SMKN1 BINONG SUBANG</h2>
+          </div>
+
+          <div class="col-xl-7">
+            <div class="row gy-4 icon-boxes">
+
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200"> 
+                <div class="icon-box">
+                  <h3>Sejarah Berdirinya SMKN1 BINONG : </h3>
+                  <p>Sejarah SMK Negeri 1 Binong SMK Negeri 1 Binong, yang terletak di Jalan Raya Binong No. 64, Kabupaten Subang, Jawa Barat, adalah salah satu lembaga pendidikan vokasi yang berperan penting dalam mencetak tenaga kerja terampil di wilayah Subang dan sekitarnya.
+                    <br><br>
+                    Sekolah ini resmi berdiri pada tanggal 23 Desember 2013, berdasarkan Surat Keputusan Pendirian Nomor 421/Kep.534-Org/2013. Pendirian SMK Negeri 1 Binong merupakan bagian dari upaya pemerintah untuk meningkatkan kualitas pendidikan kejuruan di Indonesia, khususnya di bidang-bidang yang berorientasi pada dunia kerja dan kebutuhan industri. Sebagai sekolah kejuruan negeri, SMK Negeri 1 Binong diharapkan menjadi pelopor pendidikan vokasi yang unggul, inovatif, dan relevan dengan perkembangan zaman.
+                    <br><br>
+                    Prestasi dan Komitmen Sekolah Seiring waktu, SMK Negeri 1 Binong berhasil mendapatkan akreditasi A dari Badan Akreditasi Nasional Sekolah/Madrasah (BAN-SM). Hal ini menunjukkan pengakuan terhadap kualitas pendidikan yang diberikan. Selain itu, sekolah ini telah banyak melahirkan lulusan yang siap kerja dan berdaya saing tinggi di pasar tenaga kerja.
+                    <br><br>
+                    Perkembangan Program Studi Sejak awal berdiri, SMK Negeri 1 Binong menawarkan beberapa program keahlian yang dirancang untuk memenuhi kebutuhan dunia kerja. Program-program tersebut antara lain:
+                    <br><br>                    
                     
-                    <a href="#" class="btn">           
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                        </svg> 
-                    Mulailah Menabung</a>
+                    1.Teknik dan Bisnis Sepeda Motor (TBSM)
+                    <br><br>
+                    2.Pengembangan Perangkat Lunak & Gim (PPlG)
+                    <br><br>
+                    3.Akuntansi dan Keuangan Lembaga (AKL)
+                    <br><br>
+                    4.Manajemen Perkantoran Lembaga Bisnis (MPLB)
+                    <br><br>
+                    5.Agribisnis Tanaman Pangan dan Hortikultura (ATPH)
+                    <br><br>
+                    6.Teknik Elektronika Industri (TEI)
+                    <br><br>
+                    Pelantikan taruna dan taruni SMK Negeri 1 Binong menjadi tradisi tahunan yang penting. Pada 26 September 2024, sekolah melantik ratusan taruna dan taruni angkatan ke-10, menandai perjalanan satu dekade sekolah dalam mencetak tenaga kerja yang kompeten.
+                    <br><br>
+                    Komitmen terhadap Pendidikan Industri 4.0 Dalam menghadapi tantangan era industri 4.0, SMK Negeri 1 Binong terus berinovasi dengan memperbarui kurikulum, meningkatkan fasilitas, dan menjalin kerja sama dengan dunia usaha dan dunia industri (DUDI). Fasilitas modern seperti laboratorium komputer, bengkel sepeda motor, dan rumah kaca untuk agribisnis telah dibangun untuk menunjang kegiatan belajar-mengajar.
+                    <br><br>
+                    Sekolah ini juga aktif mengadakan program magang industri bagi siswa-siswanya, sehingga mereka dapat merasakan langsung pengalaman kerja di lapangan. Selain itu, berbagai pelatihan dan seminar diberikan kepada siswa untuk meningkatkan soft skill dan hard skill mereka.
+                    <br><br>
+                    Masa Depan SMK Negeri 1 Binong Dengan semangat "Siap Kerja, Santun, Mandiri, Kreatif," SMK Negeri 1 Binong terus berkomitmen menjadi lembaga pendidikan kejuruan yang unggul dan berkontribusi pada pembangunan bangsa. Melalui penguatan budaya kerja, inovasi, dan integritas, SMK Negeri 1 Binong berharap dapat menjadi pilihan utama bagi siswa yang ingin meniti karier di dunia profesional.
+                    </p>
                 </div>
+              </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- /About Section -->
+
+    <div class="kosong"></div>
+    <!-- Stats Section -->
+    <section id="stats" class="stats section dark-background">
+
+      <img src="assets/img/stats-bg.jpg" alt="" data-aos="fade-in">
+
+      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+              Clients
             </div>
-    </section>
+          </div><!-- End Stats Item -->
 
-    <!-- mengapa kamu harus menabung --> 
-     <div class="pengisi"></div>
-        <section class="alasan-menabung">
-        <div class="alasanmenabung scroll-element">
-            <h1>mengapa harus menabung?</h1>
-        </div>
-    </section>
-
-    <section id="foto-container" class="foto-container scroll-element">
-        <div class="foto1 scroll-element">
-            <img src="img/wallet.png" alt="alasanmenabung1">
-            <div class="caption scroll-element">Menabung memungkinkan kita memiliki keuangan yang terorganisir dan siap digunakan kapan saja.</div>
-        </div>
-        <div class="foto2">
-            <img src="img/salary.png" alt="alasanmenabung2">
-            <div class="caption scroll-element">Menabung membantu kita mengumpulkan dana cadangan untuk kebutuhan mendesak di masa depan.</div>
-        </div>
-        <div class="foto3">
-            <img src="img/jar.png" alt="alasanmenabung3">
-            <div class="caption scroll-element">Menabung adalah langkah kecil yang konsisten untuk mencapai tujuan keuangan yang lebih besar.
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Projects</p>
             </div>
-        </div>
-        <div class="foto4 scroll-element">
-            <img src="img/inflasion.png" alt="alasanmenabung4">
-            <div class="caption scroll-element">Inflasi menurunkan daya beli, sehingga menabung & investasi penting untuk menjaga nilai uang.</div>
-        </div>
-    </section>
+          </div><!-- End Stats Item -->
 
-    <!-- Tentang kami -->
-     <div class="pengisi"></div>
-     <section id="tentangkami" class="tentangkami">
-        <div class="tentang-kami scroll-element">
-            <h1>Tentang Kami</h1>
-            <a href="https://smkn1binong.sch.id/"><img src="img/smkn1_binong.png" alt="smkn1_binong"></a>
-        </div>
-        <div class="isitentangkami scroll-element">
-            <img src="img/slogan smk.png" alt="slogansekolah">
-        </div>
-            <p class="sejarahsmk scroll-element">SEJARAH BERDIRINYA SMKN1 BINONG SUBANG</p>
-            
-        <div class="sejarah scroll-element">            
-            <div class="fotosejarah scroll-element"></div>
-            <div class="fotosejarah2 scroll-element"></div>
-            <p class="isisejarah">Sejarah SMK Negeri 1 Binong
-
-                SMK Negeri 1 Binong, yang terletak di Jalan Raya Binong No. 64, Kabupaten Subang, Jawa Barat, adalah salah satu lembaga pendidikan vokasi yang berperan penting dalam mencetak tenaga kerja terampil di wilayah Subang dan sekitarnya. <br> <br> Sekolah ini resmi berdiri pada tanggal 23 Desember 2013, berdasarkan Surat Keputusan Pendirian Nomor 421/Kep.534-Org/2013.
-                
-                Pendirian SMK Negeri 1 Binong merupakan bagian dari upaya pemerintah untuk meningkatkan kualitas pendidikan kejuruan di Indonesia, khususnya di bidang-bidang yang berorientasi pada dunia kerja dan kebutuhan industri. Sebagai sekolah kejuruan negeri, SMK Negeri 1 Binong diharapkan menjadi pelopor pendidikan vokasi yang unggul, inovatif, dan relevan dengan perkembangan zaman.
-                <br>
-                <br>
-
-                Prestasi dan Komitmen Sekolah
-                Seiring waktu, SMK Negeri 1 Binong berhasil mendapatkan akreditasi A dari Badan Akreditasi Nasional Sekolah/Madrasah (BAN-SM). Hal ini menunjukkan pengakuan terhadap kualitas pendidikan yang diberikan. Selain itu, sekolah ini telah banyak melahirkan lulusan yang siap kerja dan berdaya saing tinggi di pasar tenaga kerja.
-                <br> <br> 
-                
-                 <br>Perkembangan Program Studi
-                Sejak awal berdiri, SMK Negeri 1 Binong menawarkan beberapa program keahlian yang dirancang untuk memenuhi kebutuhan dunia kerja. Program-program tersebut antara lain:
-                <br> 
-                <br>
-                <br>
-                
-                1.Teknik dan Bisnis Sepeda Motor (TBSM) 
-                <br> <br>
-                2.Pengembangan Perangkat Lunak & Gim (PPlG) 
-                <br> <br>
-                3.Akuntansi dan Keuangan Lembaga (AKL) 
-                <br> <br>
-                4.Manajemen Perkantoran Lembaga Bisnis (MPLB)  
-                <br> <br>
-                5.Agribisnis Tanaman Pangan dan Hortikultura (ATPH) 
-                <br> <br>
-                6.Teknik Elektronika Industri (TEI)            
-                <br> <br>
-                
-                Pelantikan taruna dan taruni SMK Negeri 1 Binong menjadi tradisi tahunan yang penting. Pada 26 September 2024, sekolah melantik ratusan taruna dan taruni angkatan ke-10, menandai perjalanan satu dekade sekolah dalam mencetak tenaga kerja yang kompeten.
-                <br> <br>
-                Komitmen terhadap Pendidikan Industri 4.0
-                Dalam menghadapi tantangan era industri 4.0, SMK Negeri 1 Binong terus berinovasi dengan memperbarui kurikulum, meningkatkan fasilitas, dan menjalin kerja sama dengan dunia usaha dan dunia industri (DUDI). Fasilitas modern seperti laboratorium komputer, bengkel sepeda motor, dan rumah kaca untuk agribisnis telah dibangun untuk menunjang kegiatan belajar-mengajar.
-                <br> <br>
-                Sekolah ini juga aktif mengadakan program magang industri bagi siswa-siswanya, sehingga mereka dapat merasakan langsung pengalaman kerja di lapangan. Selain itu, berbagai pelatihan dan seminar diberikan kepada siswa untuk meningkatkan soft skill dan hard skill mereka.
-                <br> <br>
-                Masa Depan SMK Negeri 1 Binong
-                Dengan semangat "Siap Kerja, Santun, Mandiri, Kreatif," SMK Negeri 1 Binong terus berkomitmen menjadi lembaga pendidikan kejuruan yang unggul dan berkontribusi pada pembangunan bangsa. Melalui penguatan budaya kerja, inovasi, dan integritas, SMK Negeri 1 Binong berharap dapat menjadi pilihan utama bagi siswa yang ingin meniti karier di dunia profesional.
-                </p>
-            
-            <div class="clear"></div>
-            <div id="pengisi" class="pengisi"></div>
-        </div>
-     </section>
-
-     <!-- panduan pengguna -->
-    <section id="panduanpengguna" class="panduanpengguna scroll-element">
-        <h1 class="judul scroll-element">Bagaimana Sih Menggunakan Website Ini??</h1>
-        
-        <div class="gambar scroll-element">
-            <img class="emotmikir scroll-element" src="icons/icon berfikir.png" alt="emotmikir">
-            <img class="orangbingung scroll-element" src="icons/shrugging.png" alt="orangbingung">
-            <img class="tandatanya scroll-element" src="icons/tanda tanya.png" alt="tandatanya">
-            <img class="tandatanya2 scroll-element" src="icons/tanda tanya.png" alt="tandatanya2">
-            <svg class="shapes scroll-element" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ff0000" fill-opacity="1" d="M0,128L48,112C96,96,192,64,288,80C384,96,480,160,576,176C672,192,768,160,864,154.7C960,149,1056,171,1152,176C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">   
-            </path></svg>
-        </div>
-            
-        <!-- panduan (cara kerja) -->
-        <div id="carakerja" class="panduan scroll-element">
-            <div class="judulpanduan scroll-element">
-                <h1 class="panduan1 scroll-element">Bagaimana saya bisa menabung di tabungan StarBank? </h1>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="-" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Hours Of Support</p>
             </div>
+          </div><!-- End Stats Item -->
 
-            <!-- judul nomer1 -->
-             <div class="nomer1 scroll-element">
-                <h1>1. Proses membuka website Tabungan StarBank</h1>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Workers</p>
             </div>
-            <!-- isi nomer1 -->
-            <div class="isipanduan scroll-element">
-                <div class="isi1 scroll-element">
-                    <h1 class="content scroll-element">Registrasi & masukan data diri</h1>
-                </div>
-                <img class="tandapanah scroll-element" src="icons/tanda panah.png" alt="tandapanah">
+          </div><!-- End Stats Item -->
+        </div>
+      </div>
 
-                <div class="isi2 scroll-element">
-                    <h1 class="content scroll-element">Login ke Akun yg telah anda buat</h1>
-                </div>
-                <img class="tandapanah scroll-element" src="icons/tanda panah.png" alt="tandapanah">
+    </section><!-- /Stats Section -->
 
-                <div class="isi3 scroll-element">
-                    <h1 class="content scroll-element">Dan anda telah berhasil masuk</h1>
-                </div>
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Panduan Fitur</h2>
+        <p>Disini akan menjelaskan bagaimana Pengguna akan Menggunakan Website ini, dan Mennjelaskan Beberapa fitur</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4 align-items-center features-item">
+          <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+            <h3>1. Tentunya Kamu dapat Menabung</h3>
+            <p>
+              Kamu Pastinya dapat menabung, Tabungan ini secara Cash
+            </p>
+            <a href="#" class="btn btn-get-started">Mulai Menabung</a>
+          </div>
+          
+          <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+            <div class="image-stack">
+              <img src="assets/img/panduan/menabung uang digital.png" alt="" class="stack-front">
+              <img src="assets/img/features-light-2.jpg" alt="" class="stack-back">
             </div>
+          </div>
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 align-items-stretch justify-content-between features-item ">
+          <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
+            <img src="assets/img/panduan/menarik uang.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
+            <h3>2. Dan Pastinya Kamu dapat Menarik Uang Tabunganmu</h3>
+            <p>Jika Kamu sudah memiliki tabungan maka kamu bisa menarik uang tabunganmu kapan saja</p>
+          </div>
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 align-items-center features-item">
+          <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+            <h3>3. Kamu juga dapat Melihat Riwayat Transaksimu</h3>
+            <p>
+              Kamu dapat melihat seluruh riwayat Transaksimu. Entah itu ketika kamu menabung ataupun menarik uang tabunganmu
+            </p>
+          </div>
+          
+          <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+            <div class="image-stack">
+              <img src="assets/img/panduan/riwayat transaksi.png" alt="" class="stack-front">
+              <img src="assets/img/features-light-2.jpg" alt="" class="stack-back">
+            </div>
+          </div>
+        </div><!-- Features Item -->
+      </div>
+    </section><!-- /Features Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Team</h2>
+        <p>Kami Merupakan pelajar dari SMKN1 BINONG yang memiliki minat dibidang pemrograman</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+              <div class="social">
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info text-center">
+              <h4>Muhamad Nawaf Abduh</h4>
+              <span>Pelajar SMKN1 BINONG Kelas 11</span>
+              <p>Aliquam iure quaerat voluptatem praesentium possimus unde laudantium vel dolorum distinctio dire flow</p>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
+            <div class="member-img">
+              <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+              <div class="social">
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info text-center">
+              <h4>Bayu Hanggara Putra</h4>
+              <span>Pelajar SMKN1 BINONG Kelas 11</span>
+              <p>Labore ipsam sit consequatur exercitationem rerum laboriosam laudantium aut quod dolores exercitationem ut</p>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
+            <div class="member-img">
+              <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+              <div class="social">
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info text-center">
+              <h4>Samuel Angello Firmansyah</h4>
+              <span>Pelajar SMKN1 BINONG Kelas 11</span>
+              <p>Illum minima ea autem doloremque ipsum quidem quas aspernatur modi ut praesentium vel tque sed facilis at qui</p>
+            </div>
+          </div><!-- End Team Member -->
+
         </div>
 
-        <!-- isi panduan2 -->       
-        <div class="panduan2 scroll-element">
-            <div class="judulpanduan2 scroll-element">
-                <h1 class="judul2 scroll-element">Apa saja yg bisa dilakukan Di Website ini ??</h1>
+      </div>
+
+    </section><!-- /Team Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Jika Kamu mengalami masalah, silahkan langsung Hubungi Kami saja. Terima Kasih</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>SMKN1 BINONG</p>
+                  <p>Jl. Raya Binong, Belakang Polsek, Kec. Binong, Kabupaten Subang, Jawa Barat 41253</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Kontak Kami</h3>
+                  <p>+62 82123456789</p>
+                  <p>+62 83123456789</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>Napwapp@gmail.com</p>
+                  <p>nawnaw@gmail.com</p>
+                </div>
+              </div><!-- End Info Item -->
             </div>
-            <div class="pembungkus scroll-element">
-                <div class="item scroll-element">
-                    <div class="nomer scroll-element">
-                        <h1 class="no1 scroll-element">1</h1>
-                    </div>
-                    <div class="konten scroll-element">
-                        <h1>PASTINYA KAMU DAPAT MENABUNG, SECARA CASH</h1>
-                        <div class="isikonten1 scroll-element"></div>
-                    </div>
-                </div>
-                <div class="item scroll-element">
-                    <div class="nomer scroll-element">
-                        <h1 class="no2 scroll-element">2</h1>
-                    </div>
-                    <div class="konten scroll-element">
-                        <h1>KAMU DAPAT MENARIK TABUNGANMU</h1>
-                        <div class="isikonten2 scroll-element"></div>
-                    </div>
-                </div>
-                <div class="item scroll-element">
-                    <div class="nomer scroll-element">
-                        <h1 class="no3 scroll-element">3</h1>
-                    </div>
-                    <div class="konten scroll-element">
-                        <h1>DAN KAMU DAPAT MELIHAT RIWAYAT TRANSAKSIMU</h1>
-                        <div class="isikonten3 scroll-element"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section>
-      <!-- kontak -->       
-      <section id="kontak" class="kontak-section scroll-element">
-        <div class="judul scroll-element">Menemukan Masalah ?</div>
-        <div class="kontak-container scroll-element">
-            <h2 class="kontak-title scroll-element">Hubungi Kami</h2>
-            <p class="kontak-description scroll-element">Jika Anda memiliki pertanyaan atau memerlukan bantuan, jangan ragu untuk menghubungi kami melalui form di bawah ini.</p>
-            
-            <form class="kontak-form scroll-element" action="#" method="POST">
-                <div class="form-group scroll-element">
-                    <label for="name">Nama</label>
-                    <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+          </div>
+
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
                 </div>
 
-                <div class="form-group scroll-element">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
                 </div>
 
-                <div class="form-group scroll-element">
-                    <label for="message">Pesan</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda di sini" required></textarea>
+                <div class="col-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
                 </div>
 
-                <button type="submit" class="submit-button scroll-element">Kirim Pesan</button>
+                <div class="col-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
             </form>
+          </div><!-- End Contact Form -->
+
         </div>
-    </section>
 
-    <!-- footer -->
+      </div>
 
-    <footer>
-        <section id="footer" class="footer">
-                <div class="footer-container">
-                    <div class="footercontent scroll-element">
-                        <div class="content1">
-                            <h2>About us</h2>
-                            <div class="description">
-                                <p>Kami merupakan pelajar dari SMKN1 BINONG</p>
-                                <h2>Telepon : 081234567890</h2>
-                                <h2>Nomor ID : 1234567891011</h2>
-                            </div>
-                        </div>
-                        <div class="content2">
-                            <h2>Menu</h2>
-                            <ul>
-                                <li><a href="#beranda">Home</a></li>
-                                <br>
-                                <li><a href="#tentangkami">About us</a></li>
-                                <br>
-                                <li><a href="#kontak">Contact</a></li>
+    </section><!-- /Contact Section -->
 
-                            </ul>
-                        </div>
+  </main>
 
-                        <div class="bag-socialmedia">
-                            <h2>Ikuti Kami</h2>
-                            <a href="#"><img src="icons/facebook.png" alt="facebook"></a> <!-- facebook -->
-                            <a href="#"><img src="icons/instagram.png" alt="instagram"></a> <!-- instagram -->
-                            <a href="#"><img src="icons/twitter.png" alt="twitter"></a> <!-- twit -->
-                        </div>
-                        
-                        <div class="bag-school">
-                            <h1>SMKN1 BINONG</h1>
-                            <img src="img/smkn1_binong.png" alt="school">
-                        </div>
-                        <!-- konten dibawah garis -->
+  <footer id="footer" class="footer position-relative light-background">
 
-                        <div class="line"></div>
-                        <div class="copyright">
-                            <h2>2025 © Copyright SMKN1 BINONG.</h2>
-                            <h2 class="inright">All Rights Deserved</h2>
-                        </div>                        
-                    </div>
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Tentang Kami</span>
+          </a>
+          <p>Kami Merupakan pelajar dari SMKN1 Binong, Kelas 11 PPLG. Kami mempunyai minat pada bidang Pemrograman Website,oleh karena itu kami memilih untuk berlajar disini.
+          Kami juga berharap kalau skill kami bisa meningkat lagi dengan Belajar disini
+          </p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
 
-                    
-                </div>
-        </section>
-    </footer>
-</div>
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#features">Services</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>SMKN1 Binong</p>
+          <p>Jl. Raya Binong, Belakang Polsek, Kec. Binong, Kabupaten Subang, Jawa Barat 41253</p>
+          <p>Indonesia</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+62 82123456789</span></p>
+          <p><strong>Email:</strong> <span>nawnaw@gmail.com</span></p>
+        </div>
+
+        <div class="bag-school">
+          <h1>SMKN1 BINONG</h1>
+          <!-- <img src="assets/img/smkn1_binong.png" alt="school"> -->
+      </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="sitename">Append</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
 </body>
+
 </html>
