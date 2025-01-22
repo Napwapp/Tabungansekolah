@@ -47,17 +47,18 @@
                     <span class="login100-form-title p-b-43">
                         Login
                     </span>
-
+                    <!-- jika gagal -->
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
-                                @foreach ($errors->all as $item)
-                                    <li>{{ $item }}</li>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     @endif
 
+                    <!--jika sukses  -->
                     @if (Session::has('success'))
                         <div class="alert alert-success">
                             {{ Session::get('success') }}

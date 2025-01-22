@@ -40,9 +40,10 @@
 					
 					@if ($errors->any())
 						<div class="alert alert-danger">
+							<strong>Kesalahan Terjadi:</strong>
 							<ul>
-								@foreach ($errors->all as $item)
-									<li>{{$item}}</li>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
 								@endforeach
 							</ul>
 						</div>
