@@ -9,8 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
-  <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  <link href="{{asset('landingpage/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('landingpage/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -18,15 +18,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-  <link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
-  <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
-  <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+  <link href="{{asset('landingpage/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('landingpage/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{asset('landingpage/assets/vendor/aos/aos.css')}}" rel="stylesheet">
+  <link href="{{asset('landingpage/assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+  <link href="{{asset('landingpage/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
-  <link rel="stylesheet" href="{{asset('assets/css/default.css')}}">
+  <link href="{{asset('landingpage/assets/css/main.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('landingpage/assets/css/default.css')}}">
 
   <!-- =======================================================
   * Template Name: Append
@@ -44,7 +44,7 @@
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="{{asset('assets/img/smkn1_binong.png')}}" alt="">
+        <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="">
         <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
       </a>
 
@@ -69,7 +69,7 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="{{asset('assets/img/hero-bg.jpg')}}" alt="" data-aos="fade-in">  
+      <img src="{{asset('landingpage/assets/img/hero-bg.jpg')}}" alt="" data-aos="fade-in">  
 
       <div class="container">
         <div class="row">
@@ -142,7 +142,7 @@
     <!-- Stats Section -->
     <section id="stats" class="stats section dark-background">
 
-      <img src="{{asset('assets/img/stats-bg.jpg')}}" alt="" data-aos="fade-in">
+      <img src="{{asset('landingpage/assets/img/stats-bg.jpg')}}" alt="" data-aos="fade-in">
 
       <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
 
@@ -202,15 +202,15 @@
           
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
             <div class="image-stack">
-              <img src="{{asset('assets/img/panduan/menabung uang digital.png')}}" alt="" class="stack-front">
-              <img src="{{asset('assets/img/features-light-2.jpg')}}" alt="" class="stack-back">
+              <img src="{{asset('landingpage/assets/img/panduan/menabung uang digital.png')}}" alt="" class="stack-front">
+              <img src="{{asset('landingpage/assets/img/features-light-2.jpg')}}" alt="" class="stack-back">
             </div>
           </div>
         </div><!-- Features Item -->
 
         <div class="row gy-4 align-items-stretch justify-content-between features-item ">
           <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
-            <img src="{{asset('assets/img/panduan/menarik uang.png')}}" class="img-fluid" alt="">
+            <img src="{{asset('landingpage/assets/img/panduan/menarik uang.png')}}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
             <h3>2. Dan Pastinya Kamu dapat Menarik Uang Tabunganmu</h3>
@@ -228,8 +228,8 @@
           
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
             <div class="image-stack">
-              <img src="{{asset('assets/img/panduan/riwayat transaksi.png')}}" alt="" class="stack-front">
-              <img src="{{asset('assets/img/features-light-2.jpg')}}" alt="" class="stack-back">
+              <img src="{{asset('landingpage/assets/img/panduan/riwayat transaksi.png')}}" alt="" class="stack-front">
+              <img src="{{asset('landingpage/assets/img/features-light-2.jpg')}}" alt="" class="stack-back">
             </div>
           </div>
         </div><!-- Features Item -->
@@ -251,7 +251,7 @@
 
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
             <div class="member-img">
-              <img src="{{asset('assets/img/team/team-1.jpg')}}" class="img-fluid" alt="">
+              <img src="{{asset('landingpage/assets/img/team/team-1.jpg')}}" class="img-fluid" alt="">
               <div class="social">
                 <a href="#"><i class="bi bi-twitter-x"></i></a>
                 <a href="#"><i class="bi bi-facebook"></i></a>
@@ -268,7 +268,7 @@
 
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
             <div class="member-img">
-              <img src="{{asset('assets/img/team/team-2.jpg')}}" class="img-fluid" alt="">
+              <img src="{{asset('landingpage/assets/img/team/team-2.jpg')}}" class="img-fluid" alt="">
               <div class="social">
                 <a href="#"><i class="bi bi-twitter-x"></i></a>
                 <a href="#"><i class="bi bi-facebook"></i></a>
@@ -285,7 +285,7 @@
 
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
             <div class="member-img">
-              <img src="{{asset('assets/img/team/team-3.jpg')}}" class="img-fluid" alt="">
+              <img src="{{asset('landingpage/assets/img/team/team-3.jpg')}}" class="img-fluid" alt="">
               <div class="social">
                 <a href="#"><i class="bi bi-twitter-x"></i></a>
                 <a href="#"><i class="bi bi-facebook"></i></a>
@@ -429,7 +429,7 @@
 
         <div class="bag-school">
           <h1>SMKN1 BINONG</h1>
-          <!-- <img src="{{asset('assets/img/smkn1_binong.png')}}" alt="school"> -->
+          <!-- <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="school"> -->
       </div>
 
       </div>
@@ -455,17 +455,17 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
-  <script src="{{asset('assets/vendor/aos/aos.js')}}"></script>
-  <script src="{{asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
-  <script src="{{asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
-  <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/aos/aos.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{asset('landingpage/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
 
   <!-- Main JS File -->
-  <script src="{{asset('assets/js/main.js')}}"></script>
+  <script src="{{asset('landingpage/assets/js/main.js')}}"></script>
 
 </body>
 
