@@ -58,11 +58,9 @@
                         </div>
                     @endif
 
-                    @if (Session::get('success'))
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <ul>
-                                <li>{{ Session::get('succes') }}</li>
-                            </ul>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
                         </div>
                     @endif
 
