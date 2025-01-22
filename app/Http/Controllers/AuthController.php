@@ -111,31 +111,7 @@ class AuthController extends Controller
 
         // menambahkan data data diatas ke databasenya
         User::create($inforegister);
-
-        // data / pesan yg nanti akan dikirimkan ke email yg didaftarkan pada saat user registrasi
-        $details = [
-            'nama' => $inforegister['namalengkap'],
-            'role' => 'user',
-            'datetime' => date('Y-m-d H:i:s'),
-            'website' => 'Tabungan Sekolah ',
-            'url' => 'http://'. request()->getHttpHost() . "/" . "verify/" . $inforegister['verify_key'],
-        ];
-
-        Mail::to($inforegister['email'])->send(new AuthMail($details));
-
-        return redirect()->route('auth')->with('success', 'Link verifikasi telah dikirim ke Email Anda. Silahkan cek Email untuk Verifikasi');
-    }
-    function verify($verify_key){
         
-        $keyCheck = User::select('verify_key')
-        ->where('verify_key',$verify_key)
-        ->exists();
-
-        if($keyCheck){
-            $user = User::where('verify_key',$verify_key)->update(['email_verified_at' => date('Y-m-d H:i:s')]);
-            return redirect()->route('auth')->with('Success', 'Verifikasi telah berhasil. Akun anda sudah aktif.');
-        } else {
-            return redirect()->route('auth')->withErrors('Keys tidak valid. Pastikan telah melakukan Register')->withInput();
-        }
+        return redirect()->route('auth')->with('success', 'Link verifikasi telah dikirim ke Email Anda. Silahkan cek Email untuk Verifikasi');
     }
 }
