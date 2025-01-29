@@ -32,32 +32,32 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="{{ route('auth') }}" class="login100-form validate-form" method="POST">
+				<form action="{{ route('registrasi.post') }}" class="login100-form validate-form" method="POST" enctype="multipart/form-data">
                     @csrf
 					<span class="login100-form-title p-b-43">
-						Login to continue
+						Login
 					</span>
 					
 					@if ($errors->any())
 						<div class="alert alert-danger">
+							<strong>Kesalahan Terjadi:</strong>
 							<ul>
-								@foreach ($errors->all as $item)
-									<li>{{$item}}</li>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
 								@endforeach
 							</ul>
 						</div>
 					@endif
 
-					@if (Session::get('success'))
-						<div class="alert alert-success alert-dismissible fade show">
-							<ul>
-								<li>{{ Session::get('success') }}</li>
-							</ul>
+					@if (Session::has('success'))
+						<div class="alert alert-success">
+							{{ Session::get('success') }}
 						</div>
 					@endif
+
                     
                     <!-- inputan -->
-					<div class="wrap-input100 validate-input" data-validate = "Nama Lengkap Wajib diisi required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "Nama Lengkap Wajib diisi">
 						<input class="input100" type="text" name="namalengkap" id="namalengkap">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Nama Lengkap</span>
@@ -122,7 +122,7 @@
 					
 					<div class="text-center p-t-khusus p-b-20">
 						<span class="txt2">
-							<a href="{{ route('auth') }}">Sudah punya akun? Login disini</a>
+							<a href="{{route('auth') }}">Sudah punya akun? Login disini</a>
 						</span>
 					</div>
 
