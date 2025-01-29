@@ -29,3 +29,6 @@ Route::post('/reg',[AuthController::class,'register'])->name('registrasi.post');
 // route admin dan user
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/user', [UserController::class, 'index'])->name('user');
+
+// route user (untuk logikanya)
+// Route::get('/user', [UserController::class, 'dashboard']);
