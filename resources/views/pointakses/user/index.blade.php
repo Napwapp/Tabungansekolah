@@ -322,7 +322,7 @@
 
         <!-- Pastikan Chart.js sudah dimuat -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        @vite(['resources/js/app.js'])
+        @vite(['../../js/app.js'])
 
         <script>
             const ctx = document.getElementById('tabunganChart').getContext('2d');
