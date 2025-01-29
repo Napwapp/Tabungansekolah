@@ -1,0 +1,276 @@
+/* Reset dasar */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+  }
+/* agar tidak ada underline pada href */
+  a {
+    text-decoration: none;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 480px;
+    height: 100vh;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* bagian header */
+
+  /* Pembungkus Header dan Saldo */
+
+.header-balance-container {
+    height: 150px;
+    background-color: rgb(243, 249, 255);/* Warna biru hijau terang untuk background utama */
+    padding: 15px;
+  }
+  
+  /* Gaya Header */
+  .header-container {
+    display: flex;
+    align-items: center; /* Menyelaraskan tombol secara vertikal */
+    justify-content: space-between; /* Memberi ruang antara tombol dan judul */
+    height: auto; /* Biarkan tinggi mengikuti konten */
+    max-height: 80px; /* Tambahkan batas maksimal (opsional) */
+    box-sizing: border-box; /* Pastikan padding dihitung dalam ukuran elemen */
+  }
+  
+  .back-button {
+    font-size: 30px; /* Pastikan ukuran tombol tidak terlalu besar */
+    max-height: 40px; /* Batas maksimal tinggi tombol agar tetap responsif */
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #333;
+
+    display: flex;
+    border: none; /* Sesuaikan jika ada border */
+    background: none; /* Tambahkan jika ingin tombol transparan */
+    cursor: pointer;
+  }
+  
+  .header-title {
+    flex-grow: 1; /* Membuat judul mengambil ruang yang tersisa */
+    overflow: hidden; /* Hindari teks melebihi ruang */
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Potong teks jika terlalu panjang */
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  /* Kontainer Saldo */
+  .balance-container {
+    background-color: rgb(255, 255, 255); /* Warna biru terang untuk kontainer saldo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan lembut */
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Informasi Saldo */
+  .balance-info {
+    font-size: 14px;
+    color: #8ba3ac; /* Abu-abu terang */
+  }
+  
+  .balance-amount {
+    margin-top: 10px;
+    font-size: 17px;
+    color: black; /* Warna biru */
+  }
+  
+  /* Tombol "Tabung Semua" */
+  .button-tabung-semua {
+    background-color: rgb(25, 112, 205); /* Warna biru */
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-tabung-semua:hover {
+    background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      font-size: 14px;
+      padding: 12px;
+    }
+  
+    .balance-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .button-tabung-semua {
+      width: 100%; /* Tombol penuh pada layar kecil */
+      text-align: center;
+    }
+  }
+  
+  /* Info Saldo */
+  .balance-section {
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .balance-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .balance-text p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .balance-text h2 {
+    margin: 8px 0 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .save-all-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+ /* Gaya untuk teks "Saldo yang ingin ditabung" */
+  .section-title {
+   font-size: 16px; /* Ukuran font sedikit lebih besar */
+   color: #333; /* Warna abu-abu gelap */
+   margin-top: 10px;
+}
+  
+
+ /* Container untuk teks dan ikon */
+ .info-text-container {
+    display: flex; /* Flexbox untuk menyusun ikon dan teks */
+    align-items: flex-start; /* Ikon berada di atas baris pertama teks */
+    gap: 8px; /* Jarak antara ikon dan teks */
+    background-color: #e8f4ff; /* Warna latar belakang */
+    padding: 10px; /* Spasi dalam */
+    border-radius: 8px; /* Sudut membulat */
+    border: 1px solid #007bff;
+  }
+  
+  /* Ikon Informasi */
+  .info-icon {
+    fill: #007bff; /* Warna ikon biru */
+    flex-shrink: 0; /* Ikon tidak mengecil jika ruang terbatas */
+    margin-top: 3px; /* Menyesuaikan posisi ikon agar rata dengan teks */
+  }
+  
+  /* Teks Informasi */
+  .info-text {
+    font-size: 14px;
+    color: #333; /* Warna teks abu-abu gelap */
+    line-height: 1.5; /* Spasi antar baris teks */
+    margin: 0; /* Hilangkan margin default */
+  }
+  
+  /* untuk menginput nominal */
+ .input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    height: 30px;
+  }
+  
+  .input-label {
+    font-size: 14px;
+    color: rgb(121, 127, 133);
+    margin-right: 8px;
+  }
+  
+ .deposit-form {
+    padding: 20px;
+ }
+
+  .deposit-form input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: rgb(121, 127, 133);
+  }
+  
+  .note {
+    margin: 14px 0;
+    font-size: 12px;
+    color: #666;
+  }
+
+.parent-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Header, konten, tombol */
+  height: 100vh; /* Pastikan parent mengambil seluruh tinggi */
+}
+
+.deposit-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+/* bagian tombol tabung sekarang */
+.button-wrapper {
+  display: flex;
+  justify-content: center; /* Memastikan tombol di tengah horizontal */
+  padding: 16px 0; /* Memberi jarak di dalam border */
+  border-top: 1px solid #d3d3d3; /* Menambahkan border abu-abu */
+  background-color: #f9f9f9; /* Opsional: Menambahkan warna latar belakang */
+  margin-top: 16px; /* Opsional: Tambahkan jarak dari elemen atas */
+}
+
+
+.deposit-button {
+  width: 460px; /* Atur lebar tombol sesuai kebutuhan */
+  max-width: 100%; /* Agar tetap responsif pada layar kecil */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.deposit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Tombol tidak aktif */
+.deposit-button:disabled {
+  background-color: #ccc; /* Warna abu-abu */
+  color: #777; /* Warna teks tombol nonaktif */
+  cursor: not-allowed; /* Kursor tanda larangan */
+  border: 1px solid #aaa; /* Tambahkan sedikit border */
+}
+
+.deposit-button:hover:not(:disabled) {
+  background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+}
+

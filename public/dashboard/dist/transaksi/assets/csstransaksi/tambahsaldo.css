@@ -1,0 +1,285 @@
+/* tambah_saldo.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    color: #494a4b;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .back-btn {
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #737576;
+  }
+  
+  /* info dan panduan untuk pengguna */
+  .info-section {
+    background-color: #f0f8ff; /* Warna biru sangat lembut */
+    padding: 10px 20px;
+    border: 1px solid #007bff; /* Garis biru sesuai tema */
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-section h2 {
+    font-size: 22px;
+    color: #007bff; /* Warna biru tema */
+    
+  }
+
+  .info-section p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+    
+  .contact-info {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: black;
+    opacity: .7;
+  }
+  
+  .contact-info a {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  
+  /* konten utama */
+  .main-content {
+    padding: 20px;
+  }
+
+  .main-content h2 {
+    font-weight: 300;
+    font-size: 22px;
+    margin-bottom: 50px;
+  }
+  
+  .nominal-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .nominal-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+
+  .nominal-card {
+    margin-right: 10px;
+    margin-bottom: 15px;
+    height: 100px;
+    flex: 1 0 30%;
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: left;
+    border-radius: 20px;
+    border: 2px solid rgba(88, 85, 85, 0.4);
+    cursor: pointer;
+    transition: border 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .nominal-card.selected {
+    border: 2px solid #007bff;
+    background-color: #e8f4ff;
+    animation: nominal-card 0.2s ease-out;
+  }
+  
+  .nominal-card:not(.initialized):focus {
+    animation: none; /* Hilangkan animasi hover awal */
+  }
+  
+  /* Hapus animasi untuk pertama kali */
+  .nominal-card.initialized:focus {
+    animation: nominal-card 0.2s ease-out;
+  }
+  
+  .nominal-card .amount,p,.price {
+    line-height: 35px;
+  }
+  
+  .nominal-card .amount {
+    font-size: 21px;
+  }
+  
+.nominal-card p {
+    margin: 0 0 0 3px;
+    font-size: 20px;
+    color: #323131;
+    font-family: Consolas;
+    opacity: .9;
+    letter-spacing: -1px;
+}
+
+  .nominal-card .price {
+    font-size: 21px;
+    color: black;
+    font-weight: 500;
+  }
+  
+  /* untuk garis dibagian atau */
+  .divider {
+    display: flex;
+    align-items: center;  
+    text-align: center;
+    margin: 60px 0;
+    font-size: 17px;
+    color: #999;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.3); /* Warna garis */
+    margin: 0 10px; /* Jarak antara garis dan teks */
+  }
+
+  /* untuk custom nominal isi saldo */
+  .custom-nominal {
+    margin-top: 20px;
+  }
+
+  .input-wrapper {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .input-wrapper span {
+    margin: 0 10px;
+    color: #4f4f4f;
+    opacity: .5;
+  }
+  
+  input[type='number'] {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  input[type='number']::placeholder {
+    color: rgb(0, 0, 0);
+    opacity: .5;
+  }
+  
+  .min-info {
+    opacity: .7;
+  }
+
+  /* Gaya khusus untuk input customAmount */
+  .custom-nominal input {
+    border: none; /* Menghapus border bawaan */
+    outline: none; /* Menghapus garis saat input fokus */
+    background-color: transparent; /* Latar belakang transparan agar sesuai desain */
+    font-size: 1rem; /* Ukuran font sesuai kebutuhan */
+    color: #333; /* Warna teks agar terlihat jelas */
+    width: 100%; /* Sesuaikan dengan container */
+    padding: 0; /* Hilangkan padding bawaan */
+    text-align: left; /* Sesuaikan posisi teks */
+  }
+
+  /* Placeholder styling agar lebih menarik */
+  .custom-nominal input::placeholder {
+    color: #aaa; /* Warna placeholder lebih lembut */
+  }
+
+
+  /* footer sekaligus btn bayar */
+  .footer {
+    margin-top: 70px;
+    text-align: center;
+  }
+  
+  /* tombol bayar */
+  .pay-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #ccc;
+    color: #666;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .pay-btn:hover {
+    background-color: #0056b3;
+  }
+  
+
+  /* Tombol Bayar Sekarang - Nonaktif */
+  .pay-btn.disabled {
+    background-color: #ccc; /* Warna abu-abu */
+    cursor: not-allowed; /* Tanda bahwa tombol tidak dapat diklik */
+    color: #666; /* Warna teks lebih lembut */
+  }
+
+  /* Tombol Bayar Sekarang - Aktif */
+  .pay-btn.enabled {
+    background-color: #007bff; /* Warna biru */
+    cursor: pointer; /* Tanda bahwa tombol dapat diklik */
+    color: #fff; /* Warna teks putih */
+  }
+
+  /* animasi */
+  @keyframes nominal-card {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.97);}
+    100% {transform: scale(1);}
+  }
+
+
+  /* Animasi keyframes */
+  @keyframes selectedAnimation {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.97);}
+    100% {transform: scale(1);}
+  }
+
+  @keyframes deselectedAnimation {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.97);}
+    100% {transform: scale(1);}
+  }
