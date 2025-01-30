@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     function profile() {
-        return view('pointakse/user/profil');
+        return view('pointakses/user/profil');
     }
 }
