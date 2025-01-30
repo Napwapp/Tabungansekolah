@@ -32,3 +32,7 @@ Route::get('/user', [UserController::class, 'index'])->name('user');
 
 // route user (untuk logikanya)
 // Route::get('/user', [UserController::class, 'dashboard']);
+
+// route profil 
+Route::get('/profile', [ProfileController::class, 'profile'])->name( 'profile');
+Route::get('/profile', [ProfileController::class, 'profil']);

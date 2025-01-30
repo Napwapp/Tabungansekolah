@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.dist/css')}}">
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.css')}}">
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.dist/js')}}"></script>
     
@@ -50,7 +50,7 @@
 
                             <li
                             class="sidebar-item ">
-                            <a href="profil.html" class='sidebar-link'>
+                            <a href="{{route ('profile')}}" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Profil</span>
                             </a>
