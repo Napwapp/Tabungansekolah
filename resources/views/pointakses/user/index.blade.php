@@ -42,7 +42,7 @@
                         <ul class="menu">
                             <li
                                 class="sidebar-item active">
-                                <a href="ndex.html" class='sidebar-link'>
+                                <a href="{{route('user')}}" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Dashboard<dist//span>
                                 </a>
