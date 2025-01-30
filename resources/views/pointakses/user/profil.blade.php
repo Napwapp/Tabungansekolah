@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
@@ -159,7 +158,7 @@
             <div class="profile-header">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="{{asset('dashboard/dist/assets/../dist/images/faces/8.jpg')}}" alt="">
+                        <img src="{{asset('dashboard/dist/assets/images/faces/8.jpg')}}" alt="">
                     </div>
                 </div>
                 <div class="profile-basic-info">
