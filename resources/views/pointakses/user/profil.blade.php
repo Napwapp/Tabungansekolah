@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    <link rel="stylesheet" href="{{asset('assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/main/app-dark.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('assets/images/logo/favicon.png')}}" type="image/png">
-    <link rel="stylesheet" href="{{asset('assets/css/mycss/profil.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/shared/iconly.css')}}">
-    <script src="{{asset('assets/js/myjs/profil.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
+    <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
 </head>
 <body>
     <div id="app">
@@ -20,7 +20,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="index.html"><img src="{{asset('assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
                 <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -159,7 +159,7 @@
             <div class="profile-header">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="{{asset('assets/../dist/images/faces/8.jpg')}}" alt="">
+                        <img src="{{asset('dashboard/dist/assets/../dist/images/faces/8.jpg')}}" alt="">
                     </div>
                 </div>
                 <div class="profile-basic-info">
@@ -309,12 +309,12 @@
             </div>
         </div>
 </div>
-<script src="{{asset('assets/js/bootstrap.js')}}"></script>
-<script src="{{asset('assets/js/app.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
 <!-- Need: Apexcharts -->
-<script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-<script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
 
 </body>
 </html>
