@@ -27,6 +27,7 @@ body {
     height: 150px;
     background-color: #ffffff;
     border: 5px solid white;
+    border-radius: 50%;
     background-size: cover;
     background-position: center;
     position: absolute;
