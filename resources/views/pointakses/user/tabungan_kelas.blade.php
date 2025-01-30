@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan Siswa</title>
+    <title>Tabungan Kelas</title>
     
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logosekolah.png')}}" type="image/png">
-    <link rel="stylesheet" href="{{asset('dashboard/dist/tabungan/assets/css/tabungansiswa.css')}}"> 
+    
 </head>
 
 <body>
@@ -62,10 +62,10 @@
                                 <span>Tabungan</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item ">
+                                <li class="submenu-item active">
                                     <a href="{{route('kelas')}}">Tabungan Kelas</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                     <a href="{{route('tabungan')}}">Tabunganku</a>
                                 </li>
                             </ul>
@@ -147,7 +147,7 @@
                     
                         <li
                             class="sidebar-item" style="margin-left: -15px;">
-                            <a href="{{route('auth')}}" class='sidebar-link'>
+                            <a href="#" class='sidebar-link'>
                                 <i class="bi bi-x-octagon-fill"></i>
                                 <span>Log Out</span>
                             </a>
@@ -156,129 +156,8 @@
                 </div>
             </div>
         <div id="main">
-            <p><!-- Content -->
-                <div class="content" style="margin-left: 30px;">
-                    <p>Selamat datang di dashboard tabungan sekolah SMKN 1 BINONG</p>
-                    <h2 class="mb-4">Informasi Tabungan Anda</h2>
-    
-                    <!-- Kartu Informasi -->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color: white;">Saldo Tersisa</h5>
-                                    <h3 style="color: white;">Rp 0</h3>
-                                    <p>Saldo yang dapat Anda tarik.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body btn-green" style="border-radius: 10px;">
-                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5>
-                                    <h3 style="color: white;">Rp 0</h3>
-                                    <p>Tabungan hingga saat ini.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success text-white mb-4">
-                                <div class="card-body btn-blue" style="border-radius: 10px;">
-                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5>
-                                    <h3 style="color: white;">Rp 0</h3>
-                                    <p>Jumlah Penarikan Anda bulan ini.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <!-- Tombol Aksi -->
-                    <div class="row my-4">
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('plus')}}"><button class="btn-action btn-yellow"><img class="icon-btn" src="{{asset('dashboard/dist/tabungan/assets/image/icons/icons8-plus-50.png')}}" alt="">Tambah Saldo</button></a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('menabung')}}"><button class="btn-action btn-green"> <img class="icon-btn" src="{{asset('dashboard/dist/tabungan/assets/image/icons/icons8-money-32.png')}}" alt="">Menabung</button></a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('menarik')}}"><button class="btn-action btn-blue"> <img class="icon-btn" src="{{asset('dashboard/dist/tabungan/assets/image/icons/icons8-withdraw-money-32.png')}}" alt="">Tarik Tabungan</button></a>
-                        </div>
-                    </div>
-                    <!-- Tombol setoran untuk memudahkan pengguna -->
-    
-                    <!-- Grafik Tabungan -->
-                    <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                    <div class="card bg-light text-dark mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
-                            <canvas id="tabunganChart" height="100"></canvas>
-                        </div>
-                    </div>
-            </div>
-            <!-- UNTUK GRAFIK TABUNGAN -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                const ctx = document.getElementById('tabunganChart').getContext('2d');
-                const tabunganChart = new Chart(ctx, {
-                    type: 'line', // Pilih tipe grafik: line, bar, dll.
-                        data: {
-                            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Aug', 'Sept', 'Nov', 'Des'], // Ubah sesuai data Anda
-                            datasets: [{
-                                label: 'Jumlah Tabungan',
-                                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Data grafik
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                    }
-                }
-            });
-            </script>
-
-             <!-- Target Tabungan -->
-            <h2 class="target-tabungan-title">Selesaikan targetmu, dan dapatkan Bonus menarik</h2>
-            <p class="target-tabungan-desc">Kamu dapat mengatur target tabunganmu dengan mudah dan kamu bisa pantau progresnya.</p>
-
-             <div class="target-tabungan">
-                <div class="target-circle">
-                    <svg class="progress-ring" width="120" height="120">
-                        <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                        <circle class="ring-progress" cx="60" cy="60" r="54"></circle>
-                    </svg>
-                    <p class="progress-percentage">80%</p>
-                </div>
-                <p class="target-info"><strong>Target Tabungan:</strong> Rp 2.000.000</p>
-                <button class="atur-target-btn">Atur Target</button>
-            </div>
+            <span> Tabungan Kelas </span>
         </div>
-
-        <div class="modal" id="modalTarget">
-            <div class="modal-content">
-                <h2>Atur Target Tabungan</h2>
-                <label for="targetAmount">Target Tabungan (Rp):</label>
-                <input 
-                    type="text" 
-                    id="targetAmount" 
-                    class="form-control" 
-                    placeholder="Masukkan target tabungan Anda" 
-                    min="0" 
-                    step="1" 
-                    oninput="validity.valid||(value='');"
-                />
-
-                <button id="saveTarget" class="save-btn">Simpan</button>
-                <button id="closeModal" class="close-btn">Tutup</button>
-            </div>
-        </div>
-    <script src="{{asset('dashboard/dist/tabungan/assets/js/tabungansiswa.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>

@@ -5,6 +5,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaveController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\PlusController;
+use App\Http\Controllers\MenabungController;
+use App\Http\Controllers\TarikController;
+use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,3 +46,22 @@ Route::get('/profile', [ProfileController::class, 'profile'])->name( 'profile');
 
 // route tabungansiswa
 Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan');
+
+// route tabungan kelas
+Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name( 'kelas');
+
+// route untuk tambah saldo 
+Route::get('/Topup saldo', [PlusController::class, 'plus'])->name( 'plus');
+
+// untuk menabung
+Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung');
+
+// untuk menarik tabungan
+Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik');
+
+// untuk tampilan riwayat transaksi
+Route::get('/Riwayat Transaksi', [RiwayatController::class, 'riwayat'])->name( 'riwayat');
+
+// untuk tampilan kontak kami 
+Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact');
+

@@ -130,29 +130,3 @@
       this.value = '';
     }
   });
-
-
-  // Mendapatkan elemen tombol Bayar Sekarang
-  const payButton = document.querySelector('.pay-btn');
-
-  // Fungsi untuk memeriksa apakah input nominal memiliki nilai
-  function togglePayButton() {
-    // Jika input memiliki nilai dan lebih besar dari 0
-    if (customAmountInput.value && parseInt(customAmountInput.value.replace(/\./g, ''), 10) > 0) {
-      payButton.disabled = false; // Aktifkan tombol
-      payButton.classList.add('enabled'); // Tambahkan kelas enabled untuk styling
-      payButton.classList.remove('disabled'); // Hapus kelas disabled
-    } else {
-      payButton.disabled = true; // Nonaktifkan tombol
-      payButton.classList.add('disabled'); // Tambahkan kelas disabled untuk styling
-      payButton.classList.remove('enabled'); // Hapus kelas enabled
-    }
-  }
-
-  // Tambahkan event listener untuk memantau perubahan pada input nominal
-  customAmountInput.addEventListener('input', togglePayButton);
-
-  // Pastikan tombol diperbarui setiap kali kartu nominal dipilih
-  nominalCards.forEach(card => {
-    card.addEventListener('click', togglePayButton);
-  });

@@ -8,7 +8,7 @@ body {
   }
   
   .container {
-    max-width: 800px;
+    max-width: 650px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -116,7 +116,7 @@ body {
   .nominal-card.selected {
     border: 2px solid #007bff;
     background-color: #e8f4ff;
-    animation: nominal-card 0.2s ease-out;
+    animation: nominal-card 0.3s ease-out;
   }
   
   .nominal-card:not(.initialized):focus {
@@ -243,11 +243,7 @@ body {
     cursor: pointer;
     transition: 0.2s;
   }
-  
-  .pay-btn:hover {
-    background-color: #0056b3;
-  }
-  
+
 
   /* Tombol Bayar Sekarang - Nonaktif */
   .pay-btn.disabled {
@@ -256,11 +252,10 @@ body {
     color: #666; /* Warna teks lebih lembut */
   }
 
-  /* Tombol Bayar Sekarang - Aktif */
-  .pay-btn.enabled {
-    background-color: #007bff; /* Warna biru */
-    cursor: pointer; /* Tanda bahwa tombol dapat diklik */
-    color: #fff; /* Warna teks putih */
+  .pay-btn.active {
+    background-color: #007bff; /* Warna biru saat aktif */
+    color: white;
+    cursor: pointer;
   }
 
   /* animasi */

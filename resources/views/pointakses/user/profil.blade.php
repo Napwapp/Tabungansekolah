@@ -48,7 +48,7 @@
 
             <li
             class="sidebar-item active">
-            <a href="profil.html" class='sidebar-link'>
+            <a href="{{route('profile')}}" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Profil</span>
             </a>
@@ -62,7 +62,7 @@
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item ">
-                        <a href="tabungan/tabungan-kelas.html">Tabungan Kelas</a>
+                        <a href="{{route('kelas')}}">Tabungan Kelas</a>
                     </li>
                     <li class="submenu-item ">
                         <a href="{{route('tabungan')}}">Tabunganku</a>
@@ -72,7 +72,7 @@
 
             <li
             class="sidebar-item  ">
-            <a href="riwayat.html" class='sidebar-link'>
+            <a href="{{route('riwayat')}}" class='sidebar-link'>
                 <i class="bi bi-chat-dots-fill"></i>
                 <span>Riwayat Transaksi</span>
             </a>
@@ -81,7 +81,7 @@
                         
             <li
                 class="sidebar-item  ">
-                <a href="kontak-kami.html" class='sidebar-link'>
+                <a href="{{route('contact')}}" class='sidebar-link'>
                     <i class="bi bi-envelope-fill"></i>
                     <span>Kontak Kami</span>
                 </a>
@@ -141,11 +141,12 @@
                     <li class="submenu-item ">
                         <a href="form-element-textarea.html">Textarea</a>
                     </li>
+                    </li>
                 </ul>
             </li> -->
             <li
                 class="sidebar-item" style="margin-left: -15px;">
-                <a href="#" class='sidebar-link'>
+                <a href="{{route('auth')}}" class='sidebar-link'>
                     <i class="bi bi-x-octagon-fill"></i>
                     <span>Log Out</span>
                 </a>
