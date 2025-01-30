@@ -50,7 +50,7 @@
 
                             <li
                             class="sidebar-item ">
-                            <a href="{{route ('profile')}}" class='sidebar-link'>
+                            <a href=" {{route ('profile')}}" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Profil</span>
                             </a>
