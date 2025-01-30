@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaveController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,6 @@ Route::get('/user', [UserController::class, 'index'])->name('user');
 
 // route profil 
 Route::get('/profile', [ProfileController::class, 'profile'])->name( 'profile');
+
+// route tabungansiswa
+Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan');

@@ -67,7 +67,7 @@
                                         <a href="abungan/tabungan-kelas.html">Tabungan Kelas</a>
                                     </li>
                                     <li class="submenu-item ">
-                                        <a href="abungan/tabungan-kelas.html">Tabunganku</a>
+                                        <a href="{{route('tabungan')}}">Tabunganku</a>
                                     </li>
                                 </ul>
                             </li>
