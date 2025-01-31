@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logosekolah.png')}}" type="image/png">
+    
     <link rel="stylesheet" href="{{asset('dashboard/dist/tabungan/assets/css/tabungansiswa.css')}}"> 
 </head>
 

@@ -163,11 +163,11 @@
                     </div>
                 </div>
                 <div class="profile-basic-info">
-                    <h1>{{$user -> username}}</h1>
-                    <p>{{$user -> email}}</p>
+                    <h1>{{Auth::user()->username}}</h1>
+                    <p>{{Auth::user()->email}}</p>
                 </div>
             </div>
-    
+        
             <div class="profile-details">
                 <div class="profile-section">
                     <h2>Informasi Akun</h2>
