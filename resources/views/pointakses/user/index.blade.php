@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.css')}}">
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
-    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.dist/js')}}"></script>
+    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
     
 </head>
 
@@ -171,14 +171,14 @@
             <div class="profil-container">
                 <div class="profil">
                     <div class="profil-picture">
-                         <img src="" alt="">  <!--memakai foto profil yg user masukan (akan dengan backend) -->
+                         <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">  <!--memakai foto profil yg user masukan (akan dengan backend) -->
                     </div>
-                    <h2 class="username">Muhamad Nawaf Abduh</h2> <!--akan dengan backend -->
+                    <h2 class="username">{{$user -> namalengkap}}</h2> <!--akan dengan backend -->
                 </div>
 
                 <div class="profile-info">
                     <p><strong>ID:</strong> 202510123</p> <!-- backend -->
-                    <p><strong>Kelas:</strong> XII RPL 1</p> <!-- backend -->
+                    <p><strong>Kelas:</strong> {{$user -> kelas}}</p> <!-- backend -->
                 </div>
 
                 <!-- Target Tabungan -->

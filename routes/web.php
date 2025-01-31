@@ -42,7 +42,9 @@ Route::get('/user', [UserController::class, 'index'])->name('user');
 // Route::get('/user', [UserController::class, 'dashboard']);
 
 // route profil 
-Route::get('/profile', [ProfileController::class, 'profile'])->name( 'profile');
+Route::get('/profile', [ProfileController::class, 'profile'])
+    ->middleware('auth')
+    ->name('profile');
 
 // route tabungansiswa
 Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan');

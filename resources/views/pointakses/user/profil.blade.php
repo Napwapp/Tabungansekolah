@@ -159,12 +159,12 @@
             <div class="profile-header">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="{{asset('dashboard/dist/assets/images/faces/8.jpg')}}" alt="">
+                        <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
                     </div>
                 </div>
                 <div class="profile-basic-info">
-                    <h1>John Doe</h1>
-                    <p>johndoe@gmail.com</p>
+                    <h1>{{$user -> username}}</h1>
+                    <p>{{$user -> email}}</p>
                 </div>
             </div>
     
@@ -174,15 +174,15 @@
                     
                     <div class="profile-item">
                         <span>Nama Lengkap :</span>
-                        <span>John Doe</span>
+                        <span>{{$user -> namalengkap}}</span>
                     </div>
                     <div class="profile-item">
-                        <span>Nama Wali :</span>
-                        <span>Johny joestar</span>
+                        <span>Username :</span>
+                        <span>{{$user -> username}}</span>
                     </div>
                     <div class="profile-item">
                         <span>Kelas :</span>
-                        <span>XI RPL</span>
+                        <span>{{$user -> kelas}}</span>
                     </div>
                     <div class="profile-item">
                         <span>NISN :</span>
@@ -191,6 +191,10 @@
                     <div class="profile-item">
                         <span>Jenis Kelamin :</span>
                         <span>Laki-Laki</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Nama Wali :</span>
+                        <span>Johny joestar</span>
                     </div>
                     <div class="profile-item">
                         <span>Nomer Telepon :</span>
@@ -206,7 +210,7 @@
                     </div>
                     <div class="profile-item">
                         <span>Tanggal Bergabung :</span>
-                        <span>01 Januari 2023</span>
+                        <span>{{$user -> timestamps}}</span>
                     </div>
                 </div>
                 
