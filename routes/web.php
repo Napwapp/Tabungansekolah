@@ -61,6 +61,9 @@ use Illuminate\Support\Facades\Auth;
     // untuk tampilan kontak kami 
     Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact');
 
+    // untuk logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 });
 
 

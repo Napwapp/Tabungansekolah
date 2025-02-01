@@ -1,27 +1,20 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+return new class extends Migration {
+    public function up()
     {
         Schema::create('tabungans', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id'); // Menghubungkan ke tabel users
-            $table->string('tabungan_id')->unique(); // ID tabungan unik, misalnya bisa di-generate\n       $table->decimal('saldo', 15, 2)->default(0); // Saldo awal\n       $table->timestamps();\n\n       // Constraint foreign key\n       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');\n   });
+            $table->id(); // Primary Key (Auto Increment)
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
+            $table->decimal('saldo', 15, 2)->default(0); // Saldo tabungan dengan format desimal
+            $table->timestamps(); // created_at & updated_at
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('tabungans');
     }
