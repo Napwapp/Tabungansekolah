@@ -89,7 +89,6 @@
 .profil {
   display: flex;
   flex-direction: row;
-  margin-top: -40px;
 }
 .profil-picture {
   width: 100px;
@@ -125,16 +124,6 @@
   
 }
 
-
-/* Kontainer Profil */
-.profil-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap; /* Agar elemen turun ke bawah di layar kecil */
-  gap: 10px; /* Jarak antar elemen */
-  border-radius: 10px; /* Sudut melengkung */
-}
 
 /* Profil Singkat */
 .profil {
@@ -208,7 +197,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 /* Target tabungan dengan progress lingkaran */

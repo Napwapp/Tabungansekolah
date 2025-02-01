@@ -153,5 +153,8 @@
         <div id="main">
             <h1>Kontak kami</h1>
         </div>
+
+        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>
 </html>

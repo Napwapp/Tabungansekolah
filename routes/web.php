@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Auth;
 
     // route group yg belum login (perlu direvisi)
     Route::middleware(['guest'])->group(function() {
-    Route::view('/home', 'landingpage/landingpage');
+    Route::view('/', 'landingpage/landingpage');
     // untuk login
     Route::get('/sesi',[AuthController::class,'index'])->name('auth');
     Route::post('/sesi',[AuthController::class,'login']);
@@ -37,8 +37,8 @@ use Illuminate\Support\Facades\Auth;
     });
 
 
-//route grup yang sudah login
-Route::middleware(['auth'])->group(function() {
+    //route grup yang sudah login
+    Route::middleware(['auth'])->group(function() {
     // route admin dan user
     Route::redirect('/home', '/user');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');

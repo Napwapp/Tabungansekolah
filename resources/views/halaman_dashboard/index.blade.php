@@ -160,11 +160,11 @@
             </div>
         <div id="main">
 
-            <header class="mb-3">
-                <a href="" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
+                @if (session('error'))
+                    <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
+                        {{ session('error') }}
+                    </div>
+                @endif
     
             <body>
             <!-- Profil singkat -->
