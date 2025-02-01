@@ -15,10 +15,10 @@ class userAkses
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (auth()->user()->role == $role) {
+        if (auth()->user()->role === $role) {
             return $next($request);
         }
-        $url = "/" . auth()->user()->role == $role;
+        $url = "/" . auth()->user()->role;
         return redirect($url)->with('error', "Anda tidak dapat mengakses halaman ini");
     }
 }

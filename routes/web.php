@@ -26,45 +26,37 @@ use Illuminate\Support\Facades\Auth;
 */
 
     // route group yg belum login (perlu direvisi)
-    Route::middleware(['guest'])->group(function() {
-    Route::view('/', 'landingpage/landingpage');
-    // untuk login
-    Route::get('/sesi',[AuthController::class,'index'])->name('auth');
-    Route::post('/sesi',[AuthController::class,'login']);
-    // untuk register
-    Route::get('/reg',[AuthController::class,'create'])->name('registrasi');
-    Route::post('/reg',[AuthController::class,'register'])->name('registrasi.post');
+    // Route::middleware(['guest'])->group(function() {
+    Route::middleware(['guest'])->group(function(){
+        Route::view('/', 'landingpage/landingpage');
+        Route::get('/sesi',[AuthController::class,'index'])->name('auth');  // untuk login
+        Route::post('/sesi',[AuthController::class,'login']);
+        Route::get('/reg',[AuthController::class,'create'])->name('registrasi');  // untuk register
+        Route::post('/reg',[AuthController::class,'register'])->name('registrasi.post');
     });
 
 
     //route grup yang sudah login
-    Route::middleware(['auth'])->group(function() {
-    // route admin dan user
-    Route::redirect('/home', '/user');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');
-    Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('userAkses:user');
+    // Route::middleware(['auth'])->group(function() {
+    Route::middleware(['auth'])->group(function(){
+        Route::redirect('/home','/user');
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin'); // route admin
+        Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('userAkses:user'); //route user
+        
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile'); // route profil 
+        Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan'); // route tabungansiswa
+        Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name( 'kelas'); // route tabungan kelas
+        Route::get('/Topup saldo', [PlusController::class, 'plus'])->name( 'plus'); // route untuk tambah saldo 
+        Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung'); // untuk menabung
+        Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik'); // untuk menarik tabungan
+        Route::get('/Riwayat Transaksi', [RiwayatController::class, 'riwayat'])->name( 'riwayat'); // untuk tampilan riwayat transaksi
+        Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact'); // untuk tampilan kontak kami 
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
+    });
+    // Route::redirect('/home', '/user');
+    
 
-    // route profil 
-    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
-    // route tabungansiswa
-    Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan');
-    // route tabungan kelas
-    Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name( 'kelas');
-    // route untuk tambah saldo 
-    Route::get('/Topup saldo', [PlusController::class, 'plus'])->name( 'plus');
-    // untuk menabung
-    Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung');
-    // untuk menarik tabungan
-    Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik');
-    // untuk tampilan riwayat transaksi
-    Route::get('/Riwayat Transaksi', [RiwayatController::class, 'riwayat'])->name( 'riwayat');
-    // untuk tampilan kontak kami 
-    Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact');
 
-    // untuk logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-});
 
 
 
