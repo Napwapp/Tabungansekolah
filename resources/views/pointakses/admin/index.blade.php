@@ -1,4 +1,4 @@
-@extends ('halaman_dashboard.index')
+@extends ('halaman_dashboard.index') <!-- mengambil view dari halaman_dashboard.index html -->
 @section('navitem')
 <li class="sidebar-item active">
         <a href="{{route('user')}}" class='sidebar-link'>
