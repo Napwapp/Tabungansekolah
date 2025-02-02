@@ -19,6 +19,6 @@ class userAkses
             return $next($request);
         }
         $url = "/" . auth()->user()->role;
-        return redirect($url)->with('error', "Anda tidak dapat mengakses halaman ini");
+        return redirect($url)->with('error', "Anda tidak dapat mengakses halaman ini, karena role anda adalah " . auth()->user()->role);
     }
 }

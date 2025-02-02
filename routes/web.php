@@ -11,6 +11,7 @@ use App\Http\Controllers\MenabungController;
 use App\Http\Controllers\TarikController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DataMahasiswa;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +53,8 @@ use Illuminate\Support\Facades\Auth;
         Route::get('/Riwayat Transaksi', [RiwayatController::class, 'riwayat'])->name( 'riwayat'); // untuk tampilan riwayat transaksi
         Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact'); // untuk tampilan kontak kami 
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
+
+        Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang',[DataMahasiswa::class, 'index'])->name('dataanggota'); //hanya untuk admin
     });
     // Route::redirect('/home', '/user');
     

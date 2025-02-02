@@ -110,7 +110,6 @@
 }
 
 .username {
-  line-height: 100px;
   display: flex;
   flex-direction: row;
 }
@@ -122,6 +121,17 @@
   background-color: rgb(96, 112, 128);
   box-shadow: 0 0 1px 1px rgb(96, 112, 128);
   
+}
+
+.profil-detail {
+  display: flex;
+  flex-direction: column; /* Susun nama dan role secara vertikal */
+}
+
+.role {
+  font-size: 14px;
+  margin-left: 20px;
+  color: #555; /* Sesuaikan warna dengan profil-info */
 }
 
 
@@ -144,6 +154,7 @@
 
 /* Nama Pengguna */
 .username {
+  margin-top: 10px;
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
@@ -194,6 +205,7 @@
 
 /* Container profil dan target tabungan */
 .profil-container {
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -211,6 +223,7 @@
   position: relative;
   width: 120px;
   height: 120px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
