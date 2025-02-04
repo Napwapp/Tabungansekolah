@@ -1,0 +1,125 @@
+/* Reset default margin dan padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Pengaturan dasar body */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Styling header */
+header {
+    height: 2.5cm;
+    background-color: black;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+h1 {
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+.logocon {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 70px;
+    height: auto;
+    margin-right: 20px; 
+}
+
+h3 {
+    font-size: 1.2em;
+    color: #fff;
+}
+
+/* Container utama yang membungkus layout */
+.container {
+    display: flex;
+}
+
+/* Styling sidebar */
+.sidebar {
+    background-image: url(sidebar.jpg);
+    color: #fff;
+    height: auto;
+    width: 250px;
+    padding: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar ul li a:hover {
+    border-radius: 5px;
+    background-color: rgb(215, 14, 14);
+}
+
+/* Styling untuk content utama */
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.content h1 {
+    width: fit-content;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: black;
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.content p {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(215, 14, 14);
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 1.8;
+}
+
+.content h2 {
+    width: fit-content;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    background-image: url(bg.png);
+    color: #fff;
+    font-size: 1.3em;
+}
