@@ -27,6 +27,6 @@ class TabunganUser extends Model {
         } while (self::where('id_tabungan', $idTabungan)->exists()); // Pastikan unik
         return $idTabungan;
     }
-
+    
 }
 

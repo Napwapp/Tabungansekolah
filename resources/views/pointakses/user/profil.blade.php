@@ -178,6 +178,10 @@
                         <span>{{$user -> username}}</span>
                     </div>
                     <div class="profile-item">
+                        <span>ID Tabungan :</span>
+                        <span>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
+                    </div>
+                    <div class="profile-item">
                         <span>Kelas :</span>
                         <span>{{$user -> kelas}}</span>
                     </div>
@@ -200,10 +204,6 @@
                     <div class="profile-item">
                         <span>Nomer Telepon Wali :</span>
                         <span>+62 8132456789</span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Nomer Tabungan :</span>
-                        <span>###</span>
                     </div>
                     <div class="profile-item">
                         <span>Tanggal Bergabung :</span>

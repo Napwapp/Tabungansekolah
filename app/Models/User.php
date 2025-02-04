@@ -10,6 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
 
+/**
+ * @property TabunganUser $tabunganUser
+ */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
