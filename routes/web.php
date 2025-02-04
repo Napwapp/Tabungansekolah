@@ -55,6 +55,9 @@ use Illuminate\Support\Facades\Auth;
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
 
         Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang',[DataMahasiswa::class, 'index'])->name('dataanggota'); //hanya untuk admin
+        Route::get('/datatambah', [DataMahasiswa::class, 'tambah']);
+        Route::get('/dataedit/{id}', [DataMahasiswa::class, 'edit']);
+        Route::post('/datahapus/{id}', [DataMahasiswa::class, 'hapus']);
     });
     // Route::redirect('/home', '/user');
     
