@@ -42,143 +42,35 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
 
-                        <li
-                            class="sidebar-item active">
-                            <a href="{{route('user')}}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li
-                        class="sidebar-item">
-                        <a href="{{route('profile')}}" class='sidebar-link'>
-                            <i class="bi bi-person-badge-fill"></i>
-                            <span>Profil</span>
-                        </a>
-                        </li>
+                        @yield('navitem')               
                         
-                        <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Tabungan</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li
-                        class="sidebar-item  ">
-                        <a href="{{route('riwayat')}}" class='sidebar-link'>
-                            <i class="bi bi-chat-dots-fill"></i>
-                            <span>Riwayat Transaksi</span>
-                        </a>
-                        </li>
-
-                                    
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
-                            </a>
-                        </li>
-
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-                        
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
-                        <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
-                            </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <li
-                            class="sidebar-item" style="margin-left: -15px;">
-                            <a href="{{route('auth')}}" class='sidebar-link'>
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Log Out</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
         <div id="main">
 
-            <header class="mb-3">
-                <a href="" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
+                @if (session('error'))
+                    <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
+                        {{ session('error') }}
+                    </div>
+                @endif
     
             <body>
             <!-- Profil singkat -->
             <div class="profil-container">
                 <div class="profil">
                     <div class="profil-picture">
-                         <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">  <!--memakai foto profil yg user masukan (akan dengan backend) -->
+                         <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="Foto profil">
                     </div>
-                    <h2 class="username">{{Auth::user() -> namalengkap}}</h2> <!--akan dengan backend -->
+                    <div class="profil-detail"> <!-- Tambahkan div pembungkus -->
+                        <h2 class="username">{{ Auth::user()->namalengkap }}</h2>
+                        <p class="role">Role : <strong style="font-size: 16px; text-transform: capitalize;">{{ Auth::user()->role }}</strong></p>
+                    </div>
                 </div>
 
                 <div class="profile-info">
                     <p><strong>ID:</strong> 202510123</p> <!-- backend -->
-                    <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p> <!-- backend -->
+                    <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p> 
                 </div>
 
                 <!-- Target Tabungan -->

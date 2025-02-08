@@ -146,13 +146,10 @@
                             </ul>
                         </li> -->
                     
-                        <li
-                            class="sidebar-item" style="margin-left: -15px;">
-                            <a href="{{route('auth')}}" class='sidebar-link'>
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Log Out</span>
-                            </a>
-                        </li>
+                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
+                            @csrf
+                            <i class="bi bi-x-octagon-fill"></i>
+                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>               
                     </ul>
                 </div>
             </div>
