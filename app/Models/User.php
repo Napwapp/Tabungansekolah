@@ -65,6 +65,15 @@ class User extends Authenticatable
        return $this->hasOne(TabunganUser::class, 'user_id'); // Hubungan one-to-one
    }
    
+    public function tabungan(){
+        return $this->hasOne(TabunganUser::class);
+    }
+
+    public function transaksiTabungan() {
+        return $this->hasMany(TabunganTransaction::class);
+    }
+
+    
 
 }
 

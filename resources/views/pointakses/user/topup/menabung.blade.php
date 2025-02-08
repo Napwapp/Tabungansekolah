@@ -1,78 +1,122 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Menabung</title>
   <link rel="stylesheet" href="{{asset('dashboard/dist/transaksi/assets/csstransaksi/menabung.css')}}">
 </head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header-balance-container">
-            <div class="header-container">
-                <!-- Tombol Kembali -->
-                <a href="{{route('user')}}"><button class="back-button">&#8592;</button></a>
-                <div class="header-title">Tabung saldo</div>
-            </div>
-            
-            <!-- Kontainer Saldo -->
-            <div class="balance-container">
-                <div>
-                  <div class="balance-info">Saldo yang dapat ditabung</div>
-                  <div class="balance-amount">Rp3.883</div>
-                </div>
-                <button class="button-tabung-semua">Tabung Semua</button>
-            </div>
-            <p class="note">Kamu harus menyisakan setidaknya 10.000 dari saldomu. Supaya akun kamu bisa tetap aktif. Jika kamu tidak memenuhi sarat maka saldo yg dapat ditabung kamu akan menampilkan 0.</p>
 
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header-balance-container">
+      <div class="header-container">
+        <!-- Tombol Kembali -->
+        <a href="{{route('user')}}"><button class="back-button">&#8592;</button></a>
+        <div class="header-title">Tabung saldo</div>
+      </div>
+
+      <!-- Kontainer Saldo -->
+      <div class="balance-container">
+        <div>
+          <div class="balance-info">Saldo yang dapat ditabung</div>
+          <div class="balance-amount" data-saldo="{{ $saldo }}">Rp{{ number_format($saldoTersedia, 0, ',', '.') }}
+          </div>
         </div>
-        
-        <div class="parent-container">
-            <!-- Formulir Menabung -->
-            <div class="deposit-section">
-              <p class="section-title">Saldo yang ingin ditabung</p> <!-- Tambahan teks baru -->
-              <!-- Container untuk teks dan ikon -->
-              <div class="info-text-container">
-                <!-- Ikon Informasi -->
-                <svg
-                  data-v-2470b354=""
-                  width="24"
-                  height="24"
-                  class="info-icon"
-                  aria-hidden="true"
-                  type="image/svg+xml"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12ZM11.97 8.73764C12.7266 8.73764 13.34 8.1248 13.34 7.36882C13.34 6.61284 12.7266 6 11.97 6C11.2134 6 10.6 6.61284 10.6 7.36882C10.6 8.1248 11.2134 8.73764 11.97 8.73764ZM11.4999 10.1064H12.4499C12.8499 10.1064 13.1799 10.4362 13.1799 10.8358V17.2703C13.1799 17.6699 12.8499 17.9996 12.4499 17.9996H11.4999C11.0999 17.9996 10.7699 17.6699 10.7699 17.2703V10.8358C10.7699 10.4362 11.0999 10.1064 11.4999 10.1064Z"
-                  ></path>
-                </svg>
-                <!-- Teks Informasi -->
-                <p class="info-text">
-                  Minimal saldo yang dapat ditabung adalah Rp10.000. Dan harus menyisakan saldo Anda setidaknya Rp10.000 supaya saldo Anda tetap aktif.
-                </p>
-              </div>
-            </div>
-          
-            <form class="deposit-form">
-              <div class="input-wrapper">
-                <span class="input-label">Rp</span>
-                <input id="amount" type="text" placeholder="Jumlah saldo yang akan ditabung">
-              </div>
-              <p class="note">Fitur tabungan sebagian belum tersedia. Anda hanya bisa menabung semua saldo.</p>
-            </form>
-          
-            <!-- Pembungkus tombol -->
-            <div class="button-wrapper">
-              <button class="deposit-button">Tabung Sekarang</button>
-            </div>
-        </div>          
+        <button class="button-tabung-semua" onclick="tabungSemua('{{ $saldoTersedia }}')">Tabung Semua</button>
+      </div>
+      <p class="note">Kamu harus menyisakan setidaknya 10.000 dari saldomu. Supaya akun kamu bisa tetap aktif. Jika kamu tidak memenuhi sarat maka saldo yg dapat ditabung kamu akan menampilkan 0.</p>
+    </div>
+
+    <div class="parent-container">
+      <!-- Formulir Menabung -->
+      <div class="deposit-section">
+        <p class="section-title">Saldo yang ingin ditabung</p> <!-- Tambahan teks baru -->
+        <!-- Container untuk teks dan ikon -->
+        <div class="info-text-container">
+          <!-- Ikon Informasi -->
+          <svg
+            data-v-2470b354=""
+            width="24"
+            height="24"
+            class="info-icon"
+            aria-hidden="true"
+            type="image/svg+xml"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12ZM11.97 8.73764C12.7266 8.73764 13.34 8.1248 13.34 7.36882C13.34 6.61284 12.7266 6 11.97 6C11.2134 6 10.6 6.61284 10.6 7.36882C10.6 8.1248 11.2134 8.73764 11.97 8.73764ZM11.4999 10.1064H12.4499C12.8499 10.1064 13.1799 10.4362 13.1799 10.8358V17.2703C13.1799 17.6699 12.8499 17.9996 12.4499 17.9996H11.4999C11.0999 17.9996 10.7699 17.6699 10.7699 17.2703V10.8358C10.7699 10.4362 11.0999 10.1064 11.4999 10.1064Z"></path>
+          </svg>
+          <!-- Teks Informasi -->
+          <p class="info-text">
+            Minimal saldo yang dapat ditabung adalah Rp10.000. <br> Harus menyisakan saldo Anda setidaknya Rp10.000 supaya saldo Anda tetap aktif. Diatas sudah tersedia berapa jumlah maximal saldo yang dapat kamu tabung.<br> Jika melebihi itu tombol akan terblokir dan kamu tidak akan bisa menabung!
+          </p>
+        </div>
+      </div>
+
+      <form id="menabungForm" action="{{route('tabung-uang')}}" method="POST">
+        @csrf
+        <div class="deposit-form">
+          <div class="input-wrapper">
+            <span class="input-label">Rp</span>
+            <input id="amount" name="jumlah" type="text" placeholder="Jumlah saldo yang akan ditabung" required>
+          </div>
+          <p class="note">Fitur tabungan sebagian belum tersedia. Anda hanya bisa menabung semua saldo.</p>
+        </div>
+
+        <div class="button-wrapper">
+          <button id="tabungButton" type="button" class="deposit-button" data-saldo="{{ auth()->user()->saldo ?? 0 }}">
+              Tabung Sekarang
+          </button>
+
+          <!-- Loading Indicator -->
+          <div id="loadingIndicator" style="display: none;">
+              <div class="spinner"></div>
+              <p>Memproses transaksi...</p>
+          </div>
+      </div>
+
+
+      </form>
+    </div>
+    
+
   </div>
   <script src="{{asset('dashboard/dist/transaksi/assets/jstransaksi/menabung.js')}}"></script>
+
+  <!-- sweetalert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  @if(session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: '{{ session("success") }}',
+          showConfirmButton: false,
+          timer: 2000
+      });
+  </script>
+  @endif
+
+  @if(session('error'))
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: '{{ session("error") }}',
+          showConfirmButton: false,
+          timer: 2000
+      });
+  </script>
+  @endif
+
 </body>
+
 </html>

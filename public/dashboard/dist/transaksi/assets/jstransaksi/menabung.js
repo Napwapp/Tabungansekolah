@@ -1,152 +1,123 @@
-// Menunggu hingga halaman sepenuhnya dimuat sebelum menjalankan skrip
 document.addEventListener("DOMContentLoaded", function () {
+  // Ambil elemen yang diperlukan dari DOM
   const amountInput = document.getElementById("amount"); // Input jumlah tabungan
-  const submitButton = document.querySelector(".submit-button"); // Tombol submit tabungan
+  const depositButton = document.getElementById("tabungButton"); // Tombol "Tabung Sekarang"
+  const loadingIndicator = document.getElementById("loadingIndicator"); //untuk loading indicator
+  const tabungSemuaButton = document.querySelector(".button-tabung-semua"); // Tombol "Tabung Semua"
+  const balanceAmountElement = document.querySelector(".balance-amount"); // Elemen yang menampilkan saldo (misal: "Rp12.345")
 
-  // Event listener untuk format angka dan validasi input
-  amountInput.addEventListener("input", function () {
-    const value = amountInput.value.replace(/\D/g, ""); // Hanya angka
-    amountInput.value = formatWithDots(value); // Format angka dengan pemisah ribuan
-    submitButton.disabled = value === "" || parseInt(value, 10) < 10000; // Tombol aktif jika nominal valid
-  });
+  // Ambil saldo user dari elemen balanceAmount, dengan menghapus karakter non-digit
+  let availableDeposit = parseInt(
+    balanceAmountElement.textContent.replace(/[^\d]/g, ""),
+    10
+  ) || 0;
 
-  // Fungsi untuk menambahkan pemisah ribuan pada angka
+  // Fungsi untuk menambahkan pemisah ribuan (titik)
   function formatWithDots(value) {
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-});
-
-// Saldo awal user (contoh nilai, bisa diambil dari database/backend jika ada)
-let userBalance = 0;
-
-// Elemen DOM
-const balanceAmountElement = document.querySelector('.balance-amount'); // Elemen saldo yang dapat ditabung
-const depositInput = document.getElementById('amount'); // Input jumlah saldo yang ingin ditabung
-const depositButton = document.querySelector('.deposit-button'); // Tombol 'Tabung Sekarang'
-
-// Fungsi untuk memperbarui jumlah saldo yang dapat ditabung
-function updateBalanceInfo() {
-  const minRemainingBalance = 10000; // Sisa saldo minimum yang harus ada
-
-  // Hitung saldo yang dapat ditabung
-  let maxDepositable = userBalance - minRemainingBalance;
-
-  // Jika saldo kurang dari minimum yang disyaratkan, atur jumlah yang dapat ditabung ke 0
-  if (maxDepositable < 0) {
-    maxDepositable = 0;
+      return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-  // Perbarui tampilan saldo yang dapat ditabung
-  balanceAmountElement.textContent = `Rp${maxDepositable.toLocaleString('id-ID')}`;
-}
-
-// Event listener untuk tombol 'Tabung Sekarang'
-depositButton.addEventListener('click', function () {
-  const depositAmount = parseInt(depositInput.value.replace(/\./g, ""), 10); // Ambil angka tanpa titik
-
-  if (isNaN(depositAmount) || depositAmount <= 0) {
-    alert('Masukkan jumlah saldo yang valid untuk ditabung!');
-    return;
-  }
-
-  if (depositAmount > userBalance - 10000) {
-    alert('Saldo tidak mencukupi. Anda harus menyisakan Rp10.000.');
-    return;
-  }
-
-  // Kurangi saldo user
-  userBalance -= depositAmount;
-
-  // Perbarui info saldo
-  updateBalanceInfo();
-
-  // Kosongkan input dan berikan konfirmasi
-  depositInput.value = '';
-  alert('Saldo berhasil ditabung!');
-});
-
-// Perbarui info saldo di awal
-updateBalanceInfo();
-
-// Jika user menekan tombol tabung semua
-const tabungSemuaButton = document.querySelector('.button-tabung-semua');
-
-tabungSemuaButton.addEventListener('click', function () {
-  const minRemainingBalance = 10000; // Saldo minimal yang harus disisakan
-  const maxDepositable = Math.max(0, userBalance - minRemainingBalance); // Hitung saldo yang dapat ditabung
-
-  depositInput.value = formatWithDots(maxDepositable.toString()); // Isi input dengan saldo maksimum yang bisa ditabung dengan format angka
-});
-
-// Logika input untuk aktif/nonaktif tombol
-document.addEventListener("DOMContentLoaded", () => {
-  const inputField = document.getElementById("amount"); // Elemen input
-  const depositButton = document.querySelector(".deposit-button"); // Tombol Tabung Sekarang
-
-  // Fungsi untuk memvalidasi input
-  function toggleButtonState() {
-    const inputValue = inputField.value.trim().replace(/\./g, ""); // Ambil nilai input tanpa titik
-    if (inputValue && !isNaN(inputValue) && parseInt(inputValue) > 0) {
-      depositButton.disabled = false; // Aktifkan tombol
-    } else {
-      depositButton.disabled = true; // Nonaktifkan tombol
+  // Fungsi validasi: aktifkan tombol jika input berisi angka lebih dari 0 dan tidak melebihi availableDeposit.
+  // (Di sini validasi untuk proses transaksi akan dilakukan lagi saat tombol diklik.)
+  function validateInput() {
+      const depositAmount = parseInt(amountInput.value.replace(/\./g, ""), 10) || 0;
+      depositButton.disabled = !(depositAmount > 0);
     }
+
+  // Event listener untuk input: format angka dan validasi
+  amountInput.addEventListener("input", function () {
+      const value = amountInput.value.replace(/\D/g, ""); // Hanya angka
+      amountInput.value = formatWithDots(value);
+      validateInput();
+  });
+
+  // Event listener untuk tombol "Tabung Semua"
+  // Saat tombol ini diklik, kita isi input dengan availableDeposit (format dengan titik)
+  if (tabungSemuaButton) {
+      tabungSemuaButton.addEventListener("click", function () {
+          if (availableDeposit > 0) {
+              amountInput.value = availableDeposit.toLocaleString("id-ID");
+              validateInput();
+          }
+      });
   }
 
-  // Tambahkan event listener ke input
-  inputField.addEventListener("input", toggleButtonState);
+  // Event listener untuk tombol "Tabung Sekarang"
+  depositButton.addEventListener("click", function (event) {
+    event.preventDefault();
 
-  // Nonaktifkan tombol saat awal
-  depositButton.disabled = true;
+    const depositAmount = parseInt(amountInput.value.replace(/\./g, ""), 10);
+    let availableDeposit = parseInt(
+        document.querySelector(".balance-amount").textContent.replace(/[^\d]/g, ""),
+        10
+    ) || 0;
+
+    // Cek apakah nilai deposit adalah angka yang valid
+    if (isNaN(depositAmount)) {
+        Swal.fire("Error!", "Masukkan angka yang valid!", "error");
+        return;
+    }
+
+    // Validasi minimal menabung 10.000
+    if (depositAmount < 10000) {
+        Swal.fire("Error!", "Maaf, Minimal menabung sebesar 10.000", "error");
+        return;
+    }
+
+    // Validasi tidak boleh melebihi saldo yang dapat ditabung
+    if (depositAmount > availableDeposit) {
+        Swal.fire("Error!", "Maaf, Saldo tidak mencukupi. Jumlah saldo yang anda tabung melebihi jumlah saldo yang dapat ditabung anda", "error");
+        return;
+    }
+
+    // Tampilkan Loading Indicator overlay dan ubah teks tombol menjadi "Sedang memproses..."
+    depositButton.classList.add("loading");
+    depositButton.disabled = true;
+    depositButton.textContent = "Sedang memproses...";
+    loadingIndicator.style.display = "flex";
+
+    // Catat waktu mulai untuk memastikan minimum durasi loading
+    const startTime = Date.now();
+    const minimumLoadingTime = 2500; // 1000ms per detik
+
+    // Kirim data ke backend
+    fetch("/tabung-uang", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        body: JSON.stringify({ jumlah: depositAmount })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire("Berhasil!", data.message, "success").then(() => {
+                window.location.reload();
+            });
+        } else {
+            Swal.fire("Error!", data.message, "error");
+        }
+    })
+    .catch(error => {
+        Swal.fire("Error!", "Terjadi kesalahan saat memproses!", "error");
+    })
+    .finally(() => {
+        const elapsed = Date.now() - startTime;
+        const delay = Math.max(0, minimumLoadingTime - elapsed);
+        setTimeout(() => {
+            // Hapus overlay loading dan kembalikan tampilan tombol ke kondisi semula
+            loadingIndicator.style.display = "none";
+            depositButton.classList.remove("loading");
+            depositButton.disabled = false;
+            depositButton.textContent = "Tabung Sekarang";
+        }, delay);
+    });
 });
 
-// Event listener untuk tombol + dan -
-document.addEventListener("DOMContentLoaded", function () {
-  const amountInput = document.getElementById("amount"); // Input nominal
-  const depositButton = document.querySelector(".deposit-button"); // Tombol Tabung Sekarang
-  const increaseButton = document.createElement("button"); // Tombol tambah (+)
-  const decreaseButton = document.createElement("button"); // Tombol kurang (-)
 
-  // Menambahkan tombol ke dalam DOM
-  amountInput.parentNode.appendChild(increaseButton);
-  amountInput.parentNode.appendChild(decreaseButton);
+document.getElementById("saldoSaatIni").textContent = `Rp ${newSaldo.toLocaleString()}`;
 
-  // Fungsi untuk memperbarui status tombol
-  function updateButtonState() {
-      if (amountInput.value.trim() === "") {
-          depositButton.classList.add("disabled"); // Tombol dinonaktifkan
-          depositButton.disabled = true;
-      } else {
-          depositButton.classList.remove("disabled"); // Tombol diaktifkan
-          depositButton.disabled = false;
-      }
-  }
-
-  // Event listener untuk tombol +
-  increaseButton.addEventListener("click", function (event) {
-      event.preventDefault(); // Mencegah perilaku bawaan tombol
-      let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
-      updateInputValue(currentAmount + 50000);
-      updateButtonState(); // Memastikan tombol diperbarui
-  });
-
-  // Event listener untuk tombol -
-  decreaseButton.addEventListener("click", function (event) {
-      event.preventDefault(); // Mencegah perilaku bawaan tombol
-      let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
-      if (currentAmount >= 50000) {
-          updateInputValue(currentAmount - 50000);
-      }
-      updateButtonState(); // Memastikan tombol diperbarui
-  });
-
-  // Event listener untuk input manual
-  amountInput.addEventListener("input", function () {
-      let rawValue = amountInput.value.replace(/\D/g, ""); // Hanya ambil angka
-      amountInput.value = formatWithDots(rawValue);
-      updateButtonState();
-  });
-
-  // Inisialisasi status tombol saat halaman dimuat
-  updateButtonState();
+  // Panggil validasi awal
+  validateInput();
 });

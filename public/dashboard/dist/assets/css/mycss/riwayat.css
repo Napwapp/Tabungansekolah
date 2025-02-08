@@ -1,0 +1,33 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+thead {
+    border: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+td {
+    border: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+/* tombol hapus */
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    width: 22px; /* Ukuran tombol */
+    height: 22px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto; /* Memastikan tombol berada di tengah */
+    line-height: 22px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: rgb(210, 7, 7);
+}

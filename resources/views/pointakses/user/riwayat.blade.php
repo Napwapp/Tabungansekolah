@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan Sekolah</title>
+    <title>Table - Mazer Admin Dashboard</title>
     
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">    
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/logo/favicon.svg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/logo/favicon.png')}}" type="image/png">
+    
 </head>
 
 <body>
-<div id="app">
+    <div id="app">
         <!-- sidebar -->
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -39,7 +41,7 @@
                     <ul class="menu">
 
                         <li
-                            class="sidebar-item ">
+                            class="sidebar-item">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
@@ -47,7 +49,7 @@
                         </li>
 
                         <li
-                        class="sidebar-item">
+                        class="sidebar-item ">
                         <a href="{{route('profile')}}" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
@@ -151,14 +153,132 @@
                     </ul>
                 </div>
             </div>
-        <div id="main">
-            <h1>Riwayat transaksi</h1>
         </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Riwayat Transaksi</h3>
+                <p class="text-subtitle text-muted">Riwayat transaksimu</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Table</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
-<script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-<script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-<body>
-        
+    <!-- Contextual classes start -->
+    <section class="section">
+        <div class="row" id="table-contexual">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Riwayat</h4>
+                    </div>
+                    <div class="card-content">
+                        <!-- table contextual / colored -->
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Tanggal</th>
+                                        <th>Jumlah</th>
+                                        <th>Tipe</th>
+                                        <th>Nomer Tabungan</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-info">
+                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                        <td>14-02-2025</td>
+                                        <td class="text-bold-500">+100.000</td>
+                                        <td>Top Up</td>
+                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
+                                        <td>...</td>
+                                        <td><button class="delete-btn">X</button></td>
+                                        <!-- nanti akan dibikin untuk actionnya -->
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                        <td>15-02-2025</td>
+                                        <td class="text-bold-500">+90.000</td>
+                                        <td>Menabung</td>
+                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
+                                        <td>...</td>
+                                        <td><button class="delete-btn">X</button></td>
+                                        <!-- nanti akan dibikin untuk actionnya -->
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                        <td>16-02-2025</td>
+                                        <td class="text-bold-500">-90.000</td>
+                                        <td>Menarik Tabungan</td>
+                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
+                                        <td>...</td>
+                                        <td><button class="delete-btn">X</button></td>
+                                        <!-- nanti akan dibikin untuk actionnya -->
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="text-bold-500">Mikkey Mice</td>
+                                        <td>$15/hr</td>
+                                        <td class="text-bold-500">Animation</td>
+                                        <td>Remote</td>
+                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
+                                        <td>...</td>
+                                        <td><button class="delete-btn">X</button></td>
+                                        <!-- nanti akan dibikin untuk actionnya -->
+                                    </tr>
+                                    <tr class="table-dark">
+                                        <td class="text-bold-500">Mikkey Mice</td>
+                                        <td>$15/hr</td>
+                                        <td class="text-bold-500">Animation</td>
+                                        <td>Remote</td>
+                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
+                                        <td>...</td>
+                                        <td><button class="delete-btn">X</button></td>
+                                        <!-- nanti akan dibikin untuk actionnya -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contextual classes end -->
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    
 </body>
 
 </html>

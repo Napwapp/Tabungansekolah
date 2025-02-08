@@ -9,21 +9,56 @@
     document.querySelector(`.tab-nav .tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
   }
 
-  document.querySelector('.pay-btn').addEventListener('click', function() {
+  document.querySelector('.pay-btn').addEventListener('click', function () {
+    const jumlahSaldo = document.getElementById('customAmount').value.replace(/\./g, '');
+
+    if (!jumlahSaldo || parseInt(jumlahSaldo) < 10000) {
+        alert('Minimal pengisian saldo adalah Rp10.000');
+        return;
+    }
+
     const button = this;
     const loadingIndicator = document.getElementById('loading-indicator');
 
-    // Disable button and show loading indicator
+    // Disable tombol dan tampilkan loading
     button.disabled = true;
     loadingIndicator.style.display = 'block';
 
-    // Simulate payment process
-    setTimeout(() => {
+    // Kirim data ke backend
+    fetch('/isi-saldo', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify({ jumlah: jumlahSaldo })
+  })
+  .then(response => response.json())
+  .then(data => {
+      Swal.fire({
+          title: 'Sukses!',
+          text: data.message,
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+      });
       button.disabled = false;
       loadingIndicator.style.display = 'none';
-      alert('Pembayaran selesai!');
-    }, 2000);
+  })
+  .catch(error => {
+      Swal.fire({
+          title: 'Error!',
+          text: 'Terjadi kesalahan, coba lagi!',
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+      });
+      button.disabled = false;
+      loadingIndicator.style.display = 'none';
   });
+  
+});
+
 
   // Mendapatkan semua elemen dengan kelas nominal-card
   const nominalCards = document.querySelectorAll('.nominal-card');
@@ -119,7 +154,11 @@
     // Kembalikan posisi kursor setelah format ulang
     const diff = e.target.value.length - rawValue.length;
     e.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
-  });
+
+    // Perbaikan: Panggil togglePayButton agar tombol bisa aktif saat input manual
+    togglePayButton();
+});
+
 
   // Fungsi untuk validasi dan memastikan angka tidak terbatasi
   customAmountInput.addEventListener('change', function () {
