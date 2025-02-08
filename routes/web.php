@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DataMahasiswa;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,8 @@ use Illuminate\Support\Facades\Auth;
         Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('userAkses:user'); //route user
         
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile'); // route profil 
-        Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( 'tabungan'); // route tabungansiswa
-        Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name( 'kelas'); // route tabungan kelas
+        Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( name: 'tabungan'); // route tabungansiswa
+        Route::get('/tabungan_kelas', [KelasController::class, 'kelasmin'])->name( 'kelasmin'); // route tabungan kelas
         Route::get('/Topup saldo', [PlusController::class, 'plus'])->name( 'plus'); // route untuk tambah saldo 
         Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung'); // untuk menabung
         Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik'); // untuk menarik tabungan
@@ -55,10 +56,13 @@ use Illuminate\Support\Facades\Auth;
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
 
         Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang',[DataMahasiswa::class, 'index'])->name('dataanggota'); //hanya untuk admin
+        Route::get('/datatambah', [DataMahasiswa::class, 'tambah']);
+        Route::get('/dataedit/{id}', [DataMahasiswa::class, 'edit']);
+        Route::post('/datahapus/{id}', [DataMahasiswa::class, 'hapus']);
     });
     // Route::redirect('/home', '/user');
-    
-
+        Route::get('/admin/profile', [AdminController::class, 'adminprofil'])->name('profil');
+        Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
 
 
 

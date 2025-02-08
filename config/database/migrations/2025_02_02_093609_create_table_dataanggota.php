@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('id_tabungan')->length(10)->default(0);
             $table->string('kelas');
+            $table->string('role');
             $table->timestamps();
         });
     }

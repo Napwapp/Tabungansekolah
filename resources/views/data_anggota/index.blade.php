@@ -55,7 +55,7 @@
 
                         <li
                         class="sidebar-item ">
-                        <a href="{{route('profile')}}" class='sidebar-link'>
+                        <a href="{{route('profil')}}" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
                         </a>
@@ -64,7 +64,7 @@
                         <li
                         class="sidebar-item active">
                         <a href="{{route('dataanggota')}}" class='sidebar-link'>
-                            <i class="bi bi-person-badge-fill"></i>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Data anggota</span>
                         </a>
                         </li>
@@ -77,10 +77,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
+                                    <a href="{{route('tabungan')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
                         </li>
@@ -144,273 +144,29 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Phone</th>
                                 <th>ID </th>
                                 <th>Kelas</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>076 4820 8838</td>
-                                <td>Offenburg</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>0500 527693</td>
-                                <td>0500 527693</td>
-                                <td>New Quay</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nathaniel</td>
-                                <td>mi.Duis@diam.edu</td>
-                                <td>(012165) 76278</td>
-                                <td>(012165) 76278</td>
-                                <td>Grumo Appula</td>
-                                <td>
-                                    <span class="badge bg-danger">Inactive</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Darius</td>
-                                <td>velit@nec.com</td>
-                                <td>0309 690 7871</td>
-                                <td>0309 690 7871</td>
-                                <td>Ways</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Oleg</td>
-                                <td>rhoncus.id@Aliquamauctorvelit.net</td>
-                                <td>0500 441046</td>
-                                <td>0500 441046</td>
-                                <td>Rossignol</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kermit</td>
-                                <td>diam.Sed.diam@anteVivamusnon.org</td>
-                                <td>(01653) 27844</td>
-                                <td>(01653) 27844</td>
-                                <td>Patna</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jermaine</td>
-                                <td>sodales@nuncsit.org</td>
-                                <td>0800 528324</td>
-                                <td>0800 528324</td>
-                                <td>Mold</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ferdinand</td>
-                                <td>gravida.molestie@tinciduntadipiscing.org</td>
-                                <td>(016977) 4107</td>
-                                <td>(016977) 4107</td>
-                                <td>Marlborough</td>
-                                <td>
-                                    <span class="badge bg-danger">Inactive</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kuame</td>
-                                <td>Quisque.purus@mauris.org</td>
-                                <td>(0151) 561 8896</td>
-                                <td>(0151) 561 8896</td>
-                                <td>Tresigallo</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Deacon</td>
-                                <td>Duis.a.mi@sociisnatoquepenatibus.com</td>
-                                <td>07740 599321</td>
-                                <td>07740 599321</td>
-                                <td>Karapınar</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Channing</td>
-                                <td>tempor.bibendum.Donec@ornarelectusante.ca</td>
-                                <td>0845 46 49</td>
-                                <td>0845 46 49</td>
-                                <td>Warrnambool</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Aladdin</td>
-                                <td>sem.ut@pellentesqueafacilisis.ca</td>
-                                <td>0800 1111</td>
-                                <td>0800 1111</td>
-                                <td>Bothey</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cruz</td>
-                                <td>non@quisturpisvitae.ca</td>
-                                <td>07624 944915</td>
-                                <td>07624 944915</td>
-                                <td>Shikarpur</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Keegan</td>
-                                <td>molestie.dapibus@condimentumDonecat.edu</td>
-                                <td>0800 200103</td>
-                                <td>0800 200103</td>
-                                <td>Assen</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ray</td>
-                                <td>placerat.eget@sagittislobortis.edu</td>
-                                <td>(0112) 896 6829</td>
-                                <td>(0112) 896 6829</td>
-                                <td>Hofors</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maxwell</td>
-                                <td>diam@dapibus.org</td>
-                                <td>0334 836 4028</td>
-                                <td>0334 836 4028</td>
-                                <td>Thane</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Carter</td>
-                                <td>urna.justo.faucibus@orci.com</td>
-                                <td>07079 826350</td>
-                                <td>07079 826350</td>
-                                <td>Biez</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Stone</td>
-                                <td>velit.Aliquam.nisl@sitametrisus.com</td>
-                                <td>0800 1111</td>
-                                <td>0800 1111</td>
-                                <td>Olivar</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Berk</td>
-                                <td>fringilla.porttitor.vulputate@taciti.edu</td>
-                                <td>(0101) 043 2822</td>
-                                <td>(0101) 043 2822</td>
-                                <td>Sanquhar</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Philip</td>
-                                <td>turpis@euenimEtiam.org</td>
-                                <td>0500 571108</td>
-                                <td>0500 571108</td>
-                                <td>Okara</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kibo</td>
-                                <td>feugiat@urnajustofaucibus.co.uk</td>
-                                <td>07624 682306</td>
-                                <td>07624 682306</td>
-                                <td>La Cisterna</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bruno</td>
-                                <td>elit.Etiam.laoreet@luctuslobortisClass.edu</td>
-                                <td>07624 869434</td>
-                                <td>07624 869434</td>
-                                <td>Rocca d"Arce</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Leonard</td>
-                                <td>blandit.enim.consequat@mollislectuspede.net</td>
-                                <td>0800 1111</td>
-                                <td>0800 1111</td>
-                                <td>Lobbes</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Hamilton</td>
-                                <td>mauris@diam.org</td>
-                                <td>0800 256 8788</td>
-                                <td>0800 256 8788</td>
-                                <td>Sanzeno</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Harding</td>
-                                <td>Lorem.ipsum.dolor@etnetuset.com</td>
-                                <td>0800 1111</td>
-                                <td>0800 1111</td>
-                                <td>Obaix</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Emmanuel</td>
-                                <td>eget.lacus.Mauris@feugiatSednec.org</td>
-                                <td>(016977) 8208</td>
-                                <td>(016977) 8208</td>
-                                <td>Saint-Remy-Geest</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $item->namalengkap }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->id_tabungan }}</td>
+                                    <td>{{ $item->kelas }}</td>
+                                    <td>{{ $item->role }}</td>
+                                    <td><a href="/dataedit/{{ $item->id }}" class="btn-sm btn-warning text-decoration-none">Edit</a> | 
+                                        <form onsubmit="return confirmHapus(event)"
+                                         action="/datahapus/{{ $item->id }}" method="post" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn-sm btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -437,7 +193,29 @@
     
 <script src="{{asset('dashboard/dist/assets/extensions/simple-datatables/umd/simple-datatables.js')}}"></script>
 <script src="{{asset('dashboard/dist/assets/js/pages/simple-datatables.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function confirmHapus(event) {
+        event.preventDefault(); // Menghentikan form dari pengiriman langsung
 
+        Swal.fire({
+            title: 'Yakin Hapus Data?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then((willDelete) => {
+            if (willDelete.isConfirmed) {
+                event.target.submit(); // Melanjutkan pengiriman form
+            } else {
+                swal('Your imaginary file is safe!');
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

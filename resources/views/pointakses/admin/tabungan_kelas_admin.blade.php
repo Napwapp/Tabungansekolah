@@ -7,6 +7,7 @@
     <title>Tabungan Kelas</title>
     
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-keuangan-kelas.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logosekolah.png')}}" type="image/png">
     
@@ -54,6 +55,13 @@
                             <span>Profil</span>
                         </a>
                         </li>
+                        <li
+                        class="sidebar-item ">
+                        <a href="{{route('dataanggota')}}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Daftar Anggota</span>
+                        </a>
+                        </li>
                         
                         <li
                             class="sidebar-item  has-sub active">
@@ -63,10 +71,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item active">
-                                    <a href="{{route('kelasmin')}}">Tabungan Kelas</a>
+                                    <a href="{{route('kelas')}}">Data Tabungan Kelas</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
+                                    <a href="{{route('tabungan')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
                         </li>
@@ -152,8 +160,160 @@
                     </ul>
                 </div>
             </div>
-        <div id="main">
-            <span> Tabungan Kelas </span>
+        <div id="main" class="main"> 
+            <table class="container">
+        <h1>Data Keuangan Kelas</h1>
+            <tbody>               
+                <table class="kelas">
+                    <th>Jurusan</th>
+                    <th>Pengeluaran Total</th>
+                    <th>Pemasukan Total</th>
+                    <th>Dana Total</th>
+                    <th>Total Akhir</th>
+
+                <tr>
+                    <h2>Kelas 10</h2>
+                    <td>PPLG</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>AKL</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TEI</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TBSM</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>MPLB</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>ATPH</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <table class="kelas">
+                <th>Jurusan</th>
+                <th>Pengeluaran Total</th>
+                <th>Pemasukan Total</th>
+                <th>Dana Total</th>
+                <th>Total Akhir</th>
+                <tr>
+                    <h2>Kelas 11</h2>
+                    <td>PPLG</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>AKL</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TEI</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TBSM</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>MPLB</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>ATPH</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+                <table class="kelas">
+                <tr>
+                    <h2>Kelas 12</h2>
+                    <td>PPLG</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td>AKL</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TEI</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>TBSM</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>MPLB</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>ATPH</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            </tbody>
+        </div>
+    </div>
         </div>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>

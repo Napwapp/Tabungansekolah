@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
 use App\Models\User;
+use App\Models\TabunganUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -33,24 +34,39 @@ class AuthController extends Controller
     ];
 
     // Proses login
-    if (Auth::attempt($infologin)) {
-        // Langsung cek role tanpa memeriksa verifikasi email
-        if (Auth::user()->role === 'admin') {
-            return redirect()->route('admin')->with('Success', 'Hallo Admin, Anda berhasil login');
-        } else if (Auth::user()->role === 'user') {
-            return redirect()->route('user')->with('Success', 'Anda berhasil login');
+if (Auth::attempt($infologin)) {
+    // Ambil user yang sedang login
+    $user = Auth::user();
+
+    // Langsung cek role tanpa memeriksa verifikasi email
+    if ($user->role === 'admin') {
+        return redirect()->route('admin')->with('Success', 'Hallo Admin, Anda berhasil login');
+    } else if ($user->role === 'user') {
+        // Cek apakah user sudah memiliki id_tabungan
+        if (!TabunganUser::where('user_id', $user->id)->exists()) {
+            // Membuatkan data tabungan untuk user yang belum punya id_tabungan
+            TabunganUser::create([
+                'user_id' => $user->id,
+                'id_tabungan' => TabunganUser::generateIdTabungan(),
+                'saldo' => 0, // Default saldo awal
+            ]);
         }
+
+        return redirect()->route('user')->with('Success', 'Anda berhasil login');
+    }
+
     } else {
         // Jika email atau password salah
         return redirect()->route('auth')->withErrors('Email atau password salah');
     }
-    
+
     }
 
     function create () {
         return view('landingpage/register');
     }
 
+    // function register
     public function register(Request $request)  {
     Log::info('Fungsi register dipanggil.');
 
@@ -127,6 +143,14 @@ class AuthController extends Controller
         ]);
         Log::info('Data user berhasil disimpan ke database dengan ID: ' . $user->id);
 
+        // **Tambahkan pembuatan id_tabungan di sini**
+        TabunganUser::create([
+            'user_id' => $user->id,
+            'id_tabungan' => TabunganUser::generateIdTabungan(), // Fungsi untuk menghasilkan ID tabungan
+            'saldo' => 0, // Saldo awal
+        ]);
+        Log::info('Data tabungan untuk user berhasil dibuat dengan ID tabungan: ' . $user->id);
+ 
         // Redirect ke halaman login dengan pesan sukses.
         return redirect()->route('auth')->with('success', 'Registrasi berhasil. Anda sekarang bisa login.');
 
