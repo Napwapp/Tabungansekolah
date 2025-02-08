@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tabungan_users', function (Blueprint $table) {
-            $table->unsignedBigInteger('total_tabungan')->default(0)->after('saldo'); // Menyimpan jumlah total tabungan user
+        Schema::table('penarikan_users', function (Blueprint $table) {
+            $table->string('id_tabungan')->after('user_id'); // Pastikan sesuai dengan tipe data di tabungan_users
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tabungan_users', function (Blueprint $table) {
-            $table->dropColumn('total_tabungan');
-
+        Schema::table('penarikan_users', function (Blueprint $table) {
+            //
         });
     }
 };

@@ -81,7 +81,7 @@
               <div class="spinner"></div>
               <p>Memproses transaksi...</p>
           </div>
-      </div>
+        </div>
 
 
       </form>

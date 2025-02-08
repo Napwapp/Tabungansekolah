@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menabung</title>
+  <title>Penarikan</title>
   <link rel="stylesheet" href="{{asset('dashboard/dist/transaksi/assets/csstransaksi/penarikan.css')}}">
 </head>
 <body>
@@ -20,9 +20,9 @@
             <div class="balance-container">
                 <div>
                   <div class="balance-info">Tabungan yang dapat ditarik</div>
-                  <div class="balance-amount">-</div>
+                  <div class="balance-amount">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</div>
                 </div>
-                <button class="button-tabung-semua">Tarik Semua</button>
+                <button class="button-tabung-semua" data-tabungan="{{ $totalTabungan }}">Tarik Semua</button>
             </div>
             <p class="note">Kamu bebas untuk menarik berapapun dari Tabunganmu tanpa ada batasan</p>
 
@@ -59,23 +59,55 @@
               </div>
             </div>
           
-            <form class="deposit-form">
-              <div class="input-wrapper">
-                <span class="input-label">Rp</span>
-                <input id="amount" type="text" placeholder="Jumlah Tabungan yang akan ditarik">
-                <!-- <div class="input-buttons">
-                    <button id="decrease-amount">-</button>
-                    <button id="increase-amount">+</button>
-                </div> -->
+            <form id="withdrawForm" action="{{ route('penarikan.store') }}" method="POST">
+              @csrf
+              <div class="deposit-form">
+                  <div class="input-wrapper">
+                      <span class="input-label">Rp</span>
+                      <input id="amount" name="formatted_amount" type="text" placeholder="Jumlah Tabungan yang akan ditarik" required min="20000" step="500">
+                      <input type="hidden" id="amountHidden" name="jumlah">
+                  </div>
               </div>
-            </form>
-          
-            <!-- Pembungkus tombol -->
-            <div class="button-wrapper">
-              <button class="deposit-button">Ajukan penarikan</button>
-            </div>
-        </div>          
+
+              <!-- Pembungkus tombol -->
+              <div class="button-wrapper">
+                  <button type="submit" class="deposit-button">Ajukan penarikan</button>
+
+                  <!-- Loading Indicator -->
+                  <div id="loadingIndicator" style="display: none;">
+                      <div class="spinner"></div>
+                      <p>Memproses transaksi...</p>
+                  </div>
+              </div>
+          </form>
+      </div>          
   </div>
+
   <script src="{{asset('dashboard/dist/transaksi/assets/jstransaksi/penarikan.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  @if ($errors->any())
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "error",
+                title: "Gagal!",
+                text: "{{ $errors->first() }}",
+            });
+        });
+    </script>
+@endif
+
+@if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "success",
+                title: "Berhasil!",
+                text: "{{ session('success') }}",
+            });
+        });
+    </script>
+@endif
+
 </body>
 </html>

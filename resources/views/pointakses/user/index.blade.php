@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabungan Sekolah</title>
     
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.css')}}">
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>

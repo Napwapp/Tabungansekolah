@@ -50,10 +50,14 @@ use Illuminate\Support\Facades\Auth;
         // route bagian tentang keungaan
         Route::get('/Topup-saldo', [PlusController::class, 'plus'])->name('plus'); //route top up saldo     
         Route::post('/isi-saldo', [PlusController::class, 'isiSaldo'])->name('isi-saldo');
+        
         Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung'); // untuk menabung
         Route::post('/tabung-uang', [MenabungController::class, 'tabungUang'])->name( 'tabung-uang'); // untuk menabung
-        Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik'); // untuk menarik tabungan
-       
+
+        Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik'); // untuk menarik tabunga
+        Route::post('/Menarik', [TarikController::class, 'store'])->name('penarikan.store'); // Menyimpan permintaan penarikan
+        //
+        
         Route::get('/Riwayat Transaksi', [RiwayatController::class, 'riwayat'])->name( 'riwayat'); // untuk tampilan riwayat transaksi
         Route::get('/Kontak kami', [ContactController::class, 'contact'])->name( 'contact'); // untuk tampilan kontak kami 
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout

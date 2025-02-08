@@ -18,15 +18,19 @@ class MenabungController extends Controller
         // Ambil saldo terbaru langsung dari database
         $tabungan = TabunganUser::where('user_id', $user->id)->first();
         $saldo = $tabungan ? $tabungan->saldo : 0;
-        
+        $totalTabungan = $tabungan ? $tabungan->total_tabungan : 0; // Ambil total tabungan dari database
+    
         // Hitung saldo yang dapat ditabung dengan menyisakan Rp10.000
         $saldoTersedia = max(0, $saldo - 10000);
         
         return view('pointakses.user.topup.menabung', [
             'saldo' => $saldo,
             'saldoTersedia' => $saldoTersedia,
+            'totalTabungan' => $totalTabungan, // Kirim ke Blade
         ]);   
     }
+    
+    
 
     public function tabungUang(Request $request){
         $request->validate([
@@ -36,9 +40,9 @@ class MenabungController extends Controller
         $user = auth()->user();
     
         DB::beginTransaction(); // Mulai transaksi database
-        
+    
         try {
-            // Ambil saldo terbaru langsung dari database untuk memastikan validitasnya
+            // Ambil saldo terbaru langsung dari database dengan lock untuk update yang aman
             $tabungan = TabunganUser::where('user_id', $user->id)->lockForUpdate()->first();
     
             if (!$tabungan) {
@@ -57,6 +61,10 @@ class MenabungController extends Controller
     
             // Kurangi saldo user
             $tabungan->saldo -= $request->jumlah;
+            
+            // Tambahkan jumlah ke total tabungan user
+            $tabungan->total_tabungan += $request->jumlah;
+    
             $tabungan->save();
     
             // Catat transaksi
@@ -80,5 +88,5 @@ class MenabungController extends Controller
                 'message' => 'Terjadi kesalahan saat memproses. Silakan coba lagi.'
             ], 500);
         }
-    }
+    }       
 }
