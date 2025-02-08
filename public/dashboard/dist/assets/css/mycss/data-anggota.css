@@ -1,0 +1,21 @@
+.table tr {
+    border: 1px solid black;
+}
+
+.table th:last-of-type {
+    border-right: 1px solid black;
+}
+
+.table th {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black; 
+}
+
+.table td {
+    border-left: 1px solid black;
+}
+
+.table td:last-of-type {
+    border-right: 1px solid black;
+}
