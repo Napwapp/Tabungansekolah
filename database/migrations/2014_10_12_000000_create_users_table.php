@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('kelas');
             $table->string('username');
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('re_password');
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('gambar');
+            $table->string('verify_key');
             $table->rememberToken();
             $table->timestamps();
         });
