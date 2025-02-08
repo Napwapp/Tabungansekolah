@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Str;
-
 
 class User extends Authenticatable
 {
@@ -49,19 +47,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public static function generateIdTabungan() {
-        return Str::random(13); // 13 karakter acak
-    }
-
-    // Relasi satu-ke-satu antara User dan TabunganUser
-   // Di model User.php
-   public function tabunganUser()
-   {
-       return $this->hasOne(TabunganUser::class, 'user_id'); // Hubungan one-to-one
-   }
-   
-
 }
-
-
