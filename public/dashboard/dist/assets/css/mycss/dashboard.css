@@ -410,3 +410,66 @@
   background-color: #d32f2f;
 }
 /* emd target tabungan */
+
+
+
+
+
+
+
+/* Pesan yang terlihat seperti notifikasi setelah user mengajukan pembayaran  */
+.notif-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4CAF50;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  animation: fadeIn 0.5s;
+}
+
+.notif-container.fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+.notif-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.notif-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.notif-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Animasi untuk menghilangkan notifikasi */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

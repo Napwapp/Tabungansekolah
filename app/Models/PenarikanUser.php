@@ -12,11 +12,14 @@ class PenarikanUser extends Model
     protected $table = 'penarikan_users';
 
     protected $fillable = [
-        'user_id',
-        'tabungan_id',
-        'jumlah',
-        'status'
+        'id_tabungan', 
+        'user_id', 
+        'jumlah', 
+        'status', 
+        'updated_at', 
+        'created_at'
     ];
+
 
     public function user()
     {

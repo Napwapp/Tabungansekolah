@@ -77,3 +77,41 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inisialisasi progress saat halaman dimuat
     calculateProgress();
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (sessionStorage.getItem("withdrawalSuccess")) {
+        // Tampilkan notifikasi
+        const notification = document.createElement("div");
+        notification.innerHTML = `
+            <div class="notif-container">
+                <div class="notif-icon">✔</div>
+                <div class="notif-text">
+                    <strong>Permintaan Berhasil!</strong>
+                    <p>Penarikan telah diajukan dan sedang menunggu persetujuan admin.</p>
+                </div>
+                <button class="notif-close">&times;</button>
+            </div>
+        `;
+        document.body.appendChild(notification);
+
+        // Hapus item dari sessionStorage agar tidak muncul lagi setelah reload
+        sessionStorage.removeItem("withdrawalSuccess");
+
+        // Event untuk menutup notifikasi
+        document.querySelector(".notif-close").addEventListener("click", function () {
+            notification.classList.add("fade-out");
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        });
+
+        // Otomatis menghilangkan notifikasi dengan fade-out dalam 5 detik
+        setTimeout(() => {
+            notification.classList.add("fade-out");
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, 4000);
+    }
+});

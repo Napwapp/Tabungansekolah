@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Penarikan</title>
   <link rel="stylesheet" href="{{asset('dashboard/dist/transaksi/assets/csstransaksi/penarikan.css')}}">
 </head>
@@ -66,6 +67,7 @@
                       <span class="input-label">Rp</span>
                       <input id="amount" name="formatted_amount" type="text" placeholder="Jumlah Tabungan yang akan ditarik" required min="20000" step="500">
                       <input type="hidden" id="amountHidden" name="jumlah">
+                      <input type="hidden" id="userRoute" value="{{ route('user') }}">
                   </div>
               </div>
 
@@ -106,6 +108,12 @@
                 text: "{{ session('success') }}",
             });
         });
+
+
+    const userRoute = "{{ route('user') }}";
+    // Kemudian di JS, gunakan:
+    window.location.href = userRoute;
+
     </script>
 @endif
 

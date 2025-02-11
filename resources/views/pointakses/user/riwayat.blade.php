@@ -161,107 +161,106 @@
                 </a>
             </header>
             
-<div class="page-heading">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Riwayat Transaksi</h3>
-                <p class="text-subtitle text-muted">Riwayat transaksimu</p>
-            </div>
-            <div class="col-12 col-md-6 order-md-2 order-first">
-                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Table</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contextual classes start -->
-    <section class="section">
-        <div class="row" id="table-contexual">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Riwayat</h4>
-                    </div>
-                    <div class="card-content">
-                        <!-- table contextual / colored -->
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Tanggal</th>
-                                        <th>Jumlah</th>
-                                        <th>Tipe</th>
-                                        <th>Nomer Tabungan</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-info">
-                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
-                                        <td>14-02-2025</td>
-                                        <td class="text-bold-500">+100.000</td>
-                                        <td>Top Up</td>
-                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
-                                        <td>...</td>
-                                        <td><button class="delete-btn">X</button></td>
-                                        <!-- nanti akan dibikin untuk actionnya -->
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
-                                        <td>15-02-2025</td>
-                                        <td class="text-bold-500">+90.000</td>
-                                        <td>Menabung</td>
-                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
-                                        <td>...</td>
-                                        <td><button class="delete-btn">X</button></td>
-                                        <!-- nanti akan dibikin untuk actionnya -->
-                                    </tr>
-                                    <tr class="table-danger">
-                                        <td class="text-bold-500">Muhamad Nawaf Abduh</td>
-                                        <td>16-02-2025</td>
-                                        <td class="text-bold-500">-90.000</td>
-                                        <td>Menarik Tabungan</td>
-                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
-                                        <td>...</td>
-                                        <td><button class="delete-btn">X</button></td>
-                                        <!-- nanti akan dibikin untuk actionnya -->
-                                    </tr>
-                                    <tr class="table-light">
-                                        <td class="text-bold-500">Mikkey Mice</td>
-                                        <td>$15/hr</td>
-                                        <td class="text-bold-500">Animation</td>
-                                        <td>Remote</td>
-                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
-                                        <td>...</td>
-                                        <td><button class="delete-btn">X</button></td>
-                                        <!-- nanti akan dibikin untuk actionnya -->
-                                    </tr>
-                                    <tr class="table-dark">
-                                        <td class="text-bold-500">Mikkey Mice</td>
-                                        <td>$15/hr</td>
-                                        <td class="text-bold-500">Animation</td>
-                                        <td>Remote</td>
-                                        <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td> <!-- akan dibenarkan (saat ini id masih tidak tersedia) -->
-                                        <td>...</td>
-                                        <td><button class="delete-btn">X</button></td>
-                                        <!-- nanti akan dibikin untuk actionnya -->
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Riwayat Transaksi</h3>
+                            <p class="text-subtitle text-muted">Riwayat transaksimu</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Table</li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- Contextual classes end -->
+
+                <!-- Filter Section -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="filterTipe">Filter Tipe Transaksi:</label>
+                        <select id="filterTipe" class="form-control">
+                            <option value="">Semua</option>
+                            <option value="Top Up">Top Up</option>
+                            <option value="Menabung">Menabung</option>
+                            <option value="Menarik Tabungan">Menarik Tabungan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filterStatus">Filter Status:</label>
+                        <select id="filterStatus" class="form-control">
+                            <option value="">Semua</option>
+                            <option value="Sukses">Sukses</option>
+                            <option value="Diproses">Diproses</option>
+                            <option value="Gagal">Gagal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Contextual classes start -->
+                <section class="section">
+                    <div class="row" id="table-contexual">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Riwayat</h4>
+                                </div>
+                                <div class="card-content">
+                                    <!-- table contextual / colored -->
+                                    <div class="table-responsive">
+                                        <table class="table mb-0" id="riwayatTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Tipe</th>
+                                                    <th>Nomer Tabungan</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-info">
+                                                    <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                                    <td>14-02-2025</td>
+                                                    <td class="text-bold-500">+100.000</td>
+                                                    <td>Top Up</td>
+                                                    <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td>
+                                                    <td>Sukses</td>
+                                                    <td><button class="delete-btn">X</button></td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                                    <td>15-02-2025</td>
+                                                    <td class="text-bold-500">+90.000</td>
+                                                    <td>Menabung</td>
+                                                    <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td>
+                                                    <td>Diproses</td>
+                                                    <td><button class="delete-btn">X</button></td>
+                                                </tr>
+                                                <tr class="table-danger">
+                                                    <td class="text-bold-500">Muhamad Nawaf Abduh</td>
+                                                    <td>16-02-2025</td>
+                                                    <td class="text-bold-500">-90.000</td>
+                                                    <td>Menarik Tabungan</td>
+                                                    <td>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</td>
+                                                    <td>Gagal</td>
+                                                    <td><button class="delete-btn">X</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
@@ -278,6 +277,7 @@
     </div>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
     
 </body>
 

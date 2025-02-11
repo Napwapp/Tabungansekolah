@@ -1,163 +1,161 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const buttonTabungSemua = document.querySelector(".button-tabung-semua");
-    const amountInput = document.getElementById("amount");
     const depositButton = document.querySelector(".deposit-button");
+    const amountInput = document.getElementById("amount");
+    const loadingIndicator = document.getElementById("loadingIndicator");
     const increaseButton = document.createElement("button");
     const decreaseButton = document.createElement("button");
 
-    // Menambahkan atribut untuk tombol + dan -
+    if (!depositButton || !amountInput) return;
+
     increaseButton.textContent = "+";
     decreaseButton.textContent = "-";
     increaseButton.classList.add("adjust-button");
     decreaseButton.classList.add("adjust-button");
-    increaseButton.setAttribute("type", "button");
-    decreaseButton.setAttribute("type", "button");
 
-    // Menambahkan tombol ke dalam DOM
     amountInput.parentNode.appendChild(increaseButton);
     amountInput.parentNode.appendChild(decreaseButton);
 
-    // Fungsi untuk memperbarui status tombol
-    function updateButtonState() {
-        if (amountInput.value.trim() === "") {
-            depositButton.classList.add("disabled");
-            depositButton.disabled = true;
-        } else {
-            depositButton.classList.remove("disabled");
-            depositButton.disabled = false;
+    function showLoading() {
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "flex";
         }
+        depositButton.classList.add("loading");
+        depositButton.disabled = true;
     }
 
-    // Fungsi untuk mengubah angka ke format ribuan (20.000)
+    function hideLoading() {
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "none";
+        }
+        depositButton.classList.remove("loading");
+        depositButton.disabled = false;
+    }
+
     function formatNumber(value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    // Fungsi untuk memperbarui input dengan nilai baru
-   // Update nilai input tersembunyi setiap kali input utama berubah
     function updateInputValue(newValue) {
-        amountInput.value = formatNumber(newValue); // Format dengan titik
-        document.getElementById("amountHidden").value = newValue; // Simpan angka asli tanpa titik
+        amountInput.value = formatNumber(newValue);
+        document.getElementById("amountHidden").value = newValue;
     }
 
-    // Pastikan input tersembunyi diperbarui sebelum form dikirim
-    document.querySelector("form").addEventListener("submit", function () {
-        let cleanValue = amountInput.value.replace(/\./g, ""); // Hapus titik sebelum dikirim
-        document.getElementById("amountHidden").value = cleanValue;
-    });
-
-    // Pastikan input tersembunyi selalu diperbarui
-    function updateHiddenInput() {
-        let cleanValue = amountInput.value.replace(/\./g, ""); // Hapus titik
-        document.getElementById("amountHidden").value = cleanValue; // Simpan angka asli
-    }
-
-    // Perbarui input tersembunyi saat input utama berubah
-    amountInput.addEventListener("input", updateHiddenInput);
-
-    // Perbarui sebelum form dikirim
-    document.querySelector("form").addEventListener("submit", function () {
-        updateHiddenInput(); // Pastikan nilai dikirim ke backend
-    });
-
-    // Event listener untuk tombol +
     increaseButton.addEventListener("click", function (event) {
         event.preventDefault();
         let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
         updateInputValue(currentAmount + 50000);
-        updateButtonState();
     });
 
-    // Event listener untuk tombol -
     decreaseButton.addEventListener("click", function (event) {
         event.preventDefault();
         let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
         if (currentAmount >= 50000) {
             updateInputValue(currentAmount - 50000);
         }
-        updateButtonState();
     });
 
-    // Event listener untuk input manual
     amountInput.addEventListener("input", function () {
-        let rawValue = amountInput.value.replace(/\D/g, ""); // Hanya angka
+        let rawValue = amountInput.value.replace(/\D/g, "");
         amountInput.value = formatNumber(rawValue);
-        updateButtonState();
     });
 
-    // 🔹 Event listener untuk tombol "Tarik Semua"
-    if (buttonTabungSemua) {
-        buttonTabungSemua.addEventListener("click", function () {
-            const totalTabungan = parseInt(buttonTabungSemua.getAttribute("data-tabungan").replace(/\./g, "")) || 0;
-            if (totalTabungan > 0) {
-                updateInputValue(totalTabungan);
-                updateButtonState();
-            } else {
-                if (typeof Swal !== "undefined") {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Saldo Kosong",
-                        text: "Anda tidak memiliki tabungan yang bisa ditarik.",
-                    });
-                } else {
-                    alert("Saldo Kosong: Anda tidak memiliki tabungan yang bisa ditarik.");
-                }
-            }
-        });
-    }
-
-    // Event listener untuk tombol penarikan
     depositButton.addEventListener("click", function (event) {
         event.preventDefault();
         let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
-
-        // Validasi jumlah penarikan
+    
+        // Validasi: Minimal penarikan harus 20.000
         if (currentAmount < 20000) {
-            if (typeof Swal !== "undefined") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Gagal!",
-                    text: "Minimal penarikan adalah Rp20.000!",
-                });
-            } else {
-                alert("Gagal! Minimal penarikan adalah Rp20.000!");
-            }
-            return;
-        }
-        if (currentAmount % 500 !== 0) {
-            if (typeof Swal !== "undefined") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Gagal!",
-                    text: "Masukkan kelipatan angka yang valid",
-                });
-            } else {
-                alert("Gagal! Masukkan kelipatan angka yang valid");
-            }
-            return;
-        }
-
-        // Konfirmasi penarikan
-        if (typeof Swal !== "undefined") {
             Swal.fire({
-                title: "Konfirmasi Penarikan",
-                text: `Anda akan menarik Rp${formatNumber(currentAmount)}. Lanjutkan?`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Ya, tarik!",
-                cancelButtonText: "Batal",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.querySelector("form").submit(); // Submit form jika disetujui
-                }
+                icon: "error",
+                title: "Gagal!",
+                text: "Minimal mengajukan penarikan adalah Rp20.000",
             });
-        } else {
-            if (confirm(`Anda akan menarik Rp${formatNumber(currentAmount)}. Lanjutkan?`)) {
-                document.querySelector("form").submit();
-            }
+            return;
         }
+    
+        // Validasi: Harus kelipatan 500
+        if (currentAmount % 500 !== 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Gagal!",
+                text: "Masukkan kelipatan angka yang valid",
+            });
+            return;
+        }
+    
+        // Cek apakah user sudah memiliki permintaan yang sedang diproses
+        if (sessionStorage.getItem("withdrawalPending") === "true") {
+            Swal.fire({
+                icon: "error",
+                title: "Gagal!",
+                text: "Anda sudah memiliki permintaan penarikan yang sedang diproses. Harap tunggu persetujuan admin.",
+            });
+            return;
+        }
+    
+        // Konfirmasi penarikan dengan SweetAlert
+        Swal.fire({
+            title: "Konfirmasi Penarikan",
+            text: `Anda akan menarik Rp${formatNumber(currentAmount)}. Lanjutkan?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, tarik!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                showLoading();
+                sessionStorage.setItem("withdrawalPending", "true");
+    
+                // Ambil route tujuan dari elemen hidden (atau default ke "/user")
+                const userRoute = document.getElementById("userRoute")
+                    ? document.getElementById("userRoute").value
+                    : "/user";
+    
+                const form = document.querySelector("form");
+                const formData = new FormData(form);
+    
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content")
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+                    if (data.success) {
+                        // Set sessionStorage agar notifikasi dapat ditampilkan di halaman user
+                        sessionStorage.setItem("withdrawalSuccess", "true");
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil!",
+                            text: data.message,
+                        }).then(() => {
+                            window.location.href = userRoute;
+                        });
+                    } else {
+                        sessionStorage.removeItem("withdrawalPending");
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal!",
+                            text: data.message,
+                        });
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    sessionStorage.removeItem("withdrawalPending");
+                    console.error("Error:", error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal!",
+                        text: "Terjadi kesalahan saat memproses!",
+                    });
+                });
+            }
+        });
     });
-
-    // Inisialisasi status tombol saat halaman dimuat
-    updateButtonState();
-});
+})    
