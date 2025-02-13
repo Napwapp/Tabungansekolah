@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
-    function kelasmin () {
+    function kelas () {
         return view('pointakses/user/tabungan_kelas');
     }
 }

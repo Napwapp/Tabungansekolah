@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan Kelas</title>
+    <title>Tabungan Siswa</title>
     
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-keuangan-kelas.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/png">
-    
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-siswa.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/tabungan/assets/css/tabungansiswa.css')}}"> 
 </head>
 
 <body>
@@ -54,6 +54,7 @@
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
                         </a>
+
                         </li>
                         <li
                         class="sidebar-item ">
@@ -70,10 +71,10 @@
                                 <span>Tabungan</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
-                                <li class="submenu-item ">
+                                <li class="submenu-item active">
                                     <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
@@ -81,7 +82,7 @@
 
                         <li
                         class="sidebar-item  ">
-                        <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
+                        <a href="{{route('pesan')}}" class='sidebar-link'>
                             <i class="bi bi-chat-dots-fill"></i>
                             <span>Riwayat Transaksi</span>
                         </a>
@@ -90,7 +91,7 @@
                                     
                         <li
                             class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                            <a href="{{route('contact')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
                             </a>
@@ -160,161 +161,133 @@
                     </ul>
                 </div>
             </div>
-        <div id="main" class="main"> 
-            <table class="container">
-        <h1>Data Keuangan Kelas</h1>
-            <tbody>               
-                <table class="kelas">
-                    <th>Jurusan</th>
-                    <th>Pengeluaran Total</th>
-                    <th>Pemasukan Total</th>
-                    <th>Dana Total</th>
-                    <th>Total Akhir</th>
-
-                <tr>
-                    <h2>Kelas 10</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            <table class="kelas">
-                <th>Jurusan</th>
-                <th>Pengeluaran Total</th>
-                <th>Pemasukan Total</th>
-                <th>Dana Total</th>
-                <th>Total Akhir</th>
-                <tr>
-                    <h2>Kelas 11</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-                <table class="kelas">
-                <tr>
-                    <h2>Kelas 12</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            </tbody>
-        </div>
+        <div id="main">
+            <p><!-- Content -->
+                <div class="content" style="margin-left: 30px;">
+                    <h2 class="mb-4">Informasi Tabungan Siswa</h2>
+    
+                    <!-- Kartu Informasi -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: white;">Total Saldo Tabungan</h5>
+                                    <h3 style="color: white;">Rp 0</h3>
+                                    <p>Semua Siswa.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body btn-green" style="border-radius: 10px;">
+                                    <h5 class="card-title" style="color: white;">Jumlah Transaksi</h5>
+                                    <h3 style="color: white;">Rp 0</h3>
+                                    <p>Hari Ini.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body btn-blue" style="border-radius: 10px;">
+                                    <h5 class="card-title " style="color: white;">Jumlah Siswa</h5>
+                                    <h3 style="color: white;">Rp 0</h3>
+                                    <p>Yang Menabung </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                   
+    
+                    <!-- Grafik Tabungan -->
+                    <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
+                    <div class="card bg-light text-dark mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Tabungan Siswa</h5>
+                            <canvas id="tabunganChart" height="100"></canvas>
+                        </div>
+                    </div>
+            </div>
+            <!-- UNTUK GRAFIK TABUNGAN -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('tabunganChart').getContext('2d');
+                const tabunganChart = new Chart(ctx, {
+                    type: 'line', // Pilih tipe grafik: line, bar, dll.
+                        data: {
+                            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Aug', 'Sept', 'Nov', 'Des'], // Ubah sesuai data Anda
+                            datasets: [{
+                                label: 'Jumlah Tabungan',
+                                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Data grafik
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                    }
+                }
+            });
+            </script>
+            <div class="container">
+    <h1>Data Siswa</h1>
+    <div class="search">
+        <input type="text" id="searchInput" placeholder="Cari anggota berdasarkan nama atau kelas...">
+        <button onclick="filterTable()">Cari</button>
     </div>
+    <div class="add-member">
+        <button onclick="addMember()">Tambah Anggota</button>
+    </div>
+    <table id="membersTable">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Jurusan</th>
+                <th>Total Saldo</th>
+                <th>Jumlah Setoran</th>
+                <th>Jumlah Penarikan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($datasiswa as $siswa)
+            <tr>
+                <td>{{ $siswa->nama }}</td>
+                <td>{{ $siswa->kelas }}</td>
+                <td>{{ $siswa->jurusan }}</td>
+                <td>{{ number_format($siswa->total_saldo, 0, ',', '.') }}</td>
+                <td>{{ number_format($siswa->setoran, 0, ',', '.') }}</td>
+                <td>{{ number_format($siswa->penarikan, 0, ',', '.') }}</td>
+                <td>
+                    <button onclick="editMember('{{ $siswa->id }}')">Edit</button>
+                    <button onclick="deleteMember('{{ $siswa->id }}')">Hapus</button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2025 &copy; SMKN 1 BINONG</p>
+            </div>
+            <div class="float-end">
+                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                href="https://smkn1binong.sch.id/home">SMKN 1 BINONG</a></p>
+            </div>
         </div>
+    </footer>
+             
+    <script src="{{asset('dashboard/dist/tabungan/assets/js/tabungansiswa.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>

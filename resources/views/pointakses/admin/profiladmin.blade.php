@@ -6,7 +6,7 @@
     <title>Profil</title>
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
     <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
@@ -73,14 +73,14 @@
                         <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="{{route('tabungan')}}">Data Tabungan Siswa</a>
+                        <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
                     </li>
                 </ul>
             </li>
 
             <li
             class="sidebar-item  ">
-            <a href="{{route('riwayat')}}" class='sidebar-link'>
+            <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
                 <i class="bi bi-chat-dots-fill"></i>
                 <span>Riwayat Transaksi</span>
             </a>
@@ -89,9 +89,9 @@
                         
             <li
                 class="sidebar-item  ">
-                <a href="{{route('contact')}}" class='sidebar-link'>
+                <a href="{{route('pesan')}}" class='sidebar-link'>
                     <i class="bi bi-envelope-fill"></i>
-                    <span>Kontak Kami</span>
+                    <span>Pesan</span>
                 </a>
             </li>
 

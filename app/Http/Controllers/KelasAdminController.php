@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class KelasAdminController extends Controller
 {
-    function kelasadmin () {
+    function kelasmin () {
         return view('pointakses/admin/tabungan_kelas_admin');
-    }}
+    }
+}

@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan Kelas</title>
+    <title>Tabungan Sekolah</title>
     
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-keuangan-kelas.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/png">
-    
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">    
 </head>
 
 <body>
-    <div id="app">
+<div id="app">
         <!-- sidebar -->
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -41,36 +39,29 @@
                     <ul class="menu">
 
                         <li
-                            class="sidebar-item">
-                            <a href="{{route('user')}}" class='sidebar-link'>
+                            class="sidebar-item ">
+                            <a href="{{route('admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li
-                        class="sidebar-item ">
-                        <a href="{{route('profile')}}" class='sidebar-link'>
+                        class="sidebar-item">
+                        <a href="{{route('profil')}}" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
                         </a>
                         </li>
-                        <li
-                        class="sidebar-item ">
-                        <a href="{{route('dataanggota')}}" class='sidebar-link'>
-                            <i class="bi bi-file-earmark-medical-fill"></i>
-                            <span>Daftar Anggota</span>
-                        </a>
-                        </li>
                         
                         <li
-                            class="sidebar-item  has-sub active">
+                            class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Tabungan</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
                                 <li class="submenu-item ">
@@ -80,7 +71,7 @@
                         </li>
 
                         <li
-                        class="sidebar-item  ">
+                        class="sidebar-item  active">
                         <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
                             <i class="bi bi-chat-dots-fill"></i>
                             <span>Riwayat Transaksi</span>
@@ -150,9 +141,9 @@
                                 <li class="submenu-item ">
                                     <a href="form-element-textarea.html">Textarea</a>
                                 </li>
+                                </li>
                             </ul>
                         </li> -->
-                    
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
@@ -160,162 +151,86 @@
                     </ul>
                 </div>
             </div>
-        <div id="main" class="main"> 
-            <table class="container">
-        <h1>Data Keuangan Kelas</h1>
-            <tbody>               
-                <table class="kelas">
-                    <th>Jurusan</th>
-                    <th>Pengeluaran Total</th>
-                    <th>Pemasukan Total</th>
-                    <th>Dana Total</th>
-                    <th>Total Akhir</th>
-
-                <tr>
-                    <h2>Kelas 10</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            <table class="kelas">
-                <th>Jurusan</th>
-                <th>Pengeluaran Total</th>
-                <th>Pemasukan Total</th>
-                <th>Dana Total</th>
-                <th>Total Akhir</th>
-                <tr>
-                    <h2>Kelas 11</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-                <table class="kelas">
-                <tr>
-                    <h2>Kelas 12</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            </tbody>
+        <div id="main">
+            <h1>Riwayat transaksi</h1>
+            <!-- Filter dan Pencarian -->
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <input type="date" class="form-control" id="startDate">
+            </div>
+            <div class="col-md-3">
+                <input type="date" class="form-control" id="endDate">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" id="transactionType">
+                    <option value="">Semua Transaksi</option>
+                    <option value="Setoran">Setoran</option>
+                    <option value="Penarikan">Penarikan</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="search" placeholder="Cari nama/NIS">
+            </div>
         </div>
+        
+        <!-- Tabel Riwayat Transaksi -->
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Nama Siswa</th>
+                    <th>NIS</th>
+                    <th>Kelas</th>
+                    <th>Jurusan</th>
+                    <th>Jenis Transaksi</th>
+                    <th>Nominal</th>
+                    <th>Saldo Akhir</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
+            <tbody id="transaksiBody">
+                
+            </tbody>
+        </table>
+
+        <!-- Tombol Ekspor dan Cetak -->
+        <button class="btn btn-primary">Export ke Excel</button>
+        <button class="btn btn-danger">Export ke PDF</button>
+        <button class="btn btn-success">Cetak</button>
     </div>
         </div>
-    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+
+<script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/admin/riwayatadmin")
+        .then(response => response.json())
+        .then(data => {
+            let transaksiBody = document.getElementById("transaksiBody");
+            transaksiBody.innerHTML = "";
+
+            data.forEach((transaksi, index) => {
+                let row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${transaksi.tanggal}</td>
+                    <td>${transaksi.nama_siswa}</td>
+                    <td>${transaksi.nis}</td>
+                    <td>${transaksi.kelas}</td>
+                    <td>${transaksi.jurusan}</td>
+                    <td>${transaksi.jenis_transaksi}</td>
+                    <td>Rp${new Intl.NumberFormat().format(transaksi.nominal)}</td>
+                    <td>Rp${new Intl.NumberFormat().format(transaksi.saldo_akhir)}</td>
+                    <td>${transaksi.keterangan || '-'}</td>
+                </tr>`;
+                transaksiBody.innerHTML += row;
+            });
+        })
+        .catch(error => console.error("Error fetching data:", error));
+});
+</script>
+        
 </body>
+
 </html>

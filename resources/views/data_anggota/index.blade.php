@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data_anggota</title>
+    <title>Data-anggota</title>
     
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
     
 <link rel="stylesheet" href="{{asset('dashboard/dist/assets/extensions/simple-datatables/style.css')}}">
 <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/simple-datatables.css')}}">
@@ -80,7 +80,7 @@
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Data Tabungan Siswa</a>
+                                    <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
                         </li>

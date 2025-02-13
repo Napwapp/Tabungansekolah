@@ -12,6 +12,14 @@ use App\Http\Controllers\TarikController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DataMahasiswa;
+use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\DataSiswaControlller;
+use App\Http\Controllers\DataTabunganSiswa;
+use App\Http\Controllers\KelasAdminController;
+use App\Http\Controllers\PesanController;
+use App\Http\Controllers\RiwayatAdminController;
+use App\Models\admin;
+use App\Models\DataSiswa;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -47,7 +55,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
         
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile'); // route profil 
         Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name( name: 'tabungan'); // route tabungansiswa
-        Route::get('/tabungan_kelas', [KelasController::class, 'kelasmin'])->name( 'kelasmin'); // route tabungan kelas
+        Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name( 'kelas'); // route tabungan kelas
         Route::get('/Topup saldo', [PlusController::class, 'plus'])->name( 'plus'); // route untuk tambah saldo 
         Route::get('/Menabung', [MenabungController::class, 'menabung'])->name( 'menabung'); // untuk menabung
         Route::get('/Menarik', [TarikController::class, 'menarik'])->name( 'menarik'); // untuk menarik tabungan
@@ -63,8 +71,10 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
     // Route::redirect('/home', '/user');
         Route::get('/admin/profile', [AdminController::class, 'adminprofil'])->name('profil');
         Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
-
-
+        Route::get('/admin/tabungan_kelas_admin', [KelasAdminController::class, 'kelasmin'])->name('kelasmin');
+        Route::get('/admin/datasiswa', [DataSiswaController::class, 'datasiswa'])->name('datasiswa');
+        Route::get('/admin/riwayatadmin', [RiwayatAdminController::class, 'riwayatadmin'])->name('riwayatadmin');
+        Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
 
 
 
