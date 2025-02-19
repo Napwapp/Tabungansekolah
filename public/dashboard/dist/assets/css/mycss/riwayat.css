@@ -1,0 +1,183 @@
+/* Tombol Hapus */
+.delete-btn {
+    background-color: #c0392b; /* Merah yang lebih pekat */
+    color: white;
+    width: 30px; /* Sedikit diperbesar */
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border: none;
+    border-radius: 2px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.delete-btn i {
+    background-color: transparent; /* Ikon mengikuti warna tombol */
+    color: white;
+    font-size: 18px; /* Ukuran ikon sedikit lebih besar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Efek hover */
+.delete-btn:hover {
+    background-color: #a83227; /* Warna lebih pekat saat hover */
+}
+
+/* Efek klik */
+.delete-btn:active {
+    transform: scale(0.95);
+}
+
+/* Container untuk filter dropdown */
+.filter-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #888; /* Border lebih gelap */
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #f9f9f9; /* Latar belakang lebih gelap */
+    cursor: pointer;
+}
+
+/* Style untuk elemen select */
+.filter-container select {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 8px;
+    background: transparent;
+    font-weight: 600; /* Lebih tebal agar lebih terlihat */
+    color: #333; /* Warna lebih gelap */
+    /* Menghilangkan tampilan default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Style untuk tanda panah */
+.filter-arrow {
+    font-size: 18px; /* Sedikit diperbesar */
+    color: #555; /* Warna lebih gelap */
+    margin-left: 5px;
+}
+
+/* Status Badge (warna status) */
+.status-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px; /* Padding lebih besar agar lebih jelas */
+    border-radius: 20px; /* Membuat sudut lebih membulat */
+    font-size: 0.9em; /* Ukuran teks lebih besar */
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+    height: 28px;
+    white-space: nowrap;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Border untuk menambah kontras */
+}
+
+/* Status Sukses (Berhasil) - Hijau */
+.status-badge.sukses {
+    background-color: #4CAF50; /* Hijau lebih pekat */
+    color: #fff;
+}
+
+/* Status Diproses (Menunggu persetujuan) - Kuning */
+.status-badge.diproses {
+    background-color: #f1c40f; /* Kuning lebih pekat */
+    color: #eee; /* Warna teks lebih gelap untuk kontras */
+}
+
+/* Status Gagal - Merah */
+.status-badge.gagal {
+    background-color: #e74c3c; /* Merah lebih pekat */
+    color: #fff;
+}
+
+
+/* ====== Styling Tabel ====== */
+
+/* Header tabel */
+.table thead {
+    background-color: #d2d2d2; /* Warna latar belakang lebih gelap */
+    color: #333; /* Warna teks lebih gelap agar terbaca */
+    font-weight: bold;
+}
+
+/* Border tabel */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid #ccc; /* Warna border lebih tegas */
+}
+
+/* Baris tabel */
+.table tbody tr {
+    background-color: #f9f9f9; /* Warna lebih soft */
+    color: #222; /* Warna teks lebih pekat agar lebih terbaca */
+}
+
+/* Baris alternatif */
+.table tbody tr:nth-child(even) {
+    background-color: #f1f1f1; /* Warna sedikit lebih gelap dari baris biasa */
+}
+
+
+/* Cell tabel */
+.table th,
+.table td {
+    padding: 12px;
+    border: 1px solid #bbb; /* Border lebih tegas */
+    text-align: left;
+}
+
+/* Center alignment untuk kolom tertentu */
+.table td.text-center {
+    text-align: center;
+}
+
+
+/* ====== Styling untuk Choices.js Dropdown ====== */
+
+/* Mengubah latar belakang dropdown agar lebih gelap */
+.choices__inner {
+    color: #111 !important; /* Warna teks lebih gelap agar kontras */
+    border: 2px solid #999 !important; /* Border lebih jelas */
+}
+
+/* Warna dropdown ketika terbuka */
+.choices__list--dropdown {
+    background-color: #e0e0e0 !important; /* Latar belakang lebih gelap agar terlihat jelas */
+    border: 1px solid #999 !important;
+}
+
+/* Warna item dalam dropdown */
+.choices__list--dropdown .choices__item {
+    color: #222 !important; /* Warna teks lebih gelap agar kontras */
+}
+
+/* Highlight saat pilihan dihover atau dipilih */
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: #bbbbbb !important; /* Warna lebih gelap agar lebih jelas */
+    color: #000 !important; /* Warna teks tetap kontras */
+}
+
+/* Warna untuk pilihan yang sudah dipilih */
+.choices__list--single .choices__item {
+    color: #222 !important; /* Warna teks lebih gelap */
+}
+
+/* Menyesuaikan placeholder */
+.choices__placeholder {
+    color: #555 !important; /* Warna placeholder lebih jelas */
+    opacity: 1 !important; /* Tidak terlalu transparan */
+}
+

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AuthMail;
 use App\Models\User;
 use App\Models\TabunganUser;
 use Illuminate\Http\Request;
@@ -11,28 +10,25 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    // untuk menampilkan halaman login
-    function index () {
+    function index()
+    {
         return view('landingpage/login');
     }
 
     function login(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'email' => 'required',
-        'password' => 'required'
-    ], [
-        'email.required' => 'Email Wajib diisi!',
-        'password.required' => 'Password Wajib diisi!'
-    ]);
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ], [
+            'email.required' => 'Email Wajib diisi!',
+            'password.required' => 'Password Wajib diisi!'
+        ]);
 
-    // Informasi login
-    $infologin = [
-        'email' => $request->email,
-        'password' => $request->password
-    ];
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
 
+<<<<<<< HEAD
     // Proses login
 if (Auth::attempt($infologin)) {
     // Ambil user yang sedang login
@@ -61,13 +57,35 @@ if (Auth::attempt($infologin)) {
     }
 
     }
+=======
+            if ($user->role === 'admin') {
+                return redirect()->route('admin')->with('Success', 'Hallo Admin, Anda berhasil login');
+            } elseif ($user->role === 'user') {
+                if (!TabunganUser::where('user_id', $user->id)->exists()) {
+                    TabunganUser::create([
+                        'user_id' => $user->id,
+                        'id_tabungan' => TabunganUser::generateIdTabungan(),
+                        'saldo' => 0,
+                    ]);
+                }
+                return redirect()->route('user')->with('Success', 'Anda berhasil login');
+            }
+        }
+        return redirect()->route('auth')->withErrors('Email atau password salah');
+    }
+>>>>>>> profile
 
-    function create () {
+    function create()
+    {
         return view('landingpage/register');
     }
 
+<<<<<<< HEAD
     // function register
     public function register(Request $request)  {
+=======
+    public function register(Request $request){
+>>>>>>> profile
     Log::info('Fungsi register dipanggil.');
 
     // **1. Validasi Input**
@@ -103,15 +121,34 @@ if (Auth::attempt($infologin)) {
     Log::info('Validasi berhasil.');
 
     try {
-        // **2. Proses Upload Gambar**
-        Log::info('Proses upload gambar dimulai.');
+            $path = public_path('picture/accounts');
+            if (!file_exists($path)) mkdir($path, 0755, true);
 
-        // Pastikan folder tujuan ada, buat jika belum ada.
-        $path = public_path('picture/accounts');
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
-            Log::info('Folder untuk gambar dibuat: ' . $path);
+            $gambar_file = $request->file('gambar');
+            $nama_gambar = date('ymdhis') . '.' . $gambar_file->extension();
+            $gambar_file->move($path, $nama_gambar);
+
+            $user = User::create([
+                'namalengkap' => $request->namalengkap,
+                'kelas' => $request->kelas,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gambar' => $nama_gambar,
+            ]);
+
+            TabunganUser::create([
+                'user_id' => $user->id,
+                'id_tabungan' => TabunganUser::generateIdTabungan(),
+                'saldo' => 0,
+            ]);
+
+            return redirect()->route('auth')->with('success', 'Registrasi berhasil. Anda sekarang bisa login.');
+        } catch (\Throwable $e) {
+            Log::error('Error saat registrasi: ' . $e->getMessage());
+            return redirect()->back()->withErrors('Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
         }
+<<<<<<< HEAD
 
         // Ambil file gambar dari request.
         $gambar_file = $request->file('gambar');
@@ -168,3 +205,13 @@ if (Auth::attempt($infologin)) {
         return redirect('/');
     }
 }
+=======
+    }
+
+    function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+}
+>>>>>>> profile

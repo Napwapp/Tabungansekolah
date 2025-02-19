@@ -84,7 +84,7 @@
                             class="sidebar-item  ">
                             <a href="{{route('contact')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
                             </a>
                         </li>
 
