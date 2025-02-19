@@ -63,7 +63,7 @@
                         </a>
                         </li>
                         
-                        <li
+                        <li 
                             class="sidebar-item  has-sub active">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-basket-fill"></i>
@@ -73,9 +73,7 @@
                                 <li class="submenu-item active">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-                                </li>
+                                
                             </ul>
                         </li>
 

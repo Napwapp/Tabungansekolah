@@ -53,6 +53,14 @@
                             <span>Profil</span>
                         </a>
                         </li>
+
+                        <li
+                        class="sidebar-item">
+                        <a href="{{route('dataanggota')}}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Daftar Anggota</span>
+                        </a>
+                        </li>
                         
                         <li
                             class="sidebar-item  has-sub">
@@ -64,9 +72,7 @@
                                 <li class="submenu-item ">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-                                </li>
+                                
                             </ul>
                         </li>
 
@@ -177,20 +183,27 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>Nama</th>
                     <th>Tanggal</th>
-                    <th>Nama Siswa</th>
-                    <th>NIS</th>
-                    <th>Kelas</th>
-                    <th>Jurusan</th>
-                    <th>Jenis Transaksi</th>
-                    <th>Nominal</th>
-                    <th>Saldo Akhir</th>
-                    <th>Keterangan</th>
+                    <th>Jumlah</th>
+                    <th>Tipe</th>
+                    <th>Nomor Tabungan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody id="transaksiBody">
-                
+                @foreach ($riwayats as $data)
+                <tr>
+            <td>{{ $data->nama }}</td>
+            <td>{{ $data->tanggal }}</td>
+            <td>{{ $data->jumlah }}</td>
+            <td>{{ $data->tipe }}</td>
+            <td>{{ $data->nomor_tabungan }}</td>
+            <td>{{ $data->status }}</td>
+            <td>{{ $data->aksi }}</td>
+        </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -204,31 +217,7 @@
 <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
 <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch("/admin/riwayatadmin")
-        .then(response => response.json())
-        .then(data => {
-            let transaksiBody = document.getElementById("transaksiBody");
-            transaksiBody.innerHTML = "";
-
-            data.forEach((transaksi, index) => {
-                let row = `<tr>
-                    <td>${index + 1}</td>
-                    <td>${transaksi.tanggal}</td>
-                    <td>${transaksi.nama_siswa}</td>
-                    <td>${transaksi.nis}</td>
-                    <td>${transaksi.kelas}</td>
-                    <td>${transaksi.jurusan}</td>
-                    <td>${transaksi.jenis_transaksi}</td>
-                    <td>Rp${new Intl.NumberFormat().format(transaksi.nominal)}</td>
-                    <td>Rp${new Intl.NumberFormat().format(transaksi.saldo_akhir)}</td>
-                    <td>${transaksi.keterangan || '-'}</td>
-                </tr>`;
-                transaksiBody.innerHTML += row;
-            });
-        })
-        .catch(error => console.error("Error fetching data:", error));
-});
+    
 </script>
         
 </body>

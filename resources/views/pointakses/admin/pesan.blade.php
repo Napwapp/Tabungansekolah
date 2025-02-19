@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesan User</title>
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/pesan.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
 </head>
 <body>
+<div id="app"
     <!-- sidebar -->
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
@@ -49,6 +51,14 @@
                         <span>Profil</span>
                     </a>
                     </li>
+
+                    <li
+                        class="sidebar-item">
+                        <a href="{{route('dataanggota')}}" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                            <span>Daftar Anggota</span>
+                        </a>
+                        </li>
                     
                     <li
                         class="sidebar-item  has-sub">
@@ -60,9 +70,7 @@
                             <li class="submenu-item ">
                                 <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                             </li>
-                            <li class="submenu-item ">
-                                <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-                            </li>
+                            
                         </ul>
                     </li>
 
@@ -148,36 +156,140 @@
         </div>
         
         <div id="main">
-            <h1>Pesan</h1>
-        <h2 class="text-2xl font-semibold mb-4">Pesan dari Pengguna</h2>
-        <table class="min-w-full bg-white border border-gray-200">
-            <thead>
-                <tr>
-                    <th class="border px-4 py-2">Nama</th>
-                    <th class="border px-4 py-2">Subjek</th>
-                    <th class="border px-4 py-2">Deskripsi</th>
-                    <th class="border px-4 py-2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="border px-4 py-2">Ahmad</td>
-                    <td class="border px-4 py-2">Laporan Bug</td>
-                    <td class="border px-4 py-2">Tombol simpan tidak berfungsi di halaman tabungan.</td>
-                    <td class="border px-4 py-2"><button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Balas</button></td>
-                </tr>
-                <tr>
-                    <td class="border px-4 py-2">Siti</td>
-                    <td class="border px-4 py-2">Saran</td>
-                    <td class="border px-4 py-2">Mohon tambahkan fitur pencarian data tabungan.</td>
-                    <td class="border px-4 py-2"><button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Balas</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="container">
+        <div class="content">
+            <h1 class="text-2xl font-semibold mb-4">Pesan dari Pengguna</h1>
+            <div class="filter-search-container">
+    <div class="filter-container">
+        <label for="filter">Filter Kategori:</label>
+        <select id="filter" class="border rounded-lg px-3 py-2" onchange="filterMessages()">
+            <option value="all">Semua</option>
+            <option value="bug">Laporan Bug</option>
+            <option value="saran">Saran</option>
+            <option value="saran">Selesai</option>
+        </select>
     </div>
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="search" class="search-input" placeholder="Cari pesan..." onkeyup="searchMessages(event)">
+            <button id="search-btn" class="search-button" onclick="searchMessages()">🔍</button>
         </div>
+    </div>
+</div>
+            <div id="messages" class="message-container">
+                <div class="message-card" data-category="bug" data-id="1">
+                    <div class="message-header">
+                        <input type="checkbox" class="message-checkbox" onchange="saveStatus(1)">
+                        Laporan Bug
+                    </div>
+                    <div class="message-body">
+                        <div class="user-info">
+                            <img src="{{asset('dashboard/dist/assets/images/samples/_3.jpeg') }}" alt="Profile Mitsuki" class="profile-pic">
+                            <p><strong>Nama:</strong> Mitsuki </p>
+                            <p><strong>Email:</strong> mitsuki@gmail.com </p>
+                            <p><strong>Tanggal:</strong>15 Februari 2025</p>
+                        </div>
+                        <p><strong>Deskripsi:</strong> Tombol simpan tidak berfungsi di halaman tabungan.</p>
+                    </div>
+                    <button class="reply-button">Balas</button>
+                </div>
+
+                <div class="message-card" data-category="saran" data-id="2">
+                    <div class="message-header">
+                        <input type="checkbox" class="message-checkbox" onchange="saveStatus(2)">
+                        Saran
+                    </div>
+                    <div class="message-body">
+                        <div class="user-info">
+                            <img src="{{asset('dashboard/dist/assets/images/samples/✧ Stelle.jpeg')  }}" alt="Profile Stelle" class="profile-pic">
+                            <p><strong>Nama:</strong> Stelle </p>
+                            <p><strong>Email:</strong> stelle@gmail.com </p>
+                            <p><strong>Tanggal:</strong> 14 Februari 2025 </p>
+                        </div>
+                        <p><strong>Deskripsi:</strong> Mohon tambahkan fitur pencarian data tabungan.</p>
+                    </div>
+                    <button class="reply-button">Balas</button>
+                    </div>
+
+                <div class="message-card completed" data-category="selesai" data-id="3">
+                    <div class="message-header">
+                        <input type="checkbox" class="message-checkbox" onchange="saveStatus(3)">
+                        Saran - <span class="status-tabel">Sudah Dibalas & Selesai</span>
+                    </div>
+                    <div class="message-body">
+                        <div class="user-info">
+                            <img src="{{asset('dashboard/dist/assets/images/samples/🥝✧﹒ danheng png ☆.jpeg')  }}" alt="Profile Dan Heng" class="profile-pic">
+                            <p><strong>Nama:</strong> Dan Heng </p>
+                            <p><strong>Email:</strong> danang@gmail.com </p>
+                            <p><strong>Tanggal:</strong> 12 Februari 2025 </p>
+                        </div>
+                        <p><strong>Deskripsi:</strong> Tolong tambahkan fitur Edit Profil agar pengguna bisa mengedit atau mengubah data pribadi kami.</p>
+                        <p class="admin-reply"><strong>Admin:</strong>Terima kasih atas saran nya! fitur nya sedang kami kerjakan dan akan selesai dalam beberapa saat.</p>
+                    </div>
+                    <button class="reply-button">Sudah Dibalas</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <script>
+        function searchMessages(event) {
+        if (event && event.key === "Enter") {
+            document.getElementById("search-btn").click();
+        }
+
+        let query = document.getElementById("search").value.toLowerCase();
+        let messages = document.querySelectorAll(".message-card");
+
+        messages.forEach(message => {
+            let text = message.innerText.toLowerCase();
+            if (text.includes(query)) {
+                message.style.display = "block";
+            } else {
+                message.style.display = "none";
+            }
+        });
+    }
+
+        function filterMessages() {
+        let filter = document.getElementById('filter').value;
+        let messages = document.querySelectorAll('.message-card');
+
+        messages.forEach(message => {
+            if (filter === 'all' || message.getAttribute('data-category') === filter) {
+                message.style.display = 'block';
+            } else {
+                message.style.display = 'none';
+            }
+        });
+    }
+
+    function saveStatus(id) {
+        let checkbox = document.querySelector(`.message-card[data-id="${id}"] .message-checkbox`);
+        localStorage.setItem(`message_${id}_checked`, checkbox.checked);
+    }
+
+    function loadStatus() {
+        let checkboxes = document.querySelectorAll('.message-checkbox');
+        checkboxes.forEach(checkbox => {
+            let id = checkbox.closest('.message-card').getAttribute('data-id');
+            let savedStatus = localStorage.getItem(`message_${id}_checked`);
+            if (savedStatus === 'true') {
+                checkbox.checked = true;
+            }
+        });
+    }
+
+    // Panggil saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', loadStatus);
+    </script>    
 
         <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
         <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+        
 </body>
 </html>

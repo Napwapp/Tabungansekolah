@@ -87,7 +87,7 @@
 
                         <li
                         class="sidebar-item  ">
-                        <a href="{{route('riwayat')}}" class='sidebar-link'>
+                        <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
                             <i class="bi bi-chat-dots-fill"></i>
                             <span>Riwayat Transaksi</span>
                         </a>
@@ -95,7 +95,7 @@
                                 
                         <li
                             class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                            <a href="{{route('pesan')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Kontak Kami</span>
                             </a>

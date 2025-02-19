@@ -72,9 +72,7 @@
                     <li class="submenu-item ">
                         <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                     </li>
-                    <li class="submenu-item ">
-                        <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-                    </li>
+                    
                 </ul>
             </li>
 
@@ -201,6 +199,9 @@
                         <span>No Telepon</span>
                         <span>+62 890 0000 0000</span>
                     </div>
+                    <div class="profile-actions">
+            <a href="{{ route('edit') }}" class="btn btn-primary">Edit Profil</a>
+        </div>
 
 <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
 <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>

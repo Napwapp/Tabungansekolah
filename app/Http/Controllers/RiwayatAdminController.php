@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tabungan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class RiwayatAdminController extends Controller
 {
-    function riwayatadmin()
+    public function riwayatadmin()
     {
-        return view('pointakses.admin.riwayatadmin');
-    }
-
-    public function gettransaksi()
-    {
-        $transaksis = Transaksi::orderBy('tanggal', 'desc')->get();
-        return response()->json($transaksis);
+        $riwayats = Tabungan::all();
+        
+        return view('pointakses.admin.riwayatadmin', compact('riwayats'));
     }
 }

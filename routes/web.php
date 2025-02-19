@@ -15,6 +15,7 @@ use App\Http\Controllers\DataMahasiswa;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\DataSiswaControlller;
 use App\Http\Controllers\DataTabunganSiswa;
+use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\KelasAdminController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\RiwayatAdminController;
@@ -74,7 +75,9 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
         Route::get('/admin/tabungan_kelas_admin', [KelasAdminController::class, 'kelasmin'])->name('kelasmin');
         Route::get('/admin/datasiswa', [DataSiswaController::class, 'datasiswa'])->name('datasiswa');
         Route::get('/admin/riwayatadmin', [RiwayatAdminController::class, 'riwayatadmin'])->name('riwayatadmin');
+        Route::get('/admin/transaksi', [RiwayatAdminController::class, 'transaksi']);
         Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
+        Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
 
 
 

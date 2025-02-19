@@ -77,15 +77,12 @@
                     <li class="submenu-item ">
                         <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                     </li>
-                    <li class="submenu-item ">
-                        <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-                    </li>
                 </ul>
             </li>
 
             <li
             class="sidebar-item  ">
-            <a href="{{route('pesan')}}" class='sidebar-link'>
+            <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
                 <i class="bi bi-chat-dots-fill"></i>
                 <span>Riwayat Transaksi</span>
             </a>
