@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Models\TabunganUser;
 use App\Models\TransaksiMenabungUser;
 use App\Models\User;
@@ -32,51 +33,62 @@ class MenabungController extends Controller
     
     
 
-    public function tabungUang(Request $request){
+    public function tabungUang(Request $request)
+    {
         $request->validate([
             'jumlah' => 'required|numeric|min:10000',
         ]);
-    
+
+        // Pastikan jumlah yang dimasukkan adalah kelipatan 500
+        if ($request->jumlah % 500 !== 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Masukan kelipatan angka yang valid! Kelipatan 500'
+            ], 400);
+        }
+
         $user = auth()->user();
-    
+
         DB::beginTransaction(); // Mulai transaksi database
-    
+
         try {
             // Ambil saldo terbaru langsung dari database dengan lock untuk update yang aman
             $tabungan = TabunganUser::where('user_id', $user->id)->lockForUpdate()->first();
-    
+
             if (!$tabungan) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tabungan tidak ditemukan.'
                 ], 400);
             }
-    
+
             if ($tabungan->saldo < $request->jumlah) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Saldo tidak mencukupi untuk menabung.'
                 ], 400);
             }
-    
+
             // Kurangi saldo user
             $tabungan->saldo -= $request->jumlah;
             
             // Tambahkan jumlah ke total tabungan user
             $tabungan->total_tabungan += $request->jumlah;
-    
+
             $tabungan->save();
-    
-            // Catat transaksi
+
+            // Catat transaksi menabung
             TransaksiMenabungUser::create([
-                'user_id' => $user->id,
-                'tabungan_id' => $tabungan->id,
-                'jumlah' => $request->jumlah,
-                'status' => 'berhasil'
-            ]);
-    
+                'user_id'      => $user->id,
+                'id_tabungan'  => $tabungan->id_tabungan, // Sesuai dengan database
+                'jumlah'       => $request->jumlah,
+                'status'       => 'Sukses', // Sementara default berhasil
+                'namalengkap'  => $user->namalengkap,
+                'kelas'        => $user->kelas,
+            ]);            
+
             DB::commit(); // Simpan perubahan jika semuanya berhasil
-    
+
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil menabung Rp ' . number_format($request->jumlah, 0, ',', '.')
@@ -88,5 +100,5 @@ class MenabungController extends Controller
                 'message' => 'Terjadi kesalahan saat memproses. Silakan coba lagi.'
             ], 500);
         }
-    }       
+    }
 }

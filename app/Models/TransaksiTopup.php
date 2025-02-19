@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; // Tambahkan ini
 
-class TransaksiMenabungUser extends Model
+class TransaksiTopup extends Model
 {
     use HasFactory, SoftDeletes; // Gunakan SoftDeletes
 
-    protected $table = 'transaksi_menabung_users';
+    protected $table = 'transaksi_topup';
 
     protected $fillable = [
         'user_id',
         'id_tabungan',
-        'jumlah', 
-        'status',
         'namalengkap',
-        'kelas'       
+        'kelas',
+        'jumlah',
+        'status',
     ];
 
-    protected $dates = ['deleted_at']; // Agar deleted_at otomatis dikonversi ke Carbon
+    protected $dates = ['deleted_at']; // Agar deleted_at dikonversi ke Carbon
 
     public function user()
     {
@@ -30,5 +30,5 @@ class TransaksiMenabungUser extends Model
 
     public function tabungan(){
         return $this->belongsTo(TabunganUser::class, 'id_tabungan', 'id_tabungan');
-    }    
+    }
 }

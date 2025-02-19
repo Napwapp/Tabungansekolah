@@ -9,20 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('penarikan_users', function (Blueprint $table) {
-            $table->string('id_tabungan')->after('user_id'); // Pastikan sesuai dengan tipe data di tabungan_users
+            $table->string('namalengkap')->after('user_id');
+            $table->string('kelas')->after('namalengkap');
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('penarikan_users', function (Blueprint $table) {
-            $table->dropColumn('id_tabungan');
+            $table->dropColumn(['namalengkap', 'kelas']);
         });
     }
 };

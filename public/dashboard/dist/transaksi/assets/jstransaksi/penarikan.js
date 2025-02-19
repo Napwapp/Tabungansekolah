@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
     
-        // Validasi: Minimal penarikan harus 20.000
         if (currentAmount < 20000) {
             Swal.fire({
                 icon: "error",
@@ -73,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     
-        // Validasi: Harus kelipatan 500
         if (currentAmount % 500 !== 0) {
             Swal.fire({
                 icon: "error",
@@ -83,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     
-        // Cek apakah user sudah memiliki permintaan yang sedang diproses
         if (sessionStorage.getItem("withdrawalPending") === "true") {
             Swal.fire({
                 icon: "error",
@@ -93,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     
-        // Konfirmasi penarikan dengan SweetAlert
         Swal.fire({
             title: "Konfirmasi Penarikan",
             text: `Anda akan menarik Rp${formatNumber(currentAmount)}. Lanjutkan?`,
@@ -106,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 showLoading();
                 sessionStorage.setItem("withdrawalPending", "true");
     
-                // Ambil route tujuan dari elemen hidden (atau default ke "/user")
                 const userRoute = document.getElementById("userRoute")
                     ? document.getElementById("userRoute").value
                     : "/user";
@@ -127,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     hideLoading();
                     if (data.success) {
-                        // Set sessionStorage agar notifikasi dapat ditampilkan di halaman user
                         sessionStorage.setItem("withdrawalSuccess", "true");
                         Swal.fire({
                             icon: "success",
@@ -158,4 +152,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-})    
+});

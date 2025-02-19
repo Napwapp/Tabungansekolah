@@ -61,32 +61,31 @@
         </div>
       </div>
 
-      <form id="menabungForm" action="{{route('tabung-uang')}}" method="POST">
+      <form id="menabungForm" action="{{ route('tabung-uang') }}" method="POST">
         @csrf
-        <div class="deposit-form">
-          <div class="input-wrapper">
-            <span class="input-label">Rp</span>
-            <input id="amount" name="jumlah" type="text" placeholder="Jumlah saldo yang akan ditabung" required>
+          <div class="deposit-form">
+            <div class="input-wrapper">
+              <span class="input-label">Rp</span>
+              <input id="amount" name="jumlah" type="text" placeholder="Jumlah saldo yang akan ditabung" required>
+              <input type="hidden" id="userRoute" value="{{ route('user') }}">
+            </div>
+            <p class="note">Fitur tabungan sebagian belum tersedia. Anda hanya bisa menabung semua saldo.</p>
           </div>
-          <p class="note">Fitur tabungan sebagian belum tersedia. Anda hanya bisa menabung semua saldo.</p>
-        </div>
 
-        <div class="button-wrapper">
-          <button id="tabungButton" type="button" class="deposit-button" data-saldo="{{ auth()->user()->saldo ?? 0 }}">
+          <div class="button-wrapper">
+            <button id="tabungButton" type="button" class="deposit-button" data-saldo="{{ auth()->user()->saldo ?? 0 }}">
               Tabung Sekarang
-          </button>
+            </button>
 
-          <!-- Loading Indicator -->
-          <div id="loadingIndicator" style="display: none;">
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" style="display: none;">
               <div class="spinner"></div>
               <p>Memproses transaksi...</p>
+            </div>
           </div>
-        </div>
-
-
       </form>
     </div>
-    
+
 
   </div>
   <script src="{{asset('dashboard/dist/transaksi/assets/jstransaksi/menabung.js')}}"></script>
@@ -95,25 +94,25 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @if(session('success'))
   <script>
-      Swal.fire({
-          icon: 'success',
-          title: 'Berhasil!',
-          text: '{{ session("success") }}',
-          showConfirmButton: false,
-          timer: 2000
-      });
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      text: '{{ session("success") }}',
+      showConfirmButton: false,
+      timer: 2000
+    });
   </script>
   @endif
 
   @if(session('error'))
   <script>
-      Swal.fire({
-          icon: 'error',
-          title: 'Gagal!',
-          text: '{{ session("error") }}',
-          showConfirmButton: false,
-          timer: 2000
-      });
+    Swal.fire({
+      icon: 'error',
+      title: 'Gagal!',
+      text: '{{ session("error") }}',
+      showConfirmButton: false,
+      timer: 2000
+    });
   </script>
   @endif
 

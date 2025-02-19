@@ -66,19 +66,23 @@
           <label for="customAmount">
             <p>Isi Nominal Sendiri</p>
           </label>
+
           <div class="input-wrapper">
             <span>Rp</span>
             <input type="text" id="customAmount" class="customAmount" name="amount" placeholder="0" style="font-size: 17px;">
+            <input type="hidden" id="userRoute" value="{{ route('user') }}">
           </div>
+          
           <p class="min-info">Minimal pengisian saldo adalah sebesar Rp10.000.</p>
         </div>
-  </main>
 
-  <footer class="footer">
-    <button class="pay-btn" type="submit">Bayar Sekarang</button>
-    <div id="loading-indicator" style="display: none;">Sedang memproses...</div>
-  </footer>
-  </form>
+        </main>
+        <footer class="footer">
+          <button class="pay-btn" type="submit">Bayar Sekarang</button>
+
+          <div id="loading-indicator" style="display: none;">Sedang memproses...</div>
+        </footer>
+      </form>
 
 
   <script>
