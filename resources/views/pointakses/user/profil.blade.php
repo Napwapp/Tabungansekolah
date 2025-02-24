@@ -158,32 +158,11 @@
                     </li>
                 </ul>
             </li> -->
-<<<<<<< HEAD
-            <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                @csrf
-                <i class="bi bi-x-octagon-fill"></i>
-                <button style="border: none; padding: 10px; background-color: white;">Log Out</button>               
-        </ul>
-    </div>
-</div>
-    <div id="main">
-        <div class="container">
-            <div class="profile-header">
-                <div class="profile-cover">
-                    <div class="profile-avatar">
-                        <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
-                    </div>
-                </div>
-                <div class="profile-basic-info">
-                    <h1>{{Auth::user()->username}}</h1>
-                    <p>{{Auth::user()->email}}</p>
-=======
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
                     </ul>
->>>>>>> profile
                 </div>
             </div>
             <div id="main">

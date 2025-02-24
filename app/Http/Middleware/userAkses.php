@@ -14,13 +14,6 @@ class UserAkses
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-<<<<<<< HEAD
-        if (auth()->user()->role === $role) {
-            return $next($request);
-        }
-        $url = "/" . auth()->user()->role;
-        return redirect($url)->with('error', "Anda tidak dapat mengakses halaman ini, karena role anda adalah " . auth()->user()->role);
-=======
         $user = auth()->user();
 
         // 1. Pastikan user sudah login (fallback jika middleware auth gagal)
@@ -32,22 +25,19 @@ class UserAkses
         $userRole = strtolower($user->role);
         $requiredRole = strtolower($role);
 
-        if ($userRole === $requiredRole) {
-            return $next($request);
+        // 3. Batasi admin hanya bisa mengakses halaman admin
+        if ($userRole === 'admin' && $requiredRole !== 'admin') {
+            return redirect()->route('admin')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
         }
 
-        // 3. Redirect ke route sesuai role (jika ada)
-        $routeName = $userRole; // Misal: role 'user' mengarah ke route('user')
-
-        if (Route::has($routeName)) {
-            return redirect()->route($routeName)->with(
+        // 4. Batasi user hanya bisa mengakses halaman sesuai rolenya
+        if ($userRole !== 'admin' && $userRole !== $requiredRole) {
+            return redirect()->route($userRole)->with(
                 'error', 
                 "Akses ditolak. Role Anda adalah: " . ucfirst($userRole)
             );
         }
 
-        // 4. Fallback ke halaman landing page jika route tidak ditemukan
-        return redirect('/')->with('error', 'Akses tidak valid untuk role Anda.');
->>>>>>> profile
+        return $next($request);
     }
 }

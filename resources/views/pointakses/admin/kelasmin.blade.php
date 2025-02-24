@@ -42,7 +42,7 @@
 
                         <li
                             class="sidebar-item">
-                            <a href="{{route('user')}}" class='sidebar-link'>
+                            <a href="{{route('admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -50,7 +50,7 @@
 
                         <li
                         class="sidebar-item ">
-                        <a href="{{route('profile')}}" class='sidebar-link'>
+                        <a href="{{route('profil')}}" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
                         </a>
@@ -158,161 +158,96 @@
                     </ul>
                 </div>
             </div>
-        <div id="main" class="main"> 
+        <div id="main"> 
             <table class="container">
         <h1>Data Keuangan Kelas</h1>
-            <tbody>               
-                <table class="kelas">
-                    <th>Jurusan</th>
-                    <th>Pengeluaran Total</th>
-                    <th>Pemasukan Total</th>
-                    <th>Dana Total</th>
-                    <th>Total Akhir</th>
-
-                <tr>
-                    <h2>Kelas 10</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            <table class="kelas">
+            <tr>
+                <h2>Kelas 10</h2>
                 <th>Jurusan</th>
                 <th>Pengeluaran Total</th>
                 <th>Pemasukan Total</th>
                 <th>Dana Total</th>
                 <th>Total Akhir</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+            <tbody>
+                @foreach ($datakelas as $data)
                 <tr>
-                    <h2>Kelas 11</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
+                <td>{{ $data->jurusan }}</td>
+                <td>Rp {{ number_format($data->pengeluaran, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->pemasukan, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->dana, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->akhir, 2, ',', '.') }}</td>
+                <td>
+                    <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-hapus">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+                @endforeach
+
+            <table class="container">
+            <tr>
+                <h2>Kelas 11</h2>
+                <th>Jurusan</th>
+                <th>Pengeluaran Total</th>
+                <th>Pemasukan Total</th>
+                <th>Dana Total</th>
+                <th>Total Akhir</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+            <tbody>
+                @foreach ($datakelas as $data)
                 <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
+                <td>{{ $data->jurusan }}</td>
+                <td>Rp {{ number_format($data->pengeluaran, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->pemasukan, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->dana, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->akhir, 2, ',', '.') }}</td>
+                <td>
+                    <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-hapus">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+                @endforeach
+
+            <table class="container">
+            <tr>
+                <h2>Kelas 12</h2>
+                <th>Jurusan</th>
+                <th>Pengeluaran Total</th>
+                <th>Pemasukan Total</th>
+                <th>Dana Total</th>
+                <th>Total Akhir</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+            <tbody>
+                @foreach ($datakelas as $data)
                 <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-                <table class="kelas">
-                <tr>
-                    <h2>Kelas 12</h2>
-                    <td>PPLG</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            
-                <tr>
-                    <td>AKL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TEI</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>TBSM</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>MPLB</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>ATPH</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-            </tbody>
-        </div>
-    </div>
-        </div>
+                <td>{{ $data->jurusan }}</td>
+                <td>Rp {{ number_format($data->pengeluaran, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->pemasukan, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->dana, 2, ',', '.') }}</td>
+                <td>Rp {{ number_format($data->akhir, 2, ',', '.') }}</td>
+                <td>
+                    <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-hapus">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+                @endforeach
+                        
+                
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>

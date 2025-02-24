@@ -4,19 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Data-anggota</title>
     
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
-=======
-    <title>Data_anggota</title>
-    
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
->>>>>>> profile
     
 <link rel="stylesheet" href="{{asset('dashboard/dist/assets/extensions/simple-datatables/style.css')}}">
 <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/simple-datatables.css')}}">
@@ -55,7 +47,7 @@
 
                         <li
                             class="sidebar-item">
-                            <a href="{{route('user')}}" class='sidebar-link'>
+                            <a href="{{route('admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -63,11 +55,7 @@
 
                         <li
                         class="sidebar-item ">
-<<<<<<< HEAD
                         <a href="{{route('profil')}}" class='sidebar-link'>
-=======
-                        <a href="{{route('profile')}}" class='sidebar-link'>
->>>>>>> profile
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Profil</span>
                         </a>
@@ -76,11 +64,7 @@
                         <li
                         class="sidebar-item active">
                         <a href="{{route('dataanggota')}}" class='sidebar-link'>
-<<<<<<< HEAD
                             <i class="bi bi-file-earmark-medical-fill"></i>
-=======
-                            <i class="bi bi-person-badge-fill"></i>
->>>>>>> profile
                             <span>Data anggota</span>
                         </a>
                         </li>
@@ -93,28 +77,15 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-<<<<<<< HEAD
                                     <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('datasiswa')}}">Data Tabungan Siswa</a>
-=======
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
->>>>>>> profile
-                                </li>
+                                
                             </ul>
                         </li>
 
                         <li
                         class="sidebar-item  ">
-<<<<<<< HEAD
                         <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-=======
-                        <a href="{{route('riwayat')}}" class='sidebar-link'>
->>>>>>> profile
                             <i class="bi bi-chat-dots-fill"></i>
                             <span>Riwayat Transaksi</span>
                         </a>
@@ -122,11 +93,7 @@
                                 
                         <li
                             class="sidebar-item  ">
-<<<<<<< HEAD
                             <a href="{{route('pesan')}}" class='sidebar-link'>
-=======
-                            <a href="{{route('contact')}}" class='sidebar-link'>
->>>>>>> profile
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Kontak Kami</span>
                             </a>

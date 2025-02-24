@@ -193,17 +193,15 @@
                 </tr>
             </thead>
             <tbody id="transaksiBody">
-                @foreach ($riwayats as $data)
                 <tr>
-            <td>{{ $data->nama }}</td>
-            <td>{{ $data->tanggal }}</td>
-            <td>{{ $data->jumlah }}</td>
-            <td>{{ $data->tipe }}</td>
-            <td>{{ $data->nomor_tabungan }}</td>
-            <td>{{ $data->status }}</td>
-            <td>{{ $data->aksi }}</td>
-        </tr>
-                @endforeach
+                    <td>Bayu</td>
+                    <td>12 feb</td>
+                    <td>200.000</td>
+                    <td>Top up</td>
+                    <td>123456789</td>
+                    <td>Sukses</td>
+                    <td>X</td>
+                </tr>
             </tbody>
         </table>
 

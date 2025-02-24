@@ -7,10 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
-<<<<<<< HEAD
-
-=======
->>>>>>> profile
 
 /**
  * @property TabunganUser $tabunganUser
@@ -37,32 +33,6 @@ class User extends Authenticatable
     ];
     protected $casts = ['email_verified_at' => 'datetime'];
 
-<<<<<<< HEAD
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public static function generateIdTabungan() {
-        return Str::random(13); // 13 karakter acak
-    }
-
-    // Relasi satu-ke-satu antara User dan TabunganUser
-   // Di model User.php
-   public function tabunganUser()
-   {
-       return $this->hasOne(TabunganUser::class, 'user_id'); // Hubungan one-to-one
-   }
-   
-
-}
-
-
-=======
     // Relasi satu-ke-satu antara User dan TabunganUser
     public function tabunganUser()
     {
@@ -86,4 +56,3 @@ class User extends Authenticatable
     }
 }
 
->>>>>>> profile

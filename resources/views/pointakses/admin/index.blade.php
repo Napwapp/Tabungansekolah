@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +9,8 @@
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icony">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.css')}}">
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboardadmin.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
-    <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
     
 </head>
@@ -188,42 +186,21 @@
                 </div>
 
                 <!-- Target Tabungan -->
-                <div class="target-tabungan">
-                    <div class="target-circle">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                            <circle class="ring-progress" cx="60" cy="60" r="54"></circle>
-                        </svg>
-                        <p class="progress-percentage">0.0%</p>
-                    </div>
-                    <p class="target-info"><strong>Target Tabungan:</strong> Rp 2.000.000</p>
-                    <button class="atur-target-btn">Atur Target</button>
+                <div class="total-container">
+                    <div class="total-box">
+                        <h5 class="card-title" style="color: white;"><strong>Total Saldo Masuk</strong></h5>
+                        <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                        </div>  
+                    <div class="total-box">
+                    <h5 class="card-title" style="color: white;">Total Tabungan Masuk</strong></h5>
+                        <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                        </div>  
                 </div>
             </div>
 
-            <div class="modal" id="modalTarget">
-                <div class="modal-content">
-                    <h2>Atur Target Tabungan</h2>
-                    <label for="targetAmount">Target Tabungan (Rp):</label>
-                    <input 
-                        type="text" 
-                        id="targetAmount" 
-                        class="form-control" 
-                        placeholder="Masukkan target tabungan Anda" 
-                        min="0" 
-                        step="1" 
-                        oninput="validity.valid||(value='');"
-                    />
-
-                    <button id="saveTarget" class="save-btn">Simpan</button>
-                    <button id="closeModal" class="close-btn">Tutup</button>
-                </div>
-            </div>
-
-
+            
             <p><!-- Content -->
             <div class="content" style="margin-left: 30px;">
-                <p>Selamat datang Admin tabungan sekolah SMKN 1 BINONG</p>
                 <h2 class="mb-4">Informasi Tabungan</h2>
 
                 <!-- Kartu Informasi -->
@@ -315,112 +292,3 @@
 </body>
 
 </html>
-=======
-@extends ('halaman_dashboard.index') <!-- mengambil view dari halaman_dashboard.index html -->
-@section('navitem')
-<li class="sidebar-item active">
-        <a href="{{route('user')}}" class='sidebar-link'>
-            <i class="bi bi-grid-fill"></i>
-            <span>Dashboard</span>
-        </a>
-</li>
-
-<li class="sidebar-item">
-    <a href="{{route('profile')}}" class='sidebar-link'>
-        <i class="bi bi-person-badge-fill"></i>
-        <span>Profil</span>
-    </a>
-</li>
-<li class="sidebar-item">
-    <a href="{{route('dataanggota')}}" class='sidebar-link'>
-        <i class="bi bi-person-badge-fill"></i> <!-- Nanti dibuat untuk menampilkan data siswa -->
-        <span>Data Anggota</span>
-    </a>
-</li>
-                        
-<li class="sidebar-item  has-sub">
-    <a href="#" class='sidebar-link'>
-        <i class="bi bi-basket-fill"></i>
-        <span>Tabungan</span>
-    </a>
-    <ul class="submenu ">
-        <li class="submenu-item ">
-            <a href="{{route('kelas')}}">Data Tabungan Kelas</a>
-        </li>
-        <li class="submenu-item ">
-            <a href="{{route('tabungan')}}">Data Tabungan Siswa</a>
-        </li>
-    </ul>
-</li>
-
-<li class="sidebar-item  ">
-    <a href="{{route('riwayat')}}" class='sidebar-link'>
-        <i class="bi bi-basket-fill"></i>
-        <span>Riwayat Transaksi Anggota</span>
-        </a>
-</li>
-
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-                        
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
-                        <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
-                            </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
-                        
-    <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-    @csrf
-    <i class="bi bi-x-octagon-fill"></i>
-    <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-@endsection
->>>>>>> profile

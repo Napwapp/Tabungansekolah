@@ -14,15 +14,6 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
-<<<<<<< HEAD
-    function index(){
-        $user = Auth::user(); // Ambil data user yang sedang login
-        $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia'; // Mengambil id_tabungan dari relasi
-        
-        return view ('pointakses/user/index', compact('user'));
-    }
-
-=======
     public function index()
     {
         // Ambil data user yang sedang login
@@ -115,6 +106,5 @@ class UserController extends Controller
     
         return response()->json($tabunganLengkap);
     }    
->>>>>>> profile
 }
 
