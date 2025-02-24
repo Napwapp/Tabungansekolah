@@ -197,7 +197,7 @@
             <p>
               Kamu Pastinya dapat menabung, Tabungan ini secara Cash
             </p>
-            <a href="#" class="btn btn-get-started">Mulai Menabung</a>
+            <a href="{{ route('auth') }}" class="btn btn-get-started">Daftar</a>
           </div>
           
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
