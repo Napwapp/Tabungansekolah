@@ -8,30 +8,32 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\TabunganUser;
 use App\Models\TransaksiMenabungUser;
+use App\Models\NotifikasiUser;
 use App\Models\User;
 
 class MenabungController extends Controller
 {
     // Menampilkan halaman menabung
-    public function menabung() {
+    public function menabung()
+    {
         $user = auth()->user();
-        
+
         // Ambil saldo terbaru langsung dari database
         $tabungan = TabunganUser::where('user_id', $user->id)->first();
         $saldo = $tabungan ? $tabungan->saldo : 0;
         $totalTabungan = $tabungan ? $tabungan->total_tabungan : 0; // Ambil total tabungan dari database
-    
+
         // Hitung saldo yang dapat ditabung dengan menyisakan Rp10.000
         $saldoTersedia = max(0, $saldo - 10000);
-        
+
         return view('pointakses.user.topup.menabung', [
             'saldo' => $saldo,
             'saldoTersedia' => $saldoTersedia,
             'totalTabungan' => $totalTabungan, // Kirim ke Blade
-        ]);   
+        ]);
     }
-    
-    
+
+
 
     public function tabungUang(Request $request)
     {
@@ -71,23 +73,35 @@ class MenabungController extends Controller
 
             // Kurangi saldo user
             $tabungan->saldo -= $request->jumlah;
-            
+
             // Tambahkan jumlah ke total tabungan user
             $tabungan->total_tabungan += $request->jumlah;
 
             $tabungan->save();
 
             // Catat transaksi menabung
-            TransaksiMenabungUser::create([
+            $menabung = TransaksiMenabungUser::create([
                 'user_id'      => $user->id,
                 'id_tabungan'  => $tabungan->id_tabungan, // Sesuai dengan database
                 'jumlah'       => $request->jumlah,
                 'status'       => 'Sukses', // Sementara default berhasil
                 'namalengkap'  => $user->namalengkap,
                 'kelas'        => $user->kelas,
+            ]);
+
+            NotifikasiUser::create([
+                'user_id' => $user->id,
+                'nama_pengirim' => 'Tabungan Sekolah',
+                'foto_pengirim' => null,
+                'judul' => 'Selamat! Berhasil menabung',
+                'isi_pesan' => 'Kamu berhasil menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah berhasil masuk ke tabungan sekolah Anda.',
+                'status' => 'Belum Dibaca',
+                'tipe' => 'Transaksi',
+                'id_transaksi' => $menabung->id, // Simpan ID transaksi menabung 
+                'status_transaksi' => $menabung ->status, // Langsung ambil dari kolom status transaksi
             ]);            
 
-            DB::commit(); // Simpan perubahan jika semuanya berhasil
+            DB::commit(); // Simpan perubahan jika semuanya berhasil            
 
             return response()->json([
                 'success' => true,

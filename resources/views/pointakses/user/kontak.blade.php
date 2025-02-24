@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Email Application - Mazer Admin Dashboard</title>
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
@@ -11,7 +13,6 @@
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/email.css')}}">
-
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/emailcustom.css') }}">
 
 </head>
@@ -178,16 +179,10 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Email Application</h3>
-                            <p class="text-subtitle text-muted">A full inbox-ui for you to implement messaging</p>
+                            <h3>Pesan Masuk</h3>
+                            <p class="text-subtitle text-muted">Pesan-pesan yg masuk ke akun mu</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Email Application</li>
-                                </ol>
-                            </nav>
                         </div>
                     </div>
                 </div>
@@ -315,7 +310,7 @@
                                 <div class="app-content-overlay"></div>
                                 <div class="email-app-area">
                                     <!-- Email list Area -->
-                                    <div class="email-app-list-wrapper">
+                                    <dxiv class="email-app-list-wrapper">
                                         <div class="email-app-list">
                                             <div class="email-action">
                                                 <!-- action left start here -->
@@ -370,143 +365,95 @@
                                             <!-- email user list start -->
                                             <div class="email-user-list list-group ps ps--active-y">
                                                 <ul class="users-list-wrapper media-list">
-                                                    <li class="media mail-read" onclick="openMessageOverlay()">
-                                                        <div class="user-action">
-                                                            <div class="checkbox-con me-3">
-                                                                <div class="checkbox checkbox-shadow checkbox-sm">
-                                                                    <input type="checkbox" id="checkboxsmall1" class="form-check-input">
-                                                                    <label for="checkboxsmall1"></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    @foreach($notifikasi as $pesan)
+                                                    <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})">
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                <img src="{{asset('dashboard/dist/assets/images/faces/1.jpg')}}" alt="avatar img holder">
+                                                                @if($pesan->foto_pengirim)
+                                                                <img src="{{ asset('storage/' . $pesan->foto_pengirim) }}" alt="avatar">
+                                                                @else
+                                                                <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
                                                                 <div class="wrapper-name-mail">
                                                                     <div class="sender-name">
-                                                                        <strong>Nama Pengirim</strong> <!-- Gantilah nanti dengan data dari database -->
+                                                                        <strong>{{ $pesan->nama_pengirim ?? 'Sistem' }}</strong>
                                                                     </div>
                                                                     <div class="mail-items">
-                                                                        <span class="list-group-item-text text-truncate">Open source project public release 👍</span>
+                                                                        <span class="list-group-item-text text-truncate">{{ $pesan->judul }}</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mail-meta-item">
-                                                                    <span class="float-right">
-                                                                        <span class="mail-date">4:14 AM</span>
+                                                                    <span class="mail-meta-content float-right">
+                                                                        <span class="mail-date">{{ \Carbon\Carbon::parse($pesan->created_at)->format('d M') }}</span>
+                                                                        <span class="status-icon">{!! $pesan->status_icon ?? '<i class="bi bi-exclamation-circle text-danger"></i> Data Kosong' !!}</span>
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <div class="mail-message">
                                                                 <p class="list-group-item-text truncate mb-0">
-                                                                    Hey John, bah kivu decrete epanorthotic unnotched Argyroneta nonius veratrine preimaginary
+                                                                    {{ Str::limit($pesan->isi_pesan, 60) }}
                                                                 </p>
-                                                                <div class="mail-meta-item">
-                                                                    <span class="float-right">
-                                                                        <span class="bullet bullet-success bullet-sm"></span>
+                                                                <div class="mail-meta-item" data-id="{{ $pesan->id }}">
+                                                                    <span>
+                                                                        @if($pesan->status === 'Belum Dibaca')
+                                                                        <span class="bullet-unread" id="bullet-{{ $pesan->id }}"></span>
+                                                                        @endif
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </li>
+                                                    @endforeach
+                                                </ul>
 
-                                                    <li class="media" onclick="openMessageOverlay()">
-                                                        <div class="user-action">
-                                                            <div class="checkbox-con me-3">
-                                                                <div class="checkbox checkbox-shadow checkbox-sm">
-                                                                    <input type="checkbox" id="checkboxsmall3"
-                                                                        class='form-check-input'>
-                                                                    <label for="checkboxsmall3"></label>
-                                                                </div>
-                                                            </div>
+                                                <!-- Overlay Detail Pesan -->
+                                                <div id="messageOverlay" class="overlay" style="display: none; justify-content: center; ">
+                                                    <div class="overlay-content">
+                                                        <!-- Header: Tombol kembali di pojok kiri -->
+                                                        <div class="overlay-header">
+                                                            <button class="back-button" onclick="closeOverlay()">
+                                                                &larr; Kembali
+                                                            </button>
                                                         </div>
-                                                        <div class="pr-50">
-                                                            <div class="avatar">
-                                                                <img class="rounded-circle" src="{{asset('dashboard/dist/assets/images/faces/7.jpg')}}"
-                                                                    alt="Generic placeholder image">
+
+                                                        <!-- Konten Utama Pesan -->
+                                                        <div class="overlay-body">
+                                                            <!-- Judul Pesan -->
+                                                            <h3 id="overlay-title" class="message-title"></h3>
+
+                                                            <!-- Container Profil Pengirim -->
+                                                            <div class="sender-profile">
+                                                                <div class="sender-image">
+                                                                    <img id="overlay-foto" src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="Foto Profil Pengirim">
+                                                                </div>
+                                                                <div class="sender-info">
+                                                                    <div class="wrapper-left-right">
+                                                                        <span id="overlay-nama-pengirim" class="sender-name"></span>
+                                                                        <span id="overlay-tanggal" class="message-date"></span>
+                                                                    </div>
+                                                                    <span class="to-me">Kepada saya</span>
+                                                                </div>
                                                             </div>
+
+                                                            <!-- Status Transaksi -->
+                                                            <div id="overlay-status" class="transaction-status">
+                                                                <!-- Ikon Status akan diisi dengan JavaScript -->
+                                                            </div>
+
+                                                            <!-- Isi Pesan Lengkap -->
+                                                            <div id="overlay-content" class="message-content" style="background-color: rgb(210, 210, 210); padding: 15px;"></div>
                                                         </div>
-                                                        <div class="media-body">
-                                                            <div class="user-details">
-                                                                <div class="wrapper-name-mail">
-                                                                    <div class="sender-name">
-                                                                        <strong>Nama Pengirim</strong> <!-- Gantilah nanti dengan data dari database -->
-                                                                    </div>
-                                                                    <div class="mail-items">
-                                                                        <span class="list-group-item-text text-truncate">Open source
-                                                                            project public release 👍</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mail-meta-item">
-                                                                    <span class="float-right">
-                                                                        <span class="mail-date">2:15 AM</span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mail-message">
-                                                                <p class="list-group-item-text mb-0 truncate">
-                                                                    I will provide you more details after this Saturday. Hope
-                                                                    that will be fine for you..
-                                                                </p>
-                                                                <div class="mail-meta-item">
-                                                                    <span class="float-right d-flex align-items-center">
-                                                                        <i class="bi bi-paperclip me-3"></i>
-                                                                        <span class="bullet bullet-success bullet-sm"></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
 
-                                                    <!-- Overlay Detail Pesan -->
-                                                    <div id="messageOverlay" class="overlay">
-                                                        <div class="overlay-content">
-                                                            <!-- Header: Tombol kembali di pojok kiri -->
-                                                            <div class="overlay-header">
-                                                                <button class="back-button" onclick="closeOverlay()">
-                                                                    &larr; Kembali
-                                                                </button>
-                                                            </div>
-
-                                                            <!-- Konten Utama Pesan -->
-                                                            <div class="overlay-body">
-                                                                <!-- Judul Pesan -->
-                                                                <h3 class="message-title">Judul Pesan</h3>
-
-                                                                <!-- Container Profil Pengirim -->
-                                                                <div class="sender-profile">
-                                                                    <div class="sender-image">
-                                                                        <img src="{{asset('dashboard/dist/assets/images/faces/1.jpg')}}" alt="Foto Profil Pengirim" >
-                                                                    </div>
-                                                                    <div class="sender-info">
-                                                                        <div class="wrapper-left-right">
-                                                                            <span class="sender-name">Nama Pengirim</span>
-                                                                            <span class="message-date">12 Mar</span>
-                                                                        </div>
-                                                                        <span class="to-me">Kepada saya</span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- Isi Pesan Lengkap -->
-                                                                <div class="message-content">
-                                                                    <p>
-                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus, orci non tristique
-                                                                        mollis, augue magna facilisis nisi, in vestibulum sapien enim a nulla. Curabitur vitae
-                                                                        justo non turpis convallis tincidunt.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Footer: Input untuk membalas pesan -->
-                                                            <div class="overlay-footer">
-                                                                <input type="text" class="reply-input" placeholder="Balas pesan...">
-                                                            </div>
+                                                        <!-- Footer: Input untuk membalas pesan -->
+                                                        <div class="overlay-footer">
+                                                            <input type="text" class="reply-input" placeholder="Balas pesan...">
                                                         </div>
                                                     </div>
-                                                </ul>
+                                                </div>
                                                 <!-- email user list end -->
 
                                                 <!-- no result when nothing to show on list -->
@@ -522,36 +469,36 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--/ Email list Area -->
-
-                                    <!-- Detailed Email View -->
-
-                                    <!--/ Detailed Email View -->
                                 </div>
+                                <!--/ Email list Area -->
                             </div>
                         </div>
                     </div>
-                </section>
             </div>
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="https://saugi.me">Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            </section>
         </div>
+    </div>
+    </div>
+
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; Mazer</p>
+            </div>
+            <div class="float-end">
+                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                        href="https://saugi.me">Saugi</a></p>
+            </div>
+        </div>
+    </footer>
+    </div>
     </div>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
+
+    <!-- untuk buka tutup sidebar -->
 
     <script>
         document.querySelector('.sidebar-toggle').addEventListener('click', () => {
@@ -561,6 +508,88 @@
             document.querySelector('.email-app-sidebar').classList.remove('show')
         })
     </script>
+
+    <!-- untuk menampilkan overlay dan mengupdate status notifikasi -->
+    <script>
+        function openMessageOverlay(id) {
+            // Menampilkan overlay
+            document.getElementById('messageOverlay').style.display = 'flex';
+
+            // Ambil detail pesan
+            fetch(`/pesan/${id}/detail`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data dari API:", data); // Debugging
+
+                    document.getElementById("overlay-title").textContent = data.judul ?? "Tanpa Judul";
+                    document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
+                    document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Sistem";
+
+                    // Format Tanggal
+                    if (data.created_at) {
+                        let tanggal = new Date(data.created_at);
+                        let formattedTanggal = tanggal.getDate() + ' ' + tanggal.toLocaleString('id-ID', {
+                            month: 'short'
+                        });
+                        document.getElementById("overlay-tanggal").textContent = formattedTanggal;
+                    } else {
+                        document.getElementById("overlay-tanggal").textContent = "-";
+                    }
+
+                    // Menampilkan Foto Pengirim
+                    let fotoPengirim = data.foto_pengirim ? `/storage/${data.foto_pengirim}` : `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
+                    document.getElementById("overlay-foto").src = fotoPengirim;
+
+                    // Menampilkan Ikon Status Transaksi
+                    document.getElementById("overlay-status").innerHTML = data.status_icon ?? "-";
+                })
+                .catch(error => console.error("Error:", error));
+
+            // Kirim AJAX untuk update status menjadi "Dibaca"
+            fetch(`/pesan/${id}/update-status`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Status notifikasi diperbarui:", data);
+
+                    // Mengubah status bullet dan elemen lainnya
+                    const bullet = document.getElementById('bullet-' + id);
+                    const messageItem = document.querySelector(`.media[onclick="openMessageOverlay(${id})"]`);
+
+                    // Hapus bullet merah
+                    if (bullet) {
+                        bullet.style.display = 'none'; // Sembunyikan bullet merah
+                    }
+
+                    // Tambahkan kelas 'mail-read' pada elemen li untuk menandakan bahwa pesan telah dibaca
+                    if (messageItem) {
+                        messageItem.classList.add('mail-read');
+                    }
+
+                    // Jika ingin juga update status di tempat lain (misalnya sidebar), bisa lakukan perubahan lain di sini
+                })
+            .catch(error => console.error("Error updating status:", error));
+        }
+
+
+        function closeOverlay() {
+            document.getElementById('messageOverlay').style.display = 'none';
+
+            document.getElementById('messageOverlay').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeOverlay();
+                }
+            });
+        }
+    </script>
+
+
 
 </body>
 

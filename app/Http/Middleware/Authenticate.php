@@ -14,7 +14,7 @@ class Authenticate extends Middleware
     {
         // Debugging: Periksa apakah user terdeteksi login
         if (!$request->expectsJson()) {
-            return route('login'); // Biasanya mengarah ke halaman login
+            return route('auth'); // Biasanya mengarah ke halaman login
         }
     }
 }

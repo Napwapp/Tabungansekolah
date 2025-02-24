@@ -26,7 +26,7 @@ class SaveController extends Controller
 
         // Ambil target tabungan dari tabungan_users
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
-        
+
         // Hitung persen 
         $persenTabungan = $targetTabungan ? ($totalTabungan / $targetTabungan) * 100 : 0;
 
@@ -35,13 +35,17 @@ class SaveController extends Controller
 
     public function getTabunganPerBulan()
     {
-        // Ambil total tabungan per bulan
+        // Ambil user yang sedang login
+        $userId = Auth::id();
+
+        // Ambil total tabungan per bulan hanya untuk user yang sedang login
         $tabungan = DB::table('transaksi_menabung_users')
             ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
+            ->where('user_id', $userId) // Filter berdasarkan user_id
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('bulan')
             ->get();
-    
+
         // Buat array lengkap 1-12 (Januari-Desember) dengan nilai default 0
         $tabunganLengkap = [];
         for ($i = 1; $i <= 12; $i++) {
@@ -50,7 +54,7 @@ class SaveController extends Controller
                 'total_tabungan' => $tabungan->firstWhere('bulan', $i)->total ?? 0
             ];
         }
-    
+
         return response()->json($tabunganLengkap);
     }
 }

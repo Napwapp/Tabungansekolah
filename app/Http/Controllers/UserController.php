@@ -8,6 +8,7 @@ use App\Models\TabunganUser; // Sesuaikan dengan model yang kamu gunakan
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
+use App\Models\NotifikasiUser;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -42,33 +43,39 @@ class UserController extends Controller
 
         // Ambil riwayat transaksi seperti di RiwayatController
         $topups = TransaksiTopup::where('user_id', $user->id)
-            ->select('id', 'user_id', 
-                'namalengkap as nama', 
-                'jumlah', 
-                'id_tabungan', 
-                'status', 
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
                 'created_at'
             )
             ->addSelect(DB::raw("'Top Up' as tipe"))
             ->get();
 
         $menabung = TransaksiMenabungUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 
-                'namalengkap as nama', 
-                'jumlah', 
-                'id_tabungan', 
-                'status', 
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
                 'created_at'
             )
             ->addSelect(DB::raw("'Menabung' as tipe"))
             ->get();
 
         $penarikan = PenarikanUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 
-                'namalengkap as nama', 
-                'jumlah', 
-                'id_tabungan', 
-                'status', 
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
                 'created_at'
             )
             ->addSelect(DB::raw("'Penarikan' as tipe"))
@@ -86,25 +93,4 @@ class UserController extends Controller
         return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan'));
     }
 
-    public function getTabunganPerBulan()
-    {
-        // Ambil total tabungan per bulan
-        $tabungan = DB::table('transaksi_menabung_users')
-            ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
-            ->whereYear('created_at', Carbon::now()->year)
-            ->groupBy('bulan')
-            ->get();
-    
-        // Buat array lengkap 1-12 (Januari-Desember) dengan nilai default 0
-        $tabunganLengkap = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $tabunganLengkap[] = [
-                'bulan' => $i,
-                'total_tabungan' => $tabungan->firstWhere('bulan', $i)->total ?? 0
-            ];
-        }
-    
-        return response()->json($tabunganLengkap);
-    }    
 }
-

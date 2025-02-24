@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const depositButton = document.querySelector(".deposit-button");
     const amountInput = document.getElementById("amount");
+    const amountHidden = document.getElementById("amountHidden");  // Pastikan input tersembunyi ini ada
     const loadingIndicator = document.getElementById("loadingIndicator");
     const increaseButton = document.createElement("button");
     const decreaseButton = document.createElement("button");
+    const tarikSemuaButton = document.querySelector(".button-tabung-semua");
 
     if (!depositButton || !amountInput) return;
 
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateInputValue(newValue) {
         amountInput.value = formatNumber(newValue);
-        document.getElementById("amountHidden").value = newValue;
+        amountHidden.value = newValue;  // Update hidden input value
     }
 
     increaseButton.addEventListener("click", function (event) {
@@ -58,6 +60,23 @@ document.addEventListener("DOMContentLoaded", function () {
         let rawValue = amountInput.value.replace(/\D/g, "");
         amountInput.value = formatNumber(rawValue);
     });
+
+    // Tombol Tarik Semua
+    if (tarikSemuaButton) {
+        tarikSemuaButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            const totalTabungan = parseInt(tarikSemuaButton.getAttribute("data-tabungan")) || 0;
+            if (totalTabungan >= 20000) {
+                updateInputValue(totalTabungan);  // Update input dengan total yang bisa ditarik
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal!",
+                    text: "Tabungan yang dapat ditarik tidak mencukupi untuk melakukan penarikan.",
+                });
+            }
+        });
+    }
 
     depositButton.addEventListener("click", function (event) {
         event.preventDefault();

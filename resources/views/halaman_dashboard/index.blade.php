@@ -205,7 +205,7 @@
                 </div>
 
                 <div class="profile-info">
-                    <p><strong>ID Tabungan:</strong> {{ $idTabungan }}</p>
+                    <p><strong>ID Tabungan:</strong> 012</p>
                     <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p> 
                 </div>
 
