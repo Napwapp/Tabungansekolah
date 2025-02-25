@@ -11,6 +11,7 @@ use App\Http\Controllers\MenabungController;
 use App\Http\Controllers\TarikController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataMahasiswa;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\DataSiswaControlller;
@@ -19,6 +20,7 @@ use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\KelasAdminController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\RiwayatAdminController;
+use App\Http\Controllers\TargetTabunganController;
 use App\Models\admin;
 use App\Models\DataSiswa;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +101,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
         Route::get('/admin/transaksi', [RiwayatAdminController::class, 'transaksi']);
         Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
         Route::get('/admin/edit', [EditProfilController::class, 'edit   '])->name('edit');
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin');
 
 
 

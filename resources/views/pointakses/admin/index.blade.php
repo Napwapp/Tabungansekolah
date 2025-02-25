@@ -185,15 +185,17 @@
                 <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p> 
                 </div>
 
-                <!-- Target Tabungan -->
+                <!-- Total Saldo dan Tabungan yang masuk -->
+
+                @section('content')
                 <div class="total-container">
                     <div class="total-box">
                         <h5 class="card-title" style="color: white;"><strong>Total Saldo Masuk</strong></h5>
-                        <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                        <h3>Rp {{ number_format($totalSaldoMasuk, 0, ',', '.') }}</h3>
                         </div>  
                     <div class="total-box">
                     <h5 class="card-title" style="color: white;">Total Tabungan Masuk</strong></h5>
-                        <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                    <h3>Rp {{ number_format($totalTabunganMasuk, 0, ',', '.') }}</h3>
                         </div>  
                 </div>
             </div>
@@ -209,7 +211,7 @@
                         <div class="card bg-warning text-white mb-4">
                             <div class="card-body">
                                 <h5 class="card-title" style="color: white;">Total Saldo</h5> <!-- backend -->
-                                <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                                <h3>Rp {{ number_format($totalSaldoHariIni, 0, ',', '.') }}</h3>
                                 <p>Total Saldo Hari Ini</p> <!-- backend -->
                             </div>
                         </div>
@@ -219,8 +221,8 @@
                             <div class="card-body btn-green" style="border-radius: 10px;">
                                 <h5 class="card-title" style="color: white;">Total Tabungan Bulan</h5> <!-- backend -->
                                 <h3 style="color: white;">Rp 0</h3> <!-- backend -->
-                                <p>Total Tabungan Bulan Ini</p> <!-- backend -->
-                            </div>
+                                <h3>Rp {{ number_format($totalTabunganBulanan, 0, ',', '.') }}</h3>
+                                </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -228,11 +230,12 @@
                             <div class="card-body btn-blue" style="border-radius: 10px;">
                                 <h5 class="card-title " style="color: white;">Total Penarikan</h5> <!-- backend -->
                                 <h3 style="color: white;">Rp 0</h3> <!-- backend -->
-                                <p>Jumlah Penarikan bulan ini.</p>
-                            </div>
+                                <h3>Rp {{ number_format($totalPenarikan, 0, ',', '.') }}</h3>
+                                </div>
                         </div>
                     </div>
                 </div>
+                @endsection
                 <!-- Grafik Tabungan -->
                 <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
                 <div class="card bg-light text-dark mb-4">

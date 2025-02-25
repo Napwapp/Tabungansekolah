@@ -8,7 +8,7 @@ use App\Models\TabunganUser;
 
 class TargetTabunganController extends Controller
 {
-    public function simpan(Request $request)
+public function simpan(Request $request)
     {
         // Cek jika user belum login
         if (!Auth::check()) {
