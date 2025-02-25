@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabungan Sekolah</title>
-    
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icony">
-    <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboardadmin.css')}}">
+    <title>Profil</title>
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
-    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
-    
+    <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
 </head>
-
 <body>
-<div id="app">
+    <div id="app">
         <!-- sidebar -->
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -43,21 +39,21 @@
         <ul class="menu">
 
             <li
-                class="sidebar-item active">
-                <a href="{{route('admin')}}" class='sidebar-link'>
+                class="sidebar-item">
+                <a href="{{route('user')}}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li
-            class="sidebar-item">
+            class="sidebar-item active">
             <a href="{{route('profil')}}" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Profil</span>
             </a>
             </li>
-            
+
             <li
             class="sidebar-item">
             <a href="{{route('dataanggota')}}" class='sidebar-link'>
@@ -76,6 +72,7 @@
                     <li class="submenu-item ">
                         <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
                     </li>
+                    
                 </ul>
             </li>
 
@@ -160,138 +157,58 @@
         </ul>
     </div>
 </div>
-        <div id="main">
-
-                @if (session('error'))
-                    <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
-                        {{ session('error') }}
-                    </div>
-                @endif
-    
-            <body>
-            <!-- Profil singkat -->
-            <div class="profil-container">
-                <div class="profil">
-                    <div class="profil-picture">
-                         <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="Foto profil">
-                    </div>
-                    <div class="profil-detail"> <!-- Tambahkan div pembungkus -->
-                        <h2 class="username">{{ Auth::user()->namalengkap }}</h2>
-                        <p class="role">Role : <strong style="font-size: 16px; text-transform: capitalize;">{{ Auth::user()->role }}</strong></p>
+    <div id="main">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <div class="profile-avatar">
+                        <img src="{{ asset('picture/accounts/' . $admin->gambar) }}" alt="">
                     </div>
                 </div>
-
-                <div class="profile-info">
-                <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p> 
-                </div>
-
-                <!-- Total Saldo dan Tabungan yang masuk -->
-
-                @section('content')
-                <div class="total-container">
-                    <div class="total-box">
-                        <h5 class="card-title" style="color: white;"><strong>Total Saldo Masuk</strong></h5>
-                        <h3>Rp {{ number_format($totalSaldoMasuk, 0, ',', '.') }}</h3>
-                        </div>  
-                    <div class="total-box">
-                    <h5 class="card-title" style="color: white;">Total Tabungan Masuk</strong></h5>
-                    <h3>Rp {{ number_format($totalTabunganMasuk, 0, ',', '.') }}</h3>
-                        </div>  
+                <div class="profile-basic-info">
+                    <h1>{{Auth::user()->username}}</h1>
+                    <p>{{Auth::user()->email}}</p>
                 </div>
             </div>
-
-            
-            <p><!-- Content -->
-            <div class="content" style="margin-left: 30px;">
-                <h2 class="mb-4">Informasi Tabungan</h2>
-
-                <!-- Kartu Informasi -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color: white;">Total Saldo</h5> <!-- backend -->
-                                <h3>Rp {{ number_format($totalSaldoHariIni, 0, ',', '.') }}</h3>
-                                <p>Total Saldo Hari Ini</p> <!-- backend -->
-                            </div>
-                        </div>
+        
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h2>Informasi Akun</h2>
+                    
+                    <div class="profile-item">
+                        <span>Nama Lengkap :</span>
+                        <span>{{$admin -> namalengkap}}</span>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body btn-green" style="border-radius: 10px;">
-                                <h5 class="card-title" style="color: white;">Total Tabungan Bulan</h5> <!-- backend -->
-                                <h3 style="color: white;">Rp 0</h3> <!-- backend -->
-                                <h3>Rp {{ number_format($totalTabunganBulanan, 0, ',', '.') }}</h3>
-                                </div>
-                        </div>
+                    <div class="profile-item">
+                        <span>Username :</span>
+                        <span>{{$admin -> username}}</span>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body btn-blue" style="border-radius: 10px;">
-                                <h5 class="card-title " style="color: white;">Total Penarikan</h5> <!-- backend -->
-                                <h3 style="color: white;">Rp 0</h3> <!-- backend -->
-                                <h3>Rp {{ number_format($totalPenarikan, 0, ',', '.') }}</h3>
-                                </div>
-                        </div>
+                    <div class="profile-item">
+                        <span>Kelas :</span>
+                        <span>{{$admin -> kelas}}</span>
                     </div>
-                </div>
-                @endsection
-                <!-- Grafik Tabungan -->
-                <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                <div class="card bg-light text-dark mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Grafik Perkembangan Tabungan</h5> <!-- backend -->
-                        <canvas id="tabunganChart" height="100"></canvas>
+                    <div class="profile-item">
+                        <span>NISN :</span>
+                        <span>123456789</span>
                     </div>
-                </div>
-
-        <!-- Pastikan Chart.js sudah dimuat -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        @vite(['../../js/app.js'])
-
-        <script>
-            const ctx = document.getElementById('tabunganChart').getContext('2d');
-            const tabunganChart = new Chart(ctx, {
-                type: 'line', // Pilih tipe grafik: line, bar, dll.
-                data: {
-                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Aug', 'Sept', 'Nov', 'Des'], // Ubah sesuai data Anda
-                    datasets: [{
-                        label: 'Jumlah Tabungan',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Data grafik
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        </script>
-            </body>
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2025 &copy; SMKN 1 BINONG</p>
+                    <div class="profile-item">
+                        <span>Jenis Kelamin :</span>
+                        <span>Laki-Laki</span>
                     </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="#">SMKN 1 BINONG</a></p>
+                    <div class="profile-item">
+                        <span>No Telepon</span>
+                        <span>+62 890 0000 0000</span>
                     </div>
-                </div>
-            </footer>
+                    <div class="profile-actions">
+            <a href="{{ route('edit') }}" class="btn btn-primary">Edit Profil</a>
         </div>
-    </div>
-    <script src="{{asset ('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-    <script src="{{asset ('dashboard/dist/assets/js/app.js')}}"></script>
-    
-</body>
 
+<script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+
+<!-- Need: Apexcharts -->
+<script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+<script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
+
+</body>
 </html>
