@@ -162,7 +162,7 @@
             <div class="profile-header">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="{{ asset('picture/accounts/' . $admin->gambar) }}" alt="">
+                        <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
                     </div>
                 </div>
                 <div class="profile-basic-info">

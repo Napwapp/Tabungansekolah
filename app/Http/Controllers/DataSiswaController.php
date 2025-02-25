@@ -10,7 +10,6 @@ class DataSiswaController extends Controller
 {
     public function dataSiswa()
     {
-        $datasiswa = DataSiswa::all();
         return view('pointakses.admin.datasiswa', compact('datasiswa'));
     }
 }

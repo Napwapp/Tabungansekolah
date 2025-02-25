@@ -78,7 +78,7 @@ use Illuminate\Support\Facades\Auth;
         Route::post('/admin/transaksi/{id}/{type}/{status}', [RiwayatAdminController::class, 'updateStatus'])->name('admin.transaksi.update');
         Route::get('/admin/transaksi', [RiwayatAdminController::class, 'transaksi']);
         Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
-        Route::get('/admin/edit', [EditProfilController::class, 'edit   '])->name('edit');
+        Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
 
 
 // route user (untuk logikanya)
