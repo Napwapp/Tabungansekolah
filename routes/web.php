@@ -12,6 +12,13 @@ use App\Http\Controllers\TarikController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DataMahasiswa;
+
+// admin
+use App\Http\Controllers\KelasAdminController;
+use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\RiwayatAdminController;
+use App\Http\Controllers\PesanController;
+use App\Http\Controllers\EditProfilController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,12 +66,19 @@ use Illuminate\Support\Facades\Auth;
         Route::get('/dataedit/{id}', [DataMahasiswa::class, 'edit']);
         Route::post('/datahapus/{id}', [DataMahasiswa::class, 'hapus']);
     });
-    // Route::redirect('/home', '/user');
-    
-
-
-
-
+ 
+        // Route::redirect('/home', '/user');
+        Route::get('/admin/profile', [AdminController::class, 'adminprofil'])->name('profil');
+        Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
+        Route::get('/admin/tabungan_kelas_admin', [KelasAdminController::class, 'kelasmin'])->name('kelasmin');
+        Route::post('/keuangan/tambah', [KelasAdminController::class, 'store'])->name('keuangan.store');
+        Route::delete('/keuangan/hapus/{id}', [KelasAdminController::class, 'destroy'])->name('keuangan.destroy');
+        Route::get('/admin/datasiswa', [DataSiswaController::class, 'datasiswa'])->name('datasiswa');
+        Route::get('/admin/riwayatadmin', [RiwayatAdminController::class, 'riwayatadmin'])->name('riwayatadmin');
+        Route::post('/admin/transaksi/{id}/{type}/{status}', [RiwayatAdminController::class, 'updateStatus'])->name('admin.transaksi.update');
+        Route::get('/admin/transaksi', [RiwayatAdminController::class, 'transaksi']);
+        Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
+        Route::get('/admin/edit', [EditProfilController::class, 'edit   '])->name('edit');
 
 
 // route user (untuk logikanya)
