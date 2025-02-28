@@ -1,0 +1,33 @@
+.badge-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+
+.badge-notif {
+    background-color: red;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sesuaikan styling untuk elemen h2 di dalam badge agar tidak merusak layout */
+.badge-notif h2 {
+    color: white;
+    margin: 0;
+    font-size: 15px;  /* Sesuaikan ukuran font sesuai kebutuhan */
+    line-height: 1;
+}
+
+button {
+    background-color: none;
+    border: none;
+}

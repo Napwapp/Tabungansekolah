@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logosekolah.png')}}" type="image/png">
+
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css') }}">
     
 </head>
 
@@ -80,14 +82,17 @@
                         </li>
 
                                     
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('contact') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
+                                @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
-
                         <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
                         <!-- <li
                             class="sidebar-item  has-sub">
