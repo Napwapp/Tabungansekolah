@@ -9,8 +9,7 @@ class KelasAdminController extends Controller
 {
     // Menampilkan data keuangan
     public function kelasmin() {
-        $datakelas = DataKelas::all();
-        return view('pointakses.admin.kelasmin', compact('datakelas'));
+        return view('pointakses.admin.kelasmin');
     }
 
     // Menyimpan data baru
@@ -23,19 +22,19 @@ class KelasAdminController extends Controller
 
         $akhir = ($request->dana + $request->pemasukan) - $request->pengeluaran;
 
-        DataKelas::create([
-            'pemasukan' => $request->pemasukan,
-            'pengeluaran' => $request->pengeluaran,
-            'dana' => $request->dana,
-            'akhir' => $akhir,
-        ]);
+        // DataKelas::create([
+        //     'pemasukan' => $request->pemasukan,
+        //     'pengeluaran' => $request->pengeluaran,
+        //     'dana' => $request->dana,
+        //     'akhir' => $akhir,
+        // ]);
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan!');
     }
 
     // Menghapus data
     public function hapus($id) {
-        DataKelas::findOrFail($id)->delete();
+        // DataKelas::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

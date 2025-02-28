@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AuthMail;
 use App\Models\User;
 use App\Models\TabunganUser;
 use Illuminate\Http\Request;
@@ -11,63 +10,46 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    // untuk menampilkan halaman login
-    function index () {
+    function index()
+    {
         return view('landingpage/login');
     }
 
     function login(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'email' => 'required',
-        'password' => 'required'
-    ], [
-        'email.required' => 'Email Wajib diisi!',
-        'password.required' => 'Password Wajib diisi!'
-    ]);
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ], [
+            'email.required' => 'Email Wajib diisi!',
+            'password.required' => 'Password Wajib diisi!'
+        ]);
 
-    // Informasi login
-    $infologin = [
-        'email' => $request->email,
-        'password' => $request->password
-    ];
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
 
-    // Proses login
-if (Auth::attempt($infologin)) {
-    // Ambil user yang sedang login
-    $user = Auth::user();
-
-    // Langsung cek role tanpa memeriksa verifikasi email
-    if ($user->role === 'admin') {
-        return redirect()->route('admin')->with('Success', 'Hallo Admin, Anda berhasil login');
-    } else if ($user->role === 'user') {
-        // Cek apakah user sudah memiliki id_tabungan
-        if (!TabunganUser::where('user_id', $user->id)->exists()) {
-            // Membuatkan data tabungan untuk user yang belum punya id_tabungan
-            TabunganUser::create([
-                'user_id' => $user->id,
-                'id_tabungan' => TabunganUser::generateIdTabungan(),
-                'saldo' => 0, // Default saldo awal
-            ]);
+            if ($user->role === 'admin') {
+                return redirect()->route('admin')->with('Success', 'Hallo Admin, Anda berhasil login');
+            } elseif ($user->role === 'user') {
+                if (!TabunganUser::where('user_id', $user->id)->exists()) {
+                    TabunganUser::create([
+                        'user_id' => $user->id,
+                        'id_tabungan' => TabunganUser::generateIdTabungan(),
+                        'saldo' => 0,
+                    ]);
+                }
+                return redirect()->route('user')->with('Success', 'Anda berhasil login');
+            }
         }
-
-        return redirect()->route('user')->with('Success', 'Anda berhasil login');
-    }
-
-    } else {
-        // Jika email atau password salah
         return redirect()->route('auth')->withErrors('Email atau password salah');
     }
 
-    }
-
-    function create () {
+    function create()
+    {
         return view('landingpage/register');
     }
 
-    // function register
-    public function register(Request $request)  {
+    public function register(Request $request){
     Log::info('Fungsi register dipanggil.');
 
     // **1. Validasi Input**
@@ -103,67 +85,37 @@ if (Auth::attempt($infologin)) {
     Log::info('Validasi berhasil.');
 
     try {
-        // **2. Proses Upload Gambar**
-        Log::info('Proses upload gambar dimulai.');
+            $path = public_path('picture/accounts');
+            if (!file_exists($path)) mkdir($path, 0755, true);
 
-        // Pastikan folder tujuan ada, buat jika belum ada.
-        $path = public_path('picture/accounts');
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
-            Log::info('Folder untuk gambar dibuat: ' . $path);
+            $gambar_file = $request->file('gambar');
+            $nama_gambar = date('ymdhis') . '.' . $gambar_file->extension();
+            $gambar_file->move($path, $nama_gambar);
+
+            $user = User::create([
+                'namalengkap' => $request->namalengkap,
+                'kelas' => $request->kelas,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gambar' => $nama_gambar,
+            ]);
+
+            TabunganUser::create([
+                'user_id' => $user->id,
+                'id_tabungan' => TabunganUser::generateIdTabungan(),
+                'saldo' => 0,
+            ]);
+
+            return redirect()->route('auth')->with('success', 'Registrasi berhasil. Anda sekarang bisa login.');
+        } catch (\Throwable $e) {
+            Log::error('Error saat registrasi: ' . $e->getMessage());
+            return redirect()->back()->withErrors('Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
         }
-
-        // Ambil file gambar dari request.
-        $gambar_file = $request->file('gambar');
-
-        // Generate nama file unik dengan timestamp.
-        $nama_gambar = date('ymdhis') . "." . $gambar_file->extension();
-
-        // Pindahkan file gambar ke folder tujuan.
-        $gambar_file->move($path, $nama_gambar);
-        Log::info('Gambar berhasil diupload ke: ' . $path . '/' . $nama_gambar);
-
-        // **3. Simpan Data ke Database**
-        Log::info('Data user yang akan disimpan:', [
-            'namalengkap' => $request->namalengkap,
-            'kelas' => $request->kelas,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'gambar' => $nama_gambar,
-        ]);
-
-        $user = User::create([
-            'namalengkap' => $request->namalengkap,
-            'kelas' => $request->kelas,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'gambar' => $nama_gambar,
-        ]);
-        Log::info('Data user berhasil disimpan ke database dengan ID: ' . $user->id);
-
-        // **Tambahkan pembuatan id_tabungan di sini**
-        TabunganUser::create([
-            'user_id' => $user->id,
-            'id_tabungan' => TabunganUser::generateIdTabungan(), // Fungsi untuk menghasilkan ID tabungan
-            'saldo' => 0, // Saldo awal
-        ]);
-        Log::info('Data tabungan untuk user berhasil dibuat dengan ID tabungan: ' . $user->id);
- 
-        // Redirect ke halaman login dengan pesan sukses.
-        return redirect()->route('auth')->with('success', 'Registrasi berhasil. Anda sekarang bisa login.');
-
-    } catch (\Throwable $e) {
-        // **4. Penanganan Error**
-        Log::error('Terjadi error saat registrasi: ' . $e->getMessage());
-        return redirect()->back()->withErrors('Terjadi kesalahan saat registrasi. Silakan coba lagi.')->withInput();
-    }
-    
     }
 
-    // controller untuk logout
-    function logout() {
+    function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
