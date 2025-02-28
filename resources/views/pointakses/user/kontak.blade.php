@@ -181,11 +181,20 @@
                         <div class="col-12 col-md-6 order-md-1 order-last">
                             <h3>Pesan Masuk</h3>
                             <p class="text-subtitle text-muted">Pesan-pesan yg masuk ke akun mu</p>
+                            <!-- Tombol Tandai Semua Dibaca -->
+                            <button id="markAllReadBtn"
+                                onclick="markAllAsRead()"
+                                class="btn btn-primary"
+                                style="display: none;">
+                                Tandai Semua Dibaca
+                            </button>
+
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                         </div>
                     </div>
                 </div>
+
                 <section class="section content-area-wrapper">
                     <div class="sidebar-left">
                         <div class="sidebar">
@@ -574,7 +583,7 @@
 
                     // Jika ingin juga update status di tempat lain (misalnya sidebar), bisa lakukan perubahan lain di sini
                 })
-            .catch(error => console.error("Error updating status:", error));
+                .catch(error => console.error("Error updating status:", error));
         }
 
 
@@ -589,7 +598,71 @@
         }
     </script>
 
+    <!-- script untuk tombol tanda semua dibaca -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            checkUnreadNotifications();
+        });
 
+        function checkUnreadNotifications() {
+            fetch("{{ route('notifikasi.countUnread') }}")
+                .then(response => response.json())
+                .then(data => {
+                    let button = document.getElementById("markAllReadBtn");
+                    if (data.unreadCount > 0) {
+                        button.style.display = "block";
+                    } else {
+                        button.style.display = "none";
+                    }
+
+                    // Update badge angka notifikasi di sidebar
+                    let badge = document.getElementById("notificationBadge");
+                    if (badge) {
+                        badge.innerText = data.unreadCount;
+                        badge.style.display = data.unreadCount > 0 ? "block" : "none";
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function markAllAsRead() {
+            fetch("{{ route('notifikasi.markAllRead') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Loop semua notifikasi dan update tampilannya
+                        document.querySelectorAll(".media").forEach(item => {
+                            item.classList.add("mail-read"); // Tambah class mail-read
+                        });
+
+                        // Hilangkan indikator merah dari semua notifikasi yang belum dibaca
+                        document.querySelectorAll(".bullet-unread").forEach(dot => {
+                            dot.style.display = "none";
+                        });
+
+                        // Perbarui angka notifikasi di sidebar
+                        let badge = document.getElementById("notificationBadge");
+                        if (badge) {
+                            badge.innerText = "0"; // Set badge ke 0
+                            badge.style.display = "none"; // Sembunyikan badge jika sudah 0
+                        }
+
+                        // Sembunyikan tombol "Tandai Semua Dibaca"
+                        let button = document.getElementById("markAllReadBtn");
+                        if (button) {
+                            button.style.display = "none";
+                        }
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
 
 </body>
 

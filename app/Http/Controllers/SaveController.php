@@ -42,6 +42,7 @@ class SaveController extends Controller
         $tabungan = DB::table('transaksi_menabung_users')
             ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
             ->where('user_id', $userId) // Filter berdasarkan user_id
+            ->where('status', 'Sukses') // Hanya hitung transaksi yang sudah disetujui
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('bulan')
             ->get();

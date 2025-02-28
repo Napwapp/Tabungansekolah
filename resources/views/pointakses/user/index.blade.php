@@ -18,7 +18,6 @@
 
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
 </head>
 
 <body>
@@ -271,25 +270,27 @@
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">Saldo Tersisa</h5> <!-- indeckend -->
-                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3> <!-- backend -->
-                                    <p>Saldo yang anda miliki</p> <!-- backend -->
+                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3> 
+                                    <p>Saldo yang anda miliki</p> 
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body btn-green" style="border-radius: 10px;">
-                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5> <!-- backend -->
-                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3> <!-- backend -->
-                                    <p>Tabungan hingga saat ini.</p> <!-- backend -->
+                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5> 
+                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3> 
+                                    <p>Tabungan hingga saat ini.</p> 
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body btn-blue" style="border-radius: 10px;">
-                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5> <!-- backend -->
-                                    <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5> 
+                                    <h3 style="color: white;">
+                                        <h3 style="color: white;">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
+                                    </h3> 
                                     <p>Total Penarikan Anda bulan ini.</p>
                                 </div>
                             </div>
@@ -325,7 +326,7 @@
                     <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
                     <div class="card bg-light text-dark mb-4">
                         <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5> <!-- backend -->
+                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5> 
                             <canvas id="tabunganChart" height="100"></canvas>
                         </div>
                     </div>

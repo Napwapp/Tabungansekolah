@@ -7,6 +7,7 @@ use App\Models\NotifikasiUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -63,5 +64,29 @@ class ContactController extends Controller
         }
 
         return response()->json(['message' => 'Status diperbarui']);
+    }
+
+    // logika untuk Menandai semua pesan yg Belum Dibaca menjadi Dibaca
+    public function countUnread()
+    {
+        $unreadCount = DB::table('notifikasi_users')
+            ->where('user_id', auth()->id())
+            ->where('status', 'Belum Dibaca')
+            ->count();
+
+        return response()->json(['unreadCount' => $unreadCount]);
+    }
+
+    public function markAllRead()
+    {
+        DB::table('notifikasi_users')
+            ->where('user_id', auth()->id())
+            ->where('status', 'Belum Dibaca')
+            ->update([
+                'status' => 'Dibaca',
+                'updated_at' => now()
+            ]);
+
+        return response()->json(['success' => true]);
     }
 }

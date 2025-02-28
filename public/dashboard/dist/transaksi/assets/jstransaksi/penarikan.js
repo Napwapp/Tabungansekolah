@@ -57,9 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     amountInput.addEventListener("input", function () {
-        let rawValue = amountInput.value.replace(/\D/g, "");
+        let rawValue = amountInput.value.replace(/\D/g, ""); // Hanya angka
         amountInput.value = formatNumber(rawValue);
+        amountHidden.value = rawValue; // Pastikan hidden input selalu diperbarui
     });
+    
 
     // Tombol Tarik Semua
     if (tarikSemuaButton) {
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Swal.fire({
                 icon: "error",
                 title: "Gagal!",
-                text: "Anda sudah memiliki permintaan penarikan yang sedang diproses. Harap tunggu persetujuan admin.",
+                text: "Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!",
             });
             return;
         }

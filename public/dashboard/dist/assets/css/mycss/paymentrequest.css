@@ -1,0 +1,44 @@
+    /* Container untuk aksi */
+    .aksi-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* Item aksi (Terima dan Tolak) */
+    .aksi-item {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ukuran ikon */
+    .aksi-item i {
+        font-size: 24px; /* Perbesar ukuran ikon */
+    }
+
+    .aksi-item i:hover {
+        filter: contrast(2)
+    }
+
+
+    /* Ukuran teks */
+    .aksi-item small {
+        font-size: 14px; /* Perbesar ukuran teks */
+    }
+
+    /* Garis pemisah */
+    .garis-pemisah {
+        border-left: 2px solid #ccc; /* Pertebal garis */
+        height: 70px; /* Panjangkan garis */
+        margin: 0 10px;
+    }
+
+    /* Padding untuk card-content */
+    .card-content {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+    }

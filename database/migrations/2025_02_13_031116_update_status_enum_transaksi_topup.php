@@ -9,14 +9,14 @@ class UpdateStatusEnumTransaksiTopup extends Migration
     public function up()
     {
         Schema::table('transaksi_topup', function (Blueprint $table) {
-            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Sukses')->change();
+            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Menunggu Persetujuan')->change();
         });
     }
 
     public function down()
     {
         Schema::table('transaksi_topup', function (Blueprint $table) {
-            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Sukses')->change();
+            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Menunggu persetujuan')->change();
         });
     }
 }

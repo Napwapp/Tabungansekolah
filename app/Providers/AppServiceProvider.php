@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\NotifikasiUser;
 
@@ -31,6 +32,14 @@ class AppServiceProvider extends ServiceProvider
                     ->count();
                 $view->with('unreadCount', $unreadCount);
             }
+        });
+
+        View::composer('*', function ($view) {
+            $pendingTransactions = DB::table('transaksi_topup')->where('status', 'Menunggu Persetujuan')->count() +
+                DB::table('transaksi_menabung_users')->where('status', 'Menunggu Persetujuan')->count() +
+                DB::table('penarikan_users')->where('status', 'Menunggu Persetujuan')->count();
+
+            $view->with('pendingTransactions', $pendingTransactions);
         });
     }
 }

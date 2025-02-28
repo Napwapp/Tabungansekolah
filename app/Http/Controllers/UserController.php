@@ -24,9 +24,9 @@ class UserController extends Controller
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
 
         // Ambil total tabungan user dari tabel transaksi_menabung_users
-        $totalTabungan = DB::table('transaksi_menabung_users')
+        $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('jumlah'); // Menjumlahkan total tabungan berdasarkan user_id
+            ->sum('total_tabungan'); // Menjumlahkan total tabungan berdasarkan user_id
 
         // Ambil target tabungan yang telah diatur oleh user
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
@@ -37,6 +37,13 @@ class UserController extends Controller
         // Membatasi persen hingga maksimal 100%
         $persenTabungan = min($persenTabungan, 100);
 
+        // penarikan
+        $penarikanDisetujuiBulanIni = DB::table('penarikan_users')
+            ->where('user_id', Auth::id())
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->where('status', 'Sukses') // Hanya yang sudah disetujui
+            ->sum('jumlah');
 
         // Mengambil id_tabungan dari relasi  
         $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia';
@@ -90,7 +97,6 @@ class UserController extends Controller
             TransaksiMenabungUser::where('user_id', $user->id)->doesntExist() &&
             PenarikanUser::where('user_id', $user->id)->doesntExist();
 
-        return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan'));
+        return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan', 'penarikanDisetujuiBulanIni'));
     }
-
 }

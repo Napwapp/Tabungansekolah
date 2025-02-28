@@ -8,14 +8,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('transaksi_menabung_users', function (Blueprint $table) {
-            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Sukses')->change();
+            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Menunggu Persetujuan')->change();
         });
     }
 
     public function down(): void
     {
         Schema::table('transaksi_menabung_users', function (Blueprint $table) {
-            $table->enum('status', ['berhasil', 'gagal', 'pending'])->default('berhasil')->change();
+            $table->enum('status', ['Sukses', 'Menunggu Persetujuan', 'Gagal'])->default('Sukses')->change();
         });
     }
 };

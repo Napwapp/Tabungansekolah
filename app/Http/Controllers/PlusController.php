@@ -62,13 +62,19 @@ class PlusController extends Controller
                 ]
             );
 
-            // Tambahkan saldo
-            $tabungan->saldo += $request->jumlah;
-            $tabungan->save();
-
             // Pastikan id_tabungan tidak null
             if (!$tabungan->id_tabungan) {
                 throw new \Exception('ID Tabungan tidak ditemukan!');
+            }
+
+            $existingTopup = TransaksiTopup::where('user_id', auth()->id())
+                ->where('status', 'Menunggu Persetujuan')
+                ->exists();
+
+            if ($existingTopup) {
+                return response()->json([
+                    'message' => 'Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!'
+                ], 400);
             }
 
             // Buat transaksi topup
@@ -78,7 +84,7 @@ class PlusController extends Controller
                 'namalengkap' => $user->namalengkap,
                 'kelas'       => $user->kelas,
                 'jumlah'      => $request->jumlah,
-                'status'      => 'Sukses',
+                'status'      => 'Menunggu Persetujuan',
             ]);
 
             NotifikasiUser::create([
@@ -86,20 +92,19 @@ class PlusController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Top-Up Saldo Berhasil',
-                'isi_pesan' => 'Berhasil mengisi saldo sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah berhasil ditambahkan.',
+                'isi_pesan' => 'Menunggu Persetujuan admin dengan jumlah Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah berhasil ditambahkan.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $topup->id, // Simpan ID transaksi    topup 
-                'status_transaksi' => $topup ->status, // Langsung ambil dari kolom status transaksi
+                'status_transaksi' => $topup->status, // Langsung ambil dari kolom status transaksi
 
             ]);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Saldo berhasil ditambahkan!',
                 'saldo'   => $tabungan->saldo
-            ]);            
-            
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
