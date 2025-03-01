@@ -72,7 +72,7 @@ class AuthController extends Controller
         'kelas.min' => 'Kelas setidaknya berisi 5 karakter',
         'username.required' => 'Username wajib diisi',
         'username.min' => 'Username setidaknya berisi 5 huruf',
-        'username.max' => 'Maksimal 18 karakter',
+        'username.max' => 'Username Maksimal 18 karakter',
         'email.required' => 'Email wajib diisi',
         'email.unique' => 'Email telah terdaftar',
         'password.required' => 'Password harus diisi',

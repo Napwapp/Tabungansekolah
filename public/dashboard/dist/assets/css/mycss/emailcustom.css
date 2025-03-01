@@ -206,3 +206,13 @@
     text-align: right; /* Menambahkan text alignment kanan untuk tanggal */
 }
 
+/* link di notifikasi pengingat */
+.message-content a {
+    color: #0000EE; /* Warna default (biru klasik) */
+    text-decoration: underline;
+}
+
+.message-content a:hover {
+    color: #0056b3; /* Biru lebih gelap saat hover */
+    text-decoration: none; /* Menghilangkan garis bawah saat hover */
+}

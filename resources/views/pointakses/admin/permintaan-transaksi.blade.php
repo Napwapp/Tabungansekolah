@@ -144,45 +144,11 @@
                     <div class="page-title">
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Riwayat Transaksi</h3>
-                                <p class="text-subtitle text-muted">Disini kamu bisa melihat riwayat transaksimu lebih lengkap dan lebih jelas </p>
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Table</li>
-                                    </ol>
-                                </nav>
-                            </div>
+                                <h3>Daftar Permintaan Transaksi</h3>
+                                <p class="text-subtitle text-muted"> Permintaan-permintaan transaksi anggota </p>
+                            </div>                        
                         </div>
                     </div>
-
-                    <!-- Filter Section -->
-                    <!-- <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="filterTipe">Filter Tipe Transaksi:</label>
-                            <div class="custom-dropdown">
-                                <select id="filterTipe" class="form-control">
-                                    <option value="">Semua</option>
-                                    <option value="Top Up">Top Up</option>
-                                    <option value="Menabung">Menabung</option>
-                                    <option value="Penarikan">Penarikan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="filterStatus">Filter Status:</label>
-                            <div class="custom-dropdown">
-                                <select id="filterStatus" class="form-control">
-                                    <option value="">Semua</option>
-                                    <option value="Sukses">Sukses</option>
-                                    <option value="Diproses">Diproses</option>
-                                    <option value="Gagal">Gagal</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
 
                     <!-- Tabel permintaan transaksi -->
                     <section class="section">
@@ -190,7 +156,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Riwayat</h4>
+                                        <h4 class="card-title">Daftar Permintaan Transaksi</h4>
                                     </div>
                                     <div class="card-content" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
                                         <div class="table-responsive">

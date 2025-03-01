@@ -31,10 +31,10 @@ class NotifikasiUser extends Model
     public function getStatusIconAttribute()
     {
         if ($this->tipe !== "Transaksi" || !$this->status_transaksi) {
-            return '<i class="bi bi-question-circle text-secondary"></i> Status Tidak Diketahui';
+            return '<i class="bi bi-check-circle text-success"></i> Terkirim ';
         }
-    
-        return match ($this->status_transaksi) { 
+
+        return match ($this->status_transaksi) {
             'Sukses' => '<i class="bi bi-check-circle text-success"></i> Transaksi Berhasil',
             'Menunggu Persetujuan' => '<i class="bi bi-hourglass-split text-warning"></i> Menunggu Persetujuan',
             'Gagal' => '<i class="bi bi-x-circle text-danger"></i> Transaksi Gagal',
@@ -42,6 +42,3 @@ class NotifikasiUser extends Model
         };
     }
 }
-    
-
-
