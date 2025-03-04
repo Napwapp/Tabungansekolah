@@ -4,53 +4,78 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\TabunganUser;
-
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\TabunganUser;
+use App\Models\User;
 
 class SaveController extends Controller
 {
-    // untuk menampilkan halaman tabungan
-    public function tabungan()
+    // Pastikan hanya admin yang bisa mengakses controller ini
+    public function __construct()
     {
-        $user = Auth::user()->load('tabunganUser'); // Ambil data user yang sedang login
+        $this->middleware(['auth', 'admin']); // Gunakan middleware admin
+    }
 
-        // Ambil saldo user dari tabel tabungan_users
-        $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
-
-        // Ambil total tabungan user dari tabel transaksi_menabung_users
-        $totalTabungan = DB::table('transaksi_menabung_users')
-            ->where('user_id', Auth::id())
-            ->sum('jumlah'); // Menjumlahkan total tabungan berdasarkan user_id
-
-        // Ambil target tabungan dari tabungan_users
-        $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
+    // Menampilkan halaman tabungan untuk semua user
+    public function tabungan(Request $request)
+    {
+        $userId = $request->input('user_id'); // Ambil user_id dari request (jika ada)
         
-        // Hitung persen 
-        $persenTabungan = $targetTabungan ? ($totalTabungan / $targetTabungan) * 100 : 0;
-
-        return view('pointakses.user.tabungan', compact('user', 'saldo', 'totalTabungan', 'targetTabungan'));
-    }
-
-    public function getTabunganPerBulan()
-    {
-        // Ambil total tabungan per bulan
-        $tabungan = DB::table('transaksi_menabung_users')
-            ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
-            ->whereYear('created_at', Carbon::now()->year)
-            ->groupBy('bulan')
-            ->get();
-    
-        // Buat array lengkap 1-12 (Januari-Desember) dengan nilai default 0
-        $tabunganLengkap = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $tabunganLengkap[] = [
-                'bulan' => $i,
-                'total_tabungan' => $tabungan->firstWhere('bulan', $i)->total ?? 0
-            ];
+        if ($userId) {
+            // Jika admin memilih user tertentu, tampilkan tabungan user tersebut
+            $user = User::with('tabunganUser')->find($userId);
+        } else {
+            // Jika tidak, tampilkan semua user
+            $user = null;
         }
-    
-        return response()->json($tabunganLengkap);
+
+        // Ambil saldo dan target tabungan user tertentu (jika dipilih)
+        $saldo = optional($user?->tabunganUser)->saldo ?? 0;
+        $targetTabungan = optional($user?->tabunganUser)->target_tabungan ?? 0;
+
+        // Ambil total tabungan user tertentu (jika dipilih)
+        $totalTabungan = DB::table('transaksi_menabung_users')
+            ->when($userId, function ($query) use ($userId) {
+                return $query->where('user_id', $userId);
+            })
+            ->sum('jumlah');
+
+        // Hitung persentase tabungan (hindari pembagian dengan nol)
+        $persenTabungan = $targetTabungan > 0 ? ($totalTabungan / $targetTabungan) * 100 : 0;
+
+        // Ambil semua user untuk dropdown pilihan di admin panel
+        $users = User::all();
+
+        return view('pointakses.admin.tabungan', compact('users', 'user', 'saldo', 'totalTabungan', 'targetTabungan', 'persenTabungan'));
     }
+
+    // Mengambil data tabungan per bulan (semua user atau user tertentu)
+    public function getTabunganPerBulan()
+{
+    // Ambil total tabungan per bulan dari tabel transaksi_menabung_users
+    $data = DB::table('transaksi_menabung_users')
+        ->selectRaw('MONTH(created_at) as bulan, SUM(nominal) as total_tabungan')
+        ->where('status', 'Sukses') // Hanya transaksi sukses
+        ->groupBy('bulan')
+        ->orderBy('bulan')
+        ->get();
+
+    // Format data bulan menjadi nama bulan
+    $bulanMap = [
+        1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+        5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+        9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+    ];
+
+    $formattedData = [];
+    foreach ($data as $item) {
+        $formattedData[] = [
+            'bulan' => $bulanMap[$item->bulan], 
+            'total_tabungan' => $item->total_tabungan
+        ];
+    }
+
+    return response()->json($formattedData);
+}
 }

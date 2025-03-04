@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function admin()
     {
         // Total saldo masuk hari ini
         $totalSaldoHariIni = TransaksiTopup::whereDate('created_at', Carbon::today())

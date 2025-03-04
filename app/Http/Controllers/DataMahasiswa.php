@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\DataAnggota as ModelsDataAnggota;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,6 +14,7 @@ class DataMahasiswa extends Controller
 {
     function index () {
         $data = ModelsDataAnggota::all();
+        $data = User::all();
         return view('data_anggota.index', ['data' => $data]);
     }
 

@@ -183,7 +183,7 @@
                     <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-hapus">Hapus</button>
+                        <button type="submit" class="btn-edit">Edit</button>
                     </form>
                 </td>
             </tr>
@@ -212,7 +212,7 @@
                     <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-hapus">Hapus</button>
+                        <button type="submit" class="btn-edit">Edit</button>
                     </form>
                 </td>
             </tr>
@@ -241,7 +241,7 @@
                     <form action="{{ route('keuangan.destroy', $data->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-hapus">Hapus</button>
+                        <button type="submit" class="btn-edit">Edit</button>
                     </form>
                 </td>
             </tr>
