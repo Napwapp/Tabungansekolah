@@ -184,7 +184,7 @@
                             <!-- Tombol Tandai Semua Dibaca -->
                             <button id="markAllReadBtn"
                                 onclick="markAllAsRead()"
-                                class="btn btn-primary"
+                                class="btn btn-danger btn-hover"
                                 style="display: none;">
                                 Tandai Semua Dibaca
                             </button>
@@ -354,18 +354,9 @@
                                                         </div>
                                                     </div>
                                                     <!-- pagination and page count -->
-                                                    <span class="d-none d-sm-block">-</span>
-                                                    <button class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#chevron-left')}}" />
-                                                        </svg>
-                                                    </button>
-                                                    <button class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#chevron-right')}}" />
-                                                        </svg>
+                                                    <!-- Tombol Hapus Semua Notifikasi -->
+                                                    <button class="btn btn-danger btn-hover" onclick="hapusSemuaPesanDibaca()">
+                                                       Hapus Semua Pesan yang Dbaca
                                                     </button>
                                                 </div>
                                             </div>
@@ -375,7 +366,7 @@
                                             <div class="email-user-list list-group ps ps--active-y">
                                                 <ul class="users-list-wrapper media-list">
                                                     @foreach($notifikasi as $pesan)
-                                                    <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})">
+                                                    <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})" id="notification-{{ $pesan->id }}">
                                                         <div class="pr-50">
                                                             <div class="avatar">
                                                                 @if($pesan->foto_pengirim)
@@ -431,6 +422,12 @@
 
                                                         <!-- Konten Utama Pesan -->
                                                         <div class="overlay-body">
+
+                                                            <!-- Icon Hapus di Pojok Kanan Atas -->
+                                                            <button class="btn-hapus" onclick="konfirmasiHapus()">
+                                                                <i class="bi bi-trash"></i> <!-- Menggunakan Bootstrap icon -->
+                                                            </button>
+
                                                             <!-- Judul Pesan -->
                                                             <h3 id="overlay-title" class="message-title"></h3>
 
@@ -502,13 +499,16 @@
     </footer>
     </div>
     </div>
+
+    <!-- Sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
 
     <!-- untuk buka tutup sidebar -->
-
     <script>
         document.querySelector('.sidebar-toggle').addEventListener('click', () => {
             document.querySelector('.email-app-sidebar').classList.toggle('show')
@@ -520,7 +520,12 @@
 
     <!-- untuk menampilkan overlay dan mengupdate status notifikasi -->
     <script>
+        let currentMessageId = null; // Simpan ID notifikasi yang sedang dibuka
+
         function openMessageOverlay(id) {
+            // Update currentMessageId sesuai dengan notifikasi yang diklik
+            currentMessageId = id;
+
             // Menampilkan overlay
             document.getElementById('messageOverlay').style.display = 'flex';
 
@@ -573,17 +578,58 @@
 
                     // Hapus bullet merah
                     if (bullet) {
-                        bullet.style.display = 'none'; // Sembunyikan bullet merah
+                        bullet.style.display = 'none';
                     }
 
                     // Tambahkan kelas 'mail-read' pada elemen li untuk menandakan bahwa pesan telah dibaca
                     if (messageItem) {
                         messageItem.classList.add('mail-read');
                     }
-
-                    // Jika ingin juga update status di tempat lain (misalnya sidebar), bisa lakukan perubahan lain di sini
                 })
                 .catch(error => console.error("Error updating status:", error));
+        }
+
+
+        function konfirmasiHapus() {
+            if (!currentMessageId) {
+                console.error("ID pesan tidak ditemukan!");
+                return;
+            }
+
+            Swal.fire({
+                title: "Hapus Notifikasi?",
+                text: "Notifikasi ini akan dipindahkan ke folder 'Terhapus'.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/pesan/hapus/${currentMessageId}`, {
+                            method: "POST",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Hilangkan notifikasi dari daftar pesan
+                                document.getElementById(`notification-${currentMessageId}`).remove();
+                                // Tampilkan swal success, lalu tutup overlay setelah konfirmasi alert
+                                Swal.fire("Berhasil!", "Notifikasi berhasil dihapus.", "success")
+                                    .then(() => {
+                                        closeOverlay();
+                                    });
+                            } else {
+                                Swal.fire("Error", "Gagal menghapus notifikasi", "error");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
         }
 
 
@@ -593,6 +639,43 @@
             document.getElementById('messageOverlay').addEventListener('click', function(event) {
                 if (event.target === this) {
                     closeOverlay();
+                }
+            });
+        }
+    </script>
+
+    <!-- Script Konfirmasi Hapus Semua -->
+    <script>
+        function hapusSemuaPesanDibaca() {
+            Swal.fire({
+                title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
+                text: "Pesan yang telah dibaca akan dihapus.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus Semua',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim request hapus pesan yang sudah dibaca
+                    fetch('/pesan/hapus-semua-dibaca', {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({}) // Tambahkan body kosong
+                        })
+
+                        .then(response => response.json())
+                        .then(data => {
+                            Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success');
+                            // Reload atau update tampilan notifikasi
+                            location.reload(); // Atau bisa menggunakan update tampilan AJAX
+                        })
+                        .catch(error => {
+                            Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
+                        });
                 }
             });
         }

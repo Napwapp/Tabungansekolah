@@ -46,6 +46,7 @@
 
 /* Body overlay */
 .overlay-body {
+    position: relative; /* Agar button hapus bisa diposisikan absolut di dalam body */
     height: 90%;
     max-width: 900px;
     width: 100%;
@@ -57,6 +58,32 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
+
+/* Tombol hapus */
+/* Penempatan Icon Hapus di Pojok Kanan Atas */
+.btn-hapus {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-hapus i {
+    font-size: 1.5rem;
+    padding: 30px;
+}
+
+.btn-hapus:hover i {
+    color: #000000c5; /* Warna merah gelap saat hover */
+}
+
+/* btn hapus semua */
+
+
+
 
 /* Judul Pesan */
 .message-title {

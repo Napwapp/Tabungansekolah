@@ -72,10 +72,12 @@ class ContactController extends Controller
         $unreadCount = DB::table('notifikasi_users')
             ->where('user_id', auth()->id())
             ->where('status', 'Belum Dibaca')
+            ->whereNull('deleted_at') // Pastikan tidak menghitung notifikasi yang sudah dihapus
             ->count();
 
         return response()->json(['unreadCount' => $unreadCount]);
     }
+
 
     public function markAllRead()
     {
@@ -89,4 +91,43 @@ class ContactController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    // Fungsi untuk menghapus notifikasi
+    public function hapusNotifikasi($id)
+    {
+        $notification = NotifikasiUser::where('id', $id)
+            ->whereNull('deleted_at') // Cek agar tidak menghapus yang sudah dihapus
+            ->first();
+
+        if ($notification) {
+            $notification->delete(); // Soft delete (update deleted_at)
+            return response()->json(['success' => true, 'message' => 'Notifikasi berhasil dihapus.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Notifikasi tidak ditemukan atau sudah dihapus.']);
+    }
+
+    // Fungsi untuk hapus semua notifikasi
+    public function hapusSemuaPesanDibaca()
+{
+    try {
+        $userId = auth()->id();
+
+        // Cek apakah ada notifikasi yang sudah Dibaca dan belum dihapus
+        $affectedRows = DB::table('notifikasi_users')
+            ->where('user_id', $userId) // Menargetkan notifikasi untuk user yang sedang login
+            ->where('status', 'Dibaca') // Menyaring hanya yang sudah Dibaca
+            ->whereNull('deleted_at') // Menyaring yang belum dihapus
+            ->update(['deleted_at' => now()]); // Menghapus notifikasi dengan mengisi kolom deleted_at
+
+        if ($affectedRows > 0) {
+            return response()->json(['success' => true, 'message' => 'Semua notifikasi yang sudah dibaca berhasil dihapus.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Tidak ada notifikasi yang sudah dibaca untuk dihapus.']);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+    }
+}
+
 }

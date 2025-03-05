@@ -80,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/pesan/{id}/detail', [ContactController::class, 'getDetail']);
     Route::post('/pesan/{id}/update-status', [ContactController::class, 'updateStatus']); //js yg menangani postnya sudah ada di halaman pesan    
+    Route::post('/pesan/hapus/{id}', [ContactController::class, 'hapusNotifikasi']);
+    Route::delete('/pesan/hapus-semua-dibaca', [ContactController::class, 'hapusSemuaPesanDibaca'])->name('pesan.hapusSemuaDibaca');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
     Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang', [DataMahasiswa::class, 'index'])->name('dataanggota'); //hanya untuk admin

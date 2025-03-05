@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // Import trait SoftDeletes
 
 class NotifikasiUser extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes; // Sertakan SoftDeletes
 
     protected $table = 'notifikasi_users';
 
@@ -30,12 +31,12 @@ class NotifikasiUser extends Model
     // Accessor untuk status_icon
     public function getStatusIconAttribute()
     {
-        // default status bertipe pengingat
-        if ($this->tipe == "Pengingat" || $this->status_transaksi) {
-            return '<i class="bi bi-bell text-danger"></i> Pengingat ';
+        if ($this->tipe == "Pengingat") {
+            return '<i class="bi bi-bell text-danger"></i> Pengingat';
         }
-
-        // status untuk transaksi
+        if ($this->tipe == "Transaksi" && !$this->status_transaksi) {
+            return '<i class="bi bi-question-circle text-secondary"></i> Status Tidak Diketahui';
+        }
         return match ($this->status_transaksi) {
             'Sukses' => '<i class="bi bi-check-circle text-success"></i> Transaksi Berhasil',
             'Menunggu Persetujuan' => '<i class="bi bi-hourglass-split text-warning"></i> Menunggu Persetujuan',

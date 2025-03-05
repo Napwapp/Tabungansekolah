@@ -91,7 +91,7 @@ class PlusController extends Controller
                 'user_id' => $user->id,
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
-                'judul' => 'Top-Up Saldo Berhasil',
+                'judul' => 'Top-Up Saldo',
                 'isi_pesan' => 'Menunggu Persetujuan admin dengan jumlah Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah berhasil ditambahkan.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
