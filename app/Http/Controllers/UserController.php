@@ -75,25 +75,7 @@ class UserController extends Controller
         return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan'));
     }
 
-    public function getTabunganPerBulan()
-    {
-        $tabungan = DB::table('transaksi_menabung_users')
-            ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
-            ->whereYear('created_at', Carbon::now()->year)
-            ->groupBy('bulan')
-            ->get();
 
-        // Buat array lengkap 1-12 (Januari-Desember) dengan nilai default 0
-        $tabunganLengkap = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $tabunganLengkap[] = [
-                'bulan' => $i,
-                'total_tabungan' => $tabungan->firstWhere('bulan', $i)->total ?? 0
-            ];
-        }
-
-        return response()->json($tabunganLengkap);
-    }
 
     public function updateRole(Request $request, $id)
     {
@@ -102,5 +84,16 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Role berhasil diperbarui');
+    }
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+
+        $user->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 }

@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
 </head>
 <body>
-<div id="app"
+<div id="app">
     <!-- sidebar -->
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
@@ -150,7 +150,7 @@
                     <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                         @csrf
                         <i class="bi bi-x-octagon-fill"></i>
-                        <button style="border: none; padding: 10px; background-color: white;">Log Out</button>               
+                        <button style="border: none; padding: 10px; background-color: white;">Log Out</button></form>            
                 </ul>
             </div>
         </div>

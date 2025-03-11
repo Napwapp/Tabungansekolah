@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-use Database\Seeders\JurusanSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DataKelas extends Model
 {
     use HasFactory;
-    protected $table = 'DataKelas';
-    protected $fillable = ['jurusan','pengeluaran', ' pemasukan', 'dana', 'akhir'];
+    protected $table = 'datakelas';
+    protected $fillable = ['kelas', 'jurusan', 'pengeluaran', 'pemasukan', 'dana', 'akhir'];
+    public function scopeByKelas($query, $kelas)
+    {
+        return $query->where('kelas', $kelas);
+    }
 }

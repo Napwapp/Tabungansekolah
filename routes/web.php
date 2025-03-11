@@ -20,6 +20,7 @@ use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\KelasAdminController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\RiwayatAdminController;
+use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\TargetTabunganController;
 use App\Models\admin;
 use App\Models\DataSiswa;
@@ -56,7 +57,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', action: [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin'); // route admin
 
     Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('userAkses:user'); //route user
-    Route::get('/tabungan/bulanan', [UserController::class, 'getTabunganPerBulan']);
     Route::post('/target-tabungan', [TargetTabunganController::class, 'simpan'])->name('simpanTarget');
 
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile'); // route profil 
@@ -91,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Route::redirect('/home', '/user');
 Route::get('/admin/profile', [AdminController::class, 'adminprofil'])->name('profil');
+Route::post('/profil/update', [AdminController::class, 'update'])->name('profil.update');
 Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
 Route::get('/admin/tabungan_kelas_admin', [KelasAdminController::class, 'kelasmin'])->name('kelasmin');
 Route::post('/keuangan/tambah', [KelasAdminController::class, 'store'])->name('keuangan.store');
@@ -112,7 +113,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('updateRole')
         ->middleware('userAkses:admin'); // Hilangkan array []
 });
-                
+Route::delete('/datahapus/{id}', [UserController::class, 'destroy'])->name('datahapus');
+Route::get('/tabungan', [TabunganController::class, 'getTabunganData']);                
 
 
 

@@ -168,6 +168,7 @@
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -244,7 +245,7 @@
                         </div>
                         <!-- Grafik Tabungan -->
                         <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                        <div class="card bg-light text-dark mb-4" style="box-shadow: 0 0 5px 5px rgb(0,0,0);">
+                        <div class="card bg-light text-dark mb-4" style="box-shadow: 0 0 5px rgb(0,0,0);">
                             <div class="card-body">
                                 <h5 class="card-title">Grafik Perkembangan Tabungan</h5>
                                 <canvas id="tabunganChart"></canvas>
@@ -254,31 +255,21 @@
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
-                                fetch('/admin')
+                                const labels = [
+                                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                                ];
+
+                                fetch("{{ url('/tabungan') }}")
                                     .then(response => response.json())
-                                    .then(data => {
-                                        console.log("Data dari API:", data); // Debugging
-
-                                        const labels = [
-                                            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                                            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-                                        ];
-
-                                        let tabunganData = Array(12).fill(0);
-                                        data.forEach(item => {
-                                            const index = labels.indexOf(item.bulan);
-                                            if (index !== -1) {
-                                                tabunganData[index] = item.total_tabungan;
-                                            }
-                                        });
-
+                                    .then(tabunganData => {
                                         const ctx = document.getElementById('tabunganChart').getContext('2d');
                                         new Chart(ctx, {
                                             type: 'line',
                                             data: {
                                                 labels: labels,
                                                 datasets: [{
-                                                    label: 'Jumlah Tabungan',
+                                                    label: 'Jumlah Tabungan (Rp)',
                                                     data: tabunganData,
                                                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                                     borderColor: 'rgba(54, 162, 235, 1)',
@@ -296,11 +287,10 @@
                                             }
                                         });
                                     })
-                                    .catch(error => console.error('Error mengambil data:', error));
+                                    .catch(error => console.error("Error:", error));
                             });
                         </script>
-
-                        </script></canvas>
+                        </canvas>
 
 
                 </body>

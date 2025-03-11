@@ -46,5 +46,25 @@ class AdminController extends Controller
         $admin = auth()->user(); //Mengambil data admin yang sedang login
         return view('pointakses.admin.profiladmin', compact('admin'));
     }
+
+    public function update(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'namalengkap' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
+            'kelas' => 'required|string|max:255',
+        ]);
+
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $user->namalengkap = $request->namalengkap;
+        $user->username = $request->username;
+        $user->kelas = $request->kelas;
+        $user->save();
+
+        // Return response JSON
+        return response()->json(['success' => true, 'message' => 'Profil berhasil diperbarui']);
+    }
     
 }

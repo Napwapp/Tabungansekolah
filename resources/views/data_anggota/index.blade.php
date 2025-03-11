@@ -107,7 +107,7 @@
                             class="sidebar-item  ">
                             <a href="{{route('pesan')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
                             </a>
                         </li>
 
@@ -152,12 +152,12 @@
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Nama</th>
                                             <th>Email</th>
                                             <th>ID</th>
                                             <th>Kelas</th>
                                             <th>Role</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -178,10 +178,14 @@
                                             </td>
                                             <td>
                                                 <form onsubmit="return confirmHapus(event)"
-                                                    action="/datahapus/{{ $item->id }}" method="post" class="d-inline">
+                                                    action="{{ route('datahapus', $item->id) }}"
+                                                    method="POST"
+                                                    class="d-inline">
                                                     @csrf
+                                                    @method('DELETE')
                                                     <button type="submit" class="btn-sm btn-danger">Hapus</button>
                                                 </form>
+
                                             </td>
                                         </tr>
                                         @endforeach
@@ -246,24 +250,24 @@
 
             // Menangani perubahan role tanpa reload halaman
             document.querySelectorAll(".form-select").forEach(select => {
-                select.addEventListener("change", function () {
+                select.addEventListener("change", function() {
                     const form = this.closest("form");
                     const formData = new FormData(form);
-                    
+
                     fetch(form.action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert(data.message || "Role berhasil diperbarui!");
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    });
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message || "Role berhasil diperbarui!");
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
                 });
             });
         </script>

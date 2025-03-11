@@ -166,7 +166,7 @@
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button></form>
                     </ul>
                 </div>
             </div>
@@ -212,7 +212,77 @@
                                 <span>No Telepon</span>
                                 <span>+62 890 0000 0000</span>
                             </div>
+                            <div class="profile-details">
+                                <div class="profile-section">
 
+                                    <!-- Tombol Edit -->
+                                    <button id="edit-profile-btn" class="btn btn-primary">Edit Profil</button>
+
+                                    <!-- Form Edit (Tersembunyi Awalnya) -->
+                                    <form id="edit-profile-form" style="display: none; margin-top: 10px;">
+                                        @csrf
+                                        <div class="profile-item">
+                                            <span>Nama Lengkap :</span>
+                                            <input type="text" id="namalengkap" name="namalengkap" value="{{ $admin->namalengkap }}">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span>Username :</span>
+                                            <input type="text" id="username" name="username" value="{{ $admin->username }}">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span>Kelas :</span>
+                                            <input type="text" id="kelas" name="kelas" value="{{ $admin->kelas }}">
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="button" id="cancel-edit" class="btn btn-secondary">Batal</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    let editBtn = document.getElementById("edit-profile-btn");
+                                    let cancelBtn = document.getElementById("cancel-edit");
+                                    let editForm = document.getElementById("edit-profile-form");
+
+                                    // Saat tombol edit diklik, tampilkan form
+                                    editBtn.addEventListener("click", function() {
+                                        editForm.style.display = "block";
+                                        editBtn.style.display = "none"; // Sembunyikan tombol Edit
+                                    });
+
+                                    // Saat tombol batal diklik, sembunyikan form dan tampilkan tombol Edit
+                                    cancelBtn.addEventListener("click", function() {
+                                        editForm.style.display = "none";
+                                        editBtn.style.display = "block";
+                                    });
+
+                                    // Tangani submit form dengan AJAX
+                                    document.getElementById("edit-profile-form").addEventListener("submit", function(event) {
+                                        event.preventDefault(); // Mencegah reload halaman
+
+                                        let formData = new FormData(this);
+
+                                        fetch("{{ route('profil.update') }}", {
+                                                method: "POST",
+                                                body: formData,
+                                                headers: {
+                                                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                                                }
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    alert("Profil berhasil diperbarui!");
+                                                    location.reload(); // Reload halaman untuk menampilkan data baru
+                                                } else {
+                                                    alert("Terjadi kesalahan!");
+                                                }
+                                            })
+                                            .catch(error => console.error("Error:", error));
+                                    });
+                                });
+                            </script>
 
                             <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
                             <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
