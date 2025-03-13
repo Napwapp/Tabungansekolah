@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Append Bootstrap Template</title>
+  <title>Landing Page - Tabungan Sekolah SMKN 1 Binong</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{asset('landingpage/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('landingpage/assets/img/smkn1_binong.png')}}" rel="icon">
   <link href="{{asset('landingpage/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Fonts -->

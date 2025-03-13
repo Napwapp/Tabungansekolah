@@ -166,7 +166,7 @@
             <option value="all">Semua</option>
             <option value="bug">Laporan Bug</option>
             <option value="saran">Saran</option>
-            <option value="saran">Selesai</option>
+            <option value="selesai">Selesai</option>
         </select>
     </div>
     <div class="search-container">
