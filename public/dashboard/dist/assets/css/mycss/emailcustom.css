@@ -169,6 +169,22 @@
     font-family: sans-serif;
 }
 
+.reply-container {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.reply-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+
 /* Responsif untuk layar kecil */
 @media (max-width: 768px) {
     .overlay-body {
@@ -242,4 +258,56 @@
 .message-content a:hover {
     color: #0056b3; /* Biru lebih gelap saat hover */
     text-decoration: none; /* Menghilangkan garis bawah saat hover */
+}
+
+
+/* Pastikan wrapper memiliki posisi relatif */
+.email-user-list {
+    position: relative;
+}
+
+/* Tombol mengambang di dalam wrapper */
+.floating-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #37474F;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    z-index: 10; /* Pastikan tombol di atas elemen lain */
+}
+
+/* Posisi icon di tengah */
+.floating-btn i {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Teks tombol */
+.btn-text {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Saat tombol mengecil */
+.floating-btn.shrink {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+    justify-content: center;
+}
+
+.floating-btn.shrink .btn-text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
 }

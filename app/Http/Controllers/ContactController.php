@@ -7,6 +7,7 @@ use App\Models\NotifikasiUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
@@ -41,16 +42,22 @@ class ContactController extends Controller
     {
         $pesan = NotifikasiUser::findOrFail($id);
 
+        // Ambil gambar pengirim dari tabel users berdasarkan user_id
+        $user = User::find($pesan->user_id);
+        $gambarPengirim = $user->gambar ? asset('picture/accounts/' . $user->gambar) : asset('dashboard/dist/assets/images/logo/logoSMK_.png');
+
+
         return response()->json([
             'id'               => $pesan->id,
             'judul'            => $pesan->judul,
             'isi_pesan'        => $pesan->isi_pesan,
             'nama_pengirim'    => $pesan->nama_pengirim ?? 'Sistem',
-            'foto_pengirim'    => $pesan->foto_pengirim,
+            'foto_pengirim'    => $gambarPengirim, // Gambar pengirim yang diambil dari tabel users
             'created_at'       => $pesan->created_at, // Pastikan frontend menangani format tanggal
             'status_transaksi' => $pesan->status_transaksi, // Ambil langsung dari model
             'status_icon'      => $pesan->status_icon, // Gunakan accessor di model
             'tipe'             => $pesan->tipe,
+            'balasan'          => $pesan->balasan,
         ]);
     }
 
@@ -109,25 +116,24 @@ class ContactController extends Controller
 
     // Fungsi untuk hapus semua notifikasi
     public function hapusSemuaPesanDibaca()
-{
-    try {
-        $userId = auth()->id();
+    {
+        try {
+            $userId = auth()->id();
 
-        // Cek apakah ada notifikasi yang sudah Dibaca dan belum dihapus
-        $affectedRows = DB::table('notifikasi_users')
-            ->where('user_id', $userId) // Menargetkan notifikasi untuk user yang sedang login
-            ->where('status', 'Dibaca') // Menyaring hanya yang sudah Dibaca
-            ->whereNull('deleted_at') // Menyaring yang belum dihapus
-            ->update(['deleted_at' => now()]); // Menghapus notifikasi dengan mengisi kolom deleted_at
+            // Cek apakah ada notifikasi yang sudah Dibaca dan belum dihapus
+            $affectedRows = DB::table('notifikasi_users')
+                ->where('user_id', $userId) // Menargetkan notifikasi untuk user yang sedang login
+                ->where('status', 'Dibaca') // Menyaring hanya yang sudah Dibaca
+                ->whereNull('deleted_at') // Menyaring yang belum dihapus
+                ->update(['deleted_at' => now()]); // Menghapus notifikasi dengan mengisi kolom deleted_at
 
-        if ($affectedRows > 0) {
-            return response()->json(['success' => true, 'message' => 'Semua notifikasi yang sudah dibaca berhasil dihapus.']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Tidak ada notifikasi yang sudah dibaca untuk dihapus.']);
+            if ($affectedRows > 0) {
+                return response()->json(['success' => true, 'message' => 'Semua notifikasi yang sudah dibaca berhasil dihapus.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Tidak ada notifikasi yang sudah dibaca untuk dihapus.']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
     }
-}
-
 }

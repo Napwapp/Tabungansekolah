@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pesan User</title>
+
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/pesan.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/email.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
 
+    <!-- mycss -->
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/emailcustom.css') }}">
 </head>
 
 <body>
@@ -103,7 +107,7 @@
                                 <i class="bi bi-receipt"></i>
                                 <span>Permintaan transaksi</span>
                                 @if($pendingTransactions > 0)
-                                    <span class="badge-dot"></span>
+                                <span class="badge-dot"></span>
                                 @endif
                             </a>
                         </li>
@@ -176,146 +180,489 @@
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        </form>
                     </ul>
                 </div>
             </div>
 
             <div id="main">
-                <div class="container">
-                    <div class="content">
-                        <h1 class="text-2xl font-semibold mb-4">Pesan dari Pengguna</h1>
-                        <div class="filter-search-container">
-                            <div class="filter-container">
-                                <label for="filter">Filter Kategori:</label>
-                                <select id="filter" class="border rounded-lg px-3 py-2" onchange="filterMessages()">
-                                    <option value="all">Semua</option>
-                                    <option value="bug">Laporan Bug</option>
-                                    <option value="saran">Saran</option>
-                                    <option value="saran">Selesai</option>
-                                </select>
-                            </div>
-                            <div class="search-container">
-                                <div class="search-box">
-                                    <input type="text" id="search" class="search-input" placeholder="Cari pesan..." onkeyup="searchMessages(event)">
-                                    <button id="search-btn" class="search-button" onclick="searchMessages()">🔍</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="messages" class="message-container">
-                            <div class="message-card" data-category="bug" data-id="1">
-                                <div class="message-header">
-                                    <input type="checkbox" class="message-checkbox" onchange="saveStatus(1)">
-                                    Laporan Bug
-                                </div>
-                                <div class="message-body">
-                                    <div class="user-info">
-                                        <img src="{{asset('dashboard/dist/assets/images/samples/_3.jpeg') }}" alt="Profile Mitsuki" class="profile-pic">
-                                        <p><strong>Nama:</strong> Mitsuki </p>
-                                        <p><strong>Email:</strong> mitsuki@gmail.com </p>
-                                        <p><strong>Tanggal:</strong>15 Februari 2025</p>
-                                    </div>
-                                    <p><strong>Deskripsi:</strong> Tombol simpan tidak berfungsi di halaman tabungan.</p>
-                                </div>
-                                <button class="reply-button">Balas</button>
-                            </div>
+                <header class="mb-3">
+                    <a href="#" class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                </header>
 
-                            <div class="message-card" data-category="saran" data-id="2">
-                                <div class="message-header">
-                                    <input type="checkbox" class="message-checkbox" onchange="saveStatus(2)">
-                                    Saran
-                                </div>
-                                <div class="message-body">
-                                    <div class="user-info">
-                                        <img src="{{asset('dashboard/dist/assets/images/samples/✧ Stelle.jpeg')  }}" alt="Profile Stelle" class="profile-pic">
-                                        <p><strong>Nama:</strong> Stelle </p>
-                                        <p><strong>Email:</strong> stelle@gmail.com </p>
-                                        <p><strong>Tanggal:</strong> 14 Februari 2025 </p>
-                                    </div>
-                                    <p><strong>Deskripsi:</strong> Mohon tambahkan fitur pencarian data tabungan.</p>
-                                </div>
-                                <button class="reply-button">Balas</button>
-                            </div>
+                <div class="page-heading email-application">
+                    <div class="page-title">
+                        <div class="row">
+                            <div class="col-12 col-md-6 order-md-1 order-last">
+                                <h3>Pesan Masuk</h3>
+                                <p class="text-subtitle text-muted">Pesan-pesan yg masuk ke akun mu</p>
+                                <!-- Tombol Tandai Semua Dibaca -->
+                                @if($terkirimCount > 0)
+                                <button id="markAllReadBtn" class="btn btn-danger btn-hover" onclick="markAllAsRead()">
+                                    Tandai Semua Dibaca
+                                </button>
+                                @endif
 
-                            <div class="message-card completed" data-category="selesai" data-id="3">
-                                <div class="message-header">
-                                    <input type="checkbox" class="message-checkbox" onchange="saveStatus(3)">
-                                    Saran - <span class="status-tabel">Sudah Dibalas & Selesai</span>
-                                </div>
-                                <div class="message-body">
-                                    <div class="user-info">
-                                        <img src="{{asset('dashboard/dist/assets/images/samples/🥝✧﹒ danheng png ☆.jpeg')  }}" alt="Profile Dan Heng" class="profile-pic">
-                                        <p><strong>Nama:</strong> Dan Heng </p>
-                                        <p><strong>Email:</strong> danang@gmail.com </p>
-                                        <p><strong>Tanggal:</strong> 12 Februari 2025 </p>
-                                    </div>
-                                    <p><strong>Deskripsi:</strong> Tolong tambahkan fitur Edit Profil agar pengguna bisa mengedit atau mengubah data pribadi kami.</p>
-                                    <p class="admin-reply"><strong>Admin:</strong>Terima kasih atas saran nya! fitur nya sedang kami kerjakan dan akan selesai dalam beberapa saat.</p>
-                                </div>
-                                <button class="reply-button">Sudah Dibalas</button>
+
+                            </div>
+                            <div class="col-12 col-md-6 order-md-2 order-first">
                             </div>
                         </div>
                     </div>
+
+                    <section class="section content-area-wrapper">
+                        <div class="sidebar-left">
+                            <div class="sidebar">
+                                <div class="sidebar-content email-app-sidebar d-flex">
+                                    <!-- sidebar close icon -->
+                                    <span class="sidebar-close-icon">
+                                        <i class="bi bi-x"></i>
+                                    </span>
+                                    <!-- sidebar close icon -->
+                                    <div class="email-app-menu">
+
+                                        <div class="sidebar-menu-list ps" style="margin-top: 70px;">
+                                            <!-- sidebar menu  -->
+                                            <div class="list-group list-group-messages">
+                                                <ul class="sidebar-filter">
+                                                    <li data-filter="all" class="list-group-item pt-0 active" id="inbox-menu">
+                                                        <div class="fonticon-wrap d-inline me-3">
+
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Semua Pesan
+                                                        <span
+                                                            class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
+                                                    </li>
+                                                    <li data-filter="unread" class="list-group-item pt-0" id="inbox-menu">
+                                                        <div class="fonticon-wrap d-inline me-3">
+
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Belum dibaca
+                                                        <span
+                                                            class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
+                                                    </li>
+                                                    <li data-filter="pengingat" class="list-group-item">
+                                                        <div class="fonticon-wrap d-inline me-3">
+
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Belum Dibalas
+                                                    </li>
+                                                    <li data-filter="transaksi" class="list-group-item">
+                                                        <div class="fonticon-wrap d-inline me-3">
+
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#exclamation-triangle')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Laporan
+                                                    </li>
+                                                    <li data-filter="deleted" class="list-group-item">
+                                                        <div class="fonticon-wrap d-inline me-3">
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#lightbulb')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Saran
+                                                    </li>
+                                                    <li data-filter="deleted" class="list-group-item">
+                                                        <div class="fonticon-wrap d-inline me-3">
+                                                            <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                <use
+                                                                    xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
+                                                            </svg>
+                                                        </div>
+                                                        Terkirim
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- sidebar menu  end-->
+
+                                            <!-- sidebar label start -->
+
+                                            <div class="list-group list-group-labels">
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-success bullet-sm"></span>
+                                                </div>
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-primary bullet-sm"></span>
+                                                </div>
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-warning bullet-sm"></span>
+                                                </div>
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-danger bullet-sm"></span>
+                                                </div>
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-info"></span>
+                                                </div>
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span class="bullet bullet-info"></span>
+                                                </div>
+                                            </div>
+                                            <!-- sidebar label end -->
+                                            <!-- <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                        </div>
+                                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                                        </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ User Chat profile right area -->
+                            </div>
+                        </div>
+                        <div class="content-right">
+                            <div class="content-overlay"></div>
+                            <div class="content-wrapper">
+                                <div class="content-header row">
+                                </div>
+                                <div class="content-body">
+                                    <!-- email app overlay -->
+                                    <div class="app-content-overlay"></div>
+                                    <div class="email-app-area">
+                                        <!-- Email list Area -->
+                                        <div class="email-app-list-wrapper">
+                                            <div class="email-app-list">
+                                                <div class="email-action">
+                                                    <!-- action left start here -->
+                                                    <div class="action-left d-flex align-items-center">
+                                                        <!-- select All checkbox -->
+                                                        <div class="checkbox checkbox-shadow checkbox-sm selectAll me-3">
+
+                                                            <label for="checkboxsmall"></label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- action left end here -->
+
+                                                    <!-- action right start here -->
+                                                    <div
+                                                        class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+                                                        <div class="sidebar-toggle d-block d-lg-none">
+                                                            <button class="btn btn-sm btn-outline-primary">
+                                                                <i class="bi bi-list fs-5"></i>
+                                                            </button>
+                                                        </div>
+                                                        <!-- search bar  -->
+                                                        <div class="email-fixed-search flex-grow-1">
+
+                                                            <div class="form-group position-relative  mb-0 has-icon-left">
+                                                                <input type="text" class="form-control" placeholder="Search email..">
+                                                                <div class="form-control-icon">
+                                                                    <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                        <use
+                                                                            xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#search')}}" />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- pagination and page count -->
+                                                    </div>
+                                                </div>
+                                                <!-- / action right -->
+
+                                                <!-- email user list start -->
+                                                <div class="email-user-list list-group ps ps--active-y">
+                                                    <ul class="users-list-wrapper media-list">
+                                                        @forelse ($laporan as $data)
+                                                        <li class="media {{ $data->status_laporan === 'Terkirim' ? '' : 'mail-read' }}" data-id="{{ $data->id }}" onclick="openMessageOverlay({{ $data->id }})" id="notification-{{ $data->id }}">
+                                                            <div class="pr-50">
+                                                                <div class="avatar">
+                                                                    <img src="{{ asset('picture/accounts/' . ($data->user->gambar ?? 'default.png')) }}" alt="avatar">
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="user-details">
+                                                                    <div class="wrapper-name-mail">
+                                                                        <div class="sender-name">
+                                                                            <strong>{{ $data->user->namalengkap ?? 'User Tidak Diketahui' }}</strong>
+                                                                        </div>
+                                                                        <div class="mail-items">
+                                                                            <span class="list-group-item-text"><strong>{{ $data->email }}</strong></span>
+                                                                        </div>
+                                                                        <div class="mail-items">
+                                                                            <span class="list-group-item-text text-truncate">{{ $data->tipe }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mail-meta-item">
+                                                                        <span class="mail-meta-content float-right">
+                                                                            <span class="mail-date">{{ \Carbon\Carbon::parse($data->created_at)->format('d M') }}</span>
+                                                                            <span id="status-laporan-{{ $data->id }}" class="status-icon">
+                                                                                {!! $data->status_laporan_icon ?? 'Belum Ada' !!}
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mail-message">
+                                                                    <p class="list-group-item-text truncate mb-0">
+                                                                        {{ $data->isi_pesan ?? 'Tidak ada isi pesan' }}
+                                                                    </p>
+                                                                    <div class="mail-meta-item">
+                                                                        <span>
+                                                                            @if($data->status_laporan === 'Terkirim')
+                                                                            <span class="bullet-unread" id="bullet-{{ $data->id }}"></span>
+                                                                            @endif
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        @empty
+                                                        <li class="media">
+                                                            <p class="text-center w-100">Tidak ada laporan masuk.</p>
+                                                        </li>
+                                                        @endforelse
+                                                    </ul>
+
+                                                    <!-- Overlay detail pesan -->
+                                                    <div id="messageOverlay" class="overlay" style="display: none; justify-content: center; ">
+                                                        <div class="overlay-content">
+                                                            <!-- Header: Tombol kembali di pojok kiri -->
+                                                            <div class="overlay-header">
+                                                                <button class="back-button" onclick="closeOverlay()">
+                                                                    &larr; Kembali
+                                                                </button>
+                                                            </div>
+
+                                                            <!-- Konten Utama Pesan -->
+                                                            <div class="overlay-body">
+
+                                                                <!-- Icon Hapus di Pojok Kanan Atas -->
+                                                                <button class="btn-hapus" onclick="konfirmasiHapus()">
+                                                                    <i class="bi bi-trash"></i> <!-- Menggunakan Bootstrap icon -->
+                                                                </button>
+
+                                                                <!-- Judul Pesan -->
+                                                                <h3 id="overlay-title" class="message-title"></h3>
+
+                                                                <!-- Container Profil Pengirim -->
+                                                                <div class="sender-profile">
+                                                                    <div class="sender-image">
+                                                                        <img id="overlay-foto" src="" alt="Foto Profil Pengirim" onerror="this.onerror=null;this.src='{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}'">
+                                                                    </div>
+                                                                    <div class="sender-info">
+                                                                        <div class="wrapper-left-right">
+                                                                            <span id="overlay-nama-pengirim" class="sender-name"></span>
+                                                                            <span id="overlay-tanggal" class="message-date"></span>
+                                                                        </div>
+                                                                        <span class="to-me">
+                                                                            Kepada saya
+                                                                        </span>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Status laporan -->
+                                                                <div id="overlay-status{{ isset($data) ? $data->id : 'default' }}" class="transaction-status">
+                                                                    {!! isset($data) && isset($data->status_laporan_icon) ? $data->status_laporan_icon : 'Belum Ada' !!}
+                                                                </div>
+
+                                                                <!-- Balasan admin -->
+                                                                <div id="overlay-reply" class="reply-container" style="display: none;">
+                                                                    <!-- Balasan akan diisi dengan JavaScript -->
+                                                                </div>
+
+                                                                <!-- Isi Pesan Lengkap -->
+                                                                <div id="overlay-content" class="message-content" style="background-color: rgb(210, 210, 210); padding: 15px;"></div>
+                                                            </div>
+
+                                                            <!-- Footer: Input untuk membalas pesan -->
+                                                            <div class="overlay-footer">
+                                                                <input type="text" id="reply-input" class="reply-input" placeholder="Balas pesan...">
+                                                                <button class="send-reply" onclick="sendReply()">
+                                                                    <img src="{{ asset('dashboard/dist/assets/images/icons/icons8-send-30.png') }}" alt="">
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/ Email list Area -->
+                                </div>
+                            </div>
+                        </div>
                 </div>
+                </section>
+                </di>
             </div>
-        </div>
-    </div>
 
+            <script>
+                let currentMessageId = null; // Simpan ID laporan yang sedang dibuka
 
-    <script>
-        function searchMessages(event) {
-            if (event && event.key === "Enter") {
-                document.getElementById("search-btn").click();
-            }
+                function openMessageOverlay(id) {
+                    // Update currentMessageId sesuai laporan yang diklik
+                    currentMessageId = id;
 
-            let query = document.getElementById("search").value.toLowerCase();
-            let messages = document.querySelectorAll(".message-card");
+                    // Menampilkan overlay
+                    document.getElementById('messageOverlay').style.display = 'flex';
 
-            messages.forEach(message => {
-                let text = message.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    message.style.display = "block";
-                } else {
-                    message.style.display = "none";
+                    // Mengambil detail laporan
+                    fetch(`/admin/laporan/${id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Data dari API:", data); // Debugging
+
+                            document.getElementById("overlay-title").textContent = data.judul ?? "Tanpa Judul";
+                            document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Tidak diketahui";
+                            document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
+
+                            // Format Tanggal
+                            if (data.tanggal) {
+                                let tanggal = new Date(data.tanggal);
+                                let formattedTanggal = tanggal.getDate() + ' ' + tanggal.toLocaleString('id-ID', {
+                                    month: 'short'
+                                });
+                                document.getElementById("overlay-tanggal").textContent = formattedTanggal;
+                            } else {
+                                document.getElementById("overlay-tanggal").textContent = "-";
+                            }
+
+                            // Menampilkan Foto Pengirim
+                            let fotoPengirim = data.foto_pengirim ?
+                                `${data.foto_pengirim}` :
+                                `/dashboard/dist/assets/images/logo/logoSMK_.png`;
+                            document.getElementById("overlay-foto").src = fotoPengirim;
+
+                            // Menampilkan Status Laporan dengan Ikon
+                            let statusElement = document.getElementById(`overlay-status${id}`);
+                            if (statusElement) {
+                                statusElement.innerHTML = data.status_laporan_icon ?? '<i class="bi bi-question-circle text-secondary"></i> -';
+                            }
+
+                            // Menampilkan balasan jika ada
+                            let balasanContainer = document.getElementById("overlay-reply");
+                            if (data.balasan) {
+                                balasanContainer.innerHTML = `<strong>Balasan User:</strong> <p>${data.balasan}</p>`;
+                                balasanContainer.style.display = "block";
+                            } else {
+                                balasanContainer.style.display = "none";
+                            }
+
+                            // Memperbarui status laporan menjadi "Dibaca"
+                            updateStatusLaporan(id);
+                        })
+                        .catch(error => console.error("Error:", error));
+
+                    // Menutup overlay ketika mengklik di luar area konten overlay
+                    document.getElementById('messageOverlay').addEventListener('click', function(event) {
+                        if (event.target === this) {
+                            closeOverlay();
+                        }
+                    });
                 }
-            });
-        }
 
-        function filterMessages() {
-            let filter = document.getElementById('filter').value;
-            let messages = document.querySelectorAll('.message-card');
+                function updateStatusLaporan(id) {
+                    fetch(`/admin/laporan/update-status/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({}) // Jika perlu parameter lain, tambahkan di sini
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Pastikan status_icon ada dalam respons
+                            if (data.status_icon && data.status_laporan) {
+                                console.log("Status laporan diperbarui:", data);
 
-            messages.forEach(message => {
-                if (filter === 'all' || message.getAttribute('data-category') === filter) {
-                    message.style.display = 'block';
-                } else {
-                    message.style.display = 'none';
+                                // **1. Perbarui status di daftar laporan utama**
+                                let statusTextElement = document.getElementById(`status-laporan-${id}`);
+                                if (statusTextElement) {
+                                    statusTextElement.innerHTML = data.status_icon; // Update status ikon di tampilan utama
+                                }
+
+                                // **2. Hapus bullet-unread di daftar laporan**
+                                let messageItem = document.getElementById(`notification-${id}`);
+                                if (messageItem) {
+                                    messageItem.classList.add('mail-read'); // Tambahkan kelas "read"
+                                    let unreadBullet = messageItem.querySelector('.bullet-unread');
+                                    if (unreadBullet) {
+                                        unreadBullet.remove(); // Hapus bullet "unread"
+                                    }
+                                }
+
+                                // **3. Update status di overlay pesan**
+                                let overlayStatusText = document.getElementById(`overlay-status${id}`);
+                                if (overlayStatusText) {
+                                    overlayStatusText.innerHTML = data.status_icon; // Update status di overlay
+                                }
+                            } else {
+                                console.error("Data status_icon tidak ditemukan dalam respons:", data);
+                                alert("Gagal memperbarui status laporan.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error updating status:", error);
+                            alert("Terjadi kesalahan dalam memperbarui status laporan.");
+                        });
                 }
-            });
-        }
 
-        function saveStatus(id) {
-            let checkbox = document.querySelector(`.message-card[data-id="${id}"] .message-checkbox`);
-            localStorage.setItem(`message_${id}_checked`, checkbox.checked);
-        }
 
-        function loadStatus() {
-            let checkboxes = document.querySelectorAll('.message-checkbox');
-            checkboxes.forEach(checkbox => {
-                let id = checkbox.closest('.message-card').getAttribute('data-id');
-                let savedStatus = localStorage.getItem(`message_${id}_checked`);
-                if (savedStatus === 'true') {
-                    checkbox.checked = true;
+                function closeOverlay() {
+                    document.getElementById('messageOverlay').style.display = 'none';
                 }
-            });
-        }
+            </script>
 
-        // Panggil saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', loadStatus);
-    </script>
+            <!-- Logika tandai semua dibaca -->
+            <script>
+                function markAllAsRead() {
+                    fetch('{{ route("admin.markAllRead") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Sembunyikan tombol setelah semua pesan ditandai dibaca
+                                document.getElementById('markAllReadBtn').style.display = 'none';
 
-    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+                                // Perbarui tampilan setiap pesan yang masih "Terkirim"
+                                document.querySelectorAll('.media').forEach(el => {
+                                    if (!el.classList.contains('mail-read')) {
+                                        // Tambahkan class "mail-read" untuk menunjukkan pesan sudah dibaca
+                                        el.classList.add('mail-read');
 
+                                        // Hapus bullet notifikasi "Belum Dibaca"
+                                        let bullet = el.querySelector('.bullet-unread');
+                                        if (bullet) bullet.remove();
+
+                                        // Perbarui status ikon jika ada
+                                        let statusIcon = el.querySelector('.status-icon');
+                                        if (statusIcon) statusIcon.innerHTML = '<i class="fas fa-envelope-open text-success"></i>';
+                                    }
+                                });
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => console.error('Terjadi kesalahan:', error));
+                }
+            </script>
+
+            <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+            <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>
 
 </html>

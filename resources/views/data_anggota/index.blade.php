@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/extensions/simple-datatables/style.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/simple-datatables.css')}}">
 
+    <!-- mycss -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/data-anggota.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
@@ -59,7 +60,7 @@
 
                         <li
                             class="sidebar-item">
-                            <a href="{{route('user')}}" class='sidebar-link'>
+                            <a href="{{route('admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -116,12 +117,17 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
+                        </li>
                         </li>
 
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">

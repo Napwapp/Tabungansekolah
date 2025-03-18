@@ -117,14 +117,18 @@
                         </li>
 
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
-
+                        
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
@@ -146,7 +150,7 @@
                             <div class="col-12 col-md-6 order-md-1 order-last">
                                 <h3>Daftar Permintaan Transaksi</h3>
                                 <p class="text-subtitle text-muted"> Permintaan-permintaan transaksi anggota </p>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
 

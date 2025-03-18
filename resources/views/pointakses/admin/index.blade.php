@@ -111,19 +111,24 @@
                                 <i class="bi bi-receipt"></i>
                                 <span>Permintaan transaksi</span>
                                 @if($pendingTransactions > 0)
-                                    <span class="badge-dot"></span>
+                                <span class="badge-dot"></span>
                                 @endif
 
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
+
 
                         <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
                         <!-- <li

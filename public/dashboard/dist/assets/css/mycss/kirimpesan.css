@@ -1,0 +1,112 @@
+/* Formulir sederhana */
+.report-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.report-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Jarak dari kanan */
+    transform: translateY(-50%); /* Pusatkan secara vertikal */
+    font-size: 16px; /* Ukuran font untuk panah */
+    color: #555; /* Warna panah */
+    pointer-events: none; /* Agar tidak mengganggu interaksi dengan dropdown */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+::placeholder {
+    color: #999; /* Warna placeholder */
+    font-style: italic; /* Gaya font */
+    opacity: 1; /* Pastikan placeholder tidak transparan */
+}
+
+.form-control:focus::placeholder {
+    color: #ccc; /* Warna placeholder saat input aktif */
+}

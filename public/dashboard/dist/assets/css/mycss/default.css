@@ -9,6 +9,10 @@
 }
 
 
+.sidebar-item {
+    position: relative; /* Membuat parent item relatif untuk penempatan badge */
+}
+
 .badge-notif {
     background-color: red;
     border-radius: 50%;
@@ -17,7 +21,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute; /* Posisi absolut terhadap parent */
+    top: -5px; /* Mengatur jarak dari atas */
+    right: -5px; /* Mengatur jarak dari kanan */
+    font-size: 12px; /* Ukuran font di dalam badge */
+    color: white; /* Warna font dalam badge */
+    padding: 2px;
 }
+
 
 /* Sesuaikan styling untuk elemen h2 di dalam badge agar tidak merusak layout */
 .badge-notif h2 {

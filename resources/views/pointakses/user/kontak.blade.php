@@ -102,63 +102,14 @@
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Laporan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
+                        </li>
+
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
@@ -293,16 +244,19 @@
                                                 <span class="bullet bullet-danger bullet-sm"></span>
                                             </div>
                                             <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-info bullet-sm"></span>
+                                                <span class="bullet bullet-info"></span>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span class="bullet bullet-info"></span>
                                             </div>
                                         </div>
                                         <!-- sidebar label end -->
-                                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                                        <!-- <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
                                             <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
                                         </div>
                                         <div class="ps__rail-y" style="top: 0px; right: 0px;">
                                             <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +273,7 @@
                                 <div class="app-content-overlay"></div>
                                 <div class="email-app-area">
                                     <!-- Email list Area -->
-                                    <dxiv class="email-app-list-wrapper">
+                                    <div class="email-app-list-wrapper">
                                         <div class="email-app-list">
                                             <div class="email-action">
                                                 <!-- action left start here -->
@@ -356,7 +310,7 @@
                                                     <!-- pagination and page count -->
                                                     <!-- Tombol Hapus Semua Notifikasi -->
                                                     <button class="btn btn-danger btn-hover" onclick="hapusSemuaPesanDibaca()">
-                                                       Hapus Semua Pesan yang Dbaca
+                                                        Hapus Semua Pesan yang Dbaca
                                                     </button>
                                                 </div>
                                             </div>
@@ -369,12 +323,27 @@
                                                     <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})" id="notification-{{ $pesan->id }}">
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                @if($pesan->foto_pengirim)
-                                                                <img src="{{ asset('storage/' . $pesan->foto_pengirim) }}" alt="avatar">
+                                                                @if($pesan->tipe == 'Laporan' || $pesan->tipe == 'Saran')
+                                                                @php
+                                                                // Ambil gambar user dari kolom 'gambar' di tabel users
+                                                                $user = App\Models\User::find($pesan->user_id);
+                                                                $fotoProfil = $user ? $user->gambar : null; // Kolom gambar di tabel users
+
+                                                                // Tentukan path gambar
+                                                                $fotoPath = public_path('picture/accounts/' . $fotoProfil);
+                                                                @endphp
+
+                                                                @if ($fotoProfil && file_exists($fotoPath))
+                                                                <img src="{{ asset('picture/accounts/' . $fotoProfil) }}" alt="avatar">
                                                                 @else
                                                                 <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
                                                                 @endif
+                                                                @else
+                                                                <!-- Tampilkan logo sekolah jika bukan tipe Laporan atau Saran -->
+                                                                <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
+                                                                @endif
                                                             </div>
+
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
@@ -395,7 +364,7 @@
                                                             </div>
                                                             <div class="mail-message">
                                                                 <p class="list-group-item-text truncate mb-0">
-                                                                    {{ Str::limit($pesan->isi_pesan, 60) }}
+                                                                    {{ Str::limit($pesan->isi_pesan, 50) }}
                                                                 </p>
                                                                 <div class="mail-meta-item" data-id="{{ $pesan->id }}">
                                                                     <span>
@@ -408,6 +377,7 @@
                                                         </div>
                                                     </li>
                                                     @endforeach
+                                                    <!-- Tombol Kirim Pesan -->
                                                 </ul>
 
                                                 <!-- Overlay Detail Pesan -->
@@ -441,7 +411,10 @@
                                                                         <span id="overlay-nama-pengirim" class="sender-name"></span>
                                                                         <span id="overlay-tanggal" class="message-date"></span>
                                                                     </div>
-                                                                    <span class="to-me">Kepada saya</span>
+                                                                    <span class="to-me">
+                                                                        Kepada saya
+                                                                    </span>
+
                                                                 </div>
                                                             </div>
 
@@ -450,14 +423,18 @@
                                                                 <!-- Ikon Status akan diisi dengan JavaScript -->
                                                             </div>
 
+                                                            <div id="overlay-reply" class="reply-container" >
+                                                                <!-- Balasan akan diisi dengan JavaScript -->
+                                                            </div>
+
                                                             <!-- Isi Pesan Lengkap -->
                                                             <div id="overlay-content" class="message-content" style="background-color: rgb(210, 210, 210); padding: 15px;"></div>
                                                         </div>
 
                                                         <!-- Footer: Input untuk membalas pesan -->
-                                                        <div class="overlay-footer">
+                                                        <!-- <div class="overlay-footer">
                                                             <input type="text" class="reply-input" placeholder="Balas pesan...">
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 <!-- email user list end -->
@@ -475,6 +452,13 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Floating button -->
+                                        <div id="floating-button" class="floating-btn" onclick="window.location.href='{{ route('sendmassage') }}'">
+                                            <i class="bi bi-pencil"></i>
+                                            <span class="btn-text">Tulis</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!--/ Email list Area -->
                             </div>
@@ -539,6 +523,10 @@
                     document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
                     document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Sistem";
 
+                    // Menampilkan "Kepada admin" atau "Kepada saya" berdasarkan tipe
+                    const toMeText = data.tipe === 'Laporan' || data.tipe === 'Saran' ? 'Kepada admin' : 'Kepada saya';
+                    document.querySelector(".to-me").textContent = toMeText;
+
                     // Format Tanggal
                     if (data.created_at) {
                         let tanggal = new Date(data.created_at);
@@ -550,14 +538,36 @@
                         document.getElementById("overlay-tanggal").textContent = "-";
                     }
 
-                    // Menampilkan Foto Pengirim
-                    let fotoPengirim = data.foto_pengirim ? `/storage/${data.foto_pengirim}` : `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
-                    document.getElementById("overlay-foto").src = fotoPengirim;
+                    // Menampilkan Foto Pengirim hanya jika tipe 'Laporan' atau 'Saran'
+                    if (data.tipe === 'Laporan' || data.tipe === 'Saran') {
+                        let fotoPengirim = data.foto_pengirim ?
+                            data.foto_pengirim :
+                            `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
+                        document.getElementById("overlay-foto").src = fotoPengirim;
+                    } else {
+                        document.getElementById("overlay-foto").src = `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
+                    }
 
                     // Menampilkan Ikon Status Transaksi
                     document.getElementById("overlay-status").innerHTML = data.status_icon ?? "-";
+
+                    // Menampilkan balasan jika ada
+                    let balasanContainer = document.getElementById("overlay-reply");
+                    if (data.balasan) {
+                        balasanContainer.innerHTML = `<strong>Balasan Admin:</strong> <p>${data.balasan}</p>`;
+                        balasanContainer.style.display = "block";
+                    } else {
+                        balasanContainer.style.display = "none";
+                    }
                 })
                 .catch(error => console.error("Error:", error));
+
+            // Menutup overlay ketika mengklik di luar area konten overlay
+            document.getElementById('messageOverlay').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    document.getElementById('messageOverlay').style.display = 'none';
+                }
+            });
 
             // Kirim AJAX untuk update status menjadi "Dibaca"
             fetch(`/pesan/${id}/update-status`, {

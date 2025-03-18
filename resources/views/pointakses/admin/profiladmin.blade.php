@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
+
+    <!-- mycss -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
     
@@ -114,11 +116,15 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 

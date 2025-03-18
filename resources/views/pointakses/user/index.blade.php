@@ -24,7 +24,7 @@
     <div id="app">
         <!-- sidebar -->
         <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
+            <div class="sidebar-wrapper active ps">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
@@ -111,64 +111,14 @@
                             </a>
                         </li>
 
-
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Laporan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
+                        </li>
+
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
@@ -270,27 +220,27 @@
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">Saldo Tersisa</h5> <!-- indeckend -->
-                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3> 
-                                    <p>Saldo yang anda miliki</p> 
+                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                                    <p>Saldo yang anda miliki</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body btn-green" style="border-radius: 10px;">
-                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5> 
-                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3> 
-                                    <p>Tabungan hingga saat ini.</p> 
+                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5>
+                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3>
+                                    <p>Tabungan hingga saat ini.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body btn-blue" style="border-radius: 10px;">
-                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5> 
+                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5>
                                     <h3 style="color: white;">
                                         <h3 style="color: white;">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
-                                    </h3> 
+                                    </h3>
                                     <p>Total Penarikan Anda bulan ini.</p>
                                 </div>
                             </div>
@@ -314,7 +264,8 @@
                         <div class="col-md-4 text-center">
                             <a href="{{route('menarik')}}">
                                 <button class="btn-action btn-blue" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">Tarik Tabungan</button>
+                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">Tarik Tabungan
+                                </button>
                             </a>
                         </div>
                     </div>
@@ -326,7 +277,7 @@
                     <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
                     <div class="card bg-light text-dark mb-4">
                         <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5> 
+                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
                             <canvas id="tabunganChart" height="100"></canvas>
                         </div>
                     </div>
@@ -370,9 +321,9 @@
                                                             @php
                                                             // Mapping status ke kelas CSS yang sesuai
                                                             $statusClass = [
-                                                            'Sukses' => 'sukses',
-                                                            'Menunggu Persetujuan' => 'diproses',
-                                                            'Gagal' => 'gagal'
+                                                                'Sukses' => 'sukses',
+                                                                'Menunggu Persetujuan' => 'diproses',
+                                                                'Gagal' => 'gagal'
                                                             ];
 
                                                             // Pastikan status yang ada cocok dengan daftar status yang valid
@@ -398,7 +349,6 @@
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
