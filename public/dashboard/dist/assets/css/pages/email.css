@@ -30,6 +30,7 @@
 .email-application .content-area-wrapper .sidebar {
     position: inherit;
 }
+
 .email-application .content-area-wrapper .sidebar.show .email-app-sidebar {
     transform: translateX(13%) translateY(-1px);
 }
@@ -998,32 +999,8 @@
         margin-right: 0;
     }
 }
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0;
-        top: 100px;
-    }
-    75% {
-        opacity: 0.5;
-        top: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        top: 100px;
-    }
-    75% {
-        opacity: 0.5;
-        top: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+
+
 body.theme-dark .email-application .content-area-wrapper {
     border: 1px solid #2a2f3e;
 }

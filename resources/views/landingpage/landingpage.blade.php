@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Append Bootstrap Template</title>
+  <title>Tabungan Sekolah-SMKN1 Binong Subang</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{asset('landingpage/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('landingpage/assets/img/smkn1_binong.png')}}" rel="icon">
   <link href="{{asset('landingpage/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -42,7 +42,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="https://smkn1binong.sch.id" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="">
         <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
@@ -139,47 +139,7 @@
     </section><!-- /About Section -->
 
     <div class="kosong"></div>
-    <!-- Stats Section -->
-    <section id="stats" class="stats section dark-background">
-
-      <img src="{{asset('landingpage/assets/img/stats-bg.jpg')}}" alt="" data-aos="fade-in">
-
-      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
-              Clients
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="-" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-        </div>
-      </div>
-
-    </section><!-- /Stats Section -->
-
+    
     <!-- Features Section -->
     <section id="features" class="features section">
 
@@ -197,7 +157,7 @@
             <p>
               Kamu Pastinya dapat menabung, Tabungan ini secara Cash
             </p>
-            <a href="{{ route('auth') }}" class="btn btn-get-started">Daftar</a>
+            <a href="{{ route('registrasi') }}" class="btn btn-get-started">Daftar sekarang</a>
           </div>
           
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
@@ -253,16 +213,15 @@
             <div class="member-img">
               <img src="{{asset('landingpage/assets/img/team/team-1.jpg')}}" class="img-fluid" alt="">
               <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/Napwapp" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.instagram.com/napwapp?igsh=MWJ3NWl3Nnp6N2V1cA==" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/muhamad-nawaf-abduh-051b28265/" target="_blank"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info text-center">
               <h4>Muhamad Nawaf Abduh</h4>
               <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Aliquam iure quaerat voluptatem praesentium possimus unde laudantium vel dolorum distinctio dire flow</p>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
           </div><!-- End Team Member -->
 
@@ -279,7 +238,7 @@
             <div class="member-info text-center">
               <h4>Bayu Hanggara Putra</h4>
               <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Labore ipsam sit consequatur exercitationem rerum laboriosam laudantium aut quod dolores exercitationem ut</p>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
           </div><!-- End Team Member -->
 
@@ -296,7 +255,7 @@
             <div class="member-info text-center">
               <h4>Samuel Angello Firmansyah</h4>
               <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Illum minima ea autem doloremque ipsum quidem quas aspernatur modi ut praesentium vel tque sed facilis at qui</p>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
           </div><!-- End Team Member -->
 

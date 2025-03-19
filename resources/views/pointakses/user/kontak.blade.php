@@ -150,119 +150,92 @@
                     <div class="sidebar-left">
                         <div class="sidebar">
                             <div class="sidebar-content email-app-sidebar d-flex">
-                                <!-- sidebar close icon -->
+                                <!-- Sidebar close icon -->
                                 <span class="sidebar-close-icon">
                                     <i class="bi bi-x"></i>
                                 </span>
-                                <!-- sidebar close icon -->
+                                <!-- Sidebar menu -->
                                 <div class="email-app-menu">
-
                                     <div class="sidebar-menu-list ps" style="margin-top: 70px;">
-                                        <!-- sidebar menu  -->
                                         <div class="list-group list-group-messages">
                                             <ul class="sidebar-filter">
-                                                <li data-filter="all" class="list-group-item pt-0 active" id="inbox-menu">
+                                                <!-- Semua Pesan -->
+                                                <li data-filter="all" class="list-group-item pt-0 active">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
                                                         </svg>
                                                     </div>
                                                     Semua Pesan
-                                                    <span
-                                                        class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
+                                                    <span class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span>
                                                 </li>
-                                                <li data-filter="unread" class="list-group-item pt-0" id="inbox-menu">
+                                                <!-- Belum Dibaca -->
+                                                <li data-filter="unread" class="list-group-item pt-0">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
                                                         </svg>
                                                     </div>
-                                                    Belum dibaca
-                                                    <span
-                                                        class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
+                                                    Belum Dibaca
+                                                    <span class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span>
                                                 </li>
-                                                <li data-filter="transaksi" class="list-group-item">
-                                                    <div class="fonticon-wrap d-inline me-3">
-
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#cash')}}" />
-                                                        </svg>
+                                                <!-- Dropdown Transaksi -->
+                                                <li class="list-group-item has-dropdown" role="button" aria-expanded="false">
+                                                    <div class="d-flex justify-content-between align-items-center toggle-dropdown">
+                                                        <div>
+                                                            <div class="fonticon-wrap d-inline me-3">
+                                                                <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                    <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#cash')}}" />
+                                                                </svg>
+                                                            </div>
+                                                            Transaksi
+                                                        </div>
+                                                        <i class="bi bi-chevron-down"></i>
                                                     </div>
-                                                    Transaksi
+                                                    <ul class="dropdown-content">
+                                                        <li data-filter="transaksi-sukses" class="list-group-item">Berhasil</li>
+                                                        <li data-filter="transaksi-diproses" class="list-group-item">Diproses</li>
+                                                        <li data-filter="transaksi-gagal" class="list-group-item">Dibatalkan</li>
+                                                    </ul>
                                                 </li>
+                                                <!-- Pesan Pengingat -->
                                                 <li data-filter="pengingat" class="list-group-item">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#stopwatch')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#stopwatch')}}" />
                                                         </svg>
                                                     </div>
                                                     Pesan Pengingat
                                                 </li>
-                                                <li data-filter="sent" class="list-group-item">
-                                                    <div class="fonticon-wrap d-inline me-3">
-
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
-                                                        </svg>
+                                                <!-- Dropdown Pesan Terkirim -->
+                                                <li class="list-group-item has-dropdown" role="button" aria-expanded="false">
+                                                    <div class="d-flex justify-content-between align-items-center toggle-dropdown">
+                                                        <div>
+                                                            <div class="fonticon-wrap d-inline me-3">
+                                                                <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                    <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
+                                                                </svg>
+                                                            </div>
+                                                            Pesan Terkirim
+                                                        </div>
+                                                        <i class="bi bi-chevron-down"></i>
                                                     </div>
-                                                    Pesan Terkirim
-                                                </li>
-                                                <li data-filter="deleted" class="list-group-item">
-                                                    <div class="fonticon-wrap d-inline me-3">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#trash')}}" />
-                                                        </svg>
-                                                    </div>
-                                                    Terhapus
-                                                </li>
+                                                    <ul class="dropdown-content">
+                                                        <li data-filter="sent-laporan" class="list-group-item">Laporan</li>
+                                                        <li data-filter="sent-saran" class="list-group-item">Saran</li>
+                                                        <li data-filter="sent-terkirim" class="list-group-item">Terkirim</li>
+                                                        <li data-filter="sent-dibaca" class="list-group-item">Telah Dibaca</li>
+                                                        <li data-filter="sent-dibalas" class="list-group-item">Dibalas</li>
+                                                    </ul>
+                                                </li>                                                
                                             </ul>
                                         </div>
-                                        <!-- sidebar menu  end-->
-
-                                        <!-- sidebar label start -->
-
-                                        <div class="list-group list-group-labels">
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-success bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-primary bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-warning bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-danger bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-info"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-info"></span>
-                                            </div>
-                                        </div>
-                                        <!-- sidebar label end -->
-                                        <!-- <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                                        </div>
-                                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
-                            <!--/ User Chat profile right area -->
                         </div>
                     </div>
+
                     <div class="content-right">
                         <div class="content-overlay"></div>
                         <div class="content-wrapper">
@@ -294,20 +267,21 @@
                                                             <i class="bi bi-list fs-5"></i>
                                                         </button>
                                                     </div>
-                                                    <!-- search bar  -->
-                                                    <div class="email-fixed-search flex-grow-1">
 
-                                                        <div class="form-group position-relative  mb-0 has-icon-left">
-                                                            <input type="text" class="form-control" placeholder="Search email..">
+                                                    <!-- search bar -->
+                                                    <div class="email-fixed-search flex-grow-1">
+                                                        <div class="form-group position-relative mb-0 has-icon-left">
+                                                            <input type="text" id="searchInput" class="form-control" placeholder="Search email..">
                                                             <div class="form-control-icon">
                                                                 <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                                    <use
-                                                                        xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#search')}}" />
+                                                                    <use xlink:href="{{ asset('dashboard/dist/assets/images/bootstrap-icons.svg#search') }}" />
                                                                 </svg>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <!-- pagination and page count -->
+
                                                     <!-- Tombol Hapus Semua Notifikasi -->
                                                     <button class="btn btn-danger btn-hover" onclick="hapusSemuaPesanDibaca()">
                                                         Hapus Semua Pesan yang Dbaca
@@ -318,7 +292,7 @@
 
                                             <!-- email user list start -->
                                             <div class="email-user-list list-group ps ps--active-y">
-                                                <ul class="users-list-wrapper media-list">
+                                                <ul class="users-list-wrapper media-list notification-list">
                                                     @foreach($notifikasi as $pesan)
                                                     <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})" id="notification-{{ $pesan->id }}">
                                                         <div class="pr-50">
@@ -354,6 +328,13 @@
                                                                     <div class="mail-items">
                                                                         <span class="list-group-item-text text-truncate">{{ $pesan->judul }}</span>
                                                                     </div>
+                                                                    @if($pesan->balasan)
+                                                                    <div class="reply-container-user">
+                                                                        <div class="reply-list {{ $pesan->status === 'Belum Dibaca' ? 'unread' : 'read' }}">
+                                                                            <span>Ada balasan dari admin</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="mail-meta-item">
                                                                     <span class="mail-meta-content float-right">
@@ -423,18 +404,14 @@
                                                                 <!-- Ikon Status akan diisi dengan JavaScript -->
                                                             </div>
 
-                                                            <div id="overlay-reply" class="reply-container" >
+                                                            <!-- Balasan admin -->
+                                                            <div id="overlay-reply" class="reply-container" style="display: none;">
                                                                 <!-- Balasan akan diisi dengan JavaScript -->
                                                             </div>
 
                                                             <!-- Isi Pesan Lengkap -->
                                                             <div id="overlay-content" class="message-content" style="background-color: rgb(210, 210, 210); padding: 15px;"></div>
                                                         </div>
-
-                                                        <!-- Footer: Input untuk membalas pesan -->
-                                                        <!-- <div class="overlay-footer">
-                                                            <input type="text" class="reply-input" placeholder="Balas pesan...">
-                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 <!-- email user list end -->
@@ -490,7 +467,9 @@
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
+    <!-- myjs -->
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
+    <script src="{{ asset('dashboard/dist/assets/js/myjs/pesanuser.js') }}"></script>
 
     <!-- untuk buka tutup sidebar -->
     <script>
@@ -518,7 +497,6 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log("Data dari API:", data); // Debugging
-
                     document.getElementById("overlay-title").textContent = data.judul ?? "Tanpa Judul";
                     document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
                     document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Sistem";
@@ -585,6 +563,7 @@
                     // Mengubah status bullet dan elemen lainnya
                     const bullet = document.getElementById('bullet-' + id);
                     const messageItem = document.querySelector(`.media[onclick="openMessageOverlay(${id})"]`);
+                    const replyList = document.querySelector('.reply-list'); // Ambil elemen reply-list
 
                     // Hapus bullet merah
                     if (bullet) {
@@ -594,6 +573,13 @@
                     // Tambahkan kelas 'mail-read' pada elemen li untuk menandakan bahwa pesan telah dibaca
                     if (messageItem) {
                         messageItem.classList.add('mail-read');
+                    }
+
+                    // Perbarui tampilan reply-list jika ada
+                    if (replyList) {
+                        replyList.classList.remove('unread'); // Hapus status "unread"
+                        replyList.classList.add('read'); // Tambahkan status "read"
+                        replyList.innerHTML = "<span>ada balasan dari admin</span>"; // Tetap tampilkan teks yang sama
                     }
                 })
                 .catch(error => console.error("Error updating status:", error));
@@ -607,8 +593,8 @@
             }
 
             Swal.fire({
-                title: "Hapus Notifikasi?",
-                text: "Notifikasi ini akan dipindahkan ke folder 'Terhapus'.",
+                title: "Yakin Menghapus Notifikasi?",
+                text: "Notifikasi akan hilang sepenuhnya.",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",

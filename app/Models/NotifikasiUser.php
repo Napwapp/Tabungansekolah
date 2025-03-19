@@ -33,6 +33,10 @@ class NotifikasiUser extends Model
         if ($this->status_laporan == 'Dibaca_Admin') {
             return '<i class="bi bi-check-all text-primary"></i>  Dibaca Admin';
         }
+
+        if ($this->status_laporan == 'Dibalas') {
+            return '<i class="bi bi-check-all text-primary"></i>  Telah Dibalas';
+        }
     
         if ($this->tipe == "Laporan" || $this->tipe == "Saran") {
             return '<i class="bi bi-check-all text-gray"></i> Terkirim';

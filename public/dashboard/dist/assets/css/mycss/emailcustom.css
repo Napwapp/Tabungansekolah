@@ -82,9 +82,6 @@
 
 /* btn hapus semua */
 
-
-
-
 /* Judul Pesan */
 .message-title {
     font-size: 22px;
@@ -184,7 +181,6 @@
     margin-bottom: 10px;
 }
 
-
 /* Responsif untuk layar kecil */
 @media (max-width: 768px) {
     .overlay-body {
@@ -192,7 +188,7 @@
         height: 95%;
     }
 
-    .message-content p{
+    .message-content p {
         max-width: 100%;
     }
 
@@ -202,25 +198,51 @@
     }
 }
 
-/* Footer overlay */
 .overlay-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 10px 20px;
     border-top: 1px solid #ccc;
     background-color: #f1f1f1;
 }
 
-/* Input balas pesan */
 .reply-input {
+    flex: 1;
     width: 100%;
-    padding: 10px;
+    padding: 10px 15px;
     border: 1px solid #bbb;
     border-radius: 4px;
     font-size: 1rem;
     color: #222;
     background-color: #fff;
+    outline: none;
 }
 
-.email-user-list .users-list-wrapper{
+.send-reply {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #007bff;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.send-reply:hover {
+    background-color: #0056b3;
+}
+
+.send-reply img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+.email-user-list .users-list-wrapper {
     max-height: fit-content;
 }
 
@@ -234,7 +256,6 @@
     top: 5px;
     right: 5px;
 }
-
 
 /* untuk format tanggal dan status_icon */
 .mail-meta-item {
@@ -251,7 +272,7 @@
 
 /* link di notifikasi pengingat */
 .message-content a {
-    color: #0000EE; /* Warna default (biru klasik) */
+    color: #0000ee; /* Warna default (biru klasik) */
     text-decoration: underline;
 }
 
@@ -259,7 +280,6 @@
     color: #0056b3; /* Biru lebih gelap saat hover */
     text-decoration: none; /* Menghilangkan garis bawah saat hover */
 }
-
 
 /* Pastikan wrapper memiliki posisi relatif */
 .email-user-list {
@@ -271,7 +291,7 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: #37474F;
+    background-color: #37474f;
     color: #ffffff;
     padding: 12px 20px;
     border-radius: 30px;
@@ -310,4 +330,85 @@
     opacity: 0;
     width: 0;
     overflow: hidden;
+}
+
+/* Balasan admin */
+.reply-container {
+    position: relative;
+    background: linear-gradient(to right, #f1f8ff 0%, #f1f8ff 75%, #fff 100%);
+    border: 1px solid #cce0ff; /* Garis batas lembut */
+    border-left: 6px solid #3b82f6; /* Garis tebal di kiri sebagai aksen "tabung" */
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-size: 16px;
+    color: black;
+    line-height: 1.5;
+}
+
+/* Elemen "tabung gepeng" di kiri (opsional, jika ingin tampilan yang lebih berbeda) */
+.reply-container::before {
+    content: "";
+    position: absolute;
+    left: -12px; /* Sedikit keluar dari kontainer */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 40px;
+    background-color: #3b82f6;
+    border-radius: 4px;
+}
+
+/* Style untuk pesan yang sudah dibaca (tema abu-abu) */
+.reply-list.read {
+    position: relative;
+    background-color: #e5e7eb; /* Abu-abu terang */
+    border-left: 6px solid #9ca3af; /* Garis kiri abu-abu */
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style untuk pesan yang belum dibaca (tema merah) */
+.reply-list.unread {
+    position: relative;
+    background-color: #fff; 
+    border-left: 6px solid #dc3545; /* Garis kiri merah */
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #842029; /* Teks merah gelap */
+    text-transform: lowercase;
+    font-weight: bold;
+}
+
+/* dropdown filter notifikasi di user */
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.list-group-item.has-dropdown {
+    cursor: pointer;
+}
+
+.list-group-item.has-dropdown .toggle-dropdown {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.list-group-item.has-dropdown.open .toggle-dropdown {
+    transform: rotate(180deg);
+}
+
+.list-group-item.has-dropdown.open .dropdown-menu {
+    display: block;
+}
+
+.sidebar-filter li:hover {
+    cursor: pointer;
 }

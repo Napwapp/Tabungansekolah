@@ -12,7 +12,9 @@ class SendMassageController extends Controller
 {
     function index()
     {
-        return view('pointakses.user.kirimpesan');
+        $user = Auth::user(); // Ambil data user yang sedang login
+
+        return view('pointakses.user.kirimpesan', compact('user'));
     }
 
     public function kirimLaporan(Request $request)
@@ -47,7 +49,7 @@ class SendMassageController extends Controller
             'user_id'       => auth()->id(), // Simpan notifikasi untuk user yang mengirim laporan
             'nama_pengirim' => auth()->user()->namalengkap,
             'foto_pengirim' => auth()->user()->gambar ? asset('picture/accounts/' . auth()->user()->gambar) : asset('picture/accounts/default.png'),
-            'judul'         => 'Pesan Baru: ' . $laporan->tipe,
+            'judul' => $laporan->tipe . ' : ' . $request->judul,
             'isi_pesan'     => $laporan->isi_pesan,
             'status'        => 'Belum Dibaca', // Untuk keperluan user, status ini menunjukkan bahwa admin belum melihat laporan
             'status_laporan' => $statusLaporan,   // Gunakan status_laporan dari laporan_users

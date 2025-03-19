@@ -8,6 +8,7 @@ use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
 use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
@@ -99,6 +100,63 @@ class ContactController extends Controller
         return response()->json(['success' => true]);
     }
 
+    // filter notifikasi 
+    public function filter(Request $request)
+    {
+        // Ambil tipe filter, default 'all'
+        $filter = $request->query('filter', 'all');
+        $userId = auth()->id();
+
+        // Ambil notifikasi berdasarkan user yang sedang login
+        $query = NotifikasiUser::query()->where('user_id', $userId);
+
+        switch ($filter) {
+            case 'all':
+                $query->whereNull('deleted_at'); // agar tidak menampilkan yg sudah terhapus
+                break;
+            case 'unread':
+                $query->where('status', 'Belum Dibaca');
+                break;
+            case 'transaksi-sukses':
+                $query->where('status_transaksi', 'Sukses');
+                break;
+            case 'transaksi-diproses':
+                $query->where('status_transaksi', 'Menunggu Persetujuan');
+                break;
+            case 'transaksi-gagal':
+                $query->where('status_transaksi', 'Gagal');
+                break;
+            case 'pengingat':
+                $query->where('tipe', 'Pengingat');
+                break;
+            case 'sent-laporan':
+                $query->where('tipe', 'Laporan');
+                break;
+            case 'sent-saran':
+                $query->where('tipe', 'Saran');
+                break;
+            case 'sent-terkirim':
+                $query->where('status_laporan', 'Terkirim');
+                break;
+            case 'sent-dibaca':
+                $query->where('status_laporan', 'Dibaca_Admin');
+                break;
+            case 'sent-dibalas':
+                $query->where('status_laporan', 'Dibalas');
+                break;
+            default:
+                // Jika filter tidak dikenali, kembalikan semua notifikasi
+                break;
+        }
+
+        // Urutkan notifikasi berdasarkan tanggal pembuatan secara menurun
+        $notifications = $query->orderBy('created_at', 'desc')->get();
+
+        // Kembalikan data dalam format JSON
+        return response()->json($notifications);
+    }
+
+
     // Fungsi untuk menghapus notifikasi
     public function hapusNotifikasi($id)
     {
@@ -135,5 +193,77 @@ class ContactController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
+    }
+
+    public function searchNotifications(Request $request)
+    {
+        $query = $request->input('query'); // Ambil query pencarian
+        $filter = $request->query('filter', 'all'); // Ambil filter yang aktif, default 'all'
+        $userId = auth()->id();
+
+        // Buat query dasar berdasarkan user yang sedang login
+        $queryBuilder = NotifikasiUser::where('user_id', $userId);
+
+        // Jika ada input pencarian, cari berdasarkan nama pengirim, judul, atau isi pesan
+        if (!empty($query)) {
+            $queryBuilder->where(function ($q) use ($query) {
+                $q->where('nama_pengirim', 'like', "%$query%")
+                    ->orWhere('judul', 'like', "%$query%")
+                    ->orWhere('isi_pesan', 'like', "%$query%");
+            });
+        }
+
+        // Terapkan filter sesuai kategori yang aktif
+        switch ($filter) {
+            case 'all':
+                $queryBuilder->whereNull('deleted_at'); // agar tidak menampilkan yang sudah terhapus        
+                break;
+            case 'unread':
+                $queryBuilder->where('status', 'Belum Dibaca');
+                break;
+            case 'transaksi-sukses':
+                $queryBuilder->where('status_transaksi', 'Sukses');
+                break;
+            case 'transaksi-diproses':
+                $queryBuilder->where('status_transaksi', 'Menunggu Persetujuan');
+                break;
+            case 'transaksi-gagal':
+                $queryBuilder->where('status_transaksi', 'Gagal');
+                break;
+            case 'pengingat':
+                $queryBuilder->where('tipe', 'Pengingat');
+                break;
+            case 'sent-laporan':
+                $queryBuilder->where('tipe', 'Laporan');
+                break;
+            case 'sent-saran':
+                $queryBuilder->where('tipe', 'Saran');
+                break;
+            case 'sent-terkirim':
+                $queryBuilder->where('status_laporan', 'Terkirim');
+                break;
+            case 'sent-dibaca':
+                $queryBuilder->where('status_laporan', 'Dibaca_Admin');
+                break;
+            case 'sent-dibalas':
+                $queryBuilder->where('status_laporan', 'Dibalas');
+                break;
+            default:
+
+                break;
+        }
+
+        $notifikasi = $queryBuilder->orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $notifikasi]);
+    }
+
+    public function loadNotifications()
+    {
+        // Ambil semua notifikasi untuk ditampilkan
+        $notifikasi = NotifikasiUser::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($notifikasi); // Kembalikan semua notifikasi dalam format JSON
     }
 }

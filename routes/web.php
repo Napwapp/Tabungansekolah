@@ -77,8 +77,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Pesan', [ContactController::class, 'contact'])->name('contact'); // untuk tampilan kontak kami 
     Route::get('/notifikasi/count-unread', [ContactController::class, 'countUnread'])->name('notifikasi.countUnread');
+    Route::get('/notifikasi/filter', [ContactController::class, 'filter']); //filter notifikasi
     Route::post('/notifikasi/mark-all-read', [ContactController::class, 'markAllRead'])->name('notifikasi.markAllRead');
-
+    Route::get('/search-notifications', [ContactController::class, 'searchNotifications'])->name('search.notifications'); // Route untuk pencarian notifikasi
+    Route::get('/load-notifications', [ContactController::class, 'loadNotifications'])->name('load.notifications'); // Route untuk memuat semua notifikasi jika tidak ada query pencarian
     Route::get('/pesan/{id}/detail', [ContactController::class, 'getDetail']);
     Route::post('/pesan/{id}/update-status', [ContactController::class, 'updateStatus']); //js yg menangani postnya sudah ada di halaman pesan    
     Route::post('/pesan/hapus/{id}', [ContactController::class, 'hapusNotifikasi']);
@@ -108,6 +110,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/laporan/{id}', [PesanController::class, 'show']);
     Route::post('/admin/laporan/update-status/{id}', [PesanController::class, 'updateStatus']);
     Route::post('/admin/mark-all-read', [PesanController::class, 'markAllRead'])->name('admin.markAllRead');
+    Route::post('/admin/laporan/{id}/balas', [PesanController::class, 'balasLaporan']); // Logika untuk balas laporan dan saran
+    
+    Route::get('/notifikasi/admin/filter', [PesanController::class, 'filterAdmin']); //filter notifikasi
+    Route::get('/search-notifications/admin', [PesanController::class, 'searchNotifications'])->name('search.notifications'); // Route untuk pencarian notifikasi
+    Route::get('/load-notifications/admin', [PesanController::class, 'loadNotifications'])->name('load.notifications'); // Route untuk memuat semua notifikasi jika tidak ada query pencarian
 
     Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
     Route::get('/admin/daftar/permintaan_transaksi', [PaymentRequestController::class, 'index'])->name('permintaan-transaksi');

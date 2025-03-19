@@ -229,7 +229,6 @@
                                                 <ul class="sidebar-filter">
                                                     <li data-filter="all" class="list-group-item pt-0 active" id="inbox-menu">
                                                         <div class="fonticon-wrap d-inline me-3">
-
                                                             <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
                                                                 <use
                                                                     xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
@@ -251,9 +250,8 @@
                                                         <span
                                                             class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
                                                     </li>
-                                                    <li data-filter="pengingat" class="list-group-item">
+                                                    <li data-filter="unreply" class="list-group-item">
                                                         <div class="fonticon-wrap d-inline me-3">
-
                                                             <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
                                                                 <use
                                                                     xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
@@ -261,7 +259,7 @@
                                                         </div>
                                                         Belum Dibalas
                                                     </li>
-                                                    <li data-filter="transaksi" class="list-group-item">
+                                                    <li data-filter="report" class="list-group-item">
                                                         <div class="fonticon-wrap d-inline me-3">
 
                                                             <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
@@ -271,7 +269,7 @@
                                                         </div>
                                                         Laporan
                                                     </li>
-                                                    <li data-filter="deleted" class="list-group-item">
+                                                    <li data-filter="advice" class="list-group-item">
                                                         <div class="fonticon-wrap d-inline me-3">
                                                             <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
                                                                 <use
@@ -280,14 +278,14 @@
                                                         </div>
                                                         Saran
                                                     </li>
-                                                    <li data-filter="deleted" class="list-group-item">
+                                                    <li data-filter="sent-reply" class="list-group-item">
                                                         <div class="fonticon-wrap d-inline me-3">
                                                             <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
                                                                 <use
                                                                     xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
                                                             </svg>
                                                         </div>
-                                                        Terkirim
+                                                        Balasan Terkirim
                                                     </li>
                                                 </ul>
                                             </div>
@@ -361,9 +359,8 @@
                                                         </div>
                                                         <!-- search bar  -->
                                                         <div class="email-fixed-search flex-grow-1">
-
                                                             <div class="form-group position-relative  mb-0 has-icon-left">
-                                                                <input type="text" class="form-control" placeholder="Search email..">
+                                                                <input type="text" id="searchInput" class="form-control" placeholder="Search email..">
                                                                 <div class="form-control-icon">
                                                                     <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
                                                                         <use
@@ -469,9 +466,11 @@
                                                                 </div>
 
                                                                 <!-- Status laporan -->
-                                                                <div id="overlay-status{{ isset($data) ? $data->id : 'default' }}" class="transaction-status">
-                                                                    {!! isset($data) && isset($data->status_laporan_icon) ? $data->status_laporan_icon : 'Belum Ada' !!}
+                                                                <div id="overlay-status" class="transaction-status">
+                                                                    <!-- Isi dengan JavaScript -->
                                                                 </div>
+
+
 
                                                                 <!-- Balasan admin -->
                                                                 <div id="overlay-reply" class="reply-container" style="display: none;">
@@ -483,8 +482,8 @@
                                                             </div>
 
                                                             <!-- Footer: Input untuk membalas pesan -->
-                                                            <div class="overlay-footer">
-                                                                <input type="text" id="reply-input" class="reply-input" placeholder="Balas pesan...">
+                                                            <div id="overlay-footer" class="overlay-footer">
+                                                                <input type="text" id="reply-input" class="reply-input" placeholder="Balas pesan..." data-laporan-id="{{ $data->id }}">
                                                                 <button class="send-reply" onclick="sendReply()">
                                                                     <img src="{{ asset('dashboard/dist/assets/images/icons/icons8-send-30.png') }}" alt="">
                                                                 </button>
@@ -504,27 +503,26 @@
                 </di>
             </div>
 
+            <!-- untuk menampilkan detail pesan dan function2 lainnya -->
             <script>
                 let currentMessageId = null; // Simpan ID laporan yang sedang dibuka
+                currentMessageId = id; // Pastikan ID laporan diperbarui
 
                 function openMessageOverlay(id) {
-                    // Update currentMessageId sesuai laporan yang diklik
-                    currentMessageId = id;
-
-                    // Menampilkan overlay
+                    currentMessageId = id; // Pastikan ID diperbarui
                     document.getElementById('messageOverlay').style.display = 'flex';
 
-                    // Mengambil detail laporan
                     fetch(`/admin/laporan/${id}`)
                         .then(response => response.json())
                         .then(data => {
-                            console.log("Data dari API:", data); // Debugging
-
+                            console.log("Data dari API:", data);
                             document.getElementById("overlay-title").textContent = data.judul ?? "Tanpa Judul";
                             document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Tidak diketahui";
                             document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
 
-                            // Format Tanggal
+                            // Pastikan attribute data-laporan-id di-update dengan nilai id yang diteruskan
+                            document.getElementById("reply-input").setAttribute("data-laporan-id", id);
+
                             if (data.tanggal) {
                                 let tanggal = new Date(data.tanggal);
                                 let formattedTanggal = tanggal.getDate() + ' ' + tanggal.toLocaleString('id-ID', {
@@ -535,33 +533,30 @@
                                 document.getElementById("overlay-tanggal").textContent = "-";
                             }
 
-                            // Menampilkan Foto Pengirim
-                            let fotoPengirim = data.foto_pengirim ?
-                                `${data.foto_pengirim}` :
-                                `/dashboard/dist/assets/images/logo/logoSMK_.png`;
+                            let fotoPengirim = data.foto_pengirim ? data.foto_pengirim : "/dashboard/dist/assets/images/logo/logoSMK_.png";
                             document.getElementById("overlay-foto").src = fotoPengirim;
 
-                            // Menampilkan Status Laporan dengan Ikon
-                            let statusElement = document.getElementById(`overlay-status${id}`);
+                            // Update status icon di detail pesan berdasarkan data.status_laporan_icon
+                            let statusElement = document.getElementById('overlay-status');
                             if (statusElement) {
-                                statusElement.innerHTML = data.status_laporan_icon ?? '<i class="bi bi-question-circle text-secondary"></i> -';
+                                statusElement.innerHTML = data.status_laporan ?? '<i class="bi bi-question-circle text-secondary"></i> -'; // Menggunakan icon default jika tidak ada icon
                             }
 
-                            // Menampilkan balasan jika ada
                             let balasanContainer = document.getElementById("overlay-reply");
-                            if (data.balasan) {
-                                balasanContainer.innerHTML = `<strong>Balasan User:</strong> <p>${data.balasan}</p>`;
+                            let overlayFooter = document.getElementById("overlay-footer");
+                            if (data.balasan && data.balasan.trim() !== "" && data.balasan.trim().toLowerCase() !== "belum ada balasan") {
+                                balasanContainer.innerHTML = `<strong>Balasan Admin:</strong> <p>${data.balasan}</p>`;
                                 balasanContainer.style.display = "block";
+                                if (overlayFooter) overlayFooter.style.display = "none";
                             } else {
                                 balasanContainer.style.display = "none";
+                                if (overlayFooter) overlayFooter.style.display = "flex";
                             }
 
-                            // Memperbarui status laporan menjadi "Dibaca"
                             updateStatusLaporan(id);
                         })
                         .catch(error => console.error("Error:", error));
 
-                    // Menutup overlay ketika mengklik di luar area konten overlay
                     document.getElementById('messageOverlay').addEventListener('click', function(event) {
                         if (event.target === this) {
                             closeOverlay();
@@ -576,37 +571,14 @@
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({}) // Jika perlu parameter lain, tambahkan di sini
+                            body: JSON.stringify({})
                         })
                         .then(response => response.json())
                         .then(data => {
-                            // Pastikan status_icon ada dalam respons
-                            if (data.status_icon && data.status_laporan) {
-                                console.log("Status laporan diperbarui:", data);
-
-                                // **1. Perbarui status di daftar laporan utama**
-                                let statusTextElement = document.getElementById(`status-laporan-${id}`);
-                                if (statusTextElement) {
-                                    statusTextElement.innerHTML = data.status_icon; // Update status ikon di tampilan utama
-                                }
-
-                                // **2. Hapus bullet-unread di daftar laporan**
-                                let messageItem = document.getElementById(`notification-${id}`);
-                                if (messageItem) {
-                                    messageItem.classList.add('mail-read'); // Tambahkan kelas "read"
-                                    let unreadBullet = messageItem.querySelector('.bullet-unread');
-                                    if (unreadBullet) {
-                                        unreadBullet.remove(); // Hapus bullet "unread"
-                                    }
-                                }
-
-                                // **3. Update status di overlay pesan**
-                                let overlayStatusText = document.getElementById(`overlay-status${id}`);
-                                if (overlayStatusText) {
-                                    overlayStatusText.innerHTML = data.status_icon; // Update status di overlay
-                                }
+                            if (data.status_laporan) {
+                                console.log("Status laporan diperbarui:", data);                            
                             } else {
-                                console.error("Data status_icon tidak ditemukan dalam respons:", data);
+                                console.error("Data status_laporan_icon tidak ditemukan dalam respons:", data);
                                 alert("Gagal memperbarui status laporan.");
                             }
                         })
@@ -616,6 +588,95 @@
                         });
                 }
 
+                function sendReply() {
+                    let replyInput = document.getElementById("reply-input");
+                    let replyText = replyInput.value.trim();
+
+                    // Validasi input kosong dan panjang minimal
+                    if (replyText === "") {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Input Kosong!",
+                            text: "Balasan tidak boleh kosong.",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
+                    if (replyText.length < 10) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Balasan Terlalu Pendek!",
+                            text: "Balasan minimal berisi 10 karakter.",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Kirim Balasan?",
+                        text: "Pastikan kamu memberikan jawaban dengan jelas dan informatif!",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ya, Kirim",
+                        cancelButtonText: "Batal"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let laporanId = replyInput.getAttribute("data-laporan-id"); // Ambil ID laporan
+                            console.log("Mengirim balasan untuk laporan ID:", laporanId);
+
+                            fetch(`/admin/laporan/${laporanId}/balas`, {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                                    },
+                                    body: JSON.stringify({
+                                        balasan: replyText
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        let replyContainer = document.getElementById("overlay-reply");
+                                        replyContainer.innerHTML = `<strong>Balasan Admin:</strong> <p>${data.balasan}</p>`;
+                                        replyContainer.style.display = "block";
+
+                                        // Sembunyikan input balasan
+                                        let replyForm = document.getElementById("overlay-footer");
+                                        if (replyForm) replyForm.style.display = "none";
+
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Balasan Terkirim!",
+                                            text: "Berhasil mengirimkan balasan.",
+                                            confirmButtonText: "OK"
+                                        }).then(() => {
+                                            // Refresh halaman setelah swal sukses ditutup
+                                            location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Gagal Mengirim!",
+                                            text: "Terjadi kesalahan, silakan coba lagi.",
+                                            confirmButtonText: "OK"
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Terjadi Kesalahan!",
+                                        text: "Tidak dapat mengirim balasan.",
+                                        confirmButtonText: "OK"
+                                    });
+                                });
+                        }
+                    });
+                }
 
                 function closeOverlay() {
                     document.getElementById('messageOverlay').style.display = 'none';
@@ -661,8 +722,14 @@
                 }
             </script>
 
+            <!-- Sweetalert -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
             <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+
+            <!-- myjs -->
+             <script src="{{ asset('dashboard/dist/assets/js/myjs/pesanadmin.js') }}"></script>
 </body>
 
 </html>

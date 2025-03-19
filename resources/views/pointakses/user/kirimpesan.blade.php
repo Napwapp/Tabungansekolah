@@ -145,7 +145,7 @@
                 <div class="form-group">
                     <label for="dari">Dari</label>
                     <span id="dari" class="form-control bg-light" style="cursor: not-allowed;">
-                        {{ Auth::user()->nama_lengkap }}
+                        {{ Auth::user()->namalengkap }}
                     </span>
                 </div>
 
@@ -176,12 +176,12 @@
 
                 <div class="form-group">
                     <label for="judul" id="judulLabel">Masalah</label>
-                    <input id="judul" type="text" class="form-control" name="judul" placeholder="Masukkan judul...">
+                    <input id="judul" type="text" class="form-control" name="judul" placeholder="Masukkan judul..." required>
                 </div>
 
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi</label>
-                    <textarea id="deskripsi" class="form-control" name="deskripsi" placeholder="Masukkan deskripsi..." rows="4"></textarea>
+                    <textarea id="deskripsi" class="form-control" name="deskripsi" placeholder="Masukkan deskripsi..." rows="4" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Kirim</button>
