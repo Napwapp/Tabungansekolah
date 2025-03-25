@@ -30,10 +30,12 @@ class NotifikasiUser extends Model
     // Accessor untuk status_icon
     public function getStatusIconAttribute()
     {
-        if ($this->tipe !== "Transaksi" || !$this->status_transaksi) {
-            return '<i class="bi bi-check-circle text-success"></i> Terkirim ';
+        // default status bertipe pengingat
+        if ($this->tipe == "Pengingat" || $this->status_transaksi) {
+            return '<i class="bi bi-bell text-danger"></i> Pengingat ';
         }
 
+        // status untuk transaksi
         return match ($this->status_transaksi) {
             'Sukses' => '<i class="bi bi-check-circle text-success"></i> Transaksi Berhasil',
             'Menunggu Persetujuan' => '<i class="bi bi-hourglass-split text-warning"></i> Menunggu Persetujuan',

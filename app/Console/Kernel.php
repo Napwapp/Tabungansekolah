@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     // scheduler untuk menjalankan perintah otomatis dihari tertentu
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('notifikasi:pengingat')->monthlyOn(25, '07:00');
+        $schedule->command('notifikasi:pengingat')->daily();
     }
 
     /**
