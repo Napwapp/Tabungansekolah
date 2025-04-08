@@ -9,6 +9,8 @@ use App\Models\TabunganUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
+use App\Models\NotifikasiUser;
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -33,33 +35,67 @@ class UserController extends Controller
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
 
         // Ambil total tabungan user dari tabel transaksi_menabung_users
-        $totalTabungan = DB::table('transaksi_menabung_users')
+        $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('jumlah');
+            ->sum('total_tabungan'); // Menjumlahkan total tabungan berdasarkan user_id
 
         // Ambil target tabungan yang telah diatur oleh user
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
 
         // Hitung persentase dari total tabungan terhadap target tabungan
         $persenTabungan = $targetTabungan ? ($totalTabungan / $targetTabungan) * 100 : 0;
-        $persenTabungan = min($persenTabungan, 100); // Batas maksimal 100%
+
+        // Membatasi persen hingga maksimal 100%
+        $persenTabungan = min($persenTabungan, 100);
+
+        // penarikan
+        $penarikanDisetujuiBulanIni = DB::table('penarikan_users')
+            ->where('user_id', Auth::id())
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->where('status', 'Sukses') // Hanya yang sudah disetujui
+            ->sum('jumlah');
 
         // Mengambil id_tabungan dari relasi  
         $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia';
 
         // Ambil riwayat transaksi seperti di RiwayatController
         $topups = TransaksiTopup::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Top Up' as tipe"))
             ->get();
 
         $menabung = TransaksiMenabungUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Menabung' as tipe"))
             ->get();
 
         $penarikan = PenarikanUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Penarikan' as tipe"))
             ->get();
 
@@ -72,7 +108,7 @@ class UserController extends Controller
             TransaksiMenabungUser::where('user_id', $user->id)->doesntExist() &&
             PenarikanUser::where('user_id', $user->id)->doesntExist();
 
-        return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan'));
+        return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan', 'penarikanDisetujuiBulanIni'));
     }
 
 

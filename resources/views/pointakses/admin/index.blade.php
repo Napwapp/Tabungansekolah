@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboardadmin.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/default.css')}}">
+
+    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
 
 </head>
 
@@ -85,7 +88,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
                         </li>
@@ -93,11 +96,22 @@
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-history"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
 
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('permintaan-transaksi')}}" class='sidebar-link'>
+                                <i class="bi bi-receipt"></i>
+                                <span>Permintaan transaksi</span>
+                                @if($pendingTransactions > 0)
+                                    <span class="badge-dot"></span>
+                                @endif
+
+                            </a>
+                        </li>
 
                         <li
                             class="sidebar-item  ">

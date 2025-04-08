@@ -8,8 +8,9 @@
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-keuangan-kelas.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/png">
+
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
 </head>
 
@@ -82,20 +83,29 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item active">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
-
                             </ul>
                         </li>
 
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-history"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
 
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('permintaan-transaksi')}}" class='sidebar-link'>
+                                <i class="bi bi-receipt"></i>
+                                <span>Permintaan transaksi</span>
+                                @if($pendingTransactions > 0)
+                                <span class="badge-dot"></span>
+                                @endif
+                            </a>
+                        </li>
 
                         <li
                             class="sidebar-item  ">
@@ -170,41 +180,46 @@
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <form action="{{ route('kelasmin') }}" method="GET">
-                    <label for="kelas">Pilih Kelas:</label>
-                    <select name="kelas" onchange="this.form.submit()">
-                        <option value="10" {{ request('kelas') == '10' ? 'selected' : '' }}>Kelas 10</option>
-                        <option value="11" {{ request('kelas') == '11' ? 'selected' : '' }}>Kelas 11</option>
-                        <option value="12" {{ request('kelas') == '12' ? 'selected' : '' }}>Kelas 12</option>
+                <div id="main">
+                    <div class="container">
+                    <h1>Data Keuangan Siswa</h1>
+                    <p class="text-subtitle text-muted">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
+
+
+                    <!-- <div class="col-md-3">
+                    <select class="form-control" id="transactionType">
+                        <option value="">Semua Kelas</option>
+                        <option value="kelas X">Kelas 10</option>
+                        <option value="kelas XI">Kelas 11</option>
+                        <option value="kelas XII">Kelas 12</option>
                     </select>
-                </form>
+                </div> -->
 
-
-                <h1>Data Keuangan Kelas {{ $kelas }}</h1>
-                <table class="container">
-                    <tr>
-                        <th>Jurusan</th>
-                        <th>Pengeluaran Total</th>
-                        <th>Pemasukan Total</th>
-                        <th>Dana Total</th>
-                        <th>Total Akhir</th>
-                        <th>Aksi</th>
-                    </tr>
-                    @foreach ($datakelas as $data)
-                    <tr>
-                        <td>{{ $data->jurusan }}</td>
-                        <td>Rp {{ number_format($data->pengeluaran ?? 0, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($data->pemasukan ?? 0, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($data->dana ?? 0, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($data->akhir ?? 0, 0, ',', '.') }}</td>
-
-                        <td>
-                            <a href="{{ route('kelasmin', $data->id) }}" class="btn-edit">Edit</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+                    <table class="container">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>ID Tabungan</th>
+                                <th>Kelas</th>
+                                <th>Saldo</th>
+                                <th>Tabungan</th>
+                                <th>Penarikan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dataKeuangan as $data)
+                            <tr>
+                                <td>{{ $data->namalengkap }}</td>
+                                <td>{{ $data->id_tabungan }}</td>
+                                <td>{{ $data->kelas }}</td>
+                                <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
 
 

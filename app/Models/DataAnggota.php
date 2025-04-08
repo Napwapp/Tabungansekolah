@@ -13,7 +13,7 @@ class DataAnggota extends Model
     public $fillable = [
         'namalengkap',
         'email',
-        'id_tabungan',
+        'id',
         'kelas',
         'role'
     ];

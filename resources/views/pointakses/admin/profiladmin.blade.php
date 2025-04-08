@@ -9,8 +9,12 @@
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
+
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
     <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -53,7 +57,7 @@
 
                         <li
                             class="sidebar-item">
-                            <a href="{{route('user')}}" class='sidebar-link'>
+                            <a href="{{route('admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -83,7 +87,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
 
                             </ul>
@@ -92,11 +96,22 @@
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-history"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
 
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('permintaan-transaksi')}}" class='sidebar-link'>
+                                <i class="bi bi-receipt"></i>
+                                <span>Permintaan transaksi</span>
+                                @if($pendingTransactions > 0)
+                                <span class="badge-dot"></span>
+                                @endif
+
+                            </a>
+                        </li>
 
                         <li
                             class="sidebar-item  ">
@@ -166,7 +181,8 @@
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button></form>
+                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -175,7 +191,7 @@
                     <div class="profile-header">
                         <div class="profile-cover">
                             <div class="profile-avatar">
-                                <img src="{{ asset('picture/accounts/' . $admin->gambar) }}" alt="">
+                                <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">
                             </div>
                         </div>
                         <div class="profile-basic-info">
@@ -190,27 +206,27 @@
 
                             <div class="profile-item">
                                 <span>Nama Lengkap :</span>
-                                <span>{{$admin -> namalengkap}}</span>
+                                <span>{{Auth::user() -> namalengkap}}</span>
                             </div>
                             <div class="profile-item">
                                 <span>Username :</span>
-                                <span>{{$admin -> username}}</span>
+                                <span>{{Auth::user() -> username}}</span>
                             </div>
                             <div class="profile-item">
                                 <span>Kelas :</span>
-                                <span>{{$admin -> kelas}}</span>
+                                <span>{{Auth::user() -> kelas}}</span>
                             </div>
                             <div class="profile-item">
-                                <span>NISN :</span>
-                                <span>123456789</span>
+                                <span>Role :</span>
+                                <span>{{Auth::user() -> role}}</span>
                             </div>
                             <div class="profile-item">
-                                <span>Jenis Kelamin :</span>
-                                <span>Laki-Laki</span>
+                                <span>Email :</span>
+                                <span>{{Auth::user() -> email}}</span>
                             </div>
                             <div class="profile-item">
-                                <span>No Telepon</span>
-                                <span>+62 890 0000 0000</span>
+                                <span>Alamat :</span>
+                                <span>Binong</span>
                             </div>
                             <div class="profile-details">
                                 <div class="profile-section">
@@ -233,11 +249,20 @@
                                             <span>Kelas :</span>
                                             <input type="text" id="kelas" name="kelas" value="{{ $admin->kelas }}">
                                         </div>
+                                        <div class="profile-item">
+                                            <span>Email :</span>
+                                            <input type="text" id="email" name="email" value="{{ $admin->email }}">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span>Foto :</span>
+                                            <input type="file" id="gambar" name="gambar" accept="image/*">
+                                        </div>
                                         <button type="submit" class="btn btn-success">Simpan</button>
                                         <button type="button" id="cancel-edit" class="btn btn-secondary">Batal</button>
                                     </form>
                                 </div>
                             </div>
+
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", function() {
@@ -273,16 +298,50 @@
                                             .then(response => response.json())
                                             .then(data => {
                                                 if (data.success) {
-                                                    alert("Profil berhasil diperbarui!");
-                                                    location.reload(); // Reload halaman untuk menampilkan data baru
+                                                    Swal.fire({
+                                                        title: "Berhasil!",
+                                                        text: "Profil berhasil diperbarui.",
+                                                        icon: "success",
+                                                        timer: 2000,
+                                                        showConfirmButton: false
+                                                    }).then(() => {
+                                                        location.reload(); // Reload halaman untuk menampilkan data baru
+                                                    });
                                                 } else {
-                                                    alert("Terjadi kesalahan!");
+                                                    Swal.fire({
+                                                        title: "Error!",
+                                                        text: "Terjadi kesalahan saat memperbarui profil.",
+                                                        icon: "error",
+                                                        confirmButtonText: "OK"
+                                                    });
                                                 }
                                             })
-                                            .catch(error => console.error("Error:", error));
+                                            .catch(error => {
+                                                console.error("Error:", error);
+                                                Swal.fire({
+                                                    title: "Error!",
+                                                    text: "Terjadi kesalahan! Silakan coba lagi.",
+                                                    icon: "error",
+                                                    confirmButtonText: "OK"
+                                                });
+                                            });
                                     });
                                 });
                             </script>
+
+                            <script>
+                                document.getElementById("gambar").addEventListener("change", function(event) {
+                                    let reader = new FileReader();
+                                    reader.onload = function() {
+                                        let previewImage = document.getElementById("preview-image");
+                                        previewImage.src = reader.result; // Menampilkan preview gambar sebelum upload
+                                    };
+                                    reader.readAsDataURL(event.target.files[0]);
+                                });
+                            </script>
+
+
+
 
                             <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
                             <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>

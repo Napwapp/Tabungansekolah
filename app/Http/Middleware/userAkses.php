@@ -33,7 +33,7 @@ class UserAkses
         // 4. Batasi user hanya bisa mengakses halaman sesuai rolenya
         if ($userRole !== 'admin' && $userRole !== $requiredRole) {
             return redirect()->route($userRole)->with(
-                'error', 
+                'error',
                 "Akses ditolak. Role Anda adalah: " . ucfirst($userRole)
             );
         }

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/simple-datatables.css')}}">
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/data-anggota.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
 </head>
 
@@ -89,7 +90,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
 
                             </ul>
@@ -98,8 +99,19 @@
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-history"></i>
                                 <span>Riwayat Transaksi</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('permintaan-transaksi')}}" class='sidebar-link'>
+                                <i class="bi bi-receipt"></i>
+                                <span>Permintaan transaksi</span>
+                                @if($pendingTransactions > 0)
+                                <span class="badge-dot"></span>
+                                @endif
                             </a>
                         </li>
 
@@ -115,7 +127,7 @@
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -171,8 +183,8 @@
                                                 <form action="{{ route('updateRole', $item->id) }}" method="post">
                                                     @csrf
                                                     <select name="role" class="form-select" onchange="this.form.submit()">
-                                                        <option value="User" {{ $item->role == 'User' ? 'selected' : '' }}>User</option>
-                                                        <option value="Admin" {{ $item->role == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                                        <option value="User" {{ $item->role == 'user' ? 'selected' : '' }}>User</option>
+                                                        <option value="Admin" {{ $item->role == 'admin' ? 'selected' : '' }}>Admin</option>
                                                     </select>
                                                 </form>
                                             </td>
@@ -193,7 +205,6 @@
                                 </table>
                             </div>
                         </div>
-
 
                     </section>
                 </div>

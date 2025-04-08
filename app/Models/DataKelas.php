@@ -9,7 +9,7 @@ class DataKelas extends Model
 {
     use HasFactory;
     protected $table = 'datakelas';
-    protected $fillable = ['kelas', 'jurusan', 'pengeluaran', 'pemasukan', 'dana', 'akhir'];
+    protected $fillable = ['namalengkap', 'kelas', 'saldo', 'tabungan', 'penarikan'];
     public function scopeByKelas($query, $kelas)
     {
         return $query->where('kelas', $kelas);

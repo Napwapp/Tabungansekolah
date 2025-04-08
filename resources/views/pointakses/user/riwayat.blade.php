@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Riwayat</title>
+    <title>Riwayat Transaksi</title>
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/logo/favicon.svg')}}" type="image/x-icon">
@@ -14,6 +14,7 @@
 
     <!-- my style -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 </head>
 
@@ -96,11 +97,15 @@
                         </li>
 
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('contact') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
+                                @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 

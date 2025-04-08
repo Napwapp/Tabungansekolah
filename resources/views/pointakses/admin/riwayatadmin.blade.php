@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/pages/riwayatadmin.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
 </head>
 
 <body>
@@ -82,20 +84,29 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
-
                             </ul>
                         </li>
 
                         <li
-                            class="sidebar-item  active">
+                            class="sidebar-item active">
                             <a href="{{route('riwayatadmin')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-history"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
 
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('permintaan-transaksi')}}" class='sidebar-link'>
+                                <i class="bi bi-receipt"></i>
+                                <span>Permintaan transaksi</span>
+                                @if($pendingTransactions > 0)
+                                <span class="badge-dot"></span>
+                                @endif
+                            </a>
+                        </li>
 
                         <li
                             class="sidebar-item  ">
@@ -165,7 +176,8 @@
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button></form>
+                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -185,13 +197,15 @@
                             <option value="Penarikan">Penarikan</option>
                         </select>
                     </div>
+
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="search" placeholder="Cari nama/NIS">
+                        <input type="text" id="searchInput" placeholder="Cari NIS/Nama..." class="form-control">
                     </div>
+
                 </div>
 
                 <!-- Tabel Riwayat Transaksi -->
-                <table class="table table-bordered table-striped">
+                <table id="riwayatTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -200,7 +214,6 @@
                             <th>Tipe</th>
                             <th>Nomor Tabungan</th>
                             <th>Status</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaksiBody">
@@ -243,6 +256,32 @@
                 });
             });
         </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('searchInput');
+                const table = document.getElementById('riwayatTable');
+                const rows = table.getElementsByTagName('tr');
+
+                searchInput.addEventListener('keyup', function() {
+                    const filter = searchInput.value.toLowerCase();
+
+                    for (let i = 1; i < rows.length; i++) {
+                        const row = rows[i];
+                        const cells = row.getElementsByTagName('td');
+
+                        const nis = cells[0]?.textContent.toLowerCase() || '';
+                        const nama = cells[1]?.textContent.toLowerCase() || '';
+
+                        const match = nis.includes(filter) || nama.includes(filter);
+
+                        row.style.display = match ? '' : 'none';
+                    }
+                });
+            });
+        </script>
+
+
 
 
 </body>

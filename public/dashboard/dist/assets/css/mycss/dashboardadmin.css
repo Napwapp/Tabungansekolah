@@ -17,12 +17,21 @@
 
 /* Tombol Aksi */
 .btn-action {
+<<<<<<< HEAD
   padding: 20px 40px; /* Ukuran tombol lebih besar */
   font-size: 20px; /* Font lebih besar */
   font-weight: bold;
   border: none;
   border-radius: 10px;
   transition: transform 0.3s, box-shadow 0.3s;
+=======
+padding: 20px 40px; /* Ukuran tombol lebih besar */
+font-size: 20px; /* Font lebih besar */
+font-weight: bold;
+border: none;
+border-radius: 10px;
+transition: transform 0.3s, box-shadow 0.3s;
+>>>>>>> e8f9a70a3ff9ff88afbad5e50ad419fbd2ab0848
   cursor: pointer;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Membuat teks lebih jelas */

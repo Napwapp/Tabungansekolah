@@ -14,7 +14,7 @@ class SaveController extends Controller
     // Pastikan hanya admin yang bisa mengakses controller ini
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']); // Gunakan middleware admin
+        $this->middleware(['auth']); // Gunakan middleware admin
     }
 
     // Menampilkan halaman tabungan untuk semua user
@@ -47,7 +47,7 @@ class SaveController extends Controller
         // Ambil semua user untuk dropdown pilihan di admin panel
         $users = User::all();
 
-        return view('pointakses.admin.tabungan', compact('users', 'user', 'saldo', 'totalTabungan', 'targetTabungan', 'persenTabungan'));
+        return view('pointakses.user.tabungan', compact('users', 'user', 'saldo', 'totalTabungan', 'targetTabungan', 'persenTabungan'));
     }
 
     // Mengambil data tabungan per bulan (semua user atau user tertentu)
@@ -55,7 +55,7 @@ class SaveController extends Controller
 {
     // Ambil total tabungan per bulan dari tabel transaksi_menabung_users
     $data = DB::table('transaksi_menabung_users')
-        ->selectRaw('MONTH(created_at) as bulan, SUM(nominal) as total_tabungan')
+        ->selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total_tabungan')
         ->where('status', 'Sukses') // Hanya transaksi sukses
         ->groupBy('bulan')
         ->orderBy('bulan')

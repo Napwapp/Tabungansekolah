@@ -73,34 +73,39 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
             },
             body: JSON.stringify({ jumlah: depositAmount })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                sessionStorage.setItem("savingSuccess", "true");
+            .then(async response => {
+                const data = await response.json();
+                if (!response.ok) throw data;
+                return data;
+            })
+            .then(data => {
                 Swal.fire({
-                    icon: "success",
+                    icon: "info",  // Menampilkan ikon info jika transaksi berhasil
                     title: "Berhasil!",
-                    text: data.message
+                    text: "Berhasil Menabung! Menunggu persetujuan dari admin.",
+                    confirmButtonColor: "#007bff"
                 }).then(() => {
                     window.location.href = userRoute;
                 });
-            } else {
-                Swal.fire("Error!", data.message, "error");
-            }
-        })
-        .catch(error => {
-            Swal.fire("Error!", "Terjadi kesalahan saat memproses!", "error");
-        })
-        .finally(() => {
-            loadingIndicator.style.display = "none";
-            depositButton.classList.remove("loading");
-            depositButton.disabled = false;
-            depositButton.textContent = "Tabung Sekarang";
-        });
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: "warning", // Menampilkan warning jika ada transaksi yang masih pending
+                    title: "Menunggu Persetujuan!",
+                    html: error.message || "Anda sudah memiliki transaksi yang masih Menunggu Persetujuan. Harap Segera melakukan pembayaran kepada admin supaya admin dapat segera menyetujui transaksi sebelumnya!",
+                    confirmButtonColor: "#007bff"
+                });
+            })
+            .finally(() => {
+                loadingIndicator.style.display = "none";
+                depositButton.classList.remove("loading");
+                depositButton.disabled = false;
+                depositButton.textContent = "Tabung Sekarang";
+            });        
     });
   
     validateInput();

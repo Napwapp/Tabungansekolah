@@ -16,19 +16,19 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'namalengkap', 
-        'kelas', 
-        'username', 
-        'email', 
-        'password', 
-        'gambar', 
-        'verify_key', 
-        'role', 
+        'namalengkap',
+        'kelas',
+        'username',
+        'email',
+        'password',
+        'gambar',
+        'verify_key',
+        'role',
         'id_tabungan'
     ];
 
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token'
     ];
     protected $casts = ['email_verified_at' => 'datetime'];
@@ -44,15 +44,17 @@ class User extends Authenticatable
         return $this->hasMany(TabunganTransaction::class);
     }
 
-    public function ensureIdTabungan()
+    public function tabungan()
     {
-        if (!$this->id_tabungan) {
-            $id_tabungan = TabunganUser::where('user_id', $this->id)->value('id_tabungan');
-            if ($id_tabungan) {
-                $this->id_tabungan = $id_tabungan;
-                $this->save();
-            }
-        }
+        return $this->hasOne(TabunganUser::class, 'user_id');
+    }
+    public function penarikan()
+    {
+        return $this->hasMany(PenarikanUser::class, 'id_tabungan');
+    }
+
+    public function transaksiMenabung()
+    {
+        return $this->hasMany(TransaksiMenabungUser::class, 'id_tabungan');
     }
 }
-

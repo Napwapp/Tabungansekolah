@@ -127,13 +127,19 @@
 .message-content {
     flex-grow: 1;
     background: #ffffff;
-    padding: 10px;
     border-radius: 8px;
-    max-width: 700px;
+    border: 1px solid rgb(170, 170, 170);
     word-wrap: break-word;
-    line-height: 1.5;
     overflow-y: auto;
-    color: #333;
+}
+
+.message-content p {
+    padding: 10px;
+    max-width: 700px;
+    color: black;
+    line-height: 1.5;
+    font-size: 16px;
+    font-family: sans-serif;
 }
 
 /* Responsif untuk layar kecil */
@@ -143,7 +149,7 @@
         height: 95%;
     }
 
-    .message-content {
+    .message-content p{
         max-width: 100%;
     }
 
@@ -170,3 +176,33 @@
     color: #222;
     background-color: #fff;
 }
+
+.email-user-list .users-list-wrapper{
+    max-height: fit-content;
+}
+
+/* lingkaran tanda pesan belum dibaca */
+.bullet-unread {
+    width: 13px;
+    height: 13px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+
+/* untuk format tanggal dan status_icon */
+.mail-meta-item {
+    display: flex;
+    justify-content: flex-end; /* Tetap di pojok kanan */
+}
+
+.mail-meta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Mengubah alignment elemen agar berada di kanan */
+    text-align: right; /* Menambahkan text alignment kanan untuk tanggal */
+}
+

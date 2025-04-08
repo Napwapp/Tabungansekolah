@@ -14,6 +14,10 @@
 
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboard.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -95,13 +99,18 @@
                         </li>
 
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('contact') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
+                                @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
+
 
                         <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
                         <!-- <li
@@ -249,7 +258,7 @@
 
 
 
-                <p><!-- Content -->
+                <!-- Content -->
                 <div class="content" style="margin-left: 30px;">
                     <p>Selamat datang di dashboard dist/tabungan sekolah SMKN 1 BINONG</p>
                     <h2 class="mb-4">Informasi Tabungan Anda</h2>
@@ -260,25 +269,27 @@
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">Saldo Tersisa</h5> <!-- indeckend -->
-                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3> <!-- backend -->
-                                    <p>Saldo yang anda miliki</p> <!-- backend -->
+                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                                    <p>Saldo yang anda miliki</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body btn-green" style="border-radius: 10px;">
-                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5> <!-- backend -->
-                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3> <!-- backend -->
-                                    <p>Tabungan hingga saat ini.</p> <!-- backend -->
+                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5>
+                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3>
+                                    <p>Tabungan hingga saat ini.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body btn-blue" style="border-radius: 10px;">
-                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5> <!-- backend -->
-                                    <h3 style="color: white;">Rp 0</h3> <!-- backend -->
+                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5>
+                                    <h3 style="color: white;">
+                                        <h3 style="color: white;">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
+                                    </h3>
                                     <p>Total Penarikan Anda bulan ini.</p>
                                 </div>
                             </div>
@@ -314,7 +325,7 @@
                     <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
                     <div class="card bg-light text-dark mb-4">
                         <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5> <!-- backend -->
+                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
                             <canvas id="tabunganChart" height="100"></canvas>
                         </div>
                     </div>
@@ -386,13 +397,9 @@
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-                        </div>
                     </section>
-
-                    </p>
 
                     <!-- Pastikan Chart.js sudah dimuat -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -432,7 +439,7 @@
                                         }
                                     });
                                 })
-                            .catch(error => console.error('Error:', error));
+                            oti.catch(error => console.error('Error:', error));
                         });
                     </script>
 
@@ -441,7 +448,7 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy; SMKN 1 BINONG</p>
+                        <p>2025 &copy; SMntakN 1 BINONG</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
@@ -461,6 +468,9 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </body>
 

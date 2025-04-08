@@ -12,6 +12,9 @@
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -93,11 +96,15 @@
                         </li>
 
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('contact') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
+                                @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
@@ -162,6 +169,7 @@
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -185,23 +193,62 @@
 
                             <div class="profile-item">
                                 <span>Nama Lengkap :</span>
-                                <span>{{$user -> namalengkap}}</span>
+                                <span>{{Auth::user() -> namalengkap}}</span>
                             </div>
                             <div class="profile-item">
                                 <span>Username :</span>
-                                <span>{{$user -> username}}</span>
+                                <span>{{Auth::user() -> username}}</span>
+                            </div>
+                            <div class="profile-item">
+                                <span>Email :</span>
+                                <span>{{Auth::user() -> email}}</span>
                             </div>
                             <div class="profile-item">
                                 <span>ID Tabungan :</span>
-                                <span>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
+                                <span>{{ Auth::user()->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
                             </div>
                             <div class="profile-item">
                                 <span>Kelas :</span>
-                                <span>{{$user -> kelas}}</span>
+                                <span>{{Auth::user() -> kelas}}</span>
                             </div>
                             <div class="profile-item">
                                 <span>Tanggal Bergabung :</span>
-                                <span>Nanti ditambahkan backend</span>
+                                <span>{{ \Carbon\Carbon::parse(Auth::user()->created_at)->translatedFormat('d F Y') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-details">
+                            <div class="profile-section">
+
+                                <!-- Tombol Edit -->
+                                <button id="edit-profile-btn" class="btn btn-primary">Edit Profil</button>
+
+                                <!-- Form Edit (Tersembunyi Awalnya) -->
+                                <form id="edit-profile-form" style="display: none; margin-top: 10px;">
+                                    @csrf
+                                    <div class="profile-item">
+                                        <span>Nama Lengkap :</span>
+                                        <input type="text" id="namalengkap" name="namalengkap" value="{{ $user->namalengkap }}">
+                                    </div>
+                                    <div class="profile-item">
+                                        <span>Username :</span>
+                                        <input type="text" id="username" name="username" value="{{ $user->username }}">
+                                    </div>
+                                    <div class="profile-item">
+                                        <span>Kelas :</span>
+                                        <input type="text" id="kelas" name="kelas" value="{{ $user->kelas }}">
+                                    </div>
+                                    <div class="profile-item">
+                                        <span>Email :</span>
+                                        <input type="text" id="email" name="email" value="{{ $user->email }}">
+                                    </div>
+                                    <div class="profile-item">
+                                        <span>Foto :</span>
+                                        <input type="file" id="gambar" name="gambar" accept="image/*">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                    <button type="button" id="cancel-edit" class="btn btn-secondary">Batal</button>
+                                </form>
                             </div>
                         </div>
 
@@ -266,31 +313,31 @@
 
                                                         @else
                                                         @foreach ($riwayatTransaksi as $transaksi)
-                                                            <tr>
-                                                                <td>{{ $transaksi->nama ?? '-' }}</td>
-                                                                <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
-                                                                <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
-                                                                <td>{{ ucfirst($transaksi->tipe) }}</td>
-                                                                <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
-                                                                <td style="text-align: center;">
-                                                                    @php
-                                                                        // Mapping status ke kelas CSS yang sesuai
-                                                                        $statusClass = [
-                                                                            'Sukses' => 'sukses',
-                                                                            'Menunggu Persetujuan' => 'diproses',
-                                                                            'Gagal' => 'gagal'
-                                                                        ];
+                                                        <tr>
+                                                            <td>{{ $transaksi->nama ?? '-' }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
+                                                            <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
+                                                            <td>{{ ucfirst($transaksi->tipe) }}</td>
+                                                            <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
+                                                            <td style="text-align: center;">
+                                                                @php
+                                                                // Mapping status ke kelas CSS yang sesuai
+                                                                $statusClass = [
+                                                                'Sukses' => 'sukses',
+                                                                'Menunggu Persetujuan' => 'diproses',
+                                                                'Gagal' => 'gagal'
+                                                                ];
 
-                                                                        // Pastikan status yang ada cocok dengan daftar status yang valid
-                                                                        $status = ucfirst(strtolower($transaksi->status));
-                                                                        $badgeClass = $statusClass[$status] ?? 'diproses';
-                                                                    @endphp
+                                                                // Pastikan status yang ada cocok dengan daftar status yang valid
+                                                                $status = ucfirst(strtolower($transaksi->status));
+                                                                $badgeClass = $statusClass[$status] ?? 'diproses';
+                                                                @endphp
 
-                                                                    <span class="status-badge {{ $badgeClass }}">
-                                                                        {{ $status }}
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
+                                                                <span class="status-badge {{ $badgeClass }}">
+                                                                    {{ $status }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
                                                         @endforeach
                                                         @endif
 
@@ -311,6 +358,71 @@
                         </section>
                     </div>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        let editBtn = document.getElementById("edit-profile-btn");
+                        let cancelBtn = document.getElementById("cancel-edit");
+                        let editForm = document.getElementById("edit-profile-form");
+
+                        // Saat tombol edit diklik, tampilkan form
+                        editBtn.addEventListener("click", function() {
+                            editForm.style.display = "block";
+                            editBtn.style.display = "none"; // Sembunyikan tombol Edit
+                        });
+
+                        // Saat tombol batal diklik, sembunyikan form dan tampilkan tombol Edit
+                        cancelBtn.addEventListener("click", function() {
+                            editForm.style.display = "none";
+                            editBtn.style.display = "block";
+                        });
+
+                        // Tangani submit form dengan AJAX
+                        document.getElementById("edit-profile-form").addEventListener("submit", function(event) {
+                            event.preventDefault(); // Mencegah reload halaman
+
+                            let formData = new FormData(this);
+
+                            fetch("{{ route('profil.update') }}", {
+                                    method: "POST",
+                                    body: formData,
+                                    headers: {
+                                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire({
+                                            title: "Berhasil!",
+                                            text: "Profil berhasil diperbarui.",
+                                            icon: "success",
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        }).then(() => {
+                                            location.reload(); // Reload halaman untuk menampilkan data baru
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Error!",
+                                            text: "Terjadi kesalahan saat memperbarui profil.",
+                                            icon: "error",
+                                            confirmButtonText: "OK"
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                    Swal.fire({
+                                        title: "Error!",
+                                        text: "Terjadi kesalahan! Silakan coba lagi.",
+                                        icon: "error",
+                                        confirmButtonText: "OK"
+                                    });
+                                });
+                        });
+                    });
+                </script>
 
                 <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
                 <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
