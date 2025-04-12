@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #f8f9fa;
+    padding: 20px;
+}
+.content {
+    width: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.filter-search-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    overflow: hidden;
+    background: white;
+    width: 250px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+    font-size: 14px;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.message-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.message-header {
+    display: flex;
+    justify-content: space-between; /* Memisahkan nama dan tanggal */
+    align-items: center;
+}
+
+.message-date {
+    font-size: 12px; /* Ukuran font untuk tanggal */
+    color: #888; /* Warna untuk tanggal */
+}
+
+.message-body {
+    display: flex;
+    flex-direction: column; /* Mengatur elemen secara vertikal */
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Menyelaraskan gambar dan teks */
+
+}
+
+.profile-pic {
+    width: 50px; /* Ukuran tetap untuk gambar profil */
+    height: 50px; /* Ukuran tetap untuk gambar profil */
+    border-radius: 50%; /* Membuat gambar profil bulat */
+    object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+    margin-right: 10px; /* Jarak antara gambar dan teks */
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column; /* Mengatur elemen secara vertikal */
+}
+
+.reply-button {
+    position: absolute; /* Memposisikan tombol balas */
+    bottom: 10px; /* Jarak dari bawah */
+    right: 10px; /* Jarak dari kanan */
+    background-color: #007bff; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border */
+    border-radius: 4px; /* Sudut tombol yang membulat */
+    padding: 5px 10px; /* Padding tombol */
+    cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
+    transition: background-color 0.3s; /* Efek transisi */
+}
+
+.reply-button:hover {
+    background-color: #0056b3; /* Warna saat hover */
+}
+
+.status-label {
+    color: green;
+    font-weight: bold;
+}
+
+.completed {
+    background-color: #eaffea;
+}
+
+.admin-reply {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border-left: 4px solid green;
+    border-radius: 3px;
+}

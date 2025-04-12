@@ -1,0 +1,55 @@
+/* Pastikan dropdown tetap dalam flow layout */
+.sidebar-filter {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-group-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Pastikan dropdown berada dalam aliran layout */
+.list-group-item.has-dropdown {
+    position: relative;
+}
+
+/* Default dropdown disembunyikan */
+.dropdown-content {
+    list-style: none;
+    padding: 5px 0;
+    background: #f8f9fa;
+    border-radius: 5px;
+    width: 100%;
+    opacity: 0;
+    overflow: hidden;
+    display: none; /* Gunakan display none */
+    position: absolute; /* Tetap di tempatnya tanpa mendorong elemen lain */
+}
+
+/* Saat dropdown aktif */
+.dropdown-content.show {
+    display: block; /* Munculkan dropdown saat aktif */
+    opacity: 1;
+}
+
+.dropdown-content li {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.dropdown-content li:hover {
+    background: #e9ecef;
+}
+
+.toggle-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
