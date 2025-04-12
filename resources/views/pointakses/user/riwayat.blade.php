@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
+
 </head>
 
 <body>
@@ -60,7 +63,7 @@
                             class="sidebar-item">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Beranda</span>
                             </a>
                         </li>
 
@@ -73,25 +76,17 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
+                            class="sidebar-item  ">
+                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
                             class="sidebar-item  active">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
@@ -109,68 +104,23 @@
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>Laporkan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -219,7 +169,7 @@
                             <select id="filterStatus" class="form-control">
                                 <option value="">Semua</option>
                                 <option value="Sukses">Sukses</option>
-                                <option value="Diproses">Diproses</option>
+                                <option value="Menunggu Persetujuan">Menunggu Persetujuan</option>
                                 <option value="Gagal">Gagal</option>
                             </select>
                         </div>
@@ -236,6 +186,26 @@
                                 </div>
                                 <div class="card-content" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
                                     <div class="table-responsive">
+                                        <div class="pagination-control" style="display: flex; align-items: center; gap: 6px; ">
+                                            <p style="margin: 0; font-size: 16px;">Jumlah kolom ditampilkan :</p>
+                                            <select id="rowsPerPage" class="form-select" style="width: auto;">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="all">All</option>
+                                            </select>
+
+                                            <div id="paginationContainer" style="display: flex; align-items: center; justify-content: center;" class="pagination-contain">
+                                                <div id="paginationPrev" style="display: flex; gap: 5px;"></div>
+                                                <div id="pageDropdownWrapper" style="padding: 3px 8px; font-size: 14px; background-color: white; border: 1px solid #ccc;"></div>
+                                                <div id="paginationNext" style="display: flex; gap: 5px;"></div>
+                                            </div>
+                                        </div>
+
                                         <table class="table mb-0" id="riwayatTable">
                                             <thead>
                                                 <tr>
@@ -249,7 +219,7 @@
                                                     <th style="text-align: center;">Aksi</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="transaksiBody">
                                                 @if ($semuaTransaksiKosong)
                                                 <tr>
                                                     <td colspan="7" class="text-center">Belum ada transaksi.</td>
@@ -257,58 +227,58 @@
 
                                                 @else
                                                 @foreach ($riwayatTransaksi as $transaksi)
-                                                    <tr>
-                                                        <td>{{ $transaksi->nama ?? '-' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
-                                                        <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
-                                                        <td>{{ ucfirst($transaksi->tipe) }}</td>
-                                                        <td>{{ $transaksi->kelas ?? 'Tidak punya kelas' }}</td>
-                                                        <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
-                                                        <td style="text-align: center;">
-                                                            @php
-                                                            // Mapping status ke kelas CSS yang sesuai
-                                                            $statusClass = [
-                                                            'Sukses' => 'sukses',
-                                                            'Menunggu Persetujuan' => 'diproses',
-                                                            'Gagal' => 'gagal'
-                                                            ];
+                                                <tr>
+                                                    <td>{{ $transaksi->nama ?? '-' }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
+                                                    <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
+                                                    <td>{{ ucfirst($transaksi->tipe) }}</td>
+                                                    <td>{{ $transaksi->kelas ?? 'Tidak punya kelas' }}</td>
+                                                    <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
+                                                    <td style="text-align: center;">
+                                                        @php
+                                                        // Mapping status ke kelas CSS yang sesuai
+                                                        $statusClass = [
+                                                        'Sukses' => 'sukses',
+                                                        'Menunggu Persetujuan' => 'diproses',
+                                                        'Gagal' => 'gagal'
+                                                        ];
 
-                                                            // Pastikan status yang ada cocok dengan daftar status yang valid
-                                                            $status = ucfirst(strtolower($transaksi->status));
-                                                            $badgeClass = $statusClass[$status] ?? 'diproses';
-                                                            @endphp
+                                                        // Pastikan status yang ada cocok dengan daftar status yang valid
+                                                        $status = ucfirst(strtolower($transaksi->status));
+                                                        $badgeClass = $statusClass[$status] ?? 'diproses';
+                                                        @endphp
 
-                                                            <span class="status-badge {{ $badgeClass }}">
-                                                                {{ $status }}
-                                                            </span>
-                                                        </td>
-
-
-                                                        <!-- Kolom Aksi (Hapus) -->
-                                                        <td style="text-align: center;">
-                                                            <a href="#" class="delete-btn"
-                                                                data-id="{{ $transaksi->id }}"
-                                                                data-tipe="{{ class_basename($transaksi) }}">
-                                                                <i class="bi bi-trash" style="justify-content: center;"></i>
-                                                            </a>
-                                                        </td>
+                                                        <span class="status-badge {{ $badgeClass }}">
+                                                            {{ $status }}
+                                                        </span>
+                                                    </td>
 
 
-                                                    </tr>
+                                                    <!-- Kolom Aksi (Hapus) -->
+                                                    <td style="text-align: center;">
+                                                        <a href="#" class="delete-btn"
+                                                            data-id="{{ $transaksi->id }}"
+                                                            data-tipe="{{ class_basename($transaksi) }}">
+                                                            <i class="bi bi-trash" style="justify-content: center;"></i>
+                                                        </a>
+                                                    </td>
+
+
+                                                </tr>
                                                 @endforeach
                                                 @endif
 
                                                 <!-- Baris khusus untuk menampilkan pesan jika filter tidak menemukan hasil -->
                                                 <tr id="noResultsRow" style="display: none;">
-                                                    <td colspan="7" class="text-center">
+                                                    <td colspan="8" class="text-center">
                                                         Tidak dapat ditemukan
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div id="paginationInfo" style="margin-top: 5px; font-size: 14px; text-align: center;"></div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -319,17 +289,22 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy; SMKN1 BINONG SUBANG</p>
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted by <a
-                                href="#">Bayu,Samuel,Nawaf</a></p>
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
 
+    <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
@@ -337,6 +312,26 @@
     <!-- my js -->
     <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Confirm -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-container">
+                    <img src="{{ asset('dashboard/dist/assets/images/icons/question.png') }}" alt="">
+                </div>
+                <div class="text-container">
+                    <h3>Apakah Anda yakin?</h3>
+                    <p>Lanjutkan pengiriman data? Pastikan URL yang Anda masukan sudah benar.</p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="confirmYes" class="btn btn-confirm">Lanjutkan</button>
+                <button id="confirmNo" class="btn-cancel">Batal</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

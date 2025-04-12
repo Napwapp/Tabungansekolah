@@ -60,38 +60,58 @@
     padding: 15px;
     background: white;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 .message-header {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between; /* Memisahkan nama dan tanggal */
+    align-items: center;
 }
+
+.message-date {
+    font-size: 12px; /* Ukuran font untuk tanggal */
+    color: #888; /* Warna untuk tanggal */
+}
+
 .message-body {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column; /* Mengatur elemen secara vertikal */
 }
-.reply-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.reply-button:hover {
-    background-color: #0056b3;
-}
+
 .user-info {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    align-items: center; /* Menyelaraskan gambar dan teks */
+
 }
 
 .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 50px; /* Ukuran tetap untuk gambar profil */
+    height: 50px; /* Ukuran tetap untuk gambar profil */
+    border-radius: 50%; /* Membuat gambar profil bulat */
+    object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+    margin-right: 10px; /* Jarak antara gambar dan teks */
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column; /* Mengatur elemen secara vertikal */
+}
+
+.reply-button {
+    position: absolute; /* Memposisikan tombol balas */
+    bottom: 10px; /* Jarak dari bawah */
+    right: 10px; /* Jarak dari kanan */
+    background-color: #007bff; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border */
+    border-radius: 4px; /* Sudut tombol yang membulat */
+    padding: 5px 10px; /* Padding tombol */
+    cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
+    transition: background-color 0.3s; /* Efek transisi */
+}
+
+.reply-button:hover {
+    background-color: #0056b3; /* Warna saat hover */
 }
 
 .status-label {

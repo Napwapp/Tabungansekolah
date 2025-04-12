@@ -17,13 +17,22 @@ document.addEventListener('DOMContentLoaded', function () {
     function calculateProgress() {
         const percentage = Math.min((totalTabungan / targetTabungan) * 100, 100).toFixed(1);
         progressPercentage.textContent = `${percentage}%`;
-
-        // Update progress lingkaran
-        const circleCircumference = 339.29; // Keliling lingkaran (2 * π * r)
+    
+        const circleCircumference = 339.29;
         const offset = circleCircumference - (circleCircumference * percentage / 100);
         progressCircle.style.strokeDashoffset = offset;
-    }
     
+        // 👉 Tampilkan ikon jika target tercapai
+        const icon = document.getElementById('icon-target-tercapai');
+        if (icon) {
+            if (totalTabungan >= targetTabungan && targetTabungan !== 0) {
+                icon.style.display = 'inline';
+            } else {
+                icon.style.display = 'none';
+            }
+        }
+    }    
+
     // Format angka dengan titik otomatis saat mengetik
     targetAmountInput.addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, ""); // Hapus semua karakter non-angka
@@ -70,35 +79,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: JSON.stringify({ target_amount: newTarget }),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: data.message,
-                    }).then(() => {
-                        // Setelah SweetAlert ditutup, arahkan kembali ke halaman yang sesuai
-                        location.reload();
-                    });
-                    calculateProgress(); // Perbarui progress
-                    modal.style.display = 'none'; // Tutup modal
-                } else {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: data.message,
+                        }).then(() => {
+                            // Setelah SweetAlert ditutup, arahkan kembali ke halaman yang sesuai
+                            location.reload();
+                        });
+                        calculateProgress(); // Perbarui progress
+                        modal.style.display = 'none'; // Tutup modal
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: data.message,
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Gagal!',
-                        text: data.message,
+                        text: 'Gagal menghubungi server.',
                     });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: 'Gagal menghubungi server.',
                 });
-            });
         });
     }
 
@@ -221,4 +230,89 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".notif-close").addEventListener("click", closeNotification);
         setTimeout(closeNotification, 4000);
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tbody = document.getElementById("transaksiBody");
+    const noResultsRow = document.getElementById("noResultsRow");
+    const rowsPerPageSelect = document.getElementById("rowsPerPage");
+    const paginationPrev = document.getElementById("paginationPrev");
+    const paginationNext = document.getElementById("paginationNext");
+    const paginationInfo = document.getElementById("paginationInfo");
+    const pageDropdownWrapper = document.getElementById("pageDropdownWrapper");
+    const paginationContainer = document.getElementById("paginationContainer");
+
+    let allRows = Array.from(tbody.querySelectorAll("tr:not(#noResultsRow)"));
+    let currentPage = 1;
+    let rowsPerPage = parseInt(rowsPerPageSelect.value);
+
+    pageDropdownWrapper.id = "pageDropdownWrapper";
+    pageDropdownWrapper.style.padding = "3px 8px";
+    pageDropdownWrapper.style.fontSize = "14px";
+    pageDropdownWrapper.disabled = true;
+
+    rowsPerPageSelect.addEventListener("change", () => {
+        currentPage = 1;
+        renderPagination();
+    });
+
+    function renderPagination() {
+        paginationPrev.innerHTML = '';
+        paginationNext.innerHTML = '';
+        paginationInfo.textContent = '';
+        pageDropdownWrapper.innerHTML = '';
+
+        const totalRows = allRows.length;
+        const selected = rowsPerPageSelect.value;
+        rowsPerPage = selected === 'all' ? totalRows : parseInt(selected);
+        const totalPages = selected === 'all' ? 1 : Math.ceil(totalRows / rowsPerPage);
+
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        allRows.forEach(row => row.style.display = "none");
+
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = selected === 'all' ? totalRows : Math.min(startIndex + rowsPerPage, totalRows);
+
+        allRows.slice(startIndex, endIndex).forEach(row => {
+            row.style.display = "";
+        });
+
+        noResultsRow.style.display = totalRows === 0 ? "" : "none";
+
+        paginationContainer.style.display = (totalRows === 0 || totalRows <= rowsPerPage) ? "none" : "flex";
+        if (selected === 'all' || totalRows <= rowsPerPage) return;
+
+        const createBtn = (label, callback, parent, disabled = false) => {
+            const btn = document.createElement("button");
+            btn.textContent = label;
+            btn.className = "pagination-btn";
+            if (disabled) {
+                btn.disabled = true;
+                btn.classList.add("disabled");
+            }
+            btn.addEventListener("click", callback);
+            parent.appendChild(btn);
+        };
+
+        if (currentPage > 1) {
+            createBtn("<<", () => { currentPage = 1; renderPagination(); }, paginationPrev);
+            createBtn("<", () => { currentPage--; renderPagination(); }, paginationPrev);
+        }
+
+        if (currentPage < totalPages) {
+            createBtn(">", () => { currentPage++; renderPagination(); }, paginationNext);
+            createBtn(">>", () => { currentPage = totalPages; renderPagination(); }, paginationNext);
+        }
+
+        const option = document.createElement("option");
+        option.value = currentPage;
+        option.textContent = `${currentPage}`;
+        option.selected = true;
+        pageDropdownWrapper.appendChild(option);
+
+        paginationInfo.textContent = `Menampilkan ${startIndex + 1}–${endIndex} dari ${totalRows} data`;
+    }
+
+    renderPagination();
 });

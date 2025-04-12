@@ -30,6 +30,7 @@
 .email-application .content-area-wrapper .sidebar {
     position: inherit;
 }
+
 .email-application .content-area-wrapper .sidebar.show .email-app-sidebar {
     transform: translateX(13%) translateY(-1px);
 }
@@ -367,8 +368,9 @@
     .email-app-list-wrapper
     .email-app-list
     .email-user-list {
-        max-height: calc(100vh - 13.65rem); /* Menggunakan max-height agar lebih fleksibel */
-        height: auto;
+    max-height: calc(
+        100vh - 13.65rem
+    ); /* Menggunakan max-height agar lebih fleksibel */
 }
 
 .email-application
@@ -378,7 +380,7 @@
     .email-app-list
     .email-user-list
     .users-list-wrapper {
-        overflow-y: auto;
+    overflow-y: auto;
 }
 
 .email-application
@@ -400,21 +402,7 @@
     margin: 0;
     padding: 0;
 }
-.email-application
-    .content-area-wrapper
-    .content-right
-    .email-app-list-wrapper
-    .email-app-list
-    .email-user-list
-    .users-list-wrapper
-    li {
-    -webkit-animation: fadeIn 0.5s linear;
-    animation: fadeIn 0.5s linear;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    cursor: pointer;
-    position: relative;
-}
+
 .email-application
     .content-area-wrapper
     .content-right
@@ -423,6 +411,7 @@
     .email-user-list
     .users-list-wrapper
     li.media {
+    position: relative;
     align-items: center;
     background-color: #fff;
     padding: 1rem 1.5rem;
@@ -998,32 +987,18 @@
         margin-right: 0;
     }
 }
-@-webkit-keyframes fadeIn {
-    0% {
-        opacity: 0;
-        top: 100px;
-    }
-    75% {
-        opacity: 0.5;
-        top: 0;
-    }
-    to {
-        opacity: 1;
-    }
+
+/* Mode Gelap */
+body.theme-dark
+    .email-application
+    .content-area-wrapper
+    .content-right
+    .email-app-list-wrapper
+    .email-app-list
+    .email-user-list {
+    background: #1e1e2d;
 }
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        top: 100px;
-    }
-    75% {
-        opacity: 0.5;
-        top: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+
 body.theme-dark .email-application .content-area-wrapper {
     border: 1px solid #2a2f3e;
 }
@@ -1037,6 +1012,7 @@ body.theme-dark
     .email-app-menu {
     background-color: #1e1e2d;
 }
+
 body.theme-dark
     .email-application
     .content-area-wrapper
@@ -1055,15 +1031,11 @@ body.theme-dark
     .list-group-item:hover {
     color: #187de4;
 }
-body.theme-dark
-    .email-application
-    .content-area-wrapper
-    .content-right
-    .email-app-list-wrapper
-    .email-app-list
-    .email-user-list {
-    overflow-y: scroll !important;
+
+body.theme-dark .email-application .content-area-wrapper .content-right {
+    background-color: #1e1e2f; /* atau apapun yang sesuai dark mode kamu */
 }
+
 body.theme-dark
     .email-application
     .content-area-wrapper

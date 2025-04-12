@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\TabunganUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
-use App\Models\NotifikasiUser;
-
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -34,38 +32,63 @@ class UserController extends Controller
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
 
-        // Ambil total tabungan user dari tabel transaksi_menabung_users
+        // Ambil total tabungan user dari tabel tabungan_users
         $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('total_tabungan'); // Menjumlahkan total tabungan berdasarkan user_id
+            ->sum('total_tabungan');
 
-        // Ambil target tabungan yang telah diatur oleh user
+        // Ambil target tabungan user
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
 
-        // Hitung persentase dari total tabungan terhadap target tabungan
+        // Hitung persentase tabungan terhadap target
         $persenTabungan = $targetTabungan ? ($totalTabungan / $targetTabungan) * 100 : 0;
-
-        // Membatasi persen hingga maksimal 100%
         $persenTabungan = min($persenTabungan, 100);
 
-        // penarikan
+        // Periksa apakah user sudah mencapai target tabungan
+        if ($totalTabungan !== null && $targetTabungan !== null && $totalTabungan >= $targetTabungan) {
+            // Cek apakah notifikasi sudah ada agar tidak dikirim berulang
+            $existingNotification = DB::table('notifikasi_users')
+                ->where('user_id', $user->id)
+                ->where('tipe', 'Target Tercapai')
+                ->exists();
+
+            if (!$existingNotification) {
+                // Kirim notifikasi Target Tercapai
+                DB::table('notifikasi_users')->insert([
+                    'user_id' => $user->id,
+                    'nama_pengirim' => 'Tabungan Sekolah',
+                    'foto_pengirim' => null,
+                    'judul' => 'Target Tabunganmu Telah Tercapai!',
+                    'isi_pesan' => "🎉 Selamat {$user->nama_lengkap}, kamu telah mencapai target tabungan sebesar <strong>Rp " . number_format($targetTabungan, 0, ',', '.') . "</strong>! 🎉<br><br> 
+                                    Saatnya menikmati hasil tabunganmu! <br><br> 
+                                    👉 <a href='" . route('menarik') . "' style='color: #28a745;'>Lakukan Penarikan</a>",
+                    'status' => 'Belum Dibaca',
+                    'tipe' => 'Target Tercapai',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+
+        // Penarikan yang disetujui bulan ini
         $penarikanDisetujuiBulanIni = DB::table('penarikan_users')
             ->where('user_id', Auth::id())
             ->whereYear('created_at', Carbon::now()->year)
             ->whereMonth('created_at', Carbon::now()->month)
-            ->where('status', 'Sukses') // Hanya yang sudah disetujui
+            ->where('status', 'Sukses')
             ->sum('jumlah');
 
-        // Mengambil id_tabungan dari relasi  
+        // Mengambil id_tabungan
         $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia';
 
-        // Ambil riwayat transaksi seperti di RiwayatController
+        // Ambil riwayat transaksi
         $topups = TransaksiTopup::where('user_id', $user->id)
             ->select(
                 'id',
                 'user_id',
                 'namalengkap as nama',
                 'jumlah',
+                'kelas',
                 'id_tabungan',
                 'status',
                 'created_at'
@@ -79,6 +102,7 @@ class UserController extends Controller
                 'user_id',
                 'namalengkap as nama',
                 'jumlah',
+                'kelas',
                 'id_tabungan',
                 'status',
                 'created_at'
@@ -92,6 +116,7 @@ class UserController extends Controller
                 'user_id',
                 'namalengkap as nama',
                 'jumlah',
+                'kelas',
                 'id_tabungan',
                 'status',
                 'created_at'
@@ -108,28 +133,15 @@ class UserController extends Controller
             TransaksiMenabungUser::where('user_id', $user->id)->doesntExist() &&
             PenarikanUser::where('user_id', $user->id)->doesntExist();
 
-        return view('pointakses.user.index', compact('user', 'idTabungan', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'targetTabungan', 'penarikanDisetujuiBulanIni'));
-    }
-
-
-
-    public function updateRole(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->role = $request->role;
-        $user->save();
-
-        return redirect()->back()->with('success', 'Role berhasil diperbarui');
-    }
-    public function destroy($id)
-    {
-        $user = User::find($id);
-
-        if (!$user) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
-        }
-
-        $user->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        return view('pointakses.user.index', compact(
+            'user',
+            'idTabungan',
+            'saldo',
+            'totalTabungan',
+            'riwayatTransaksi',
+            'semuaTransaksiKosong',
+            'targetTabungan',
+            'penarikanDisetujuiBulanIni'
+        ));
     }
 }

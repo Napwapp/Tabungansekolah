@@ -3,251 +3,191 @@
     width: 100%; /* Menyesuaikan lebar dengan kontainer */
     height: 300px; /* Atur tinggi sesuai kebutuhan */
     max-height: 400px; /* Batas maksimal tinggi */
-  }
-  
-  /* untuk mengatur target tabungan */
-  
-  #targetAmount {
+}
+
+/* untuk mengatur target tabungan */
+#targetAmount {
     width: 100%; /* Pastikan input melebar mengikuti container */
     padding: 10px; /* Berikan ruang agar lebih nyaman */
     font-size: 16px; /* Pastikan teks terlihat jelas */
     box-sizing: border-box; /* Mencegah ukuran input melebihi container */
-  }
-  
-  
-  /* Tombol Aksi */
-  .btn-action {
-    padding: 20px 40px; /* Ukuran tombol lebih besar */
-    font-size: 20px; /* Font lebih besar */
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Membuat teks lebih jelas */
-  }
-  
-  /* Gradien warna tombol */
-  .btn-yellow {
-    background: linear-gradient(45deg, #ffcc00, #ff9900); /* Gradien kuning */
-    box-shadow: 0 6px 10px rgba(255, 204, 0, 0.5); /* Bayangan lebih besar */
-  }
-  
-  .btn-green {
-    background: linear-gradient(45deg, #66bb6a, #43a047); /* Gradien hijau */
-    box-shadow: 0 6px 10px rgba(76, 175, 80, 0.5);
-  }
-  
-  .btn-blue {
-    background: linear-gradient(45deg, #42a5f5, #1e88e5); /* Gradien biru */
-    box-shadow: 0 6px 10px rgba(33, 150, 243, 0.5);
-  }
-  
-  /* Efek hover */
-  .btn-action:hover {
-    transform: translateY(-5px); /* Tombol sedikit terangkat */
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Efek bayangan lebih besar */
-  }
-  
-  /* Efek active */
-  .btn-action:active {
-    transform: translateY(0);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  
-  /* Ikon di tombol */
-  .icon-btn {
-    margin-right: 15px; /* Jarak antara ikon dan teks */
-    width: 30px;
-    height: 30px;
-    vertical-align: middle; /* Posisikan di tengah teks */
-  }
-  
-  .col-md-4 img {
-    opacity: .6;
-  }
-  
-  /* Untuk memastikan teks dan ikon diatur secara horizontal */
-  .btn-action {
-    display: inline-flex; /* Gunakan flexbox untuk ikon dan teks */
-    align-items: center; /* Posisikan teks dan ikon di tengah vertikal */
-    padding: 15px 30px; /* Atur padding ulang agar sesuai dengan ikon */
-    font-size: 18px; /* Font tetap proporsional */
-  }
-  
-  
-  .profile-info{
+}
+
+/* BAGIAN PROFIL */
+.profile-info {
     margin: 20px 0 0 30px;
-  }
-  
-  /* BAGIAN PROFIL */
-  
-  /* untuk profil */
-  
-  .profil {
+}
+
+.profil {
     display: flex;
     flex-direction: row;
-  }
-  .profil-picture {
+}
+.profil-picture {
     width: 100px;
     height: 100px;
     background-size: cover;
     background-position: center;
-  }
-  
-  .profil-picture img {
+}
+
+.profil-picture img {
     width: 100%;
     height: 100%;
     border-radius: 50%; /* Pastikan tetap lingkaran */
     object-fit: cover;
     object-position: center; /* Memastikan gambar berada di tengah */
-  }
-  
-  .profil h2{
+}
+
+.profil h2 {
     margin-left: 20px;
-  }
-  
-  .username {
+}
+
+.username {
     display: flex;
     flex-direction: row;
-  }
-  
-  .username .line {
+}
+
+.username .line {
     margin-left: 50px;
     width: 1px;
     height: 100px;
     background-color: rgb(96, 112, 128);
     box-shadow: 0 0 1px 1px rgb(96, 112, 128);
-    
-  }
-  
-  .profil-detail {
+}
+
+.profil-detail {
     display: flex;
     flex-direction: column; /* Susun nama dan role secara vertikal */
-  }
-  
-  .role {
+}
+
+.role {
     font-size: 14px;
     margin-left: 20px;
     color: #555; /* Sesuaikan warna dengan profil-info */
-  }
-  
-  
-  /* Profil Singkat */
-  .profil {
+}
+
+/* Profil Singkat */
+.profil {
     display: flex;
     align-items: center;
     gap: 15px; /* Jarak antara gambar profil dan nama */
-  }
-  
-  /* Gambar Profil */
-  .profil-picture {
+}
+
+/* Gambar Profil */
+.profil-picture {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     background-color: #ccc; /* Placeholder jika tidak ada gambar */
     background-size: cover;
     background-position: center;
-  }
-  
-  /* Nama Pengguna */
-  .username {
+}
+
+/* Nama Pengguna */
+.username {
     margin-top: 10px;
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
-  }
-  
-  /* Informasi Profil */
-  .profile-info {
+}
+
+/* Informasi Profil */
+.profile-info {
     font-size: 1rem;
     color: #555;
-  }
-  
-  /* Media Queries untuk Responsivitas */
-  @media (max-width: 768px) {
+}
+
+/* Media Queries untuk Responsivitas */
+@media (max-width: 768px) {
     .profil-container {
         flex-direction: column; /* Elemen ditumpuk secara vertikal */
         align-items: center; /* Tengahkan elemen */
         text-align: center; /* Rata tengah teks */
     }
-  
+
     .profil {
         flex-direction: column; /* Elemen gambar dan nama ditumpuk */
         gap: 10px;
     }
-  
+
     .username {
         font-size: 1.2rem; /* Ukuran font lebih kecil */
     }
-  
+
     .profile-info {
         font-size: 0.9rem; /* Ukuran font lebih kecil */
     }
-  }
-  
-  @media (max-width: 768px) {
-      .profil-picture {
-          width: 80px;
-          height: 80px;
+}
+
+@media (max-width: 768px) {
+    .profil-picture {
+        width: 80px;
+        height: 80px;
     }
-  
+
     .username {
         font-size: 1rem; /* Ukuran font lebih kecil lagi */
     }
-  
+
     .profile-info {
         font-size: 0.8rem; /* Ukuran font lebih kecil lagi */
     }
-  }
-  
-  /* Container profil dan target tabungan */
-  .profil-container {
-    
+}
+
+/* Container profil dan target tabungan */
+.profil-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  /* Target tabungan dengan progress lingkaran */
-  .target-tabungan {
+}
+
+/* Target tabungan dengan progress lingkaran */
+.target-tabungan {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  .target-circle {
+}
+
+.target-tabungan p {
+    text-align: center;
+}
+
+#icon-target-tercapai {
+    margin-left: 3px;
+    vertical-align: middle;
+    position: relative;
+    top: -3px; 
+  }  
+
+.target-circle {
     position: relative;
     width: 120px;
     height: 120px;
     margin-top: 10px;
     margin-bottom: 10px;
-  }
-  
-  .progress-ring {
+}
+
+.progress-ring {
     transform: rotate(-90deg); /* Rotasi lingkaran untuk memulai dari atas */
-  }
-  
-  .ring-bg {
+}
+
+.ring-bg {
     fill: none;
     stroke: #ffd700; /* Warna kuning untuk sisa progress */
     stroke-width: 12;
     opacity: 0.3;
-  }
-  
-  .ring-progress {
+}
+
+.ring-progress {
     fill: none;
     stroke: #28a745; /* Warna hijau untuk progress */
     stroke-width: 12;
     stroke-dasharray: 339.29; /* Total keliling lingkaran = 2 * Math.PI * r */
     stroke-dashoffset: calc(339.29 - (339.29 * 80 / 100)); /* 80% progress */
     transition: stroke-dashoffset 0.5s ease-in-out;
-  }
-  
-  .target-label {
+}
+
+.target-label {
     position: absolute;
     top: 35%;
     left: 50%;
@@ -256,9 +196,9 @@
     font-weight: bold;
     color: #333;
     margin: 0;
-  }
-  
-  .target-amount {
+}
+
+.target-amount {
     position: absolute;
     top: 55%;
     left: 50%;
@@ -267,10 +207,10 @@
     font-weight: bold;
     color: #007bff;
     margin: 0;
-  }
-  
-  /* Tombol Atur Target */
-  .atur-target-btn {
+}
+
+/* Tombol Atur Target */
+.atur-target-btn {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -280,25 +220,25 @@
     font-size: 14px;
     font-weight: bold;
     transition: all 0.3s ease;
-  }
-  
-  .atur-target-btn:hover {
+}
+
+.atur-target-btn:hover {
     background-color: #0056b3;
-  }
-  
-  /* Progress container */
-  .progress {
+}
+
+/* Progress container */
+.progress {
     position: relative;
     height: 120px; /* Ukuran default lingkaran */
-    width: 120px;  /* Ukuran default lingkaran */
+    width: 120px; /* Ukuran default lingkaran */
     margin: 0 auto; /* Tengah secara horizontal */
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  /* Teks persentase di tengah */
-  .progress-percentage {
+}
+
+/* Teks persentase di tengah */
+.progress-percentage {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -306,50 +246,48 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #333; /* Warna teks */
-  }
-  
-  /* Media queries untuk responsivitas */
-  @media (max-width: 768px) {
+}
+
+/* Media queries untuk responsivitas */
+@media (max-width: 768px) {
     .progress {
         height: 100px; /* Ukuran lebih kecil untuk layar kecil */
         width: 100px;
     }
-  
+
     .progress-percentage {
         font-size: 1rem; /* Ukuran teks lebih kecil */
     }
-  }
-  
-  @media (max-width: 576px) {
+}
+
+@media (max-width: 576px) {
     .progress {
         height: 80px; /* Ukuran lebih kecil lagi */
         width: 80px;
     }
-  
+
     .progress-percentage {
         font-size: 0.9rem; /* Ukuran teks lebih kecil lagi */
     }
-  }
-  
-  
-  .progress-ring circle.ring-bg {
+}
+
+.progress-ring circle.ring-bg {
     stroke: #e6e6e6; /* Warna background lingkaran */
     stroke-width: 8; /* Ketebalan background */
     fill: none; /* Tidak ada isi pada background */
-  }
-  
-  .progress-ring circle.ring-progress {
+}
+
+.progress-ring circle.ring-progress {
     stroke: #28a745; /* Warna progress */
     stroke-width: 10; /* Ketebalan progress */
     stroke-linecap: round; /* Ujung progress membulat */
     fill: none; /* Tidak ada isi pada progress */
     stroke-dasharray: 339.29; /* Lingkaran penuh (2πr) */
     stroke-dashoffset: 169.64; /* Panjang progress (50% dari lingkaran penuh) */
-  }
-  
-  
-  /* Modal */
-  .modal {
+}
+
+/* Modal */
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -360,69 +298,64 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     width: 100%;
     max-width: 400px;
     text-align: center;
-  }
-  
-  .modal-content h2 {
+}
+
+.modal-content h2 {
     margin-bottom: 20px;
     font-size: 18px;
-  }
-  
-  .modal-content input {
+}
+
+.modal-content input {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
-  
-  .save-btn, .close-btn {
+}
+
+.save-btn,
+.close-btn {
     padding: 10px 20px;
     margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .save-btn {
+}
+
+.save-btn {
     background-color: #007bff;
     color: #fff;
-  }
-  
-  .close-btn {
+}
+
+.close-btn {
     background-color: #f44336;
     color: #fff;
-  }
-  
-  .save-btn:hover {
+}
+
+.save-btn:hover {
     background-color: #0056b3;
-  }
-  
-  .close-btn:hover {
+}
+
+.close-btn:hover {
     background-color: #d32f2f;
-  }
-  /* emd target tabungan */
-  
-  
-  
-  
-  
-  
-  
-  /* Pesan yang terlihat seperti notifikasi setelah user mengajukan pembayaran  */
-  .notif-container {
+}
+/* emd target tabungan */
+
+/* Pesan yang terlihat seperti notifikasi setelah user mengajukan pembayaran  */
+.notif-container {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #4CAF50;
+    background: #4caf50;
     color: white;
     padding: 15px;
     border-radius: 8px;
@@ -431,46 +364,273 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 9999;
     animation: fadeIn 0.5s;
-  }
-  
-  .notif-container.fade-out {
+}
+
+.notif-container.fade-out {
     animation: fadeOut 0.5s ease-in-out forwards;
-  }
-  
-  .notif-icon {
+}
+
+.notif-icon {
     font-size: 24px;
     margin-right: 10px;
-  }
-  
-  .notif-text p {
+}
+
+.notif-text p {
     margin: 0;
     font-size: 14px;
     opacity: 0.9;
-  }
-  
-  .notif-close {
+    color: black;
+}
+
+.notif-close {
     background: none;
     border: none;
     color: white;
     font-size: 20px;
     margin-left: 10px;
     cursor: pointer;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Animasi untuk menghilangkan notifikasi */
-  @keyframes fadeOut {
+}
+
+@keyframes fadeIn {
     from {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 0;
+        transform: translateY(-10px);
     }
     to {
-      opacity: 0;
-      transform: translateY(-10px);
-  }
-  }
-  
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi untuk menghilangkan notifikasi */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Card-card untuk data keungaan */
+
+.card-btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    align-items: stretch; /* <- Ini yang memastikan semua column stretch */
+}
+
+/* Kolom individual */
+.card-btn-column {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
+.card-btn-column p {
+    color: white;
+}
+
+/* Card di dalam kolom */
+.equal-height-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto; /* Membuat card bisa stretch */
+}
+
+/* Pastikan isi dalam card mengisi ruang yang ada */
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-footer-text {
+    margin-bottom: 0;
+}
+
+/* Responsivitas pada card */
+@media (max-width: 767px) {
+    .card-column {
+        margin-bottom: 15px;
+    }
+
+    .equal-height-card {
+        height: auto;
+        min-height: 160px;
+    }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .equal-height-card {
+        min-height: 180px;
+    }
+}
+
+/* For large screens */
+@media (min-width: 992px) {
+    .equal-height-card {
+        min-height: 180px;
+    }
+}
+
+/* Style tombol aksi */
+.btn-green,
+.btn-blue {
+    border-radius: 10px;
+}
+
+/* Tombol Aksi */
+.btn-action {
+    display: inline-flex; /* Gunakan flexbox untuk ikon dan teks */
+    align-items: center; /* Posisikan teks dan ikon di tengah vertikal */
+    padding: 20px 40px; /* Ukuran tombol lebih besar */
+    font-size: 20px; /* Font lebih besar */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Membuat teks lebih jelas */
+}
+
+.btn-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.equal-height-btn {
+    width: 100%;
+    height: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-text {
+    margin-left: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.icon-btn {
+    height: 24px;
+    width: auto;
+}
+
+/* Gradien warna tombol */
+.btn-yellow {
+    background: linear-gradient(45deg, #ffcc00, #ff9900); /* Gradien kuning */
+    box-shadow: 0 6px 10px rgba(255, 204, 0, 0.5); /* Bayangan lebih besar */
+}
+
+.btn-green {
+    background: linear-gradient(
+        45deg,
+        #13805f,
+        #279a57
+    ); /* Gradien hijau sesuai card */
+    box-shadow: 0 6px 10px rgba(27, 158, 119, 0.3);
+}
+
+.btn-blue {
+    background: linear-gradient(
+        45deg,
+        #4568dc,
+        #3f5efb
+    ); /* Gradien biru sesuai card */
+    box-shadow: 0 6px 10px rgba(63, 94, 251, 0.3);
+}
+
+/* Efek hover */
+.equal-height-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Efek active */
+.btn-action:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Ikon di tombol */
+.icon-btn {
+    margin-right: 15px; /* Jarak antara ikon dan teks */
+    width: 30px;
+    height: 30px;
+    vertical-align: middle; /* Posisikan di tengah teks */
+}
+
+.col-md-4 img {
+    opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .card-btn-column {
+        margin-bottom: 25px;
+        width: 100%;
+    }
+
+    .equal-height-btn {
+        min-height: 45px;
+    }
+
+    .btn-text {
+        font-size: 14px;
+    }
+
+    .icon-btn {
+        height: 20px;
+        width: 23px;
+    }
+
+    .mb-2 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 768px) {
+    .card-btn-column {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
+
+/* For large screens */
+@media (min-width: 992px) {
+    .equal-height-card {
+        min-height: 180px;
+    }
+}

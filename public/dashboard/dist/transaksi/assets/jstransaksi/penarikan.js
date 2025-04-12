@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Swal.fire({
                 icon: "error",
                 title: "Gagal!",
-                text: "Masukkan kelipatan angka yang valid",
+                text: "Masukan kelipatan angka yang valid! Kelipatan 500",
             });
             return;
         }

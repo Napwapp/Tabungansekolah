@@ -32,19 +32,8 @@ class AdminController extends Controller
         // Semua total tabungan masuk
         $totalTabunganMasuk = TransaksiMenabungUser::where('status', 'Sukses')->sum('jumlah');
 
-        return view('pointakses/admin/index', compact(
-            'totalSaldoHariIni',
-            'totalTabunganBulanan',
-            'totalPenarikan',
-            'totalSaldoMasuk',
-            'totalTabunganMasuk'
+        return view('pointakses/admin/index', compact('totalSaldoHariIni','totalTabunganBulanan','totalPenarikan','totalSaldoMasuk','totalTabunganMasuk'
         ));
-    }
-
-    public function adminprofil()
-    {
-        $admin = auth()->user(); //Mengambil data admin yang sedang login
-        return view('pointakses.admin.profiladmin', compact('admin'));
     }
 
     public function update(Request $request)
@@ -82,4 +71,10 @@ class AdminController extends Controller
         // Return response JSON
         return response()->json(['success' => true, 'message' => 'Profil berhasil diperbarui']);
     }
+
+    // function adminprofil()
+    // {
+
+    //     return view('pointakses.admin.profiladmin');
+    // }
 }

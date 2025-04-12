@@ -115,62 +115,13 @@
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('seturl')}}" class='sidebar-link'>
+                                <i class="bi bi-gear-fill"></i>
+                                <span>Pengaturan</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                            </ul>
-                        </li> -->
+                        </li>
 
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
@@ -180,13 +131,15 @@
                     </ul>
                 </div>
             </div>
-                <div id="main">
-                    <div class="container">
-                    <h1>Data Keuangan Siswa</h1>
-                    <p class="text-subtitle text-muted">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
+        </div>
+
+        <div id="main">
+            <div class="container">
+                <h1>Data Keuangan Siswa</h1>
+                <p class="text-subtitle text-muted">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
 
 
-                    <!-- <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <select class="form-control" id="transactionType">
                         <option value="">Semua Kelas</option>
                         <option value="kelas X">Kelas 10</option>
@@ -195,36 +148,35 @@
                     </select>
                 </div> -->
 
-                    <table class="container">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>ID Tabungan</th>
-                                <th>Kelas</th>
-                                <th>Saldo</th>
-                                <th>Tabungan</th>
-                                <th>Penarikan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dataKeuangan as $data)
-                            <tr>
-                                <td>{{ $data->namalengkap }}</td>
-                                <td>{{ $data->id_tabungan }}</td>
-                                <td>{{ $data->kelas }}</td>
-                                <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-
-
-                <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-                <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+                <table class="container">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>ID Tabungan</th>
+                            <th>Kelas</th>
+                            <th>Saldo</th>
+                            <th>Tabungan</th>
+                            <th>Penarikan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($dataKeuangan as $data)
+                        <tr>
+                            <td>{{ $data->namalengkap }}</td>
+                            <td>{{ $data->id_tabungan }}</td>
+                            <td>{{ $data->kelas }}</td>
+                            <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>
 
 </html>

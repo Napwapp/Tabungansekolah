@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -75,10 +76,12 @@ class PaymentRequestController extends Controller
                 ]
             ];
 
-            // Update notifikasi
-            DB::table('notifikasi_users')
+            // Update notifikasi untuk transaksi yang relevan
+            $affected = DB::table('notifikasi_users')
                 ->where('user_id', $transaksi->user_id)
-                ->where('judul', 'like', "%" . $jenis . "%") // Gunakan $jenis yang sudah disimpan
+                ->where('tipe', 'Transaksi')
+                ->where('judul', 'like', "%" . $jenis . "%")
+                ->whereNull('deleted_at') // Update hanya jika belum dihapus
                 ->orderBy('created_at', 'desc')
                 ->limit(1)
                 ->update([
@@ -87,6 +90,40 @@ class PaymentRequestController extends Controller
                     'status' => 'Belum Dibaca',
                     'updated_at' => now(),
                 ]);
+
+            if ($affected == 0) {
+                // Coba update notifikasi yang sudah dihapus (restore)
+                $affected = DB::table('notifikasi_users')
+                    ->where('user_id', $transaksi->user_id)
+                    ->where('tipe', 'Transaksi')
+                    ->where('judul', 'like', "%" . $jenis . "%")
+                    ->whereNotNull('deleted_at') // Cari notifikasi yang sudah dihapus
+                    ->orderBy('created_at', 'desc')
+                    ->limit(1)
+                    ->update([
+                        'deleted_at' => null, // Restore notifikasi
+                        'status_transaksi' => $status,
+                        'isi_pesan' => $messages[$table][$status],
+                        'status' => 'Belum Dibaca',
+                        'updated_at' => now(),
+                    ]);
+            }
+
+            // Jika masih tidak ada yang diperbarui, baru buat notifikasi baru
+            if ($affected == 0) {
+                DB::table('notifikasi_users')->insert([
+                    'user_id' => $transaksi->user_id,
+                    'nama_pengirim' => 'Tabungan sekolah',
+                    'foto_pengirim' => null,
+                    'judul' => "Transaksi $jenis - $status",
+                    'isi_pesan' => $messages[$table][$status],
+                    'status' => 'Belum Dibaca',
+                    'tipe' => 'Transaksi',
+                    'status_transaksi' => $status,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         });
 
         return response()->json(['success' => true, 'message' => "Berhasil mengubah status menjadi $status!", 'new_status' => $status, 'id' => $id]);
