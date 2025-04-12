@@ -286,3 +286,225 @@
   background-color: #d32f2f;
 }
 /* end target tabungan */
+
+/* Card data keungaan dan tombol aksi */
+/* Card-card untuk data keungaan */
+
+.card-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  align-items: stretch; /* <- Ini yang memastikan semua column stretch */
+}
+
+/* Kolom individual */
+.card-btn-column {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+
+.card-btn-column p {
+  color: white;
+}
+
+/* Card di dalam kolom */
+.equal-height-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; /* Membuat card bisa stretch */
+}
+
+/* Pastikan isi dalam card mengisi ruang yang ada */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-footer-text {
+  margin-bottom: 0;
+}
+
+/* Responsivitas pada card */
+@media (max-width: 767px) {
+  .card-column {
+      margin-bottom: 15px;
+  }
+
+  .equal-height-card {
+      height: auto;
+      min-height: 160px;
+  }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .card-title {
+      font-size: 1.1rem;
+  }
+
+  h3 {
+      font-size: 1.5rem;
+  }
+
+  .equal-height-card {
+      min-height: 180px;
+  }
+}
+
+/* For large screens */
+@media (min-width: 992px) {
+  .equal-height-card {
+      min-height: 180px;
+  }
+}
+
+/* Style tombol aksi */
+.btn-green,
+.btn-blue {
+  border-radius: 10px;
+}
+
+/* Tombol Aksi */
+.btn-action {
+  display: inline-flex; /* Gunakan flexbox untuk ikon dan teks */
+  align-items: center; /* Posisikan teks dan ikon di tengah vertikal */
+  padding: 20px 40px; /* Ukuran tombol lebih besar */
+  font-size: 20px; /* Font lebih besar */
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Membuat teks lebih jelas */
+}
+
+.btn-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.equal-height-btn {
+  width: 100%;
+  height: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-text {
+  margin-left: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.icon-btn {
+  height: 24px;
+  width: auto;
+}
+
+/* Gradien warna tombol */
+.btn-yellow {
+  background: linear-gradient(45deg, #ffcc00, #ff9900); /* Gradien kuning */
+  box-shadow: 0 6px 10px rgba(255, 204, 0, 0.5); /* Bayangan lebih besar */
+}
+
+.btn-green {
+  background: linear-gradient(
+      45deg,
+      #13805f,
+      #279a57
+  ); /* Gradien hijau sesuai card */
+  box-shadow: 0 6px 10px rgba(27, 158, 119, 0.3);
+}
+
+.btn-blue {
+  background: linear-gradient(
+      45deg,
+      #4568dc,
+      #3f5efb
+  ); /* Gradien biru sesuai card */
+  box-shadow: 0 6px 10px rgba(63, 94, 251, 0.3);
+}
+
+/* Efek hover */
+.equal-height-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Efek active */
+.btn-action:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Ikon di tombol */
+.icon-btn {
+  margin-right: 15px; /* Jarak antara ikon dan teks */
+  width: 30px;
+  height: 30px;
+  vertical-align: middle; /* Posisikan di tengah teks */
+}
+
+.col-md-4 img {
+  opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .card-btn-column {
+      margin-bottom: 25px;
+      width: 100%;
+  }
+
+  .equal-height-btn {
+      min-height: 45px;
+  }
+
+  .btn-text {
+      font-size: 14px;
+  }
+
+  .icon-btn {
+      height: 20px;
+      width: 23px;
+  }
+
+  .mb-2 {
+      margin-bottom: 0.5rem !important;
+  }
+
+  .mb-4 {
+      margin-bottom: 1rem !important;
+  }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 768px) {
+  .card-btn-column {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+  }
+}
+
+/* For large screens */
+@media (min-width: 992px) {
+  .equal-height-card {
+      min-height: 180px;
+  }
+}

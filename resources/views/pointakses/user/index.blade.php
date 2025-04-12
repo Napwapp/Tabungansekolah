@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
@@ -24,7 +25,7 @@
     <div id="app">
         <!-- sidebar -->
         <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
+            <div class="sidebar-wrapper active ps">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
@@ -62,7 +63,7 @@
                             class="sidebar-item active">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Beranda</span>
                             </a>
                         </li>
 
@@ -75,25 +76,17 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
+                            class="sidebar-item  ">
+                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
@@ -111,74 +104,33 @@
                             </a>
                         </li>
 
-
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>Laporkan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
             @if (session('error'))
             <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
@@ -221,7 +173,9 @@
                             </svg>
                             <p class="progress-percentage">0%</p>
                         </div>
-                        <p class="target-info"><strong>Target Tabungan:</strong> Rp {{ number_format($targetTabungan, 0, ',', '.') }}</p>
+                        <p class="target-info"><strong>Target Tabungan:</strong> Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                            <i id="icon-target-tercapai" class="bi bi-check-circle-fill text-success" style="display: none;"></i>
+                        </p>
                         <button class="atur-target-btn">Atur Target</button>
                     </div>
 
@@ -264,69 +218,63 @@
                     <p>Selamat datang di dashboard dist/tabungan sekolah SMKN 1 BINONG</p>
                     <h2 class="mb-4">Informasi Tabungan Anda</h2>
 
-                    <!-- Kartu Informasi -->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color: white;">Saldo Tersisa</h5> <!-- indeckend -->
-                                    <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3> 
-                                    <p>Saldo yang anda miliki</p> 
+                    <div class="row card-btn-row">
+                        <!-- Saldo Tersisa Card and Button -->
+                        <div class="col-md-4 card-btn-column">
+                            <div class="card bg-warning text-white mb-2 equal-height-card">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title text-white">Saldo Tersisa</h5>
+                                    <h3 class="text-white mb-2">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                                    <p class="card-footer-text">Saldo yang anda miliki</p>
                                 </div>
                             </div>
+                            <a href="{{route('plus')}}" class="btn-link mt-2 mb-4">
+                                <button class="btn-action btn-yellow equal-height-btn" type="button">
+                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-plus-50.png')}}" alt="">
+                                    <span class="btn-text">Tambah Saldo</span>
+                                </button>
+                            </a>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body btn-green" style="border-radius: 10px;">
-                                    <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5> 
-                                    <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3> 
-                                    <p>Tabungan hingga saat ini.</p> 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success text-white mb-4">
-                                <div class="card-body btn-blue" style="border-radius: 10px;">
-                                    <h5 class="card-title " style="color: white;">Penarikan Bulan Ini</h5> 
-                                    <h3 style="color: white;">
-                                        <h3 style="color: white;">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
-                                    </h3> 
-                                    <p>Total Penarikan Anda bulan ini.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Tombol Aksi -->
-                    <div class="row my-4">
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('plus')}}">
-                                <button class="btn-action btn-yellow" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-plus-50.png')}}" alt="">Tambah Saldo</button>
+                        <!-- Total Tabungan Card and Button -->
+                        <div class="col-md-4 card-btn-column">
+                            <div class="card bg-primary text-white mb-2 equal-height-card">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title text-white">Total Tabungan Anda</h5>
+                                    <h3 class="text-white mb-2">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</h3>
+                                    <p class="card-footer-text">Tabungan hingga saat ini.</p>
+                                </div>
+                            </div>
+                            <a href="{{route('menabung')}}" class="btn-link mt-2 mb-4">
+                                <button class="btn-action btn-blue equal-height-btn" type="button">
+                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-money-32.png')}}" alt="">
+                                    <span class="btn-text">Menabung</span>
+                                </button>
                             </a>
                         </div>
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('menabung')}}">
-                                <button class="btn-action btn-green" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-money-32.png')}}" alt="">Menabung</button>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="{{route('menarik')}}">
-                                <button class="btn-action btn-blue" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">Tarik Tabungan</button>
+
+                        <!-- Penarikan Card and Button -->
+                        <div class="col-md-4 card-btn-column">
+                            <div class="card bg-success text-white mb-2 equal-height-card">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title text-white">Penarikan Bulan Ini</h5>
+                                    <h3 class="text-white mb-2">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
+                                    <p class="card-footer-text">Total Penarikan Anda bulan ini.</p>
+                                </div>
+                            </div>
+                            <a href="{{route('menarik')}}" class="btn-link mt-2 mb-4">
+                                <button class="btn-action btn-green equal-height-btn" type="button">
+                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">
+                                    <span class="btn-text">Tarik Tabungan</span>
+                                </button>
                             </a>
                         </div>
                     </div>
-                    <!-- Tombol setoran untuk memudahkan pengguna -->
-
-
 
                     <!-- Grafik Tabungan -->
-                    <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                    <div class="card bg-light text-dark mb-4">
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5> 
+                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
                             <canvas id="tabunganChart" height="100"></canvas>
                         </div>
                     </div>
@@ -341,6 +289,26 @@
                                     </div>
                                     <div class="card-content" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
                                         <div class="table-responsive">
+                                            <div class="pagination-control" style="display: flex; align-items: center; gap: 6px; ">
+                                                <p style="margin: 0; font-size: 16px;">Jumlah kolom ditampilkan :</p>
+                                                <select id="rowsPerPage" class="form-select" style="width: auto;">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                    <option value="all">All</option>
+                                                </select>
+
+
+                                                <div id="paginationContainer" class="pagination-contain">
+                                                    <div id="paginationPrev" class="pagination-previous"></div>
+                                                    <div id="pageDropdownWrapper" class="page-counter"></div>
+                                                    <div id="paginationNext" class="pagination-next"></div>
+                                                </div>
+                                            </div>
                                             <table class="table mb-0" id="riwayatTable">
                                                 <thead>
                                                     <tr>
@@ -348,11 +316,12 @@
                                                         <th>Tanggal</th>
                                                         <th>Jumlah</th>
                                                         <th>Tipe</th>
+                                                        <th>Kelas</th>
                                                         <th>Nomor Tabungan</th>
                                                         <th style="text-align: center;">Status</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="transaksiBody">
                                                     @if ($semuaTransaksiKosong)
                                                     <tr>
                                                         <td colspan="7" class="text-center">Belum ada transaksi.</td>
@@ -365,6 +334,7 @@
                                                         <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
                                                         <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
                                                         <td>{{ ucfirst($transaksi->tipe) }}</td>
+                                                        <td>{{ $transaksi->kelas ?? 'Tidak punya kelas' }}</td>
                                                         <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
                                                         <td style="text-align: center;">
                                                             @php
@@ -396,9 +366,9 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <div id="paginationInfo" style="margin-top: 5px; font-size: 14px; text-align: center;"></div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -408,7 +378,8 @@
 
                     <!-- Pastikan Chart.js sudah dimuat -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    @vite(['../../js/app.js'])
+                    @vite(['resources/js/app.js'])
+
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
@@ -444,7 +415,7 @@
                                         }
                                     });
                                 })
-                            oti.catch(error => console.error('Error:', error));
+                                .catch(error => console.error('Error:', error));
                         });
                     </script>
 
@@ -453,11 +424,14 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy; SMntakN 1 BINONG</p>
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="#">SMKN 1 BINONG</a></p>
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
                     </div>
                 </div>
             </footer>
@@ -467,9 +441,10 @@
     <script src="{{asset ('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/app.js')}}"></script>
 
+    <!-- myjs -->
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
+    <!-- <script src="{{asset ('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script> -->
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

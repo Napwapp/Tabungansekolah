@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Append Bootstrap Template</title>
+  <title>Tabungan Sekolah-SMKN1 Binong Subang</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{asset('landingpage/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('landingpage/assets/img/smkn1_binong.png')}}" rel="icon">
   <link href="{{asset('landingpage/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -28,13 +28,8 @@
   <link href="{{asset('landingpage/assets/css/main.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('landingpage/assets/css/default.css')}}">
 
-  <!-- =======================================================
-  * Template Name: Append
-  * Template URL: https://bootstrapmade.com/append-bootstrap-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <!-- My css -->
+  <link rel="stylesheet" href="{{ asset('landingpage/assets/css/mycss/landingpage.css') }}">
 </head>
 
 <body class="index-page">
@@ -42,7 +37,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="https://smkn1binong.sch.id" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="">
         <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
@@ -54,7 +49,7 @@
           <li><a href="#about">Tentang Kami</a></li>
           <li><a href="#features">Panduan</a></li>
           <li><a href="blog.html"></a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Kontak</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -69,7 +64,7 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="{{asset('landingpage/assets/img/hero-bg.jpg')}}" alt="" data-aos="fade-in">  
+      <img src="{{asset('landingpage/assets/img/hero-bg.jpg')}}" alt="" data-aos="fade-in">
 
       <div class="container">
         <div class="row">
@@ -82,7 +77,7 @@
     </section><!-- /Hero Section -->
 
     <!-- About Section -->
-     <div class="kosong"></div>
+    <div class="kosong"></div>
     <section id="about" class="about section light-background">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -96,7 +91,7 @@
           <div class="col-xl-7">
             <div class="row gy-4 icon-boxes">
 
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200"> 
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box">
                   <h3>Sejarah Berdirinya SMKN1 BINONG : </h3>
                   <p>Sejarah SMK Negeri 1 Binong SMK Negeri 1 Binong, yang terletak di Jalan Raya Binong No. 64, Kabupaten Subang, Jawa Barat, adalah salah satu lembaga pendidikan vokasi yang berperan penting dalam mencetak tenaga kerja terampil di wilayah Subang dan sekitarnya.
@@ -106,8 +101,8 @@
                     Prestasi dan Komitmen Sekolah Seiring waktu, SMK Negeri 1 Binong berhasil mendapatkan akreditasi A dari Badan Akreditasi Nasional Sekolah/Madrasah (BAN-SM). Hal ini menunjukkan pengakuan terhadap kualitas pendidikan yang diberikan. Selain itu, sekolah ini telah banyak melahirkan lulusan yang siap kerja dan berdaya saing tinggi di pasar tenaga kerja.
                     <br><br>
                     Perkembangan Program Studi Sejak awal berdiri, SMK Negeri 1 Binong menawarkan beberapa program keahlian yang dirancang untuk memenuhi kebutuhan dunia kerja. Program-program tersebut antara lain:
-                    <br><br>                    
-                    
+                    <br><br>
+
                     1.Teknik dan Bisnis Sepeda Motor (TBSM)
                     <br><br>
                     2.Pengembangan Perangkat Lunak & Gim (PPlG)
@@ -127,58 +122,18 @@
                     Sekolah ini juga aktif mengadakan program magang industri bagi siswa-siswanya, sehingga mereka dapat merasakan langsung pengalaman kerja di lapangan. Selain itu, berbagai pelatihan dan seminar diberikan kepada siswa untuk meningkatkan soft skill dan hard skill mereka.
                     <br><br>
                     Masa Depan SMK Negeri 1 Binong Dengan semangat "Siap Kerja, Santun, Mandiri, Kreatif," SMK Negeri 1 Binong terus berkomitmen menjadi lembaga pendidikan kejuruan yang unggul dan berkontribusi pada pembangunan bangsa. Melalui penguatan budaya kerja, inovasi, dan integritas, SMK Negeri 1 Binong berharap dapat menjadi pilihan utama bagi siswa yang ingin meniti karier di dunia profesional.
-                    </p>
+                  </p>
                 </div>
               </div>
 
-          </div>
+            </div>
 
+          </div>
         </div>
-      </div>
 
     </section><!-- /About Section -->
 
     <div class="kosong"></div>
-    <!-- Stats Section -->
-    <section id="stats" class="stats section dark-background">
-
-      <img src="{{asset('landingpage/assets/img/stats-bg.jpg')}}" alt="" data-aos="fade-in">
-
-      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
-              Clients
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="-" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-        </div>
-      </div>
-
-    </section><!-- /Stats Section -->
 
     <!-- Features Section -->
     <section id="features" class="features section">
@@ -197,9 +152,9 @@
             <p>
               Kamu Pastinya dapat menabung, Tabungan ini secara Cash
             </p>
-            <a href="{{ route('auth') }}" class="btn btn-get-started">Daftar</a>
+            <a href="{{ route('registrasi') }}" class="btn btn-get-started">Daftar sekarang</a>
           </div>
-          
+
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
             <div class="image-stack">
               <img src="{{asset('landingpage/assets/img/panduan/menabung uang digital.png')}}" alt="" class="stack-front">
@@ -225,7 +180,7 @@
               Kamu dapat melihat seluruh riwayat Transaksimu. Entah itu ketika kamu menabung ataupun menarik uang tabunganmu
             </p>
           </div>
-          
+
           <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
             <div class="image-stack">
               <img src="{{asset('landingpage/assets/img/panduan/riwayat transaksi.png')}}" alt="" class="stack-front">
@@ -242,92 +197,80 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Team</h2>
-        <p>Kami Merupakan pelajar dari SMKN1 BINONG yang memiliki minat dibidang pemrograman</p>
+        <p>Kami Merupakan pelajar dari SMKN1 BINONG yang telah membuat projek website ini</p>
       </div><!-- End Section Title -->
 
       <div class="container">
-
         <div class="row gy-5">
-
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
             <div class="member-img">
-              <img src="{{asset('landingpage/assets/img/team/team-1.jpg')}}" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
+              <img src="{{asset('landingpage/assets/img/team/anggota_1.jpg')}}" class="img-fluid" alt="">
+              <div class="social"> <!-- ANggota 1 -->
+                <a href="{{ e($sosmedAnggota['anggota_1']['github'] ?? '#') }}" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_1']['instagram'] ?? '#') }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_1']['linkedin'] ?? '#') }}" target="_blank"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info text-center">
               <h4>Muhamad Nawaf Abduh</h4>
-              <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Aliquam iure quaerat voluptatem praesentium possimus unde laudantium vel dolorum distinctio dire flow</p>
+              <span>Pelajar SMKN1 BINONG Kelas 11 PPLG</span>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
-          </div><!-- End Team Member -->
+          </div>
+
 
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
             <div class="member-img">
-              <img src="{{asset('landingpage/assets/img/team/team-2.jpg')}}" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
+              <img src="{{asset('landingpage/assets/img/team/anggota_2.jpg')}}" class="img-fluid" alt="">
+              <div class="social"> <!-- ANggota 2 -->
+                <a href="{{ e($sosmedAnggota['anggota_2']['github'] ?? '#') }}" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_2']['instagram'] ?? '#') }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_2']['linkedin'] ?? '#') }}" target="_blank"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info text-center">
               <h4>Bayu Hanggara Putra</h4>
-              <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Labore ipsam sit consequatur exercitationem rerum laboriosam laudantium aut quod dolores exercitationem ut</p>
+              <span>Pelajar SMKN1 BINONG Kelas 11 PPLG</span>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
-          </div><!-- End Team Member -->
+          </div>
 
           <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
             <div class="member-img">
-              <img src="{{asset('landingpage/assets/img/team/team-3.jpg')}}" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
+              <img src="{{asset('landingpage/assets/img/team/anggota_3.jpg')}}" class="img-fluid" alt="">
+              <div class="social"> <!-- ANggota 3 -->
+                <a href="{{ e($sosmedAnggota['anggota_3']['github'] ?? '#') }}" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_3']['instagram'] ?? '#') }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="{{ e($sosmedAnggota['anggota_3']['linkedin'] ?? '#') }}" target="_blank"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info text-center">
               <h4>Samuel Angello Firmansyah</h4>
-              <span>Pelajar SMKN1 BINONG Kelas 11</span>
-              <p>Illum minima ea autem doloremque ipsum quidem quas aspernatur modi ut praesentium vel tque sed facilis at qui</p>
+              <span>Pelajar SMKN1 BINONG Kelas 11 PPLG</span>
+              <p>Seorang pelajar SMKN1 BINONG yang memiliki minat pada bidang pemrograman website dan mulai mempelajarinya</p>
             </div>
-          </div><!-- End Team Member -->
-
+          </div>
         </div>
-
-      </div>
-
     </section><!-- /Team Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
-
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Jika Kamu mengalami masalah, silahkan langsung Hubungi Kami saja. Terima Kasih</p>
-      </div><!-- End Section Title -->
+        <h2>Informasi Kontak</h2>
+        <p>Jika Kamu mengalami masalah, silahkan langsung Hubungi Kami saja pada kontak yg tertera dibawah ini. Terima Kasih</p>
+      </div>
+      <!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row gy-4">
-
           <div class="col-lg-6">
-
             <div class="row gy-4">
               <div class="col-md-6">
                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                   <i class="bi bi-geo-alt"></i>
-                  <h3>Address</h3>
-                  <p>SMKN1 BINONG</p>
-                  <p>Jl. Raya Binong, Belakang Polsek, Kec. Binong, Kabupaten Subang, Jawa Barat 41253</p>
+                  <h3>Alamat</h3>
+                  <p>{{ $alamat ?? 'Alamat belum tersedia' }}</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -335,8 +278,9 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
                   <h3>Kontak Kami</h3>
-                  <p>+62 82123456789</p>
-                  <p>+62 83123456789</p>
+                  @foreach($kontak as $no)
+                  <p>{!! preg_replace('/^\+62/', '<strong>+62</strong> ', e($no)) !!}</p>
+                  @endforeach
                 </div>
               </div><!-- End Info Item -->
 
@@ -344,108 +288,69 @@
                 <div class="info-item" data-aos="fade" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>Napwapp@gmail.com</p>
-                  <p>nawnaw@gmail.com</p>
+                  @foreach($email as $mail)
+                  <p>{{ $mail }}</p>
+                  @endforeach
                 </div>
               </div><!-- End Info Item -->
             </div>
           </div>
-
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
         </div>
-
       </div>
 
-    </section><!-- /Contact Section -->
+    </section>
+    <!-- /Contact Section -->
 
   </main>
 
   <footer id="footer" class="footer position-relative light-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Tentang Kami</span>
+          <a href="#team" class="logo d-flex align-items-center">
+            <h4>Tentang Kami</h4>
           </a>
           <p>Kami Merupakan pelajar dari SMKN1 Binong, Kelas 11 PPLG. Kami mempunyai minat pada bidang Pemrograman Website,oleh karena itu kami memilih untuk berlajar disini.
-          Kami juga berharap kalau skill kami bisa meningkat lagi dengan Belajar disini
+            Kami juga berharap kalau skill kami bisa meningkat lagi dengan Belajar disini
           </p>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-          </div>
         </div>
 
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+          <h4>Link</h4>
           <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About us</a></li>
-            <li><a href="#features">Services</a></li>
+            <li><a href="#hero">Beranda</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#features">Panduan</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Us</h4>
-          <p>SMKN1 Binong</p>
-          <p>Jl. Raya Binong, Belakang Polsek, Kec. Binong, Kabupaten Subang, Jawa Barat 41253</p>
-          <p>Indonesia</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+62 82123456789</span></p>
-          <p><strong>Email:</strong> <span>nawnaw@gmail.com</span></p>
-        </div>
+        <div class="col-lg-5 col-md-12 footer-contact">
+          <h4>Informasi Kontak :</h4>
+          <div class="row">
+            <div class="col-md-4">
+              <!-- alamat -->
+              <p><strong>Alamat :</strong></p>
+              <p>{{ $alamat ?? 'Alamat belum tersedia' }}</p>
+            </div>
 
-        <div class="bag-school">
-          <h1>SMKN1 BINONG</h1>
-          <!-- <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="school"> -->
-      </div>
+            <div class="col-md-4">
+              <p><strong>Phone:</strong></p>
+              <!-- nomor hp -->
+              @foreach($kontak as $no)
+              <p class="phone-number">{!! preg_replace('/^\+62/', '<span class="country-code">+62</span> ', e($no)) !!}</p>
+              @endforeach
+            </div>
 
+            <div class="col-md-4">
+              <p><strong>Email:</strong></p>
+              @foreach($email as $mail)
+              <p class="email">{{ $mail }}</p>
+              @endforeach
+            </div>
+          </div>
+        </div>  
       </div>
     </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="sitename">Append</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-
   </footer>
 
   <!-- Scroll Top -->

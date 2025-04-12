@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Email Application - Mazer Admin Dashboard</title>
+    <title>Pesan Masuk</title>
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/email.css')}}">
+
+    <!-- mycss -->
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/emailcustom.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
 
 </head>
 
@@ -58,7 +61,7 @@
                             class="sidebar-item">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Beranda</span>
                             </a>
                         </li>
 
@@ -71,25 +74,17 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
+                            class="sidebar-item  ">
+                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
                             class="sidebar-item ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
@@ -102,68 +97,23 @@
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>Laporkan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </li> -->
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -184,7 +134,7 @@
                             <!-- Tombol Tandai Semua Dibaca -->
                             <button id="markAllReadBtn"
                                 onclick="markAllAsRead()"
-                                class="btn btn-primary"
+                                class="btn btn-danger btn-hover"
                                 style="display: none;">
                                 Tandai Semua Dibaca
                             </button>
@@ -199,116 +149,102 @@
                     <div class="sidebar-left">
                         <div class="sidebar">
                             <div class="sidebar-content email-app-sidebar d-flex">
-                                <!-- sidebar close icon -->
+                                <!-- Sidebar close icon -->
                                 <span class="sidebar-close-icon">
                                     <i class="bi bi-x"></i>
                                 </span>
-                                <!-- sidebar close icon -->
+                                <!-- Sidebar menu -->
                                 <div class="email-app-menu">
-
                                     <div class="sidebar-menu-list ps" style="margin-top: 70px;">
-                                        <!-- sidebar menu  -->
                                         <div class="list-group list-group-messages">
                                             <ul class="sidebar-filter">
-                                                <li data-filter="all" class="list-group-item pt-0 active" id="inbox-menu">
+                                                <!-- Semua Pesan -->
+                                                <li data-filter="all" class="list-group-item pt-0 active">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
                                                         </svg>
                                                     </div>
                                                     Semua Pesan
-                                                    <span
-                                                        class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
                                                 </li>
-                                                <li data-filter="unread" class="list-group-item pt-0" id="inbox-menu">
+                                                <!-- Belum Dibaca -->
+                                                <li data-filter="unread" class="list-group-item pt-0">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#envelope')}}" />
                                                         </svg>
                                                     </div>
-                                                    Belum dibaca
-                                                    <span
-                                                        class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span> <!-- akan dengan backend menghitung berapa jumlah pesan yg masuk -->
+                                                    Belum Dibaca
+                                                    @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                                    <span class="badge bg-light-danger badge-pill badge-round float-right mt-50" id="sidebar-unread-count">{{ $unreadCount }}</span>
+                                                    @endif
                                                 </li>
-                                                <li data-filter="transaksi" class="list-group-item">
-                                                    <div class="fonticon-wrap d-inline me-3">
-
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#cash')}}" />
-                                                        </svg>
+                                                <!-- Dropdown Transaksi -->
+                                                <li class="list-group-item has-dropdown" role="button" aria-expanded="false">
+                                                    <div class="d-flex justify-content-between align-items-center toggle-dropdown">
+                                                        <div>
+                                                            <div class="fonticon-wrap d-inline me-3">
+                                                                <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                    <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#cash')}}" />
+                                                                </svg>
+                                                            </div>
+                                                            Transaksi
+                                                        </div>
+                                                        <i class="bi bi-chevron-down"></i>
                                                     </div>
-                                                    Transaksi
+                                                    <ul class="dropdown-content">
+                                                        <li data-filter="transaksi-sukses" class="list-group-item">Berhasil</li>
+                                                        <li data-filter="transaksi-diproses" class="list-group-item">Diproses</li>
+                                                        <li data-filter="transaksi-gagal" class="list-group-item">Dibatalkan</li>
+                                                    </ul>
                                                 </li>
+                                                <!-- Pesan Pengingat -->
                                                 <li data-filter="pengingat" class="list-group-item">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#stopwatch')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#stopwatch')}}" />
                                                         </svg>
                                                     </div>
                                                     Pesan Pengingat
                                                 </li>
-                                                <li data-filter="sent" class="list-group-item">
+                                                <!-- Pesan Pengingat -->
+                                                <li data-filter="target-tabungan" class="list-group-item">
                                                     <div class="fonticon-wrap d-inline me-3">
-
                                                         <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
+                                                            <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#trophy')}}" />
                                                         </svg>
                                                     </div>
-                                                    Pesan Terkirim
+                                                    Pencapaian
                                                 </li>
-                                                <li data-filter="deleted" class="list-group-item">
-                                                    <div class="fonticon-wrap d-inline me-3">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#trash')}}" />
-                                                        </svg>
+                                                <!-- Dropdown Pesan Terkirim -->
+                                                <li class="list-group-item has-dropdown" role="button" aria-expanded="false">
+                                                    <div class="d-flex justify-content-between align-items-center toggle-dropdown">
+                                                        <div>
+                                                            <div class="fonticon-wrap d-inline me-3">
+                                                                <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                                    <use xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#send')}}" />
+                                                                </svg>
+                                                            </div>
+                                                            Pesan Terkirim
+                                                        </div>
+                                                        <i class="bi bi-chevron-down"></i>
                                                     </div>
-                                                    Terhapus
+                                                    <ul class="dropdown-content">
+                                                        <li data-filter="sent-laporan" class="list-group-item">Laporan</li>
+                                                        <li data-filter="sent-saran" class="list-group-item">Saran</li>
+                                                        <li data-filter="sent-terkirim" class="list-group-item">Terkirim</li>
+                                                        <li data-filter="sent-dibaca" class="list-group-item">Telah Dibaca</li>
+                                                        <li data-filter="sent-dibalas" class="list-group-item">Dibalas</li>
+                                                    </ul>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <!-- sidebar menu  end-->
-
-                                        <!-- sidebar label start -->
-
-                                        <div class="list-group list-group-labels">
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-success bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-primary bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-warning bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-danger bullet-sm"></span>
-                                            </div>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span class="bullet bullet-info bullet-sm"></span>
-                                            </div>
-                                        </div>
-                                        <!-- sidebar label end -->
-                                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                                        </div>
-                                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--/ User Chat profile right area -->
                         </div>
                     </div>
+
                     <div class="content-right">
                         <div class="content-overlay"></div>
                         <div class="content-wrapper">
@@ -319,7 +255,7 @@
                                 <div class="app-content-overlay"></div>
                                 <div class="email-app-area">
                                     <!-- Email list Area -->
-                                    <dxiv class="email-app-list-wrapper">
+                                    <div class="email-app-list-wrapper">
                                         <div class="email-app-list">
                                             <div class="email-action">
                                                 <!-- action left start here -->
@@ -340,32 +276,28 @@
                                                             <i class="bi bi-list fs-5"></i>
                                                         </button>
                                                     </div>
-                                                    <!-- search bar  -->
-                                                    <div class="email-fixed-search flex-grow-1">
 
-                                                        <div class="form-group position-relative  mb-0 has-icon-left">
-                                                            <input type="text" class="form-control" placeholder="Search email..">
+                                                    <!-- search bar -->
+                                                    <div class="email-fixed-search flex-grow-1">
+                                                        <div class="form-group position-relative mb-0 has-icon-left">
+                                                            <input type="text" id="searchInput" class="form-control" placeholder="Search email..">
                                                             <div class="form-control-icon">
                                                                 <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                                    <use
-                                                                        xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#search')}}" />
+                                                                    <use xlink:href="{{ asset('dashboard/dist/assets/images/bootstrap-icons.svg#search') }}" />
                                                                 </svg>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <!-- pagination and page count -->
-                                                    <span class="d-none d-sm-block">-</span>
-                                                    <button class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#chevron-left')}}" />
-                                                        </svg>
-                                                    </button>
-                                                    <button class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
-                                                        <svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                            <use
-                                                                xlink:href="{{asset('dashboard/dist/assets/images/bootstrap-icons.svg#chevron-right')}}" />
-                                                        </svg>
+
+                                                    <!-- Tombol Hapus Semua Notifikasi -->
+                                                    <!-- Tombol Hapus Semua Notifikasi yang lebih responsif -->
+                                                    <button class="btn btn-danger btn-sm" onclick="hapusSemuaPesanDibaca()">
+                                                        <span class="text-label d-none d-md-inline">Hapus Semua Pesan yang Dibaca</span>
+                                                        <span class="text-label d-none d-sm-inline d-md-none">Hapus Dibaca</span>
+                                                        <span class="text-label d-inline d-sm-none">Hapus</span>
+                                                        <span class="icon-only" style="display:none;"><i class="bi bi-trash"></i></span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -373,29 +305,56 @@
 
                                             <!-- email user list start -->
                                             <div class="email-user-list list-group ps ps--active-y">
-                                                <ul class="users-list-wrapper media-list">
-                                                    @foreach($notifikasi as $pesan)
-                                                    <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})">
+                                                <ul class="users-list-wrapper media-list notification-list">
+                                                    @forelse($notifikasi as $pesan)
+                                                    <li class="media {{ $pesan->status === 'Belum Dibaca' ? '' : 'mail-read' }}" onclick="openMessageOverlay({{ $pesan->id }})" id="notification-{{ $pesan->id }}">
+                                                        @if($pesan->status === 'Belum Dibaca')
+                                                        <span class="bullet-unread" id="bullet-{{ $pesan->id }}"></span>
+                                                        @endif
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                @if($pesan->foto_pengirim)
-                                                                <img src="{{ asset('storage/' . $pesan->foto_pengirim) }}" alt="avatar">
+                                                                @if($pesan->tipe == 'Laporan' || $pesan->tipe == 'Saran')
+                                                                @php
+                                                                // Ambil gambar user dari kolom 'gambar' di tabel users
+                                                                $user = App\Models\User::find($pesan->user_id);
+                                                                $fotoProfil = $user ? $user->gambar : null; // Kolom gambar di tabel users
+
+                                                                // Tentukan path gambar
+                                                                $fotoPath = public_path('picture/accounts/' . $fotoProfil);
+                                                                @endphp
+
+                                                                @if ($fotoProfil && file_exists($fotoPath))
+                                                                <img src="{{ asset('picture/accounts/' . $fotoProfil) }}" alt="avatar">
                                                                 @else
                                                                 <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
                                                                 @endif
+                                                                @else
+                                                                <!-- Tampilkan logo sekolah jika bukan tipe Laporan atau Saran -->
+                                                                <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
+                                                                @endif
                                                             </div>
+
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
                                                                 <div class="wrapper-name-mail">
                                                                     <div class="sender-name">
                                                                         <strong>{{ $pesan->nama_pengirim ?? 'Sistem' }}</strong>
+                                                                        <!-- Tanggal akan muncul di sini pada layar kecil -->
+                                                                        <span class="mail-date-mobile">{{ \Carbon\Carbon::parse($pesan->created_at)->format('d M') }}</span>
                                                                     </div>
                                                                     <div class="mail-items">
-                                                                        <span class="list-group-item-text text-truncate">{{ $pesan->judul }}</span>
+                                                                        <span class="list-group-item-text text-truncate">{{Str::limit($pesan->judul, 30) }}</span>
                                                                     </div>
+                                                                    @if($pesan->balasan)
+                                                                    <div class="reply-container-user">
+                                                                        <div class="reply-list {{ $pesan->status === 'Belum Dibaca' ? 'unread' : 'read' }}">
+                                                                            <span>Ada balasan dari admin</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
-                                                                <div class="mail-meta-item">
+                                                                <div class="mail-meta-item desktop-only">
                                                                     <span class="mail-meta-content float-right">
                                                                         <span class="mail-date">{{ \Carbon\Carbon::parse($pesan->created_at)->format('d M') }}</span>
                                                                         <span class="status-icon">{!! $pesan->status_icon ?? '<i class="bi bi-exclamation-circle text-danger"></i> Data Kosong' !!}</span>
@@ -404,19 +363,19 @@
                                                             </div>
                                                             <div class="mail-message">
                                                                 <p class="list-group-item-text truncate mb-0">
-                                                                    {{ Str::limit($pesan->isi_pesan, 60) }}
+                                                                    {{ Str::limit($pesan->isi_pesan, 50) }}
+                                                                    <!-- Status icon akan muncul di sini pada layar kecil -->
+                                                                    <span class="status-icon-mobile">{!! $pesan->status_icon ?? '<i class="bi bi-exclamation-circle text-danger"></i> Data Kosong' !!}</span>
                                                                 </p>
-                                                                <div class="mail-meta-item" data-id="{{ $pesan->id }}">
-                                                                    <span>
-                                                                        @if($pesan->status === 'Belum Dibaca')
-                                                                        <span class="bullet-unread" id="bullet-{{ $pesan->id }}"></span>
-                                                                        @endif
-                                                                    </span>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    @endforeach
+
+                                                    @empty
+                                                    <li class="text-center p-3">Tidak ada notifikasi</li>
+
+                                                    @endforelse
+                                                    <!-- Tombol Kirim Pesan -->
                                                 </ul>
 
                                                 <!-- Overlay Detail Pesan -->
@@ -431,21 +390,30 @@
 
                                                         <!-- Konten Utama Pesan -->
                                                         <div class="overlay-body">
-                                                            <!-- Judul Pesan -->
-                                                            <h3 id="overlay-title" class="message-title"></h3>
-
-                                                            <!-- Container Profil Pengirim -->
-                                                            <div class="sender-profile">
-                                                                <div class="sender-image">
-                                                                    <img id="overlay-foto" src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="Foto Profil Pengirim">
-                                                                </div>
-                                                                <div class="sender-info">
-                                                                    <div class="wrapper-left-right">
-                                                                        <span id="overlay-nama-pengirim" class="sender-name"></span>
-                                                                        <span id="overlay-tanggal" class="message-date"></span>
+                                                            <div class="message-header">
+                                                                <div class="sender-profile">
+                                                                    <div class="sender-image">
+                                                                        <img id="overlay-foto" src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="Foto Profil Pengirim">
                                                                     </div>
-                                                                    <span class="to-me">Kepada saya</span>
+                                                                    <div class="sender-info">
+                                                                        <div class="wrapper-left-right">
+                                                                            <span id="overlay-nama-pengirim" class="sender-name"></span>
+                                                                            <span id="overlay-tanggal" class="message-date"></span>
+                                                                        </div>
+                                                                        <span class="to-me">
+                                                                            Kepada saya
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
+
+                                                                <!-- Icon Hapus di Pojok Kanan Atas -->
+                                                                <button class="btn-hapus" onclick="konfirmasiHapus()">
+                                                                    <i class="bi bi-trash"></i> <!-- Menggunakan Bootstrap icon -->
+                                                                </button>
+                                                            </div>
+                                                            <div class="message-header">
+                                                                <!-- Judul Pesan -->
+                                                                <h3 id="overlay-title" class="message-title" style="color: black;"></h3>
                                                             </div>
 
                                                             <!-- Status Transaksi -->
@@ -453,62 +421,63 @@
                                                                 <!-- Ikon Status akan diisi dengan JavaScript -->
                                                             </div>
 
+                                                            <!-- Balasan admin -->
+                                                            <div id="overlay-reply" class="reply-container" style="display: none;">
+                                                                <!-- Balasan akan diisi dengan JavaScript -->
+                                                            </div>
+
                                                             <!-- Isi Pesan Lengkap -->
                                                             <div id="overlay-content" class="message-content" style="background-color: rgb(210, 210, 210); padding: 15px;"></div>
-                                                        </div>
-
-                                                        <!-- Footer: Input untuk membalas pesan -->
-                                                        <div class="overlay-footer">
-                                                            <input type="text" class="reply-input" placeholder="Balas pesan...">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- email user list end -->
-
-                                                <!-- no result when nothing to show on list -->
-                                                <div class="no-results">
-                                                    <i class="bi bi-error-circle font-large-2"></i>
-                                                    <h5>No Items Found</h5>
-                                                </div>
-                                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                                                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                                                </div>
-                                                <div class="ps__rail-y" style="top: 0px; height: 733px; right: 0px;">
-                                                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 567px;"></div>
-                                                </div>
                                             </div>
                                         </div>
+
+                                        <!-- Floating button -->
+                                        <div id="floating-button" class="floating-btn" onclick="window.location.href='{{ route('sendmassage') }}'">
+                                            <i class="bi bi-pencil"></i>
+                                            <span class="btn-text">Tulis</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!--/ Email list Area -->
                             </div>
                         </div>
                     </div>
+                </section>
             </div>
-            </section>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted by
+                            <a href="#">Nawaf</a>,
+                            <a href="#">Bayu</a>,
+                            <a href="#">Samuel</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     </div>
 
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2021 &copy; Mazer</p>
-            </div>
-            <div class="float-end">
-                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="https://saugi.me">Saugi</a></p>
-            </div>
-        </div>
-    </footer>
-    </div>
-    </div>
+    <!-- Sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
+    <!-- myjs -->
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
+    <script src="{{ asset('dashboard/dist/assets/js/myjs/pesanuser.js') }}"></script>
 
     <!-- untuk buka tutup sidebar -->
-
     <script>
         document.querySelector('.sidebar-toggle').addEventListener('click', () => {
             document.querySelector('.email-app-sidebar').classList.toggle('show')
@@ -520,7 +489,12 @@
 
     <!-- untuk menampilkan overlay dan mengupdate status notifikasi -->
     <script>
+        let currentMessageId = null; // Simpan ID notifikasi yang sedang dibuka
+
         function openMessageOverlay(id) {
+            // Update currentMessageId sesuai dengan notifikasi yang diklik
+            currentMessageId = id;
+
             // Menampilkan overlay
             document.getElementById('messageOverlay').style.display = 'flex';
 
@@ -529,10 +503,13 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log("Data dari API:", data); // Debugging
-
                     document.getElementById("overlay-title").textContent = data.judul ?? "Tanpa Judul";
                     document.getElementById("overlay-content").innerHTML = `<p>${data.isi_pesan ?? "Tidak ada isi pesan"}</p>`;
                     document.getElementById("overlay-nama-pengirim").textContent = data.nama_pengirim ?? "Sistem";
+
+                    // Menampilkan "Kepada admin" atau "Kepada saya" berdasarkan tipe
+                    const toMeText = data.tipe === 'Laporan' || data.tipe === 'Saran' ? 'Kepada admin' : 'Kepada saya';
+                    document.querySelector(".to-me").textContent = toMeText;
 
                     // Format Tanggal
                     if (data.created_at) {
@@ -545,14 +522,36 @@
                         document.getElementById("overlay-tanggal").textContent = "-";
                     }
 
-                    // Menampilkan Foto Pengirim
-                    let fotoPengirim = data.foto_pengirim ? `/storage/${data.foto_pengirim}` : `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
-                    document.getElementById("overlay-foto").src = fotoPengirim;
+                    // Menampilkan Foto Pengirim hanya jika tipe 'Laporan' atau 'Saran'
+                    if (data.tipe === 'Laporan' || data.tipe === 'Saran') {
+                        let fotoPengirim = data.foto_pengirim ?
+                            data.foto_pengirim :
+                            `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
+                        document.getElementById("overlay-foto").src = fotoPengirim;
+                    } else {
+                        document.getElementById("overlay-foto").src = `{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}`;
+                    }
 
                     // Menampilkan Ikon Status Transaksi
                     document.getElementById("overlay-status").innerHTML = data.status_icon ?? "-";
+
+                    // Menampilkan balasan jika ada
+                    let balasanContainer = document.getElementById("overlay-reply");
+                    if (data.balasan) {
+                        balasanContainer.innerHTML = `<strong>Balasan Admin:</strong> <p>${data.balasan}</p>`;
+                        balasanContainer.style.display = "block";
+                    } else {
+                        balasanContainer.style.display = "none";
+                    }
                 })
                 .catch(error => console.error("Error:", error));
+
+            // Menutup overlay ketika mengklik di luar area konten overlay
+            document.getElementById('messageOverlay').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    document.getElementById('messageOverlay').style.display = 'none';
+                }
+            });
 
             // Kirim AJAX untuk update status menjadi "Dibaca"
             fetch(`/pesan/${id}/update-status`, {
@@ -565,25 +564,95 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Status notifikasi diperbarui:", data);
-
-                    // Mengubah status bullet dan elemen lainnya
                     const bullet = document.getElementById('bullet-' + id);
                     const messageItem = document.querySelector(`.media[onclick="openMessageOverlay(${id})"]`);
+                    const replyList = document.querySelector('.reply-list');
 
                     // Hapus bullet merah
                     if (bullet) {
-                        bullet.style.display = 'none'; // Sembunyikan bullet merah
+                        bullet.style.display = 'none';
                     }
 
-                    // Tambahkan kelas 'mail-read' pada elemen li untuk menandakan bahwa pesan telah dibaca
+                    // Tambahkan kelas 'mail-read' pada elemen li
                     if (messageItem) {
                         messageItem.classList.add('mail-read');
                     }
 
-                    // Jika ingin juga update status di tempat lain (misalnya sidebar), bisa lakukan perubahan lain di sini
+                    // Perbarui tampilan reply-list jika ada
+                    if (replyList) {
+                        replyList.classList.remove('unread');
+                        replyList.classList.add('read');
+                        replyList.innerHTML = "<span>ada balasan dari admin</span>";
+                    }
+
+                    // 🔄 Fetch jumlah unread terbaru dari backend dan update badge sidebar-filter
+                    fetch('/notifikasi/count-unread')
+                        .then(response => response.json())
+                        .then(countData => {
+                            const sidebarUnreadBadge = document.getElementById('sidebar-unread-count');
+                            if (sidebarUnreadBadge) {
+                                if (countData.unreadCount > 0) {
+                                    sidebarUnreadBadge.textContent = countData.unreadCount;
+                                    sidebarUnreadBadge.style.display = 'inline-block';
+                                } else {
+                                    sidebarUnreadBadge.style.display = 'none';
+                                }
+                            }
+
+                            // Hilangkan tombol tandai semua dibaca apabila tidak ada lagi yg Belum Dibaca
+                            const markAllReadButton = document.getElementById("markAllReadBtn");
+                            if (markAllReadButton) {
+                                markAllReadButton.style.display = countData.unreadCount > 0 ? "block" : "none";
+                            }
+
+                        })
+                        .catch(error => console.error("Error fetching unread count:", error));
+
                 })
                 .catch(error => console.error("Error updating status:", error));
+        }
+
+
+        function konfirmasiHapus() {
+            if (!currentMessageId) {
+                console.error("ID pesan tidak ditemukan!");
+                return;
+            }
+
+            Swal.fire({
+                title: "Yakin Menghapus Notifikasi?",
+                text: "Notifikasi akan hilang sepenuhnya.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/pesan/hapus/${currentMessageId}`, {
+                            method: "POST",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Hilangkan notifikasi dari daftar pesan
+                                document.getElementById(`notification-${currentMessageId}`).remove();
+                                // Tampilkan swal success, lalu tutup overlay setelah konfirmasi alert
+                                Swal.fire("Berhasil!", "Notifikasi berhasil dihapus.", "success")
+                                    .then(() => {
+                                        closeOverlay();
+                                    });
+                            } else {
+                                Swal.fire("Error", "Gagal menghapus notifikasi", "error");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
         }
 
 
@@ -593,6 +662,43 @@
             document.getElementById('messageOverlay').addEventListener('click', function(event) {
                 if (event.target === this) {
                     closeOverlay();
+                }
+            });
+        }
+    </script>
+
+    <!-- Script Konfirmasi Hapus Semua -->
+    <script>
+        function hapusSemuaPesanDibaca() {
+            Swal.fire({
+                title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
+                text: "Pesan yang telah dibaca akan dihapus.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus Semua',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim request hapus pesan yang sudah dibaca
+                    fetch('/pesan/hapus-semua-dibaca', {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({}) // Tambahkan body kosong
+                        })
+
+                        .then(response => response.json())
+                        .then(data => {
+                            Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success');
+                            // Reload atau update tampilan notifikasi
+                            location.reload(); // Atau bisa menggunakan update tampilan AJAX
+                        })
+                        .catch(error => {
+                            Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
+                        });
                 }
             });
         }
@@ -658,6 +764,30 @@
                         if (button) {
                             button.style.display = "none";
                         }
+
+                        // Perbarui tampilan reply-list jika ada
+                        const replyList = document.querySelector('.reply-list');
+                        if (replyList) {
+                            replyList.classList.remove('unread');
+                            replyList.classList.add('read');
+                            replyList.innerHTML = "<span>ada balasan dari admin</span>";
+                        }
+
+                        // Perbarui sidebar filter (sidebar-unread-count)
+                        fetch('/notifikasi/count-unread')
+                            .then(response => response.json())
+                            .then(countData => {
+                                const sidebarUnreadBadge = document.getElementById('sidebar-unread-count');
+                                if (sidebarUnreadBadge) {
+                                    if (countData.unreadCount > 0) {
+                                        sidebarUnreadBadge.textContent = countData.unreadCount;
+                                        sidebarUnreadBadge.style.display = 'inline-block';
+                                    } else {
+                                        sidebarUnreadBadge.style.display = 'none';
+                                    }
+                                }
+                            })
+                            .catch(error => console.error("Error fetching unread count:", error));
                     }
                 })
                 .catch(error => console.error("Error:", error));

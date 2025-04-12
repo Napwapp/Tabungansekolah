@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
+
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 </head>
 
 <body>
@@ -57,7 +59,7 @@
                             class="sidebar-item">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Beranda</span>
                             </a>
                         </li>
 
@@ -70,25 +72,17 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
+                            class="sidebar-item  ">
+                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
@@ -106,225 +100,130 @@
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Layouts</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="layout-default.html">Default Layout</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-1-column.html">1 Column</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-rtl.html">RTL Layout</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-horizontal.html">Horizontal Menu</a>
-                    </li>
-                </ul>
-            </li>
-             -->
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>Laporkan & Saran</span>
+                            </a>
+                        </li>
 
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-            
-            <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-hexagon-fill"></i>
-                    <span>Form Elements</span>
-                </a>
-                <ul class="submenu active">
-                    <li class="submenu-item ">
-                        <a href="form-element-input.html">Input</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-input-group.html">Input Group</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-select.html">Select</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-radio.html">Radio</a>
-                    </li>
-                    <li class="submenu-item active">
-                        <a href="form-element-checkbox.html">Checkbox</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-textarea.html">Textarea</a>
-                    </li>
-                    </li>
-                </ul>
-            </li> -->
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <div class="container">
-                    <div class="profile-header">
-                        <div class="profile-cover">
-                            <div class="profile-avatar">
-                                <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
-                            </div>
-                        </div>
-                        <div class="profile-basic-info">
-                            <h1>{{Auth::user()->namalengkap}}</h1>
-                            <p>{{Auth::user()->email}}</p>
-                        </div>
-                    </div>
+        </div>
 
-                    <div class="profile-details">
-                        <div class="profile-section">
-                            <h2>Informasi Akun</h2>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
-                            <div class="profile-item">
-                                <span>Nama Lengkap :</span>
-                                <span>{{$user -> namalengkap}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Username :</span>
-                                <span>{{$user -> username}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>ID Tabungan :</span>
-                                <span>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Kelas :</span>
-                                <span>{{$user -> kelas}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Tanggal Bergabung :</span>
-                                <span>Nanti ditambahkan backend</span>
-                            </div>
-                        </div>
-
-                        <!-- data tabunganmu -->
-                        <h1 style="font-size: 23px; margin: 30px 0 20px 0;">Data Tabunganmu</h1>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="color: white;">Saldo Tersisa</h5>
-                                        <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
-                                        <p>Saldo yang anda miliki.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5>
-                                        <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3>
-                                        <p>Tabungan hingga saat ini.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="color: white;">Transaksi Bulan Ini</h5>
-                                        <h3 style="color: white;">Rp 0</h3>
-                                        <p>Total transaksi Anda bulan ini.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tabel Riwayat Transaksi -->
-                        <section class="section">
-                            <div class="row" id="table-contexual">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Riwayat Transaksi</h4>
-                                        </div>
-                                        <div class="card-content" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
-                                            <div class="table-responsive">
-                                                <table class="table mb-0" id="riwayatTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Nama</th>
-                                                            <th>Tanggal</th>
-                                                            <th>Jumlah</th>
-                                                            <th>Tipe</th>
-                                                            <th>Nomor Tabungan</th>
-                                                            <th style="text-align: center;">Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @if ($semuaTransaksiKosong)
-                                                        <tr>
-                                                            <td colspan="7" class="text-center">Belum ada transaksi.</td>
-                                                        </tr>
-
-                                                        @else
-                                                        @foreach ($riwayatTransaksi as $transaksi)
-                                                            <tr>
-                                                                <td>{{ $transaksi->nama ?? '-' }}</td>
-                                                                <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d-m-Y H:i') }}</td>
-                                                                <td>Rp{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
-                                                                <td>{{ ucfirst($transaksi->tipe) }}</td>
-                                                                <td>{{ $transaksi->id_tabungan ?? '-' }}</td>
-                                                                <td style="text-align: center;">
-                                                                    @php
-                                                                        // Mapping status ke kelas CSS yang sesuai
-                                                                        $statusClass = [
-                                                                            'Sukses' => 'sukses',
-                                                                            'Menunggu Persetujuan' => 'diproses',
-                                                                            'Gagal' => 'gagal'
-                                                                        ];
-
-                                                                        // Pastikan status yang ada cocok dengan daftar status yang valid
-                                                                        $status = ucfirst(strtolower($transaksi->status));
-                                                                        $badgeClass = $statusClass[$status] ?? 'diproses';
-                                                                    @endphp
-
-                                                                    <span class="status-badge {{ $badgeClass }}">
-                                                                        {{ $status }}
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        @endif
-
-                                                        <!-- Baris khusus untuk menampilkan pesan jika filter tidak menemukan hasil -->
-                                                        <tr id="noResultsRow" style="display: none;">
-                                                            <td colspan="7" class="text-center">
-                                                                Tidak dapat ditemukan
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <div class="profile-avatar">
+                        <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
                     </div>
                 </div>
+                <div class="profile-basic-info">
+                    <h1>{{Auth::user()->namalengkap}}</h1>
+                    <p>{{Auth::user()->email}}</p>
+                </div>
+            </div>
 
-                <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-                <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-                <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
+            <!-- data keuangan -->
+            <h1 style="font-size: 23px; margin: 30px 0 20px 0;">Data Keuangaan</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: white;">Saldo Tersisa</h5>
+                            <h3 style="color: white;">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                            <p>Saldo yang anda miliki.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: white;">Total Tabungan Anda</h5>
+                            <h3 style="color: white;">Rp{{ number_format($totalTabungan, 0, ',', '.') }}</h3>
+                            <p>Tabungan hingga saat ini.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: white;">Penarikan Bulan Ini</h5>
+                            <h3 style="color: white;">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
+                            <p>Total Penarikan Anda bulan ini.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Need: Apexcharts -->
-                <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-                <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
-                <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h2>Informasi Akun</h2>
+
+                    <div class="profile-item">
+                        <span>Nama Lengkap :</span>
+                        <span>{{$user -> namalengkap}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Username :</span>
+                        <span>{{$user -> username}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>ID Tabungan :</span>
+                        <span>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Kelas :</span>
+                        <span>{{$user -> kelas}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Tanggal Bergabung :</span>
+                        <span>{{$user -> created_at}}</span>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
+
+    <!-- Need: Apexcharts -->
+    <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
 </body>
 
 </html>

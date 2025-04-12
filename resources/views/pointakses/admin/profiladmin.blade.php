@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
+
+    <!-- mycss -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
-    
+
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
     <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
+
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/main/app-dark.css') }}">
+
 </head>
 
 <body>
@@ -108,138 +113,102 @@
                                 <i class="bi bi-receipt"></i>
                                 <span>Permintaan transaksi</span>
                                 @if($pendingTransactions > 0)
-                                    <span class="badge-dot"></span>
+                                <span class="badge-dot"></span>
                                 @endif
 
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Layouts</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="layout-default.html">Default Layout</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-1-column.html">1 Column</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-rtl.html">RTL Layout</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-horizontal.html">Horizontal Menu</a>
-                    </li>
-                </ul>
-            </li>
-             -->
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('seturl')}}" class='sidebar-link'>
+                                <i class="bi bi-gear-fill"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
 
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-            
-            <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-hexagon-fill"></i>
-                    <span>Form Elements</span>
-                </a>
-                <ul class="submenu active">
-                    <li class="submenu-item ">
-                        <a href="form-element-input.html">Input</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-input-group.html">Input Group</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-select.html">Select</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-radio.html">Radio</a>
-                    </li>
-                    <li class="submenu-item active">
-                        <a href="form-element-checkbox.html">Checkbox</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-textarea.html">Textarea</a>
-                    </li>
-                    </li>
-                </ul>
-            </li> -->
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <div class="container">
-                    <div class="profile-header">
-                        <div class="profile-cover">
-                            <div class="profile-avatar">
-                                <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">
-                            </div>
-                        </div>
-                        <div class="profile-basic-info">
-                            <h1>{{Auth::user()->username}}</h1>
-                            <p>{{Auth::user()->email}}</p>
+        </div>
+
+        <div id="main">
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-cover">
+                        <div class="profile-avatar">
+                            <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">
                         </div>
                     </div>
+                    <div class="profile-basic-info">
+                        <h1>{{Auth::user()->username}}</h1>
+                        <p>{{Auth::user()->email}}</p>
+                    </div>
+                </div>
 
-                    <div class="profile-details">
-                        <div class="profile-section">
-                            <h2>Informasi Akun</h2>
+                <div class="profile-details">
+                    <div class="profile-section">
+                        <h2>Informasi Akun</h2>
 
-                            <div class="profile-item">
-                                <span>Nama Lengkap :</span>
-                                <span>{{Auth::user() -> namalengkap}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Username :</span>
-                                <span>{{Auth::user() -> username}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Kelas :</span>
-                                <span>{{Auth::user() -> kelas}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>NISN :</span>
-                                <span>123456789</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Jenis Kelamin :</span>
-                                <span>Laki-Laki</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>No Telepon</span>
-                                <span>+62 890 0000 0000</span>
-                            </div>
-                            <div class="profile-actions">
-                                <a href="{{ route('edit') }}" class="btn btn-primary">Edit Profil</a>
-                            </div>
+                        <div class="profile-item">
+                            <span>Nama Lengkap :</span>
+                            <span>{{Auth::user() -> namalengkap}}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Username :</span>
+                            <span>{{Auth::user() -> username}}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Kelas :</span>
+                            <span>{{Auth::user() -> kelas}}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>NISN :</span>
+                            <span>123456789</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Jenis Kelamin :</span>
+                            <span>Laki-Laki</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>No Telepon</span>
+                            <span>+62 890 0000 0000</span>
+                        </div>
+                        <div class="profile-actions">
+                            <a href="{{ route('edit') }}" class="btn btn-primary">Edit Profil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-                            <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 
-                            <!-- Need: Apexcharts -->
-                            <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-                            <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
-
+        <!-- Need: Apexcharts -->
+        <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
 </body>
 
 </html>

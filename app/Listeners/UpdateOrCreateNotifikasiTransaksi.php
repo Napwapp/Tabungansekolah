@@ -43,7 +43,8 @@ class UpdateOrCreateNotifikasiTransaksi implements ShouldQueue
         NotifikasiUser::updateOrCreate(
             [
                 'user_id' => $userId,
-                'judul' => $event->notifikasi->judul // Gunakan judul sebagai identifier transaksi
+                'judul' => $event->notifikasi->judul, // Gunakan judul sebagai identifier transaksi
+                'tipe' => 'Transaksi',  // Pastikan hanya tipe 'Transaksi' yang diperbarui
             ],
             [
                 'isi_pesan' => $event->notifikasi->isi_pesan,
