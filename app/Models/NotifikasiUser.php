@@ -45,6 +45,10 @@ class NotifikasiUser extends Model
         if ($this->tipe == "Pengingat") {
             return '<i class="bi bi-bell text-danger"></i> Pengingat';
         }
+
+        if ($this->tipe == "Target Tercapai") {
+            return '<i class="bi bi-trophy"></i> Target telah tercapai';
+        }
     
         if ($this->tipe == "Transaksi" && !$this->status_transaksi) {
             return '<i class="bi bi-question-circle text-secondary"></i> Status Tidak Diketahui';

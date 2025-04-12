@@ -19,18 +19,27 @@ class SaveController extends Controller
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
 
-        // Ambil total tabungan user dari tabel transaksi_menabung_users
-        $totalTabungan = DB::table('transaksi_menabung_users')
+        // Ambil total tabungan user dari tabel tabungan_users
+        $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('jumlah'); // Menjumlahkan total tabungan berdasarkan user_id
+            ->sum('total_tabungan');
 
-        // Ambil target tabungan dari tabungan_users
+        // Ambil target tabungan user
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
 
-        // Hitung persen 
+        // Hitung persentase tabungan terhadap target
         $persenTabungan = $targetTabungan ? ($totalTabungan / $targetTabungan) * 100 : 0;
+        $persenTabungan = min($persenTabungan, 100);
 
-        return view('pointakses.user.tabungan', compact('user', 'saldo', 'totalTabungan', 'targetTabungan'));
+        // Penarikan yang disetujui bulan ini
+        $penarikanDisetujuiBulanIni = DB::table('penarikan_users')
+            ->where('user_id', Auth::id())
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->where('status', 'Sukses')
+            ->sum('jumlah');
+
+        return view('pointakses.user.tabungan', compact('user', 'saldo', 'totalTabungan', 'targetTabungan', 'penarikanDisetujuiBulanIni'));
     }
 
     public function getTabunganPerBulan()

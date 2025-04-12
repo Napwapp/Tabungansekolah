@@ -49,23 +49,55 @@
                     </span>
                     <!-- jika gagal -->
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+					<div id="error-alert"
+						class="alert alert-danger"
+						data-clear-url="{{ route('clear.errors') }}"
+						data-token="{{ csrf_token() }}"
+						style="position: relative;">
 
-                    <!--jika sukses  -->
+						<button type="button" id="close-alert" style="
+							position: absolute;
+							top: 8px;
+							right: 8px;
+							background: transparent;
+							border: none;
+							font-size: 20px;
+							color: #fff;
+							cursor: pointer;
+						">&times;</button>
+
+						<strong>Kesalahan Terjadi:</strong>
+						<ul>
+							@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
+
                     @if (Session::has('success'))
-                        <div class="alert alert-success">
-                            {{ Session::get('success') }}
-                        </div>
+                    <div id="success-alert"
+                        class="alert alert-success"
+                        data-clear-url="{{ route('clear.success') }}"
+                        data-token="{{ csrf_token() }}"
+                        style="position: relative;">
+
+                        <button type="button" id="close-success" style="
+							position: absolute;
+							top: 8px;
+							right: 8px;
+							background: transparent;
+							border: none;
+							font-size: 20px;
+							color: #155724; /* warna hijau pesan success */
+							cursor: pointer;">&times;
+                        </button>
+
+                        {{ Session::get('success') }}
+                    </div>
                     @endif
 
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <input class="input100" type="text" name="email" value="{{old('email')}}">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
@@ -87,7 +119,7 @@
                         </div>
 
                         <div>
-                            <a href="#" class="txt1">
+                            <a href="{{ route('reset_halaman1') }}" class="txt1">
                                 Forgot Password?
                             </a>
                         </div>
@@ -124,7 +156,7 @@
                 </form>
 
                 <div class="login100-more"
-                    style= "background-image: url('{{asset("landingpage/Halamanlogin/images/bg-01.jpg")}}');"></div>
+                    style="background-image: url('{{asset("landingpage/Halamanlogin/images/bg-01.jpg")}}');"></div>
             </div>
         </div>
     </div>
@@ -138,7 +170,7 @@
     <!--===============================================================================================-->
     <script src="{{ asset('landingpage/Halamanlogin/vendor/animsition/js/animsition.min.js') }}"></script>
     <!--===============================================================================================-->
-    <script a="{{ asset('landingpage/Halamanlogin/vendor/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ asset('landingpage/Halamanlogin/vendor/bootstrap/js/popper.js') }}"></script>
     <script src="{{ asset('landingpage/Halamanlogin/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <!--===============================================================================================-->
     <script src="{{ asset('landingpage/Halamanlogin/vendor/select2/select2.min.js') }}"></script>
@@ -150,6 +182,8 @@
     <!--===============================================================================================-->
     <script src="{{ asset('landingpage/Halamanlogin/js/main.js') }}"></script>
 
+    <!-- myjs -->
+    <script src="{{ asset('landingpage/Halamanlogin/js/myjs/registrasi.js') }}"></script>
 </body>
 
 </html>

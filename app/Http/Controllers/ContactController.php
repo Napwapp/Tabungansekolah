@@ -74,7 +74,7 @@ class ContactController extends Controller
         return response()->json(['message' => 'Status diperbarui']);
     }
 
-    // logika untuk Menandai semua pesan yg Belum Dibaca menjadi Dibaca
+    // Untuk menghitung pesan Belum Dibaca
     public function countUnread()
     {
         $unreadCount = DB::table('notifikasi_users')
@@ -86,7 +86,7 @@ class ContactController extends Controller
         return response()->json(['unreadCount' => $unreadCount]);
     }
 
-
+    // logika untuk Menandai semua pesan yg Belum Dibaca menjadi Dibaca
     public function markAllRead()
     {
         DB::table('notifikasi_users')
@@ -131,6 +131,9 @@ class ContactController extends Controller
                 break;
             case 'sent-laporan':
                 $query->where('tipe', 'Laporan');
+                break;
+            case 'target-tabungan':
+                $query->where('tipe', 'Target Tercapai');
                 break;
             case 'sent-saran':
                 $query->where('tipe', 'Saran');

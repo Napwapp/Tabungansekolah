@@ -76,8 +76,18 @@ document.addEventListener("DOMContentLoaded", function () {
         this.value = formatNumberWithDots(rawValue);
         const newCursorPos = cursorPosition + (this.value.length - rawValue.length);
         this.setSelectionRange(newCursorPos, newCursorPos);
+    
+        // 🆕 Tambahkan logika untuk reset card selected saat user mengetik manual
+        const selectedCard = document.querySelector('.nominal-card.selected'); // atau sesuaikan selector
+        if (selectedCard) {
+            selectedCard.classList.remove('selected');
+            selectedCard.style.border = "2px solid rgba(88, 85, 85, 0.4)";
+            selectedCard.style.backgroundColor = "#ffffff";
+        }
+    
         togglePayButton();
     });
+    
 
     // 6. Form submission
     form.addEventListener('submit', function (e) {

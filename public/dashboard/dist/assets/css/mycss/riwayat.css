@@ -86,7 +86,7 @@
 
 /* Status Sukses (Berhasil) - Hijau */
 .status-badge.sukses {
-    background-color: #4CAF50; /* Hijau lebih pekat */
+    background-color: #4caf50; /* Hijau lebih pekat */
     color: #fff;
 }
 
@@ -101,7 +101,6 @@
     background-color: #e74c3c; /* Merah lebih pekat */
     color: #fff;
 }
-
 
 /* ====== Styling Tabel ====== */
 
@@ -130,7 +129,6 @@
     background-color: #f1f1f1; /* Warna sedikit lebih gelap dari baris biasa */
 }
 
-
 /* Cell tabel */
 .table th,
 .table td {
@@ -143,7 +141,6 @@
 .table td.text-center {
     text-align: center;
 }
-
 
 /* ====== Styling untuk Choices.js Dropdown ====== */
 
@@ -181,3 +178,43 @@
     opacity: 1 !important; /* Tidak terlalu transparan */
 }
 
+.form-select {
+    border: 1px solid #bbb;
+    border-radius: 0px;
+}
+
+.table-responsive .pagination-control {
+    margin-bottom: 10px;
+}
+
+/* pagination */
+.pagination-contain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background: linear-gradient(to bottom, #f9f9f9, #e6e6e6);
+    padding: 3px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 32px;
+}
+
+.page-counter {
+    padding: 3px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.pagination-previous {
+    background: none;
+    display: flex;
+    gap: 5px;
+}
+
+.pagination-next {
+    background: none;
+    gap: 5px;
+    display: flex;
+}

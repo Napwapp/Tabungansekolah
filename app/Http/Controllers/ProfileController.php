@@ -10,7 +10,7 @@ use App\Models\PenarikanUser;
 use App\Models\TransaksiTopup;
 
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -22,10 +22,18 @@ class ProfileController extends Controller
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
 
-        // Ambil total tabungan user dari tabel transaksi_menabung_users
-        $totalTabungan = DB::table('transaksi_menabung_users')
+        // Ambil total tabungan user dari tabel tabungan_users
+        $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('jumlah'); // Menjumlahkan total tabungan berdasarkan user_id
+            ->sum('total_tabungan'); 
+
+        // Penarikan yang disetujui bulan ini
+        $penarikanDisetujuiBulanIni = DB::table('penarikan_users')
+            ->where('user_id', Auth::id())
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->where('status', 'Sukses')
+            ->sum('jumlah');
 
         // Ambil riwayat transaksi seperti di RiwayatController
         $topups = TransaksiTopup::where('user_id', $user->id)
@@ -70,6 +78,6 @@ class ProfileController extends Controller
             TransaksiMenabungUser::where('user_id', $user->id)->doesntExist() &&
             PenarikanUser::where('user_id', $user->id)->doesntExist();
 
-        return view('pointakses/user/profil', compact('user', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong'));
+        return view('pointakses/user/profil', compact('user', 'saldo', 'totalTabungan', 'riwayatTransaksi', 'semuaTransaksiKosong', 'penarikanDisetujuiBulanIni'));
     }
 }

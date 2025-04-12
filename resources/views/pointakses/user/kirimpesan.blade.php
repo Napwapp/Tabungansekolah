@@ -19,6 +19,7 @@
     <!-- CSS Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 
 </head>
 
@@ -64,7 +65,7 @@
                             class="sidebar-item">
                             <a href="{{route('user')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Beranda</span>
                             </a>
                         </li>
 
@@ -77,25 +78,17 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
+                            class="sidebar-item  ">
+                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('tabungan')}}">Tabunganku</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
                             class="sidebar-item ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
+                                <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
                             </a>
                         </li>
@@ -117,16 +110,20 @@
                         <li
                             class="sidebar-item active">
                             <a href="{{route('sendmassage')}}" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Laporan & Saran</span>
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>Laporkan & Saran</span>
                             </a>
                         </li>
 
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -139,12 +136,12 @@
                     <a href="#" class="burger-btn d-block d-xl-none">
                         <i class="bi bi-justify fs-3"></i>
                     </a>
-                    <h1 class="page-title text-center">Laporkan Masalah & Berikan Saran</h1>
+                    <h1 class="page-title text-center">Laporkan Masalah atau Berikan Saran</h1>
                 </header>
 
                 <div class="form-group">
                     <label for="dari">Dari</label>
-                    <span id="dari" class="form-control bg-light" style="cursor: not-allowed;">
+                    <span id="dari" class="form-control" style="cursor: not-allowed;">
                         {{ Auth::user()->namalengkap }}
                     </span>
                 </div>
@@ -186,6 +183,20 @@
 
                 <button type="submit" class="btn btn-primary">Kirim</button>
             </form>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted" style="margin-top: 15px;">
+                    <div class="float-start">
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     </div>

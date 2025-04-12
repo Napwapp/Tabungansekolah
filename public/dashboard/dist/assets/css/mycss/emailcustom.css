@@ -1,3 +1,103 @@
+/* Fix responsifitas */
+/* CSS untuk memperbaiki container atas */
+/* CSS yang lebih agresif untuk layar sangat kecil */
+.action-right {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Gap sangat kecil */
+    padding: 5px 0;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.sidebar-toggle {
+    flex: 0 0 auto;
+}
+
+.email-fixed-search {
+    flex: 1;
+    min-width: 40px; /* Minimum width lebih kecil */
+}
+
+/* Tombol hapus untuk layar sangat kecil */
+.action-right .btn-danger {
+    height: 38px;
+    padding: 0.25rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 0 auto;
+}
+
+/* Media query untuk layar sangat kecil */
+@media (max-width: 480px) {
+    .action-right .btn-danger {
+        max-width: 55px;
+        font-size: 0.7rem;
+        padding: 0.25rem;
+    }
+
+    /* Sembunyikan teks pada layar sangat kecil dan tampilkan ikon */
+    .btn-danger .text-label {
+        display: none;
+    }
+
+    .btn-danger .icon-only {
+        display: inline-block !important;
+    }
+
+    .email-fixed-search {
+        min-width: 30px;
+    }
+
+    /* Ubah ukuran form search */
+    .email-fixed-search .form-control {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.25rem 0.25rem 25px;
+        height: 30px;
+    }
+
+    .email-fixed-search .form-control-icon {
+        left: 3px;
+        top: 5px;
+    }
+
+    .email-fixed-search .form-control-icon svg {
+        width: 1em;
+        height: 1em;
+    }
+}
+
+/* Media query untuk layar sangat sangat kecil (seperti zoom 500%) */
+@media (max-width: 320px) {
+    .action-right {
+        gap: 2px;
+    }
+
+    .action-right .btn-danger {
+        max-width: 40px;
+        min-width: 35px;
+        padding: 0.1rem;
+    }
+
+    .sidebar-toggle button {
+        padding: 0.25rem;
+    }
+
+    .email-fixed-search {
+        max-width: 40%;
+    }
+}
+
+/* CSS untuk memperbaiki container utama */
+.email-user-list {
+    height: auto !important; /* Override height yang otomatis */
+    max-height: 70vh; /* Maksimum 70% dari tinggi viewport */
+    min-height: 300px; /* Minimal tinggi 300px */
+    overflow-y: auto;
+}
+
 /* Overlay Detail pesan lengkap*/
 .overlay {
     position: fixed;
@@ -45,50 +145,60 @@
 }
 
 /* Body overlay */
+/* Modify the overlay-body to include a header section for title and delete button */
 .overlay-body {
-    position: relative; /* Agar button hapus bisa diposisikan absolut di dalam body */
-    height: 90%;
-    max-width: 900px;
+    position: relative;
+    flex: 1;
     width: 100%;
     background: #ffffff;
-    border-radius: 10px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
 }
 
-/* Tombol hapus */
-/* Penempatan Icon Hapus di Pojok Kanan Atas */
+/* Create a flex container for the title and delete button */
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+/* Style for the message title inside the flex container */
+.message-title {
+    font-size: clamp(18px, 4vw, 22px);
+    font-weight: bold;
+    flex: 1;
+    margin-right: 15px; /* Space between title and button */
+    text-align: left;
+    color: #222;
+    word-wrap: break-word;
+}
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Adjust the delete button to work with flex layout */
 .btn-hapus {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: static; /* Remove absolute positioning */
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto; /* Push to the right */
 }
 
 .btn-hapus i {
     font-size: 1.5rem;
-    padding: 30px;
 }
 
 .btn-hapus:hover i {
-    color: #000000c5; /* Warna merah gelap saat hover */
-}
-
-/* btn hapus semua */
-
-/* Judul Pesan */
-.message-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: left;
-    color: #222;
+    color: #000000;
 }
 
 /* Container Profil */
@@ -154,7 +264,6 @@
     border-radius: 8px;
     border: 1px solid rgb(170, 170, 170);
     word-wrap: break-word;
-    overflow-y: auto;
 }
 
 .message-content p {
@@ -173,6 +282,10 @@
     border-radius: 5px;
     max-height: 300px;
     overflow-y: auto;
+}
+
+.reply-container p {
+    color: black;
 }
 
 .reply-item {
@@ -246,6 +359,10 @@
     max-height: fit-content;
 }
 
+.media {
+    position: relative;
+}
+
 /* lingkaran tanda pesan belum dibaca */
 .bullet-unread {
     width: 13px;
@@ -257,17 +374,127 @@
     right: 5px;
 }
 
-/* untuk format tanggal dan status_icon */
+/* CSS Responsif untuk format tanggal dan status icon */
+/* Aturan dasar untuk layar normal */
+.media-body {
+    position: relative;
+    width: 100%;
+}
+
+.user-details {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.wrapper-name-mail {
+    flex: 1;
+    min-width: 0; /* Penting untuk text truncate bekerja dengan baik */
+}
+
 .mail-meta-item {
     display: flex;
-    justify-content: flex-end; /* Tetap di pojok kanan */
+    justify-content: flex-end;
+    margin-left: auto;
+    min-width: 60px;
 }
 
 .mail-meta-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Mengubah alignment elemen agar berada di kanan */
-    text-align: right; /* Menambahkan text alignment kanan untuk tanggal */
+    align-items: flex-end;
+    text-align: right;
+}
+
+/* Media query untuk layar kecil (misalnya di bawah 576px) */
+@media (max-width: 576px) {
+    .user-details {
+        flex-direction: column;
+    }
+
+    .mail-meta-item {
+        justify-content: flex-start;
+        margin-left: 0;
+        margin-top: 5px;
+        order: 2; /* Mengubah urutan tampilan */
+    }
+
+    .mail-meta-content {
+        flex-direction: row;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    /* Reposisi tanggal dan status icon */
+    .mail-date {
+        order: 1;
+        margin-right: 10px;
+        font-size: 0.85em;
+        color: #6c757d;
+    }
+
+    .status-icon {
+        order: 2;
+    }
+
+    /* Alternatif: Pindahkan tanggal ke dekat judul */
+    .sender-name {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Memindahkan status icon ke bawah isi pesan */
+    .mail-message {
+        position: relative;
+    }
+
+    .mail-message .mail-meta-item {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+/* Media query untuk layar sangat kecil */
+@media (max-width: 400px) {
+    .mail-meta-content {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Tampilan default untuk desktop */
+.mail-date-mobile,
+.status-icon-mobile {
+    display: none;
+}
+
+/* Media query untuk mobile */
+@media (max-width: 576px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .mail-date-mobile {
+        display: inline-block;
+        font-size: 0.8em;
+        color: #6c757d;
+        margin-left: 10px;
+    }
+
+    .status-icon-mobile {
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    .mail-items {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
 /* link di notifikasi pengingat */
@@ -281,14 +508,14 @@
     text-decoration: none; /* Menghilangkan garis bawah saat hover */
 }
 
-/* Pastikan wrapper memiliki posisi relatif */
+/* Pastikan wrapper memiliki posisi relatif dan tinggi yang cukup */
 .email-user-list {
     position: relative;
 }
 
 /* Tombol mengambang di dalam wrapper */
 .floating-btn {
-    position: absolute;
+    position: absolute; /* Menggunakan absolute, bukan fixed */
     bottom: 20px;
     right: 20px;
     background-color: #37474f;
@@ -302,7 +529,37 @@
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-in-out;
-    z-index: 10; /* Pastikan tombol di atas elemen lain */
+    z-index: 10; /* Pastikan tombol di atas elemen lain dalam wrapper */
+}
+
+.floating-btn:hover {
+    background-color: #455a64;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Media query untuk layar kecil */
+@media (max-width: 986px) {
+    .floating-btn .btn-text {
+        display: none; /* Sembunyikan teks pada layar sangat kecil */
+    }
+
+    .floating-btn {
+        padding: 12px; /* Padding sama di semua sisi untuk bentuk lingkaran */
+        border-radius: 50%; /* Membuat tombol berbentuk lingkaran */
+    }
+}
+
+/* Media query untuk layar sangat kecil */
+@media (max-width: 768px) {
+    .floating-btn .btn-text {
+        display: none; /* Sembunyikan teks pada layar sangat kecil */
+    }
+
+    .floating-btn {
+        padding: 12px; /* Padding sama di semua sisi untuk bentuk lingkaran */
+        border-radius: 50%; /* Membuat tombol berbentuk lingkaran */
+    }
 }
 
 /* Posisi icon di tengah */
@@ -361,6 +618,7 @@
 
 /* Style untuk pesan yang sudah dibaca (tema abu-abu) */
 .reply-list.read {
+    width: 200px;
     position: relative;
     background-color: #e5e7eb; /* Abu-abu terang */
     border-left: 6px solid #9ca3af; /* Garis kiri abu-abu */
@@ -373,16 +631,15 @@
 
 /* Style untuk pesan yang belum dibaca (tema merah) */
 .reply-list.unread {
+    width: 200px;
     position: relative;
-    background-color: #fff; 
+    background-color: #fff;
     border-left: 6px solid #dc3545; /* Garis kiri merah */
     padding: 6px 12px;
     border-radius: 4px;
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 14px;
     color: #842029; /* Teks merah gelap */
-    text-transform: lowercase;
-    font-weight: bold;
 }
 
 /* dropdown filter notifikasi di user */

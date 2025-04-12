@@ -8,7 +8,6 @@
     border-radius: 50%;
 }
 
-
 .sidebar-item {
     position: relative; /* Membuat parent item relatif untuk penempatan badge */
 }
@@ -29,12 +28,11 @@
     padding: 2px;
 }
 
-
 /* Sesuaikan styling untuk elemen h2 di dalam badge agar tidak merusak layout */
 .badge-notif h2 {
     color: white;
     margin: 0;
-    font-size: 15px;  /* Sesuaikan ukuran font sesuai kebutuhan */
+    font-size: 15px; /* Sesuaikan ukuran font sesuai kebutuhan */
     line-height: 1;
 }
 
@@ -42,3 +40,50 @@ button {
     background-color: none;
     border: none;
 }
+
+/* Menghilangkan transparansi pada toastr */
+.toast {
+    opacity: 1 !important; /* Menghapus transparansi */
+}
+
+/* Untuk logout */
+/* Override khusus agar <button.sidebar-link> tampil seperti <a.sidebar-link> */
+button.sidebar-link {
+    all: unset; /* Reset semua default bawaan tombol browser */
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    color: #25396f;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+button.sidebar-link i,
+button.sidebar-link svg {
+    color: #7c8db5;
+}
+
+button.sidebar-link span {
+    margin-left: 1rem;
+}
+
+button.sidebar-link:hover {
+    background-color: #f0f1f5;
+}
+
+/* Responsivitas footer  */
+@media screen and (max-width: 767px) {
+    .footer .float-start,
+    .footer .float-end {
+      float: none !important;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .footer .float-end p {
+      margin-right: 0;
+    }
+  }

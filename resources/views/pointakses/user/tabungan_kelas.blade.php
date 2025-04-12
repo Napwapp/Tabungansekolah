@@ -63,10 +63,7 @@
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item active">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
+                            <ul class="submenu ">                                
                                 <li class="submenu-item ">
                                     <a href="{{route('tabungan')}}">Tabunganku</a>
                                 </li>

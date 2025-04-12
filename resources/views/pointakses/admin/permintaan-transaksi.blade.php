@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}"> <!-- default dari riwayat transaksi user -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/paymentrequest.css')}}"> <!-- default dari riwayat transaksi user -->
 
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/main/app-dark.css') }}">
+
 </head>
 
 <body>
@@ -128,12 +130,24 @@
                                 @endif
                             </a>
                         </li>
-                        
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+
+                        <li
+                            class="sidebar-item  ">
+                            <a href="{{route('seturl')}}" class='sidebar-link'>
+                                <i class="bi bi-gear-fill"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -232,11 +246,14 @@
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
-                            <p>2025 &copy; SMKN1 BINONG SUBANG</p>
+                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
                         </div>
                         <div class="float-end">
-                            <p>Crafted by <a
-                                    href="#">Bayu,Samuel,Nawaf</a></p>
+                            <p>Crafted by
+                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                            </p>
                         </div>
                     </div>
                 </footer>

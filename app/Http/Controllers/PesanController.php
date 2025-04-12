@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\LaporanUser;
 use App\Models\NotifikasiUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+
+use Illuminate\Support\Facades\DB;
 
 class PesanController extends Controller
 {
@@ -26,11 +27,11 @@ class PesanController extends Controller
         return response()->json([
             'nama_pengirim' => $laporan->nama_pengirim ?? 'Pengirim Tidak Diketahui',
             'foto_pengirim' => $laporan->foto_pengirim ?? asset('dashboard/dist/assets/images/default-avatar.png'),
-            'judul' => $laporan->judul ?? 'Tanpa Judul',
-            'isi_pesan' => $laporan->isi_pesan ?? 'Tidak ada isi pesan',
+            'judul'         => $laporan->judul ?? 'Tanpa Judul',
+            'isi_pesan'     => $laporan->isi_pesan ?? 'Tidak ada isi pesan',
             'status_laporan' => $laporan->status_laporan_icon ?? 'Tidak Diketahui',
-            'balasan' => $laporan->balasan ?? 'Belum ada balasan',
-            'tanggal' => $laporan->created_at ? $laporan->created_at->translatedFormat('d F Y, H:i') : 'Tanggal Tidak Diketahui',
+            'balasan'       => $laporan->balasan ?? 'Belum ada balasan',
+            'tanggal'       => $laporan->created_at ? $laporan->created_at->translatedFormat('d F Y, H:i') : 'Tanggal Tidak Diketahui',
         ]);
     }
 
@@ -58,6 +59,16 @@ class PesanController extends Controller
         ]);
     }
 
+    // hitung laporan yg masih Terkirim (belum dibaca) 
+    public function unreadLaporanCount()
+    {
+        $count = DB::table('laporan_users')
+            ->where('status_laporan', 'Terkirim')
+            ->count();
+
+        return response()->json(['unreadCount' => $count]);
+    }
+
     // untuk menandai semua pesab menjadi dibaca
     public function markAllRead(Request $request)
     {
@@ -68,22 +79,35 @@ class PesanController extends Controller
             // Dapatkan daftar ID laporan
             $laporanIds = $laporan->pluck('id')->toArray();
 
-            // Update laporan_users
+            // Update status laporan
             LaporanUser::whereIn('id', $laporanIds)
-                ->where('status_laporan', 'Terkirim')
                 ->update(['status_laporan' => 'Dibaca_Admin']);
 
-            // Update notifikasi_users untuk tipe 'Laporan' dan 'Saran'
+            // Update status notifikasi
             NotifikasiUser::whereIn('id_laporan', $laporanIds)
                 ->whereIn('tipe', ['Laporan', 'Saran'])
-                ->where('status_laporan', 'Terkirim')
                 ->update(['status_laporan' => 'Dibaca_Admin']);
 
-            return response()->json(['success' => true]);
+            // Ambil ulang data laporan yang sudah diupdate (agar accessor status_icon ikut terambil)
+            $laporanUpdated = LaporanUser::whereIn('id', $laporanIds)->get();
+
+            // Siapkan data ikon status per ID
+            $statusIcon = $laporanUpdated->mapWithKeys(function ($item) {
+                return [$item->id => $item->status_laporan_icon];
+            });
+
+            return response()->json([
+                'success' => true,
+                'status_icon' => $statusIcon, // key: ID laporan, value: HTML icon
+            ]);
         }
 
-        return response()->json(['success' => false, 'message' => 'Tidak ada pesan yang perlu diupdate']);
+        return response()->json([
+            'success' => false,
+            'message' => 'Tidak ada pesan yang perlu diupdate'
+        ]);
     }
+
 
     public function balasLaporan(Request $request, $id)
     {
@@ -134,8 +158,9 @@ class PesanController extends Controller
                 $query->where('status_laporan', 'Terkirim');
                 break;
             case 'unreply':
-                $query->where('status_laporan', 'Dibaca_Admin')
-                    ->whereNull('balasan');
+                $query->whereNull('balasan');
+                $query->whereNull('balasan')->orderByRaw("FIELD(status_laporan, 'Terkirim', 'Dibaca_Admin')");
+
                 break;
             case 'report':
                 $query->where('tipe', 'Laporan');
@@ -216,7 +241,7 @@ class PesanController extends Controller
     public function loadNotifications()
     {
         $notifikasi = LaporanUser::orderBy('created_at', 'desc')->get();
-    
+
         return response()->json($notifikasi);
     }
-    }
+}

@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandController;
+use App\Http\Controllers\ResetPassController;
+use App\Http\Controllers\ResetPass2Controller;
+use App\Http\Controllers\ResetPass3Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaveController;
@@ -22,6 +26,7 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\PaymentRequestController;
 use App\Http\Controllers\SendMassageController;
+use App\Http\Controllers\SetUrlController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,13 +44,18 @@ use Illuminate\Support\Facades\Auth;
 // route group yg belum login (perlu direvisi)
 // Route::middleware(['guest'])->group(function() {
 Route::middleware(['guest'])->group(function () {
-    Route::view('/', 'landingpage/landingpage');
+    Route::get('/', [LandController::class, 'index']);  // untuk login
     Route::get('/sesi', [AuthController::class, 'index'])->name('auth');  // untuk login
     Route::post('/sesi', [AuthController::class, 'login']);
     Route::get('/reg', [AuthController::class, 'create'])->name('registrasi');  // untuk register
     Route::post('/reg', [AuthController::class, 'register'])->name('registrasi.post');
+    Route::post('/clear-errors', [AuthController::class, 'clearErrors'])->name('clear.errors');
+    Route::post('/clear-success', [AuthController::class, 'clearSuccess'])->name('clear.success');
+    Route::get('/Reset_Password', [AuthController::class, 'resetpass'])->name('reset_halaman1');  // untuk login        
+    Route::post('/cek-email-reset-password', [AuthController::class, 'cekEmailResetPassword']);
+    Route::post('/cek-password-lama', [AuthController::class, 'cekPasswordLama']);
+    Route::post('/update-password', [AuthController::class, 'updatePassword']);
 });
-
 
 //route grup yang sudah login
 Route::middleware(['auth'])->group(function () {
@@ -109,9 +119,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
     Route::get('/admin/laporan/{id}', [PesanController::class, 'show']);
     Route::post('/admin/laporan/update-status/{id}', [PesanController::class, 'updateStatus']);
+    Route::get('/laporan/count-unread', [PesanController::class, 'unreadLaporanCount'])->name('admin.laporan.countUnread');
     Route::post('/admin/mark-all-read', [PesanController::class, 'markAllRead'])->name('admin.markAllRead');
     Route::post('/admin/laporan/{id}/balas', [PesanController::class, 'balasLaporan']); // Logika untuk balas laporan dan saran
-    
+
     Route::get('/notifikasi/admin/filter', [PesanController::class, 'filterAdmin']); //filter notifikasi
     Route::get('/search-notifications/admin', [PesanController::class, 'searchNotifications'])->name('search.notifications'); // Route untuk pencarian notifikasi
     Route::get('/load-notifications/admin', [PesanController::class, 'loadNotifications'])->name('load.notifications'); // Route untuk memuat semua notifikasi jika tidak ada query pencarian
@@ -119,4 +130,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
     Route::get('/admin/daftar/permintaan_transaksi', [PaymentRequestController::class, 'index'])->name('permintaan-transaksi');
     Route::post('/transaksi/{id}/{status}', [PaymentRequestController::class, 'updateTransaksi'])->name('transaksi.update');
+
+    Route::get('/Pengaturan', [SetUrlController::class, 'index'])->name('seturl');
+    Route::post('/admin/landing/alamat/tambah', [SetUrlController::class, 'alamatStore'])->name('admin.landing.alamat.store');
+    Route::post('/admin/landing/alamat/update', [SetUrlController::class, 'alamatUpdate'])->name('admin.landing.alamat.update');
+    Route::post('/admin/landing/kontak/tambah', [SetUrlController::class, 'kontakStore'])->name('admin.landing.kontak.store');
+    Route::post('/admin/landing/kontak/update', [SetUrlController::class, 'kontakUpdate'])->name('admin.landing.kontak.update');
+    Route::post('/admin/landing/kontak/cek-nomor', [SetUrlController::class, 'checkNomor']);
+    Route::post('/admin/landing/email/tambah', [SetUrlController::class, 'emailStore'])->name('admin.landing.email.store');
+    Route::post('/admin/landing/email/update', [SetUrlController::class, 'emailUpdate'])->name('admin.landing.email.update');
+    Route::post('/admin/landing/email/cek-email', [SetUrlController::class, 'checkEmail']);
+
+    // set sosmed
+    Route::post('/sosmed/anggota_1', [SetUrlController::class, 'updateAnggota1'])->name('sosmed.update.anggota1');
+    Route::post('/sosmed/anggota_2', [SetUrlController::class, 'updateAnggota2'])->name('sosmed.update.anggota2');
+    Route::post('/sosmed/anggota_3', [SetUrlController::class, 'updateAnggota3'])->name('sosmed.update.anggota3');
+    Route::post('/check-github', [SetUrlController::class, 'checkGithub'])->name('sosmed.check.github');
+    Route::post('/check-instagram', [SetUrlController::class, 'checkInstagram'])->name('sosmed.check.instagram');
+    Route::post('/check-linkedin', [SetUrlController::class, 'checkLinkedin'])->name('sosmed.check.linkedin');
 });

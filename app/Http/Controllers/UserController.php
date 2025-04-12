@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\TabunganUser; 
+use App\Models\TabunganUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
@@ -25,7 +25,7 @@ class UserController extends Controller
         // Ambil total tabungan user dari tabel tabungan_users
         $totalTabungan = DB::table('tabungan_users')
             ->where('user_id', Auth::id())
-            ->sum('total_tabungan'); 
+            ->sum('total_tabungan');
 
         // Ambil target tabungan user
         $targetTabungan = TabunganUser::where('user_id', Auth::id())->value('target_tabungan');
@@ -45,10 +45,10 @@ class UserController extends Controller
             if (!$existingNotification) {
                 // Kirim notifikasi Target Tercapai
                 DB::table('notifikasi_users')->insert([
-                    'user_id' => $user->id, 
+                    'user_id' => $user->id,
                     'nama_pengirim' => 'Tabungan Sekolah',
                     'foto_pengirim' => null,
-                    'judul' => 'Target Tabunganmu Telah Tercapai!🎉',
+                    'judul' => 'Target Tabunganmu Telah Tercapai!',
                     'isi_pesan' => "🎉 Selamat {$user->nama_lengkap}, kamu telah mencapai target tabungan sebesar <strong>Rp " . number_format($targetTabungan, 0, ',', '.') . "</strong>! 🎉<br><br> 
                                     Saatnya menikmati hasil tabunganmu! <br><br> 
                                     👉 <a href='" . route('menarik') . "' style='color: #28a745;'>Lakukan Penarikan</a>",
@@ -73,17 +73,44 @@ class UserController extends Controller
 
         // Ambil riwayat transaksi
         $topups = TransaksiTopup::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'kelas',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Top Up' as tipe"))
             ->get();
 
         $menabung = TransaksiMenabungUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'kelas',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Menabung' as tipe"))
             ->get();
 
         $penarikan = PenarikanUser::where('user_id', $user->id)
-            ->select('id', 'user_id', 'namalengkap as nama', 'jumlah', 'id_tabungan', 'status', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'namalengkap as nama',
+                'jumlah',
+                'kelas',
+                'id_tabungan',
+                'status',
+                'created_at'
+            )
             ->addSelect(DB::raw("'Penarikan' as tipe"))
             ->get();
 
