@@ -669,3 +669,7 @@
 .sidebar-filter li:hover {
     cursor: pointer;
 }
+
+.sidebar-filter li.active {
+    
+}

@@ -200,7 +200,7 @@
                                                     </div>
                                                     Belum dibaca
                                                     <span id="badge-laporan-admin"
-                                                        class="badge bg-light-primary badge-pill badge-round float-right mt-50"
+                                                        class="badge bg-light-danger badge-pill badge-round float-right mt-50"
                                                         style="{{ $unreadLaporanCount > 0 ? '' : 'display: none;' }}">
                                                         {{ $unreadLaporanCount }}
                                                     </span>
@@ -303,6 +303,11 @@
                                                 <ul class="users-list-wrapper media-list">
                                                     @forelse ($laporan as $data)
                                                     <li class="media {{ $data->status_laporan === 'Terkirim' ? '' : 'mail-read' }}" data-id="{{ $data->id }}" onclick="openMessageOverlay({{ $data->id }})" id="notification-{{ $data->id }}">
+                                                        <span>
+                                                            @if($data->status_laporan === 'Terkirim')
+                                                            <span class="bullet-unread" id="bullet-{{ $data->id }}"></span>
+                                                            @endif
+                                                        </span>
                                                         <div class="pr-50">
                                                             <div class="avatar">
                                                                 <img src="{{ asset('picture/accounts/' . ($data->user->gambar ?? 'default.png')) }}" alt="avatar">
@@ -341,14 +346,7 @@
                                                                     <span id="status-laporan-{{ $data->id }}" class="status-icon-mobile">
                                                                         {!! $data->status_laporan_icon ?? 'Belum Ada' !!}
                                                                     </span>
-                                                                </p>
-                                                                <div class="mail-meta-item desktop-only">
-                                                                    <span>
-                                                                        @if($data->status_laporan === 'Terkirim')
-                                                                        <span class="bullet-unread" id="bullet-{{ $data->id }}"></span>
-                                                                        @endif
-                                                                    </span>
-                                                                </div>
+                                                                </p>                                                                
                                                             </div>
                                                         </div>
                                                     </li>
@@ -360,7 +358,7 @@
                                                 </ul>
 
                                                 <!-- Overlay detail pesan -->
-                                                <div id="messageOverlay" class="overlay" style="display: none; justify-content: center; ">
+                                                <div id="messageOverlay" class="overlay" style="display: none; justify-content: center;">
                                                     <div class="overlay-content">
                                                         <!-- Header: Tombol kembali di pojok kiri -->
                                                         <div class="overlay-header">
@@ -384,7 +382,6 @@
                                                                     <span class="to-me">
                                                                         Kepada saya
                                                                     </span>
-
                                                                 </div>
                                                             </div>
                                                             <div class="message-header">
@@ -397,7 +394,6 @@
                                                                 <!-- Isi dengan JavaScript -->
                                                             </div>
 
-
                                                             <!-- Balasan admin -->
                                                             <div id="overlay-reply" class="reply-container" style="display: none;">
                                                                 <!-- Balasan akan diisi dengan JavaScript -->
@@ -409,7 +405,13 @@
 
                                                         <!-- Footer: Input untuk membalas pesan -->
                                                         <div id="overlay-footer" class="overlay-footer">
+                                                            <!-- Periksa apakah $data ada sebelum mengaksesnya -->
+                                                            @isset($data)
                                                             <input type="text" id="reply-input" class="reply-input" placeholder="Balas pesan..." data-laporan-id="{{ $data->id }}">
+                                                            @else
+                                                            <input type="text" id="reply-input" class="reply-input" placeholder="Tidak ada data laporan">
+                                                            @endisset
+
                                                             <button class="send-reply" onclick="sendReply()">
                                                                 <img src="{{ asset('dashboard/dist/assets/images/icons/icons8-send-30.png') }}" alt="">
                                                             </button>

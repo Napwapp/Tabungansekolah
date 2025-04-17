@@ -225,7 +225,7 @@
                         </div>
                         <div class="profile-item">
                             <span>ID Tabungan :</span>
-                            <span class="profile-value" data-key="id_tabungan">{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
+                            <span class="profile-value" data-key="id_tabungan">{{ $user->tabungan->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
                         </div>
                         <div class="profile-item">
                             <span>Kelas :</span>

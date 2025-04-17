@@ -81,7 +81,7 @@ class UserController extends Controller
             ->sum('jumlah');
 
         // Mengambil id_tabungan
-        $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia';
+        $idTabungan = $user->tabungan->id_tabungan ?? 'ID tabungan tidak tersedia';
 
         // Ambil riwayat transaksi
         $topups = TransaksiTopup::where('user_id', $user->id)

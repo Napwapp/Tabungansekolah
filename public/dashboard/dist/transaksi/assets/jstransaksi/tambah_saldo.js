@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (validationErrors.length > 0) {
             Swal.fire({
                 icon: "error",
-                title: "Validasi Gagal!",
+                title: "Gagal!",
                 html: validationErrors.join("<br>"),
                 confirmButtonColor: "#007bff"
             });
