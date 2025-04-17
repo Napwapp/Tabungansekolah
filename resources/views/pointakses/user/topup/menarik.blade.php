@@ -55,7 +55,7 @@
                     </svg>
                     <!-- Teks Informasi -->
                     <p class="info-text">
-                        Jika sudah selesai mengajukan penarikan,Silahkan datangi staff di <strong>'Ruang guru rpl'</strong> atau bisa datangi <strong>'AKL'</strong> untuk mengambil uangnya. Disana, diharapkan agar menunjukan bukti Penarikannya kepada Staff
+                        Jika sudah selesai mengajukan penarikan,Silahkan datangi staff Pengelola di <strong>'Ruang guru'</strong> untuk mengambil uangnya. Disana, Kamu bisa meminta staff untuk menyetujui pengajuan penarikan kamu dan mengambil uangnya. 
                     </p>
                 </div>
             </div>

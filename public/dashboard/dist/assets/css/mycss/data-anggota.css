@@ -1,21 +1,55 @@
-.table tr {
-    border: 1px solid black;
+/* Tabel Styling */
+.table {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse; /* Menyatukan border antar sel */
+    width: 100%;
 }
-
-.table th:last-of-type {
-    border-right: 1px solid black;
-}
-
 .table th {
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black; 
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
-
 .table td {
-    border-left: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ddd; /* Tambahkan border ke setiap sel */
 }
 
-.table td:last-of-type {
-    border-right: 1px solid black;
+/* Tombol Styling */
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Card styling */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mode Gelap */
+body.theme-dark .table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse; /* Menyatukan border antar sel */
+    width: 100%;
 }

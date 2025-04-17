@@ -142,10 +142,9 @@ body.theme-dark h3 {
         font-size: 1.75rem;
     }
 }
-body.theme-dark .h4,
-body.theme-dark h4 {
-    font-size: calc(1.275rem + 0.3vw);
-}
+
+/* !!h4 dihapus!! */
+
 @media (min-width: 1200px) {
     body.theme-dark .h4,
     body.theme-dark h4 {
@@ -4110,7 +4109,7 @@ body.theme-dark .card > hr {
 }
 body.theme-dark .card > .list-group {
     border-bottom: inherit;
-    border-top: inherit; 
+    border-top: inherit;
 }
 body.theme-dark .card > .list-group:first-child {
     border-top-left-radius: var(--bs-card-inner-border-radius);
@@ -8489,13 +8488,12 @@ body.theme-dark .atur-target-btn {
     transition: all 0.3s ease;
 }
 
-body.theme-dark .btn-action {    
+body.theme-dark .btn-action {
     border: none;
     border-radius: 10px;
 }
 
-
-body.theme-dark .btn-link{
+body.theme-dark .btn-link {
     text-decoration: none;
 }
 
@@ -8665,10 +8663,26 @@ body.theme-dark .profile-section .profile-item span {
     color: #fff;
 }
 
+body.theme-dark .profile-value {
+    transition: all 0.3s ease;
+}
+
+body.theme-dark .close-button {
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+body.theme-dark .profile-name {
+    color: #333;
+}
+
+body.theme-dark .edit-profile-button {
+    border-radius: 50px;
+}
+
 /* Halaman notifikasi User */
 body.theme-dark li.text-center.p-3 {
     background-color: rgb(30, 30, 45);
-
 }
 body.theme-dark .sender-name strong {
     color: var(--bs-gray-400);
@@ -8691,7 +8705,6 @@ body.theme-dark .reply-list.unread {
     color: #842029; /* Teks merah gelap */
 }
 
-
 /* Halaman kirim pesan */
 body.theme-dark .report-form {
     background-color: var(--bs-gray-700);
@@ -8703,7 +8716,7 @@ body.theme-dark .page-title {
     color: var(--bs-body-color);
 }
 
-body.theme-dark .form-group #dari{
+body.theme-dark .form-group #dari {
     margin-bottom: 20px;
     color: var(--bs-body-color);
 }
@@ -8719,10 +8732,9 @@ body.theme-dark .overlay {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    
 }
 
-body.theme-dark.overlay-content{
+body.theme-dark.overlay-content {
     background-color: #ffffff; /* Latar putih */
     width: 90%;
     max-width: 900px;
@@ -8735,7 +8747,7 @@ body.theme-dark.overlay-content{
     overflow: hidden;
 }
 
-body.theme-dark .overlay-header{
+body.theme-dark .overlay-header {
     padding: 10px;
     border-bottom: 1px solid #ccc;
     display: flex;
@@ -8743,7 +8755,7 @@ body.theme-dark .overlay-header{
     background-color: #f8f8f8;
 }
 
-body.theme-dark .back-button{
+body.theme-dark .back-button {
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -8751,7 +8763,7 @@ body.theme-dark .back-button{
     cursor: pointer;
 }
 
-body.theme-dark .overlay-body{
+body.theme-dark .overlay-body {
     position: relative;
     flex: 1;
     width: 100%;
@@ -8769,7 +8781,7 @@ body.theme-dark.message-header {
     width: 100%;
 }
 
-body.theme-dark .message-title{
+body.theme-dark .message-title {
     font-size: clamp(18px, 4vw, 22px);
     font-weight: bold;
     flex: 1;
@@ -8791,16 +8803,15 @@ body.theme-dark .btn-hapus {
     margin-left: auto; /* Push to the right */
 }
 
-body.theme-dark .btn-hapus i{
+body.theme-dark .btn-hapus i {
     font-size: 1.5rem;
-
 }
 
-body.theme-dark .btn-hapus:hover i{
+body.theme-dark .btn-hapus:hover i {
     color: #000;
 }
 
-body.theme-dark .sender-profile-container{    
+body.theme-dark .sender-profile-container {
     background: #ececec;
     display: flex;
     align-items: center;
@@ -8809,14 +8820,14 @@ body.theme-dark .sender-profile-container{
     border-radius: 6px;
 }
 
-body.theme-dark .sender-profile{
+body.theme-dark .sender-profile {
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-body.theme-dark .sender-image{
+body.theme-dark .sender-image {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -8826,14 +8837,14 @@ body.theme-dark .sender-image{
     justify-content: center;
 }
 
-body.theme-dark .sender-image img{
+body.theme-dark .sender-image img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-body.theme-dark .sender-info{
+body.theme-dark .sender-info {
     display: flex;
     flex-direction: column;
 }
@@ -8929,6 +8940,226 @@ body.theme-dark .send-reply img {
     width: 20px;
     height: 20px;
     filter: invert(1);
+}
+
+/* Bagian Admin */
+
+/* Beranda */
+body.theme-dark .profil-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+}
+/*Beranda selesai */
+
+/* Halaman Profil */
+body.theme-dark input#gambar {
+    color: white;
+}
+/* Profil Selesai */
+
+/* Halaman Data anggota */
+body.theme-dark .table th {
+    background-color: var(--bs-gray-dark);
+    padding: 12px;
+    text-align: left;
+}
+
+body.theme-dark .table th a.dataTable-sorter {
+    color: white;
+}
+
+body.theme-dark .btn-sm {
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+body.theme-dark .btn-danger {
+    color: white;
+}
+
+body.theme-dark .btn-danger:hover {
+    background-color: #c82333;
+}
+/* Halaman data anggota selesai */
+
+/* Halaman Data Tabungan Siswa */
+body.theme-dark .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: var(--bs-gray-dark);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.theme-dark .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+body.theme-dark th,
+body.theme-dark td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background-color: var(--bs-gray-dark);
+}
+
+body.theme-dark th {
+    background-color: #1e1e2d;
+    color: white;
+    border: 1px solid #ddd;
+}
+
+body.theme-dark td {
+    border: 1px solid #ddd;
+}
+
+body.theme-dark tr:hover td {
+    background-color: var(--bs-gray-600);
+}
+
+body.theme-dark h1 {
+    color: white;
+}
+
+body.theme-dark p.text-subtitle {
+    color: white;
+}
+
+/* Responsifitas */
+@media screen and (max-width: 1024px) {
+    body.theme-dark .container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+}
+
+/* Tablet dan layar lebih kecil */
+@media screen and (max-width: 768px) {
+    body.theme-dark .container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    body.theme-dark th,
+    body.theme-dark td {
+        padding: 10px 8px;
+    }
+}
+
+/* Mobile layout - Mengubah tabel menjadi tampilan kartu */
+@media screen and (max-width: 600px) {
+    body.theme-dark table,
+    body.theme-dark thead,
+    body.theme-dark tbody,
+    body.theme-dark th,
+    body.theme-dark td,
+    body.theme-dark tr {
+        display: block;
+    }
+
+    body.theme-dark thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    body.theme-dark tr {
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    body.theme-dark td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    body.theme-dark td:last-child {
+        border-bottom: none;
+    }
+
+    body.theme-dark td:before {
+        content: attr(data-title);
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+    body.theme-dark .container {
+        padding: 8px;
+        margin: 8px auto;
+    }
+
+    body.theme-dark td {
+        padding: 10px 8px 10px 45%;
+    }
+
+    body.theme-dark h1 {
+        font-size: 1.5rem;
+    }
+
+    body.theme-dark .text-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* Perbaikan untuk burger menu */
+body.theme-dark .burger-btn {
+    display: block;
+}
+
+@media screen and (min-width: 1200px) {
+    body.theme-dark .burger-btn {
+        display: none;
+    }
+}
+
+
+/* Halaman Data anggota selesai */
+
+/* riwayat transaksi admin */
+body.theme-dark .table tr.transaksi-row td{
+    color: white;
+}
+
+/* Riwayat Transaksi admin Selesai */
+
+/* Halaman pengatruran konten footer landingpage*/
+body.theme-dark .container.my-4 {
+    background: none;
+    box-shadow: none;
+}
+
+/* Permintaan transaksi */
+/* Garis pemisah */
+body.theme-dark .garis-pemisah {
+    border-left: 2px solid #ccc; /* Pertebal garis */
+    height: 70px; /* Panjangkan garis */
+    margin: 0 10px;
+}
+
+/* Padding untuk card-content */
+body.theme-dark .card-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 
 /* end */

@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\TabunganUser;
-
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\TabunganUser;
+use App\Models\User;
 
 class SaveController extends Controller
 {
-    // untuk menampilkan halaman tabungan
-    public function tabungan()
+    // Pastikan hanya admin yang bisa mengakses controller ini
+    public function __construct()
     {
-        $user = Auth::user()->load('tabunganUser'); // Ambil data user yang sedang login
+        $this->middleware(['auth']); // Gunakan middleware admin
+    }
+
+    // Menampilkan halaman tabungan untuk semua user
+    public function tabungan(Request $request)
+    {
+        $user = Auth::user()->load('tabungan'); // Ambil data user yang sedang login
 
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
@@ -42,6 +48,7 @@ class SaveController extends Controller
         return view('pointakses.user.tabungan', compact('user', 'saldo', 'totalTabungan', 'targetTabungan', 'penarikanDisetujuiBulanIni'));
     }
 
+    // Mengambil data tabungan per bulan (semua user atau user tertentu)
     public function getTabunganPerBulan()
     {
         // Ambil user yang sedang login

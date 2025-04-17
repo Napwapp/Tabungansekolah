@@ -122,11 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.isConfirmed) {
                 showLoading();
                 sessionStorage.setItem("withdrawalPending", "true");
-    
-                const userRoute = document.getElementById("userRoute")
-                    ? document.getElementById("userRoute").value
-                    : "/user";
-    
+        
                 const form = document.querySelector("form");
                 const formData = new FormData(form);
     
@@ -145,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.success) {
                         sessionStorage.setItem("withdrawalSuccess", "true");
                         Swal.fire({
-                            icon: "success",
+                            icon: "info",
                             title: "Berhasil!",
                             text: data.message,
                         }).then(() => {

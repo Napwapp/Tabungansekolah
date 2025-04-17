@@ -8,7 +8,7 @@ use App\Models\TabunganUser;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
-use App\Models\NotifikasiUser;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -16,8 +16,18 @@ class UserController extends Controller
 {
     public function index()
     {
+        // Periksa apakah user sudah login
+        if (!Auth::check()) {
+            return redirect()->route('auth')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         // Ambil data user yang sedang login
-        $user = Auth::user()->load('tabunganUser');
+        $user = User::with('tabungan')->find(Auth::id());
+
+        // Cek apakah user memiliki data tabungan atau tidak
+        if (!$user->tabungan) {
+            return redirect()->back()->with('error', 'Data tabungan tidak ditemukan.');
+        }
 
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');
@@ -36,24 +46,26 @@ class UserController extends Controller
 
         // Periksa apakah user sudah mencapai target tabungan
         if ($totalTabungan !== null && $targetTabungan !== null && $totalTabungan >= $targetTabungan) {
-            // Cek apakah notifikasi sudah ada agar tidak dikirim berulang
+            // Cek apakah sudah pernah mengirim notifikasi untuk target yang sekarang
             $existingNotification = DB::table('notifikasi_users')
                 ->where('user_id', $user->id)
                 ->where('tipe', 'Target Tercapai')
+                ->where('target_yang_dicapai', $targetTabungan) // cek apakah target ini sudah pernah dikirim
                 ->exists();
 
             if (!$existingNotification) {
-                // Kirim notifikasi Target Tercapai
+                // Kirim notifikasi Target Tercapai untuk target yang saat ini
                 DB::table('notifikasi_users')->insert([
                     'user_id' => $user->id,
                     'nama_pengirim' => 'Tabungan Sekolah',
                     'foto_pengirim' => null,
                     'judul' => 'Target Tabunganmu Telah Tercapai!',
-                    'isi_pesan' => "🎉 Selamat {$user->nama_lengkap}, kamu telah mencapai target tabungan sebesar <strong>Rp " . number_format($targetTabungan, 0, ',', '.') . "</strong>! 🎉<br><br> 
-                                    Saatnya menikmati hasil tabunganmu! <br><br> 
-                                    👉 <a href='" . route('menarik') . "' style='color: #28a745;'>Lakukan Penarikan</a>",
+                    'isi_pesan' => "🎉 Selamat {$user->namalengkap}, kamu telah mencapai target tabungan sebesar <strong>Rp " . number_format($targetTabungan, 0, ',', '.') . "</strong>! 🎉<br><br> 
+                            Saatnya menikmati hasil tabunganmu! <br><br> 
+                            👉 <a href='" . route('menarik') . "' style='color: #28a745;'>Lakukan Penarikan</a>",
                     'status' => 'Belum Dibaca',
                     'tipe' => 'Target Tercapai',
+                    'target_yang_dicapai' => $targetTabungan, // inilah kunci logikanya
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -69,7 +81,7 @@ class UserController extends Controller
             ->sum('jumlah');
 
         // Mengambil id_tabungan
-        $idTabungan = $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia';
+        $idTabungan = $user->tabungan->id_tabungan ?? 'ID tabungan tidak tersedia';
 
         // Ambil riwayat transaksi
         $topups = TransaksiTopup::where('user_id', $user->id)

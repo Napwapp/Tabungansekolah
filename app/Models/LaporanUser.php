@@ -37,4 +37,11 @@ class LaporanUser extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    // Di LaporanUser.php, jika mau disiapkan
+    public function getFotoPengirimAttribute()
+    {
+        return $this->user && $this->user->gambar
+            ? asset('picture/accounts/' . $this->user->gambar)
+            : asset('picture/accounts/default.png');
+    }
 }

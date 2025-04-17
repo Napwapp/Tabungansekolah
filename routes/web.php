@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandController;
-use App\Http\Controllers\ResetPassController;
-use App\Http\Controllers\ResetPass2Controller;
-use App\Http\Controllers\ResetPass3Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaveController;
@@ -15,10 +11,12 @@ use App\Http\Controllers\MenabungController;
 use App\Http\Controllers\TarikController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DataMahasiswa;
 use App\Http\Controllers\TargetTabunganController;
 
 // admin
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DataAnggota;
+use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\KelasAdminController;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\RiwayatAdminController;
@@ -27,22 +25,11 @@ use App\Http\Controllers\EditProfilController;
 use App\Http\Controllers\PaymentRequestController;
 use App\Http\Controllers\SendMassageController;
 use App\Http\Controllers\SetUrlController;
+use App\Http\Controllers\TabunganController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// route group yg belum login (perlu direvisi)
-// Route::middleware(['guest'])->group(function() {
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [LandController::class, 'index']);  // untuk login
     Route::get('/sesi', [AuthController::class, 'index'])->name('auth');  // untuk login
@@ -57,16 +44,19 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
 });
 
-//route grup yang sudah login
+//route grup yang sudah login 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('/home', '/user');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin'); // route admin
-
+    
     Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('userAkses:user'); //route user
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin'); // route admin
     Route::get('/tabungan/bulanan', [UserController::class, 'getTabunganPerBulan']);
     Route::post('/target-tabungan', [TargetTabunganController::class, 'simpan'])->name('simpanTarget');
 
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile'); // route profil 
+    Route::post('/profil/user/edit', [ProfileController::class, 'editProfil'])->name('profil.user.update'); // edit profil user
+    Route::post('/update-foto-profil', [ProfileController::class, 'updateFotoProfil']); //edit foto profil
+    Route::post('/cek-email', [ProfileController::class, 'cekEmail']); // untuk pengecekan email
     Route::get('/tabungan_siswa', [SaveController::class, 'tabungan'])->name('tabungan'); // route tabungansiswa
     Route::get('/tabungan/bulanan', [SaveController::class, 'getTabunganPerBulan']); //grafik tabungan
     Route::get('/tabungan_kelas', [KelasController::class, 'kelas'])->name('kelas'); // route tabungan kelas
@@ -99,38 +89,35 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Laporan/dan/Saran', [SendMassageController::class, 'index'])->name('sendmassage'); // Halaman kirim laporan dan saran
     Route::post('/kirim-laporan', [SendMassageController::class, 'kirimLaporan'])->name('laporan.kirim'); // Untuk mengirim laporan dan sarannya
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout
-    Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang', [DataMahasiswa::class, 'index'])->name('dataanggota'); //hanya untuk admin
-    Route::get('/datatambah', [DataMahasiswa::class, 'tambah']);
-    Route::get('/dataedit/{id}', [DataMahasiswa::class, 'edit']);
-    Route::post('/datahapus/{id}', [DataMahasiswa::class, 'hapus']);
-
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // untuk logout   
+    
     // Admin
-    Route::get('/admin/profile', [AdminController::class, 'adminprofil'])->name('profil');
-    Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
+    // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/profile', [ProfileAdminController::class, 'profiladmin'])->name('profil');
+    Route::post('/profil/update', [ProfileAdminController::class, 'update'])->name('profil.update');
+    // Route::get('/admin/daftaranggota', [AdminController::class, 'daftaranggota'])->name('daftaradnggota');
     Route::get('/admin/tabungan_kelas_admin', [KelasAdminController::class, 'kelasmin'])->name('kelasmin');
     Route::post('/keuangan/tambah', [KelasAdminController::class, 'store'])->name('keuangan.store');
     Route::delete('/keuangan/hapus/{id}', [KelasAdminController::class, 'destroy'])->name('keuangan.destroy');
-    Route::get('/admin/datasiswa', [DataSiswaController::class, 'datasiswa'])->name('datasiswa');
     Route::get('/admin/riwayatadmin', [RiwayatAdminController::class, 'riwayatadmin'])->name('riwayatadmin');
     Route::post('/admin/transaksi/{id}/{type}/{status}', [RiwayatAdminController::class, 'updateStatus'])->name('admin.transaksi.update');
     Route::get('/admin/transaksi', [RiwayatAdminController::class, 'transaksi']);
 
+    // Laporan / Saran Masuk
     Route::get('/admin/pesan', [PesanController::class, 'pesan'])->name('pesan');
     Route::get('/admin/laporan/{id}', [PesanController::class, 'show']);
     Route::post('/admin/laporan/update-status/{id}', [PesanController::class, 'updateStatus']);
     Route::get('/laporan/count-unread', [PesanController::class, 'unreadLaporanCount'])->name('admin.laporan.countUnread');
     Route::post('/admin/mark-all-read', [PesanController::class, 'markAllRead'])->name('admin.markAllRead');
     Route::post('/admin/laporan/{id}/balas', [PesanController::class, 'balasLaporan']); // Logika untuk balas laporan dan saran
-
     Route::get('/notifikasi/admin/filter', [PesanController::class, 'filterAdmin']); //filter notifikasi
     Route::get('/search-notifications/admin', [PesanController::class, 'searchNotifications'])->name('search.notifications'); // Route untuk pencarian notifikasi
     Route::get('/load-notifications/admin', [PesanController::class, 'loadNotifications'])->name('load.notifications'); // Route untuk memuat semua notifikasi jika tidak ada query pencarian
 
-    Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
     Route::get('/admin/daftar/permintaan_transaksi', [PaymentRequestController::class, 'index'])->name('permintaan-transaksi');
     Route::post('/transaksi/{id}/{status}', [PaymentRequestController::class, 'updateTransaksi'])->name('transaksi.update');
 
+    // set konten footer
     Route::get('/Pengaturan', [SetUrlController::class, 'index'])->name('seturl');
     Route::post('/admin/landing/alamat/tambah', [SetUrlController::class, 'alamatStore'])->name('admin.landing.alamat.store');
     Route::post('/admin/landing/alamat/update', [SetUrlController::class, 'alamatUpdate'])->name('admin.landing.alamat.update');
@@ -148,4 +135,20 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/check-github', [SetUrlController::class, 'checkGithub'])->name('sosmed.check.github');
     Route::post('/check-instagram', [SetUrlController::class, 'checkInstagram'])->name('sosmed.check.instagram');
     Route::post('/check-linkedin', [SetUrlController::class, 'checkLinkedin'])->name('sosmed.check.linkedin');
+    // end set sosmed
+
+    Route::get('/admin/edit', [EditProfilController::class, 'edit'])->name('edit');
+    Route::get('/tabungan', [SaveController::class, 'tabungan']);
+    Route::get('/admin/tabungan', [SaveController::class, 'tabungan']);
+    Route::get('/admin/tabungan-per-bulan', [SaveController::class, 'getTabunganPerBulan']);
+
+    Route::get('/Daftar anggota Tabungan Sekolah SMKN1 Binong subang', [DataAnggota::class, 'index'])->name('dataanggota'); //hanya untuk admin        
+    Route::post('/updateRole/{id}', [DataAnggota::class, 'updateRole'])->name('updateRole')->middleware('userAkses:admin'); // Hilangkan array []
+    Route::delete('/datahapus/{id}', [DataAnggota::class, 'destroy'])->name('datahapus');
+    Route::get('/search-data-anggota', [DataAnggota::class, 'searchUsers'])->name('search.users'); // Route untuk pencarian notifikasi
+    Route::get('/load-data-anggota', [DataAnggota::class, 'loadSearch'])->name('load.search'); // Route untuk memuat semua notifikasi jika tidak ada query pencarian
+    Route::get('/tabungan', [TabunganController::class, 'getTabunganData']);
+
+    Route::get('/admin/daftar/permintaan_transaksi', [PaymentRequestController::class, 'index'])->name('permintaan-transaksi');
+    Route::post('/transaksi/{id}/{status}', [PaymentRequestController::class, 'updateTransaksi'])->name('transaksi.update');
 });

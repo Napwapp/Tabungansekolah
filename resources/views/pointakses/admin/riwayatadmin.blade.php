@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
+    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/pages/riwayatadmin.css') }}">
 
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
-    
-    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/main/app-dark.css') }}">
-
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app-dark.css')}}">
 </head>
 
 <body>
@@ -86,9 +85,6 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item ">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
                             </ul>
@@ -113,14 +109,18 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
-
+                        
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -148,25 +148,22 @@
             <!-- Filter dan Pencarian -->
             <div class="row mb-3">
                 <div class="col-md-3">
-                    <input type="date" class="form-control" id="startDate">
-                </div>
-                <div class="col-md-3">
-                    <input type="date" class="form-control" id="endDate">
-                </div>
-                <div class="col-md-3">
                     <select class="form-control" id="transactionType">
                         <option value="">Semua Transaksi</option>
-                        <option value="Setoran">Setoran</option>
+                        <option value="TopUp">TopUp</option>
+                        <option value="Menabung">Menabung</option>
                         <option value="Penarikan">Penarikan</option>
                     </select>
                 </div>
+
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="search" placeholder="Cari nama/NIS">
+                    <input type="text" id="searchInput" placeholder="Cari NIS/Nama..." class="form-control">
                 </div>
+
             </div>
 
             <!-- Tabel Riwayat Transaksi -->
-            <table class="table table-bordered table-striped">
+            <table id="riwayatTable" class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nama</th>
@@ -175,50 +172,64 @@
                         <th>Tipe</th>
                         <th>Nomor Tabungan</th>
                         <th>Status</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="transaksiBody">
-                    <tr>
-                        <td>Bayu</td>
-                        <td>12 feb</td>
-                        <td>200.000</td>
-                        <td>Top up</td>
-                        <td>123456789</td>
-                        <td>Sukses</td>
-                        <td>X</td>
+                    @foreach($riwayatadmin as $transaksi)
+                    <tr class="transaksi-row {{ $transaksi->tipe }}">
+                        <td>{{ $transaksi->namalengkap }}</td>
+                        <td>{{ $transaksi->created_at }}</td>
+                        <td>{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
+                        <td>{{ $transaksi->tipe }}</td> <!-- Akan menampilkan 'Top Up', 'Menabung', atau 'Penarikan' -->
+                        <td>{{ $transaksi->id_tabungan }}</td>
+                        <td>{{ $transaksi->status }}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
-
-            <!-- Tombol Ekspor dan Cetak -->
-            <button class="btn btn-primary">Export ke Excel</button>
-            <button class="btn btn-danger">Export ke PDF</button>
-            <button class="btn btn-success">Cetak</button>
         </div>
-
-        <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-                </div>
-                <div class="float-end">
-                    <p>Crafted by
-                        <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                        <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                        <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                    </p>
-                </div>
-            </div>
-        </footer>
     </div>
 
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
     <script>
+        document.getElementById("transactionType").addEventListener("change", function() {
+            let selectedType = this.value; // Ambil nilai yang dipilih
+            let rows = document.querySelectorAll(".transaksi-row"); // Ambil semua baris transaksi
 
+            rows.forEach(row => {
+                if (selectedType === "" || row.classList.contains(selectedType)) {
+                    row.style.display = ""; // Tampilkan jika sesuai
+                } else {
+                    row.style.display = "none"; // Sembunyikan jika tidak sesuai
+                }
+            });
+        });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const table = document.getElementById('riwayatTable');
+            const rows = table.getElementsByTagName('tr');
+
+            searchInput.addEventListener('keyup', function() {
+                const filter = searchInput.value.toLowerCase();
+
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName('td');
+
+                    const nis = cells[0]?.textContent.toLowerCase() || '';
+                    const nama = cells[1]?.textContent.toLowerCase() || '';
+
+                    const match = nis.includes(filter) || nama.includes(filter);
+
+                    row.style.display = match ? '' : 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

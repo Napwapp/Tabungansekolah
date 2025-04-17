@@ -30,7 +30,7 @@
     </p>
   </section>
   <p class="contact-info">
-    Jika Anda memiliki pertanyaan, silakan hubungi staff kami ditempat atau melalui <a href="../kontak-kami.html"><strong>tautan ini</strong></a> .
+    Jika Anda memiliki pertanyaan, silakan hubungi staff kami ditempat atau melalui <a href="{{route('sendmassage')}}"><strong>tautan ini</strong></a> .
   </p>
 
   <main class="main-content">

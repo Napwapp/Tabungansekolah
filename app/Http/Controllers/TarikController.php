@@ -98,7 +98,7 @@ class TarikController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Pengajuan Penarikan Tabungan',
-                'isi_pesan' => 'Mengajukan penarikan sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah diajukan. Menunggu persetujuan admin.',
+                'isi_pesan' => 'Pengajuan penarikan sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah diajukan. Menunggu persetujuan admin.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $penarikan->id, // Simpan ID transaksi penarikan

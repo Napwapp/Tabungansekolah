@@ -24,21 +24,21 @@ class UpdateOrCreateNotifikasiTransaksi implements ShouldQueue
     public function handle(NotifikasiTransaksiEvent $event)
     {
         $userId = $event->notifikasi->user_id;
-    
+
         // Ambil transaksi terbaru dari masing-masing tabel
         $topup = TransaksiTopup::where('user_id', $userId)->latest()->first();
         $menabung = TransaksiMenabungUser::where('user_id', $userId)->latest()->first();
         $penarikan = PenarikanUser::where('user_id', $userId)->latest()->first();
-    
+
         // Kumpulkan semua transaksi dalam koleksi dan ambil yang terbaru
         $transaksi = collect([$topup, $menabung, $penarikan])
             ->filter() // Hapus nilai null
             ->sortByDesc('created_at') // Urutkan berdasarkan yang terbaru
             ->first(); // Ambil transaksi terbaru
-    
+
         // Tentukan status transaksi
         $statusTransaksi = $transaksi ? $transaksi->status : null;
-    
+
         // Update atau buat notifikasi baru untuk transaksi ini
         NotifikasiUser::updateOrCreate(
             [
@@ -54,8 +54,8 @@ class UpdateOrCreateNotifikasiTransaksi implements ShouldQueue
                 'status_transaksi' => $statusTransaksi, // Simpan status transaksi ke dalam notifikasi
             ]
         );
-        
+
         // Trigger broadcasting setelah update atau create
         broadcast(new NotifikasiTransaksiEvent($event->notifikasi));
     }
-    }
+}

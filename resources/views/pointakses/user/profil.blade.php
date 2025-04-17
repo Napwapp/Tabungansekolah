@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Profil</title>
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
@@ -13,8 +15,13 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/riwayat.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
+
+    <!-- toastr css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 
 <body>
@@ -132,9 +139,35 @@
             <div class="profile-header">
                 <div class="profile-cover">
                     <div class="profile-avatar">
-                        <img src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="">
+                    <img id="profileImageMain" src="{{ asset('picture/accounts/' . $user->gambar) }}" alt="Foto Profil">
+                        <div class="avatar-overlay">
+                            <i class="camera-icon bi bi-camera"></i>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Modal Overlay -->
+                <div class="profile-modal" id="profileModal">
+                    <div class="modal-content">
+                        <div class="close-button-container">
+                            <button class="close-button"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="profile-card">
+                            <div class="avatar-container">
+                                <img id="modalImage" src="" alt="Profile Picture" class="modal-avatar">
+                            </div>
+                            <div class="profile-info">
+                                <h3 class="profile-name">{{ $user->namalengkap }}</h3>
+                                <p class="profile-role">{{ $user->role }}</p>
+                                <p class="profile-bio">"Menabung bukan tentang uang yang tersisa, tapi tentang disiplin mengelola keuangan."</p>
+                                <button class="edit-profile-button">Edit foto profil</button>
+                                <input type="file" id="inputEditFoto" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="profile-basic-info">
                     <h1>{{Auth::user()->namalengkap}}</h1>
                     <p>{{Auth::user()->email}}</p>
@@ -176,29 +209,40 @@
             <div class="profile-details">
                 <div class="profile-section">
                     <h2>Informasi Akun</h2>
+                    <form id="form-edit-profil" method="POST" action="{{ route('profil.user.update') }}">
+                        @csrf
+                        <div class="profile-item">
+                            <span>Nama Lengkap :</span>
+                            <span class="profile-value" data-key="namalengkap">{{ $user->namalengkap }}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Username :</span>
+                            <span class="profile-value" data-key="username">{{ $user->username }}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Email :</span>
+                            <span class="profile-value" data-key="email">{{ $user->email }}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>ID Tabungan :</span>
+                            <span class="profile-value" data-key="id_tabungan">{{ $user->tabungan->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Kelas :</span>
+                            <span class="profile-value" data-key="kelas">{{ $user->kelas }}</span>
+                        </div>
+                        <div class="profile-item">
+                            <span>Tanggal Bergabung :</span>
+                            <span class="profile-value" data-key="created_at">{{ $user->created_at }}</span>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="margin-top: 15px; display: none;" id="btn-simpan-edit">Simpan Perubahan</button>
+                        <button id="btn-batal-edit" class="btn btn-danger" style="margin-top: 15px; display: none;">Batal</button>
+                    </form>
 
-                    <div class="profile-item">
-                        <span>Nama Lengkap :</span>
-                        <span>{{$user -> namalengkap}}</span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Username :</span>
-                        <span>{{$user -> username}}</span>
-                    </div>
-                    <div class="profile-item">
-                        <span>ID Tabungan :</span>
-                        <span>{{ $user->tabunganUser->id_tabungan ?? 'ID tabungan tidak tersedia' }}</span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Kelas :</span>
-                        <span>{{$user -> kelas}}</span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Tanggal Bergabung :</span>
-                        <span>{{$user -> created_at}}</span>
-                    </div>
+                    <button id="edit-profile-btn" class="btn btn-primary" style="margin-top: 15px;">Edit Profil</button>
                 </div>
             </div>
+
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
@@ -219,11 +263,11 @@
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/myjs/editpict.js')}}"></script>
 
-    <!-- Need: Apexcharts -->
-    <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script>
+    <!-- toastr -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </body>
 
 </html>

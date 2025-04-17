@@ -30,18 +30,43 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("selectedKategori", kategori.value);
     });
 
+    let lastSelectedJenisLaporan = ""; // simpan pilihan terakhir selain "Lainnya"
+
+    // Saat user memilih dari dropdown jenisLaporan
     jenisLaporan.addEventListener("change", function () {
         if (kategori.value === "laporan") {
-            judul.value = jenisLaporan.value && jenisLaporan.value !== "Lainnya" ? jenisLaporan.value : "";
+            if (jenisLaporan.value && jenisLaporan.value !== "Lainnya") {
+                judul.value = jenisLaporan.value;
+                lastSelectedJenisLaporan = jenisLaporan.value;
+            } else {
+                judul.value = "";
+                lastSelectedJenisLaporan = "";
+            }
         }
     });
 
+    // Saat user mengedit input judul
+    judul.addEventListener("input", function () {
+        if (kategori.value === "laporan") {
+            // Jika sebelumnya sudah ada jenisLaporan yang dipilih (bukan "Lainnya")
+            if (lastSelectedJenisLaporan) {
+                if (judul.value !== lastSelectedJenisLaporan) {
+                    jenisLaporan.value = "Lainnya";
+                } else {
+                    jenisLaporan.value = lastSelectedJenisLaporan;
+                }
+            }
+        }
+    });
+
+
     reportForm.addEventListener("submit", function (event) {
         event.preventDefault();
+        const currentKategori = kategori.value === "saran" ? "Saran" : "Laporan";
 
         Swal.fire({
-            title: "Kirim Laporan?",
-            text: "Pastikan laporan atau saran sudah benar sebelum dikirim.",
+            title: `Kirim ${currentKategori}?`,
+            text: `Pastikan ${currentKategori.toLowerCase()} sudah benar sebelum dikirim.`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Ya, Kirim!",
@@ -63,31 +88,32 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (data.success) {
                             Swal.fire({
                                 title: "Berhasil!",
-                                text: "Laporan atau saran berhasil dikirim.",
+                                text: `${currentKategori} berhasil dikirim.`,
                                 icon: "success",
                                 confirmButtonText: "OK"
                             }).then(() => {
                                 reportForm.reset();
-                                localStorage.removeItem("selectedKategori");
 
-                                // **Cari elemen badge notifikasi di sidebar untuk pesan**
+                                const savedKategori = localStorage.getItem("selectedKategori");
+                                if (savedKategori) {
+                                    kategori.value = savedKategori;
+                                    updateForm(); // panggil kembali untuk sesuaikan tampilan
+                                }
+
+                                // Tambahkan 1 ke badge notifikasi
                                 let badgeNotif = document.querySelector('.sidebar-link[data-target="contact"] .badge-notif h2');
-
                                 if (badgeNotif) {
-                                    // Jika badge sudah ada, tambahkan 1
                                     let currentCount = parseInt(badgeNotif.textContent) || 0;
-                                    badgeNotif.textContent = currentCount + 1; // Tambah 1 ke badge
+                                    badgeNotif.textContent = currentCount + 1;
                                 } else {
-                                    // Jika badge belum ada, buat elemen baru
                                     let sidebarLink = document.querySelector('.sidebar-link[data-target="contact"]');
-
                                     if (sidebarLink) {
                                         let newBadge = document.createElement("span");
                                         newBadge.classList.add("badge-notif");
 
                                         let badgeText = document.createElement("h2");
-                                        badgeText.id = "badge-count"; // Pastikan id sesuai dengan Blade
-                                        badgeText.textContent = "1"; // Set angka awal
+                                        badgeText.id = "badge-count";
+                                        badgeText.textContent = "1";
 
                                         newBadge.appendChild(badgeText);
                                         sidebarLink.appendChild(newBadge);
@@ -97,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else {
                             Swal.fire({
                                 title: "Gagal!",
-                                text: data.message || "Terjadi kesalahan saat mengirim laporan.",
+                                text: data.message || `Terjadi kesalahan saat mengirim ${currentKategori.toLowerCase()}.`,
                                 icon: "error",
                                 confirmButtonText: "Coba Lagi"
                             });
@@ -106,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .catch(error => {
                         Swal.fire({
                             title: "Error!",
-                            text: "Terjadi kesalahan pada server.",
+                            text: `Terjadi kesalahan pada server saat mengirim ${currentKategori.toLowerCase()}.`,
                             icon: "error",
                             confirmButtonText: "Coba Lagi"
                         });
@@ -116,5 +142,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    
+
 });

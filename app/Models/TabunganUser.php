@@ -55,4 +55,9 @@ class TabunganUser extends Model
     {
         return $this->hasMany(TransaksiTopup::class, 'id_tabungan', 'id_tabungan');
     }
+
+    public function penarikan()
+    {
+        return $this->hasMany(PenarikanUser::class, 'id_tabungan', 'id_tabungan');
+    }
 }

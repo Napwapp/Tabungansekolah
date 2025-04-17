@@ -151,7 +151,10 @@ document.addEventListener("DOMContentLoaded", function () {
             ` : '';
 
             return `
-                <li class="media ${unreadClass}" onclick="openMessageOverlay(${notification.id})" id="notification-${notification.id}">
+                <li class="media ${unreadClass}" onclick="openMessageOverlay(${notification.id})" id="notification-${notification.id}">                    
+                    <span>
+                        ${notification.status === 'Belum Dibaca' ? `<span class="bullet-unread" id="bullet-${notification.id}"></span>` : ''}
+                    </span>
                     <div class="pr-50">
                         <div class="avatar">
                             <img src="${photoUrl}" alt="avatar">
@@ -181,13 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 ${strLimit(notification.isi_pesan, 50)}
                             </p>
                             
-                            <span class="status-icon-mobile">${statusIcon} ${statusText}</span>
-
-                            <div class="mail-meta-item" data-id="${notification.id}">
-                                <span>
-                                    ${notification.status === 'Belum Dibaca' ? `<span class="bullet-unread" id="bullet-${notification.id}"></span>` : ''}
-                                </span>
-                            </div>
+                            <span class="status-icon-mobile">${statusIcon} ${statusText}</span>                            
                         </div>
                     </div>
                 </li>
@@ -294,7 +291,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 month: 'short'
             });
 
-            notificationElement.innerHTML = `
+            notificationElement.innerHTML = `            
+                ${pesan.status === 'Belum Dibaca' ? `<span class="bullet-unread" id="bullet-${pesan.id}"></span>` : ''}                
                 <div class="pr-50">
                     <div class="avatar">
                         <img src="${fotoProfil}" alt="avatar">
@@ -331,11 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="list-group-item-text truncate mb-0">
                             ${highlightText(strLimit(pesan.isi_pesan, 50), query)}
                             <span class="status-icon-mobile">${statusIcon}</span>
-                        </p>
-    
-                        <div class="mail-meta-item" data-id="${pesan.id}">
-                            ${pesan.status === 'Belum Dibaca' ? `<span class="bullet-unread" id="bullet-${pesan.id}"></span>` : ''}
-                        </div>
+                        </p>                       
                     </div>
                 </div>
             `;

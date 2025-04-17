@@ -213,7 +213,7 @@
 
 
 
-                <p><!-- Content -->
+                <!-- Content -->
                 <div class="content" style="margin-left: 30px;">
                     <p>Selamat datang di dashboard dist/tabungan sekolah SMKN 1 BINONG</p>
                     <h2 class="mb-4">Informasi Tabungan Anda</h2>
@@ -373,8 +373,6 @@
                             </div>
                         </div>
                     </section>
-
-                    </p>
 
                     <!-- Pastikan Chart.js sudah dimuat -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

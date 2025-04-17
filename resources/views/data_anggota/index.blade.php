@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data_anggota</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Data anggota</title>
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/extensions/simple-datatables/style.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/simple-datatables.css')}}">
 
-    <!-- mycss -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/data-anggota.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/main/app-dark.css') }}">
-
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 </head>
 
 <body>
@@ -70,7 +69,7 @@
 
                         <li
                             class="sidebar-item ">
-                            <a href="{{route('profile')}}" class='sidebar-link'>
+                            <a href="{{route('profil')}}" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Profil</span>
                             </a>
@@ -79,7 +78,7 @@
                         <li
                             class="sidebar-item active">
                             <a href="{{route('dataanggota')}}" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Data anggota</span>
                             </a>
                         </li>
@@ -92,11 +91,9 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
+                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data tabungan Siswa</a>
-                                </li>
+
                             </ul>
                         </li>
 
@@ -118,11 +115,11 @@
                                 @endif
                             </a>
                         </li>
-
+                        
                         <li class="sidebar-item">
                             <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
                                 @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
                                 <span class="badge-notif">
                                     <h2>{{ $unreadLaporanCount }}</h2>
@@ -130,7 +127,7 @@
                                 @endif
                             </a>
                         </li>
-                        
+
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -178,18 +175,18 @@
                     <section class="section">
                         <div class="card">
                             <div class="card-header">
-                                Tabel Data anggota
+                                Tabel Data Anggota
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Nama</th>
                                             <th>Email</th>
-                                            <th>ID </th>
+                                            <th>ID</th>
                                             <th>Kelas</th>
                                             <th>Role</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -197,15 +194,27 @@
                                         <tr>
                                             <td>{{ $item->namalengkap }}</td>
                                             <td>{{ $item->email }}</td>
-                                            <td>{{ $item->id_tabungan }}</td>
+                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->kelas }}</td>
-                                            <td>{{ $item->role }}</td>
-                                            <td><a href="/dataedit/{{ $item->id }}" class="btn-sm btn-warning text-decoration-none">Edit</a> |
-                                                <form onsubmit="return confirmHapus(event)"
-                                                    action="/datahapus/{{ $item->id }}" method="post" class="d-inline">
+                                            <td>
+                                                <form action="{{ route('updateRole', $item->id) }}" method="post">
                                                     @csrf
+                                                    <select name="role" class="form-select" onchange="this.form.submit()">
+                                                        <option value="User" {{ $item->role == 'user' ? 'selected' : '' }}>User</option>
+                                                        <option value="Admin" {{ $item->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                    </select>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form onsubmit="return confirmHapus(event)"
+                                                    action="{{ route('datahapus', $item->id) }}"
+                                                    method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit" class="btn-sm btn-danger">Hapus</button>
                                                 </form>
+
                                             </td>
                                         </tr>
                                         @endforeach
@@ -220,14 +229,11 @@
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
-                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                            <p>2021 &copy; Mazer</p>
                         </div>
                         <div class="float-end">
-                            <p>Crafted by
-                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                            </p>
+                            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                    href="https://saugi.me">Saugi</a></p>
                         </div>
                     </div>
                 </footer>
@@ -260,6 +266,38 @@
                     }
                 });
             }
+        </script>
+        <script>
+            // Menampilkan pesan berhasil setelah role diperbarui
+            const flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                setTimeout(() => {
+                    flashMessage.style.display = "none";
+                }, 3000); // Menghilangkan pesan setelah 3 detik
+            }
+
+            // Menangani perubahan role tanpa reload halaman
+            document.querySelectorAll(".form-select").forEach(select => {
+                select.addEventListener("change", function() {
+                    const form = this.closest("form");
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message || "Role berhasil diperbarui!");
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                });
+            });
         </script>
 </body>
 
