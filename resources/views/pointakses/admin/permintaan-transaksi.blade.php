@@ -91,11 +91,7 @@
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
-                                </li>
-
+                            <ul class="submenu ">                               
                                 <li class="submenu-item ">
                                     <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                                 </li>
@@ -122,7 +118,7 @@
                         <li class="sidebar-item">
                             <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
                                 @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
                                 <span class="badge-notif">
                                     <h2>{{ $unreadLaporanCount }}</h2>

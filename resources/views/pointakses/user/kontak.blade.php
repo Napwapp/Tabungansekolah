@@ -17,13 +17,13 @@
     <!-- mycss -->
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/emailcustom.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
-
 </head>
 
 <body>
     <div id="app">
+        <!-- sidebar -->
         <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
+            <div class="sidebar-wrapper active ">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
@@ -82,7 +82,7 @@
                         </li>
 
                         <li
-                            class="sidebar-item ">
+                            class="sidebar-item  ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
                                 <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
@@ -90,7 +90,7 @@
                         </li>
 
                         <li
-                            class="sidebar-item active">
+                            class="sidebar-item  active">
                             <a href="{{route('contact')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
@@ -105,7 +105,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <lclass="sidebar-item">
                             <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
                                 @csrf
                                 <button type="submit" class="sidebar-link btn-logout">
@@ -118,6 +118,7 @@
                 </div>
             </div>
         </div>
+
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -138,10 +139,8 @@
                                 style="display: none;">
                                 Tandai Semua Dibaca
                             </button>
-
                         </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first"></div>
                     </div>
                 </div>
 
@@ -255,7 +254,7 @@
                                 <div class="app-content-overlay"></div>
                                 <div class="email-app-area">
                                     <!-- Email list Area -->
-                                    <dxiv class="email-app-list-wrapper">
+                                    <div class="email-app-list-wrapper">
                                         <div class="email-app-list">
                                             <div class="email-action">
                                                 <!-- action left start here -->
@@ -333,7 +332,6 @@
                                                                 <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
                                                                 @endif
                                                             </div>
-
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
@@ -446,14 +444,8 @@
                             </div>
                         </div>
                     </div>
+                </section>
             </div>
-            </section>
-        </div>
-
-        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-    </div>
-    </div>
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
@@ -471,8 +463,6 @@
             </footer>
         </div>
     </div>
-    </div>
-
     <!-- Sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -482,6 +472,7 @@
     <!-- myjs -->
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
     <script src="{{ asset('dashboard/dist/assets/js/myjs/pesanuser.js') }}"></script>
+
 
     <!-- untuk buka tutup sidebar -->
     <script>
@@ -798,8 +789,7 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
-    </script>
-
+    </script>    
 </body>
 
 </html>

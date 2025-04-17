@@ -20,7 +20,7 @@ class SaveController extends Controller
     // Menampilkan halaman tabungan untuk semua user
     public function tabungan(Request $request)
     {
-        $user = Auth::user()->load('tabunganUser'); // Ambil data user yang sedang login
+        $user = Auth::user()->load('tabungan'); // Ambil data user yang sedang login
 
         // Ambil saldo user dari tabel tabungan_users
         $saldo = TabunganUser::where('user_id', Auth::id())->value('saldo');

@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/png">
 
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 
 </head>
 
@@ -107,14 +108,18 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
-
+                        
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -123,22 +128,29 @@
                             </a>
                         </li>
 
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
             <div class="container">
                 <h1>Data Keuangan Siswa</h1>
-                <p class="text-subtitle text-muted">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
-
-
+                <p class="text-subtitle">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
                 <!-- <div class="col-md-3">
                     <select class="form-control" id="transactionType">
                         <option value="">Semua Kelas</option>
@@ -147,7 +159,6 @@
                         <option value="kelas XII">Kelas 12</option>
                     </select>
                 </div> -->
-
                 <table class="container">
                     <thead>
                         <tr>
@@ -162,21 +173,21 @@
                     <tbody>
                         @foreach($dataKeuangan as $data)
                         <tr>
-                            <td>{{ $data->namalengkap }}</td>
-                            <td>{{ $data->id_tabungan }}</td>
-                            <td>{{ $data->kelas }}</td>
-                            <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
-                            <td>Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
-                            <td>Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
+                            <td data-title="Nama">{{ $data->namalengkap }}</td>
+                            <td data-title="ID Tabungan">{{ $data->id_tabungan }}</td>
+                            <td data-title="Kelas">{{ $data->kelas }}</td>
+                            <td data-title="Saldo">Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
+                            <td data-title="Tabungan">Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
+                            <td data-title="Penarikan">Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>    
-        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    </div>
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 </body>
 
 </html>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tabungan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TabunganController extends Controller
 {
@@ -25,20 +27,53 @@ class TabunganController extends Controller
         $tabungans = Tabungan::where('kelas_id', $kelas_id)->get();
         return view('pointakses.admin.tabungan-kelas-admin', compact('tabungans'));
     }
+
+
     public function getTabunganData()
     {
-        $data = Tabungan::selectRaw("MONTH(created_at) as bulan, SUM(jumlah) as total")
-            ->whereYear('created_at', date('Y')) // Data hanya tahun ini
-            ->groupBy('bulan')
-            ->orderBy('bulan')
-            ->get();
+        $tahun = now()->year;
+        $bulanSekarang = now()->month;
+        $bulanAktif = range(1, $bulanSekarang);
 
-        // Format data agar bisa digunakan di frontend
-        $tabunganData = array_fill(0, 12, 0);
-        foreach ($data as $d) {
-            $tabunganData[$d->bulan - 1] = $d->total;
+        $labels = [];
+        $dataTopup = [];
+        $dataMenabung = [];
+        $dataPenarikan = [];
+
+        foreach ($bulanAktif as $bulan) {
+            $labels[] = Carbon::create()->month($bulan)->format('M'); // Jan, Feb, dst.
+
+            $totalTopup = DB::table('transaksi_topup')
+                ->withTrashed()
+                ->whereYear('created_at', $tahun)
+                ->whereMonth('created_at', $bulan)
+                ->where('status', 'Sukses')
+                ->sum('jumlah');
+
+            $totalMenabung = DB::table('transaksi_menabung_users')
+                ->withTrashed()
+                ->whereYear('created_at', $tahun)
+                ->whereMonth('created_at', $bulan)
+                ->where('status', 'Sukses')
+                ->sum('jumlah');
+
+            $totalPenarikan = DB::table('penarikan_users')
+                ->withTrashed()
+                ->whereYear('created_at', $tahun)
+                ->whereMonth('created_at', $bulan)
+                ->where('status', 'Sukses')
+                ->sum('jumlah');
+
+            $dataTopup[] = $totalTopup;
+            $dataMenabung[] = $totalMenabung;
+            $dataPenarikan[] = $totalPenarikan;
         }
 
-        return response()->json($tabunganData);
+        return response()->json([
+            'labels' => $labels,
+            'topup' => $dataTopup,
+            'menabung' => $dataMenabung,
+            'penarikan' => $dataPenarikan
+        ]);
     }
 }

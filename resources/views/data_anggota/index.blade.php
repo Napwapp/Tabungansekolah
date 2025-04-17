@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Data-anggota</title>
+    <title>Data anggota</title>
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/data-anggota.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 </head>
 
 <body>
@@ -114,12 +115,16 @@
                                 @endif
                             </a>
                         </li>
-
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
@@ -130,12 +135,16 @@
                                 <span>Pengaturan</span>
                             </a>
                         </li>
-                        
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

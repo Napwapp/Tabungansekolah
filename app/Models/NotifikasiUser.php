@@ -37,11 +37,11 @@ class NotifikasiUser extends Model
         if ($this->status_laporan == 'Dibalas') {
             return '<i class="bi bi-check-all text-primary"></i>  Telah Dibalas';
         }
-    
+
         if ($this->tipe == "Laporan" || $this->tipe == "Saran") {
             return '<i class="bi bi-check-all text-gray"></i> Terkirim';
         }
-    
+
         if ($this->tipe == "Pengingat") {
             return '<i class="bi bi-bell text-danger"></i> Pengingat';
         }
@@ -49,11 +49,11 @@ class NotifikasiUser extends Model
         if ($this->tipe == "Target Tercapai") {
             return '<i class="bi bi-trophy"></i> Target telah tercapai';
         }
-    
+
         if ($this->tipe == "Transaksi" && !$this->status_transaksi) {
             return '<i class="bi bi-question-circle text-secondary"></i> Status Tidak Diketahui';
         }
-    
+
         return match ($this->status_transaksi) {
             'Sukses' => '<i class="bi bi-check-circle text-success"></i> Transaksi Berhasil',
             'Menunggu Persetujuan' => '<i class="bi bi-hourglass-split text-warning"></i> Menunggu Persetujuan',
@@ -61,7 +61,7 @@ class NotifikasiUser extends Model
             default => '<i class="bi bi-question-circle text-secondary"></i> Status Tidak Diketahui',
         };
     }
-    
+
 
     // relasi
     public function user()
@@ -69,9 +69,28 @@ class NotifikasiUser extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getFotoPengirimAttribute($value)
+    {
+        // Jika relasi user masih ada dan punya gambar
+        if ($this->user && $this->user->gambar) {
+            return asset('picture/accounts/' . $this->user->gambar);
+        }
+
+        // Fallback ke default
+        return asset('picture/accounts/default.png');
+    }
+
+    public function getNamaPengirimAttribute($value)
+    {
+        if (($this->tipe === 'Laporan' || $this->tipe === 'Saran') && $this->user) {
+            return $this->user->namalengkap;
+        }
+
+        return $value; // fallback ke nilai kolom nama_pengirim di notifikasi_users
+    }
+
     public function laporanUser()
     {
         return $this->belongsTo(LaporanUser::class, 'user_id', 'id');  // Relasi berdasarkan user_id
     }
-
 }

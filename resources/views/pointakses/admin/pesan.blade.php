@@ -117,7 +117,7 @@
                             class="sidebar-item  active">
                             <a href="{{route('pesan')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
                             </a>
                         </li>
 

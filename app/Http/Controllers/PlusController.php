@@ -92,7 +92,7 @@ class PlusController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Top-Up Saldo',
-                'isi_pesan' => 'Menunggu Persetujuan admin dengan jumlah Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' telah berhasil ditambahkan.',
+                'isi_pesan' => 'Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . 'Berhasil. Dimohon untuk mendatangi staff terkait untuk melakukan Pembayaran.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $topup->id, // Simpan ID transaksi    topup 

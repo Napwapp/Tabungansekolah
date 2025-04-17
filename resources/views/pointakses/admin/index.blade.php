@@ -6,15 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabungan Sekolah</title>
 
-    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/x-icony">
     <link rel="shortcut icon" href="{{asset ('dashboard/dist/assets/images/logo/logosekolah.png')}}" type="image/png">
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/dashboardadmin.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
-    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/mycss/default.css')}}">
 
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app-dark.css')}}">
+
+    <!-- Template Mantis bootstrap -->
+    <!-- [Favicon] icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/fonts/tabler-icons.min.css') }}">
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/fonts/feather.css') }}">
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/fonts/fontawesome.css') }}">
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/fonts/material.css') }}">
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/css/style.css') }}" id="main-style-link">
+    <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/css/style-preset.css') }}">
+
+    <!-- js -->
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
+
 
 </head>
 
@@ -113,15 +131,18 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
-                        
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -130,15 +151,24 @@
                             </a>
                         </li>
 
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div id="main">
+                <header class="mb-3">
+                    <a href="#" class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                </header>
 
                 @if (session('error'))
                 <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
@@ -177,105 +207,206 @@
                         </div>
                     </div>
 
-
                     <p><!-- Content -->
                     <div class="content" style="margin-left: 30px;">
-                        <h2 class="mb-4">Informasi Tabungan</h2>
+                        <h3>Informasi Pengguna</h3>
 
                         <!-- Kartu Informasi -->
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="card bg-warning text-white mb-4">
+                            <!-- Card Total pengguna -->
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color: white;">Total Saldo Hari Ini</h5> <!-- backend -->
-                                        <h3 style="color: white;">Rp {{ number_format($totalSaldoHariIni, 0, ',', '.') }}</h3>
+                                        <h6 class="mb-2 f-w-400">Total Pengguna</h6>
+                                        <h4 class="mb-3">
+                                            {{ $totalUsers }}
+                                            <span class="badge {{ $badgeClass }}">
+                                                <i class="{{ $iconClass }}"></i> {{ $percentageChange }}%
+                                            </span>
+                                        </h4>
+                                        <p class="mb-0 text-sm">
+                                            Total Pengguna yang mendaftar {{ $trendStatus === 'naik' ? 'lebih' : 'kurang' }}
+                                            <span class="{{ $textClass }}">{{ $selisihAbs }}</span> Tahun ini
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body btn-green" style="border-radius: 10px;">
-                                        <h5 class="card-title" style="color: white;">Total Tabungan Bulan</h5> <!-- backend -->
-                                        <h3 style="color: white;">Rp {{ number_format($totalTabunganBulanan, 0, ',', '.') }}</h3>
+                            <!-- Card total saldo -->
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="mb-2 f-w-400">Total Saldo Masuk</h6>
+                                        <h4 class="mb-3">
+                                            {{ number_format($saldoTahunIni, 0, ',', '.') }}
+                                            <span class="badge {{ $saldoBadgeClass }}">
+                                                <i class="{{ $saldoIconClass }}"></i> {{ $saldoPersen }}%
+                                            </span>
+                                        </h4>
+                                        <p class="mb-0 text-sm">
+                                            Total Saldo yang masuk
+                                            {{ $saldoStatus === 'naik' ? 'lebih' : 'kurang' }}
+                                            <span class="{{ $saldoTextClass }}">{{ number_format($saldoSelisih, 0, ',', '.') }}</span> Tahun ini
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body btn-blue" style="border-radius: 10px;">
-                                        <h5 class="card-title " style="color: white;">Total Penarikan Bulan</h5> <!-- backend -->
-                                        <h3 style="color: white;">Rp {{ number_format($totalPenarikan, 0, ',', '.') }}</h3>
+
+                            <!-- Card total tabungan -->
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="mb-2 f-w-400">Total Tabungan </h6>
+                                        <h4 class="mb-3">
+                                            {{ number_format($tabunganTahunIni, 0, ',', '.') }}
+                                            <span class="badge {{ $tabunganBadgeClass }}">
+                                                <i class="{{ $tabunganIconClass }}"></i>
+                                                {{ $tabunganPersen }}%
+                                            </span>
+                                        </h4>
+                                        <p class="mb-0 text-sm">
+                                            Total Tabungan Masuk
+                                            @if($tabunganStatus === 'naik')
+                                            lebih besar
+                                            <span class="{{ $tabunganTextClass }}">{{ number_format($tabunganSelisih, 0, ',', '.') }}</span>
+                                            @else
+                                            lebih kecil
+                                            <span class="{{ $tabunganTextClass }}">{{ number_format($tabunganSelisih, 0, ',', '.') }}</span>
+                                            @endif
+                                            Tahun ini
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Grafik Tabungan -->
-                        <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                        <div class="card bg-light text-dark mb-4" style="box-shadow: 0 0 5px rgb(0,0,0);">
-                            <div class="card-body">
-                                <h5 class="card-title">Grafik Perkembangan Tabungan</h5>
-                                <canvas id="tabunganChart"></canvas>
+
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="mb-2 f-w-400">Total Penarikan</h6>
+                                        <h4 class="mb-3">
+                                            {{ number_format($totalDitarikTahunIni, 0, ',', '.') }}
+                                            <span class="badge {{ $penarikanBadgeClass }}">
+                                                <i class="{{ $penarikanIconClass }}"></i>
+                                                {{ $penarikanPersen }}%
+                                            </span>
+                                        </h4>
+                                        <p class="mb-0 text-sm">
+                                            Total Tabungan ditarik lebih
+                                            <span class="{{ $penarikanTextClass }}">
+                                                {{ number_format($penarikanSelisih, 0, ',', '.') }}
+                                            </span>
+                                            Tahun ini
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <!-- Grafik Perkembangan transaksi -->
+                        <div class="row">
+                            <!-- Bar Chart -->
+                            <div class="col-md-7">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Data jumlah transaksi Tahun {{ $tahunSekarang }} </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="bar-chart-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pie Chart Donut -->
+                            <div class="col-md-5">
+                                <div class="card ">
+                                    <div class="card-header">
+                                        <h5>Persentase data transaksi bulan {{ $bulanTerbaru }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        @php
+                                        $totalDonut = $dataDonut['topup'] + $dataDonut['menabung'] + $dataDonut['penarikan'];
+                                        @endphp
+
+                                        @if ($totalDonut == 0)
+                                        <div class="text-center">
+                                            <strong>Tidak ada data transaksi</strong>
+                                            <div class="mt-2 display-6">0%</div>
+                                        </div>
+                                        @else
+                                        <div id="pie-chart-2" style="width: 100%"></div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <h4 class="display-6 text-center mb-0">Data transaksi</h4>
+                            </div>
+                        </div>
+
+                        <!-- Data untuk grafik -->
                         <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const labels = [
-                                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-                                ];
+                            window.chartData = {
+                                bulan: @json($bulan),
+                                topup: @json($dataTopup),
+                                menabung: @json($dataMenabung),
+                                penarikan: @json($dataPenarikan)
+                            };
+                            // pie-chart
+                            window.donutData = @json($dataDonut);
 
-                                fetch("{{ url('/tabungan') }}")
-                                    .then(response => response.json())
-                                    .then(tabunganData => {
-                                        const ctx = document.getElementById('tabunganChart').getContext('2d');
-                                        new Chart(ctx, {
-                                            type: 'line',
-                                            data: {
-                                                labels: labels,
-                                                datasets: [{
-                                                    label: 'Jumlah Tabungan (Rp)',
-                                                    data: tabunganData,
-                                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                                    borderColor: 'rgba(54, 162, 235, 1)',
-                                                    borderWidth: 2
-                                                }]
-                                            },
-                                            options: {
-                                                responsive: true,
-                                                maintainAspectRatio: false,
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    })
-                                    .catch(error => console.error("Error:", error));
-                            });
+                            // chart data nominal transaksi
+                            const labels = @json($bulanNominal);
+
+                            const grafikTopup = @json($grafikTopup);
+                            const grafikMenabung = @json($grafikMenabung);
+                            const grafikPenarikan = @json($grafikPenarikan);
                         </script>
-                        </canvas>
 
-
+                        <!-- Grafik Tabungan -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data perkembangan jumlah nominal transaksi masuk</h5>
+                                <canvas id="tabunganChart" height="100"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </body>
 
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
-                            <p>2025 &copy; SMKN 1 BINONG</p>
+                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
                         </div>
                         <div class="float-end">
-                            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                    href="#">SMKN 1 BINONG</a></p>
+                            <p>Crafted by
+                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                            </p>
                         </div>
                     </div>
                 </footer>
             </div>
         </div>
+
+        <!-- chart js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/pages/chart-apex.js') }}"></script>
+
         <script src="{{asset ('dashboard/dist/assets/js/bootstrap.js')}}"></script>
         <script src="{{asset ('dashboard/dist/assets/js/app.js')}}"></script>
+
+        <!-- js untuk grafik -->
+        <script src="{{ asset('dashboard/dist/assets/js/chart/bar-chart.js') }}"></script>
+        <script src="{{ asset('dashboard/dist/assets/js/chart/pie-chart.js') }}"></script>
+        <script src="{{ asset('dashboard/dist/assets/js/chart/custom-chart.js') }}"></script>
+
+
+        <!-- Template dashboard mastin -->
+        <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/popper.min.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/fonts/custom-font.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/pcoded.js') }}"></script>
+        <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/feather.min.js') }}"></script>
 
 </body>
 

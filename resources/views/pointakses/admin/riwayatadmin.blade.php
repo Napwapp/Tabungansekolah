@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/pages/riwayatadmin.css') }}">
 
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
+    <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app-dark.css')}}">
 </head>
 
 <body>
@@ -108,14 +109,18 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
-
+                        
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -124,117 +129,107 @@
                             </a>
                         </li>
 
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <h1>Riwayat transaksi</h1>
-                <!-- Filter dan Pencarian -->
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <input type="date" class="form-control" id="startDate">
-                    </div>
-
-                    <div class="col-md-3">
-                        <select class="form-control" id="transactionType">
-                            <option value="">Semua Transaksi</option>
-                            <option value="TopUp">TopUp</option>
-                            <option value="Menabung">Menabung</option>
-                            <option value="Penarikan">Penarikan</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <input type="text" id="searchInput" placeholder="Cari NIS/Nama..." class="form-control">
-                    </div>
-
-                </div>
-
-                <!-- Tabel Riwayat Transaksi -->
-                <table id="riwayatTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Tanggal</th>
-                            <th>Jumlah</th>
-                            <th>Tipe</th>
-                            <th>Nomor Tabungan</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transaksiBody">
-                        @foreach($riwayatadmin as $transaksi)
-                        <tr class="transaksi-row {{ $transaksi->tipe }}">
-                            <td>{{ $transaksi->namalengkap }}</td>
-                            <td>{{ $transaksi->created_at }}</td>
-                            <td>{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
-                            <td>{{ $transaksi->tipe }}</td> <!-- Akan menampilkan 'Top Up', 'Menabung', atau 'Penarikan' -->
-                            <td>{{ $transaksi->id_tabungan }}</td>
-                            <td>{{ $transaksi->status }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-
-
-
-                </table>
-
-                <!-- Tombol Ekspor dan Cetak -->
-                <button class="btn btn-primary">Export ke Excel</button>
-                <button class="btn btn-danger">Export ke PDF</button>
-                <button class="btn btn-success">Cetak</button>
-            </div>
         </div>
 
-        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-        <script>
-            document.getElementById("transactionType").addEventListener("change", function() {
-                let selectedType = this.value; // Ambil nilai yang dipilih
-                let rows = document.querySelectorAll(".transaksi-row"); // Ambil semua baris transaksi
+        <div id="main">
+            <h1>Riwayat transaksi</h1>
+            <!-- Filter dan Pencarian -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <select class="form-control" id="transactionType">
+                        <option value="">Semua Transaksi</option>
+                        <option value="TopUp">TopUp</option>
+                        <option value="Menabung">Menabung</option>
+                        <option value="Penarikan">Penarikan</option>
+                    </select>
+                </div>
 
-                rows.forEach(row => {
-                    if (selectedType === "" || row.classList.contains(selectedType)) {
-                        row.style.display = ""; // Tampilkan jika sesuai
-                    } else {
-                        row.style.display = "none"; // Sembunyikan jika tidak sesuai
-                    }
-                });
+                <div class="col-md-3">
+                    <input type="text" id="searchInput" placeholder="Cari NIS/Nama..." class="form-control">
+                </div>
+
+            </div>
+
+            <!-- Tabel Riwayat Transaksi -->
+            <table id="riwayatTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Tanggal</th>
+                        <th>Jumlah</th>
+                        <th>Tipe</th>
+                        <th>Nomor Tabungan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="transaksiBody">
+                    @foreach($riwayatadmin as $transaksi)
+                    <tr class="transaksi-row {{ $transaksi->tipe }}">
+                        <td>{{ $transaksi->namalengkap }}</td>
+                        <td>{{ $transaksi->created_at }}</td>
+                        <td>{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
+                        <td>{{ $transaksi->tipe }}</td> <!-- Akan menampilkan 'Top Up', 'Menabung', atau 'Penarikan' -->
+                        <td>{{ $transaksi->id_tabungan }}</td>
+                        <td>{{ $transaksi->status }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    <script>
+        document.getElementById("transactionType").addEventListener("change", function() {
+            let selectedType = this.value; // Ambil nilai yang dipilih
+            let rows = document.querySelectorAll(".transaksi-row"); // Ambil semua baris transaksi
+
+            rows.forEach(row => {
+                if (selectedType === "" || row.classList.contains(selectedType)) {
+                    row.style.display = ""; // Tampilkan jika sesuai
+                } else {
+                    row.style.display = "none"; // Sembunyikan jika tidak sesuai
+                }
             });
-        </script>
+        });
+    </script>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const searchInput = document.getElementById('searchInput');
-                const table = document.getElementById('riwayatTable');
-                const rows = table.getElementsByTagName('tr');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const table = document.getElementById('riwayatTable');
+            const rows = table.getElementsByTagName('tr');
 
-                searchInput.addEventListener('keyup', function() {
-                    const filter = searchInput.value.toLowerCase();
+            searchInput.addEventListener('keyup', function() {
+                const filter = searchInput.value.toLowerCase();
 
-                    for (let i = 1; i < rows.length; i++) {
-                        const row = rows[i];
-                        const cells = row.getElementsByTagName('td');
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName('td');
 
-                        const nis = cells[0]?.textContent.toLowerCase() || '';
-                        const nama = cells[1]?.textContent.toLowerCase() || '';
+                    const nis = cells[0]?.textContent.toLowerCase() || '';
+                    const nama = cells[1]?.textContent.toLowerCase() || '';
 
-                        const match = nis.includes(filter) || nama.includes(filter);
+                    const match = nis.includes(filter) || nama.includes(filter);
 
-                        row.style.display = match ? '' : 'none';
-                    }
-                });
+                    row.style.display = match ? '' : 'none';
+                }
             });
-        </script>
-
-
-
-
+        });
+    </script>
 </body>
 
 </html>

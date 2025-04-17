@@ -1,3 +1,7 @@
+// Cache search
+const searchCacheAdmin = {};
+let currentFetchController = null;
+
 document.addEventListener("DOMContentLoaded", function () {
     // Logika Filter Notifikasi
     const sidebarFilters = document.querySelectorAll(".sidebar-filter li[data-filter]");
@@ -122,25 +126,42 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function performSearch(event) {
-        const query = event.target.value.trim();
-
+        const query = event.target.value.trim().toLowerCase(); // Lowercase untuk konsistensi cache key
+    
+        // Batalkan fetch sebelumnya jika masih berjalan
+        if (currentFetchController) {
+            currentFetchController.abort();
+        }
+    
+        currentFetchController = new AbortController();
+        const signal = currentFetchController.signal;
+    
         // Jika query kosong, tampilkan kembali data sesuai filter aktif
         if (query.length === 0) {
             loadNotifications();
             return;
         }
-
-        // Pencarian tidak terpengaruh filter aktif, selalu cari di semua data
-        fetch(`/search-notifications/admin?query=` + encodeURIComponent(query))
+    
+        // ✅ Gunakan cache jika sudah ada
+        if (searchCacheAdmin[query]) {
+            updateSearchResults(searchCacheAdmin[query], query);
+            return;
+        }
+    
+        // Jika belum ada di cache → fetch baru
+        fetch(`/search-notifications/admin?query=${encodeURIComponent(query)}`, { signal })
             .then(response => response.json())
             .then(data => {
+                searchCacheAdmin[query] = data; // Simpan hasil ke cache
                 updateSearchResults(data, query);
             })
             .catch(error => {
-                console.error('Error:', error);
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
             });
     }
-
+    
     // Update list laporan berdasarkan data yang diterima dan query pencarian
     function updateSearchResults(data, query) {
         const notificationList = document.querySelector('.users-list-wrapper.media-list');

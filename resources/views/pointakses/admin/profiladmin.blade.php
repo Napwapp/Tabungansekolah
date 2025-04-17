@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" type="image/png">
+
+    <!-- mycss -->
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profil.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/profiladmin.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css')}}">
 
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/shared/iconly.css')}}">
     <script src="{{asset('dashboard/dist/assets/js/myjs/profil.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -113,11 +117,15 @@
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('pesan')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
+                                @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadLaporanCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
@@ -128,179 +136,175 @@
                                 <span>Pengaturan</span>
                             </a>
                         </li>
-                        
-                        <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
-                            @csrf
-                            <i class="bi bi-x-octagon-fill"></i>
-                            <button style="border: none; padding: 10px; background-color: white;">Log Out</button>
-                        </form>
+
+                        <li class="sidebar-item">
+                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                                @csrf
+                                <button type="submit" class="sidebar-link btn-logout">
+                                    <i class="bi bi-door-open-fill"></i>
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <div class="container">
-                    <div class="profile-header">
-                        <div class="profile-cover">
-                            <div class="profile-avatar">
-                                <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">
-                            </div>
-                        </div>
-                        <div class="profile-basic-info">
-                            <h1>{{Auth::user()->username}}</h1>
-                            <p>{{Auth::user()->email}}</p>
-                        </div>
-                    </div>
+        </div>
 
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <div class="profile-avatar">
+                        <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="">
+                    </div>
+                </div>
+                <div class="profile-basic-info">
+                    <h1>{{Auth::user()->username}}</h1>
+                    <p>{{Auth::user()->email}}</p>
+                </div>
+            </div>
+
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h2>Informasi Akun</h2>
+
+                    <div class="profile-item">
+                        <span>Nama Lengkap :</span>
+                        <span>{{Auth::user() -> namalengkap}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Username :</span>
+                        <span>{{Auth::user() -> username}}</span>
+                    </div>                   
+                    <div class="profile-item">
+                        <span>Role :</span>
+                        <span>{{Auth::user() -> role}}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Email :</span>
+                        <span>{{Auth::user() -> email}}</span>
+                    </div>
+                    
                     <div class="profile-details">
                         <div class="profile-section">
-                            <h2>Informasi Akun</h2>
+                            <!-- Tombol Edit -->
+                            <button id="edit-profile-btn" class="btn btn-primary">Edit Profil</button>
 
-                            <div class="profile-item">
-                                <span>Nama Lengkap :</span>
-                                <span>{{Auth::user() -> namalengkap}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Username :</span>
-                                <span>{{Auth::user() -> username}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Kelas :</span>
-                                <span>{{Auth::user() -> kelas}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Role :</span>
-                                <span>{{Auth::user() -> role}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Email :</span>
-                                <span>{{Auth::user() -> email}}</span>
-                            </div>
-                            <div class="profile-item">
-                                <span>Alamat :</span>
-                                <span>Binong</span>
-                            </div>
-                            <div class="profile-details">
-                                <div class="profile-section">
-
-                                    <!-- Tombol Edit -->
-                                    <button id="edit-profile-btn" class="btn btn-primary">Edit Profil</button>
-
-                                    <!-- Form Edit (Tersembunyi Awalnya) -->
-                                    <form id="edit-profile-form" style="display: none; margin-top: 10px;">
-                                        @csrf
-                                        <div class="profile-item">
-                                            <span>Nama Lengkap :</span>
-                                            <input type="text" id="namalengkap" name="namalengkap" value="{{ $admin->namalengkap }}">
-                                        </div>
-                                        <div class="profile-item">
-                                            <span>Username :</span>
-                                            <input type="text" id="username" name="username" value="{{ $admin->username }}">
-                                        </div>
-                                        <div class="profile-item">
-                                            <span>Kelas :</span>
-                                            <input type="text" id="kelas" name="kelas" value="{{ $admin->kelas }}">
-                                        </div>
-                                        <div class="profile-item">
-                                            <span>Email :</span>
-                                            <input type="text" id="email" name="email" value="{{ $admin->email }}">
-                                        </div>
-                                        <div class="profile-item">
-                                            <span>Foto :</span>
-                                            <input type="file" id="gambar" name="gambar" accept="image/*">
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Simpan</button>
-                                        <button type="button" id="cancel-edit" class="btn btn-secondary">Batal</button>
-                                    </form>
+                            <!-- Form Edit (Tersembunyi Awalnya) -->
+                            <form id="edit-profile-form" style="display: none; margin-top: 10px;">
+                                @csrf
+                                <div class="profile-item ">
+                                    <span>Nama Lengkap :</span>
+                                    <input type="text" id="namalengkap" name="namalengkap" value="{{ $admin->namalengkap }}" class="form-control">
                                 </div>
-                            </div>
+                                <div class="profile-item ">
+                                    <span>Username :</span>
+                                    <input type="text" id="username" name="username" value="{{ $admin->username }}" class="form-control">
+                                </div>                              
+                                <div class="profile-item ">
+                                    <span>Email :</span>
+                                    <input type="text" id="email" name="email" value="{{ $admin->email }}" class="form-control">
+                                </div>
+                                <div class="profile-item ">
+                                    <span>Foto :</span>
+                                    <input type="file" id="gambar" name="gambar" accept="image/*">
+                                </div>
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                                <button type="button" id="cancel-edit" class="btn btn-secondary">Batal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-                            <script>
-                                document.addEventListener("DOMContentLoaded", function() {
-                                    let editBtn = document.getElementById("edit-profile-btn");
-                                    let cancelBtn = document.getElementById("cancel-edit");
-                                    let editForm = document.getElementById("edit-profile-form");
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let editBtn = document.getElementById("edit-profile-btn");
+                let cancelBtn = document.getElementById("cancel-edit");
+                let editForm = document.getElementById("edit-profile-form");
 
-                                    // Saat tombol edit diklik, tampilkan form
-                                    editBtn.addEventListener("click", function() {
-                                        editForm.style.display = "block";
-                                        editBtn.style.display = "none"; // Sembunyikan tombol Edit
-                                    });
+                // Saat tombol edit diklik, tampilkan form
+                editBtn.addEventListener("click", function() {
+                    editForm.style.display = "block";
+                    editBtn.style.display = "none"; // Sembunyikan tombol Edit
+                });
 
-                                    // Saat tombol batal diklik, sembunyikan form dan tampilkan tombol Edit
-                                    cancelBtn.addEventListener("click", function() {
-                                        editForm.style.display = "none";
-                                        editBtn.style.display = "block";
-                                    });
+                // Saat tombol batal diklik, sembunyikan form dan tampilkan tombol Edit
+                cancelBtn.addEventListener("click", function() {
+                    editForm.style.display = "none";
+                    editBtn.style.display = "block";
+                });
 
-                                    // Tangani submit form dengan AJAX
-                                    document.getElementById("edit-profile-form").addEventListener("submit", function(event) {
-                                        event.preventDefault(); // Mencegah reload halaman
+                // Tangani submit form dengan AJAX
+                document.getElementById("edit-profile-form").addEventListener("submit", function(event) {
+                    event.preventDefault(); // Mencegah reload halaman
 
-                                        let formData = new FormData(this);
+                    let formData = new FormData(this);
 
-                                        fetch("{{ route('profil.update') }}", {
-                                                method: "POST",
-                                                body: formData,
-                                                headers: {
-                                                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
-                                                }
-                                            })
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                if (data.success) {
-                                                    Swal.fire({
-                                                        title: "Berhasil!",
-                                                        text: "Profil berhasil diperbarui.",
-                                                        icon: "success",
-                                                        timer: 2000,
-                                                        showConfirmButton: false
-                                                    }).then(() => {
-                                                        location.reload(); // Reload halaman untuk menampilkan data baru
-                                                    });
-                                                } else {
-                                                    Swal.fire({
-                                                        title: "Error!",
-                                                        text: "Terjadi kesalahan saat memperbarui profil.",
-                                                        icon: "error",
-                                                        confirmButtonText: "OK"
-                                                    });
-                                                }
-                                            })
-                                            .catch(error => {
-                                                console.error("Error:", error);
-                                                Swal.fire({
-                                                    title: "Error!",
-                                                    text: "Terjadi kesalahan! Silakan coba lagi.",
-                                                    icon: "error",
-                                                    confirmButtonText: "OK"
-                                                });
-                                            });
-                                    });
+                    fetch("{{ route('profil.update') }}", {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: "Berhasil!",
+                                    text: "Profil berhasil diperbarui.",
+                                    icon: "success",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    location.reload(); // Reload halaman untuk menampilkan data baru
                                 });
-                            </script>
-
-                            <script>
-                                document.getElementById("gambar").addEventListener("change", function(event) {
-                                    let reader = new FileReader();
-                                    reader.onload = function() {
-                                        let previewImage = document.getElementById("preview-image");
-                                        previewImage.src = reader.result; // Menampilkan preview gambar sebelum upload
-                                    };
-                                    reader.readAsDataURL(event.target.files[0]);
+                            } else {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Terjadi kesalahan saat memperbarui profil.",
+                                    icon: "error",
+                                    confirmButtonText: "OK"
                                 });
-                            </script>
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Terjadi kesalahan! Silakan coba lagi.",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        });
+                });
+            });
+        </script>
 
+        <script>
+            document.getElementById("gambar").addEventListener("change", function(event) {
+                let reader = new FileReader();
+                reader.onload = function() {
+                    let previewImage = document.getElementById("preview-image");
+                    previewImage.src = reader.result; // Menampilkan preview gambar sebelum upload
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            });
+        </script>
+    </div>
 
-
-
-                            <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-                            <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-
-                            <!-- Need: Apexcharts -->
-                            <script src="{{asset('dashboard/dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-                            <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
-
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/pages/dashboard.js')}}"></script>
 </body>
 
 </html>

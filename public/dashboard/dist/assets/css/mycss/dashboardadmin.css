@@ -203,7 +203,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     border-radius: 8px;
 }
@@ -398,4 +397,36 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+}
+
+/* Card keuangaan diadmin */
+/* Mengatur tinggi yang sama untuk semua card */
+.row .col-md-6.col-xl-3 .card {
+    height: 90%;
+  }
+  
+  .row .col-md-6.col-xl-3 .card .card-body {
+    height: 90%;
+  }
+  
+.sidebar-link {
+    font-weight: normal;
+}
+
+.sidebar-header {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+h1 {
+    color: #25396f;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+/* Mode Gelap */
+.body-theme-dark .card .card-body {
+    padding: 1.5rem;
 }
