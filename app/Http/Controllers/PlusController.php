@@ -92,7 +92,7 @@ class PlusController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Top-Up Saldo',
-                'isi_pesan' => 'Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . 'Berhasil. Dimohon untuk mendatangi staff terkait untuk melakukan Pembayaran.',
+                'isi_pesan' => 'Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') .  'Berhasil, Namun masih Menunggu persetujuan . Dimohon untuk mendatangi staff terkait untuk melakukan Pembayaran.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $topup->id, // Simpan ID transaksi    topup 
@@ -111,5 +111,15 @@ class PlusController extends Controller
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    public function cekStatus()
+    {
+        $user = auth()->user();
+        $hasPending = TransaksiTopup::where('user_id', $user->id)
+            ->where('status', 'Menunggu Persetujuan')
+            ->exists();
+
+        return response()->json(['pending' => $hasPending]);
     }
 }

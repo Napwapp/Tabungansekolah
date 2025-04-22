@@ -23,7 +23,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -119,7 +119,7 @@
                                 @endif
                             </a>
                         </li>
-                        
+
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -184,6 +184,11 @@
                     </tbody>
                 </table>
             </div>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <!-- bila perlu -->
+                </div>
+            </footer>
         </div>
     </div>
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>

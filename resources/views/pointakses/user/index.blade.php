@@ -133,14 +133,45 @@
             </header>
 
             @if (session('error'))
-            <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
+            <div id="error-alert"
+                class="alert alert-danger"
+                data-clear-url="{{ route('clear.errors') }}"
+                data-token="{{ csrf_token() }}"
+                style="position: relative;">
+
+                <button type="button" id="close-alert" style="
+							position: absolute;
+							top: 3px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 30px;
+							color: white;
+							cursor: pointer;
+						">&times;
+                </button>
                 {{ session('error') }}
             </div>
             @endif
 
             <!-- flash massage target tabungan -->
             @if(session('success'))
-            <div class="alert alert-success">
+            <div id="success-alert"
+                class="alert alert-success"
+                data-clear-url="{{ route('clear.success') }}"
+                data-token="{{ csrf_token() }}"
+                style="position: relative;">
+
+                <button type="button" id="close-success" style="
+							position: absolute;
+							top: 5px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 20px;
+							color: #155724; /* warna hijau pesan success */
+							cursor: pointer;">&times;
+                </button>
                 {{ session('success') }}
             </div>
             @endif
@@ -173,10 +204,17 @@
                             </svg>
                             <p class="progress-percentage">0%</p>
                         </div>
-                        <p class="target-info"><strong>Target Tabungan:</strong> Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                        <!-- info target tabungan -->
+                        <p class="target-info">
+                            <strong>Target Tabungan:</strong>
+                            @if ($targetTabungan > 0)
+                            Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                            @else
+                            <span>Belum memiliki target</span>
+                            @endif
                             <i id="icon-target-tercapai" class="bi bi-check-circle-fill text-success" style="display: none;"></i>
                         </p>
-                        <button class="atur-target-btn">Atur Target</button>
+                    <button class="atur-target-btn">Atur Target</button>
                     </div>
 
                     <!-- Menyembunyikan total tabungan dengan menggunakan data-atribut untuk JS -->
@@ -421,18 +459,11 @@
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted by
-                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                        </p>
-                    </div>
+                    <!-- bila perlu -->
                 </div>
             </footer>
+
+
         </div>
     </div>
 
@@ -442,7 +473,7 @@
     <!-- myjs -->
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
-    <!-- <script src="{{asset ('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script> -->
+    <script src="{{asset ('landingpage/Halamanlogin/js/myjs/registrasi.js')}}"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

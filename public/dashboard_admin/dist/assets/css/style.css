@@ -20799,6 +20799,10 @@ select.form-control[readonly],
 }
 
 select.form-control {
+  padding-right: 1.5rem; /* kasih ruang untuk panah */
+  background-position: right 1rem center; /* posisi panah */
+  background-repeat: no-repeat;
+  background-size: 12px;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;

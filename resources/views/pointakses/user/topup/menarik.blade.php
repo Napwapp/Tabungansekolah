@@ -86,14 +86,14 @@
             <script src="{{asset('dashboard/dist/transaksi/assets/jstransaksi/penarikan.js')}}"></script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             @if ($errors->any())
-            <script>
+            <script>                
                 document.addEventListener("DOMContentLoaded", function() {
                     Swal.fire({
                         icon: "error",
                         title: "Gagal!",
                         text: "{{ $errors->first() }}",
                     });
-                });
+                });                
             </script>
             @endif
 

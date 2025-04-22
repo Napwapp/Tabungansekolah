@@ -184,17 +184,8 @@
                 <button type="submit" class="btn btn-primary">Kirim</button>
             </form>
             <footer>
-                <div class="footer clearfix mb-0 text-muted" style="margin-top: 15px;">
-                    <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted by
-                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                        </p>
-                    </div>
+                <div class="footer clearfix mb-0 text-muted">
+                    <!-- bila perlu -->
                 </div>
             </footer>
         </div>

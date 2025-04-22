@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <span class="list-group-item-text text-truncate">${item.tipe}</span>
                                     </div>
                                     <div class="mail-items">
-                                        <span class="list-group-item-text text-truncate">${highlightText(strLimit(item.judul, 30), query)}</span>
+                                        <span class="list-group-item-text text-truncate">${highlightText(strLimit(item.judul, 30))}</span>
                                     </div>
                                 </div>
                                 <div class="mail-meta-item desktop-only">
@@ -107,7 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
                             <div class="mail-message">
                                 <p class="list-group-item-text truncate mb-0">
-                                    <p class="list-group-item-text truncate mb-0">${highlightText(strLimit(item.isi_pesan || 'Tidak ada isi pesan', 50), query)}</p>
+                                    ${highlightText(strLimit(item.isi_pesan || 'Tidak ada isi pesan', 50))}
+
+                                    <span id="status-laporan-${item.id}" class="status-icon-mobile">
+                                            ${getStatusLaporanIcon(item.status_laporan)}
+                                    </span>
                                 </p>                                   
                             </div>
                         </div>
@@ -133,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(function () {
             performSearch(event);
-        }, 300);
+        }, 200);
     });
 
     function performSearch(event) {
@@ -244,6 +248,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                     <div class="mail-message">
                         <p class="list-group-item-text truncate mb-0">${highlightText(strLimit(item.isi_pesan || 'Tidak ada isi pesan', 50), query)}</p>
+
+                        <span id="status-laporan-${item.id}" class="status-icon-mobile">
+                            ${statusIcon}
+                        </span>
                     </div>
                 </div>
             </li>

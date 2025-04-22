@@ -120,4 +120,14 @@ class TarikController extends Controller
             ], 500);
         }
     }
+
+    public function cekStatus()
+    {
+        $user = auth()->user();
+        $hasPending = PenarikanUser::where('user_id', $user->id)
+            ->where('status', 'Menunggu Persetujuan')
+            ->exists();
+
+        return response()->json(['pending' => $hasPending]);
+    }
 }

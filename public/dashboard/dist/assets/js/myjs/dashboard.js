@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fungsi menghitung progress tabungan
     function calculateProgress() {
+        if (targetTabungan <= 0) {
+            progressPercentage.textContent = '0%';
+            progressCircle.style.strokeDashoffset = 339.29; // Reset progress lingkaran
+            return;
+        }
+
         const percentage = Math.min((totalTabungan / targetTabungan) * 100, 100).toFixed(1);
         progressPercentage.textContent = `${percentage}%`;
     
