@@ -26,7 +26,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -346,7 +346,7 @@
                                                                     <span id="status-laporan-{{ $data->id }}" class="status-icon-mobile">
                                                                         {!! $data->status_laporan_icon ?? 'Belum Ada' !!}
                                                                     </span>
-                                                                </p>                                                                
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -431,16 +431,7 @@
             <!-- footer -->
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted by
-                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                        </p>
-                    </div>
+                    <!-- bila perlu -->
                 </div>
             </footer>
         </div>
@@ -675,6 +666,19 @@
             });
         }
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const replyInput = document.getElementById("reply-input");
+
+            if (replyInput) {
+                replyInput.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault(); // Mencegah form dari pengiriman default jika ada
+                        sendReply(); // Panggil fungsi pengiriman balasan
+                    }
+                });
+            }
+        });
+        
         function closeOverlay() {
             document.getElementById('messageOverlay').style.display = 'none';
         }

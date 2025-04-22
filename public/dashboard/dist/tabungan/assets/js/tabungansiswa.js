@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fungsi menghitung progress tabungan
     function calculateProgress() {
         if (targetTabungan <= 0) {
-            console.warn('Target tabungan belum diatur atau bernilai 0.');
             progressPercentage.textContent = '0%';
             progressCircle.style.strokeDashoffset = 339.29; // Reset progress lingkaran
             return;

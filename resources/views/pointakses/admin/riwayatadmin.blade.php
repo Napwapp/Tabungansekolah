@@ -23,7 +23,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -120,7 +120,7 @@
                                 @endif
                             </a>
                         </li>
-                        
+
                         <li
                             class="sidebar-item  ">
                             <a href="{{route('seturl')}}" class='sidebar-link'>
@@ -148,7 +148,7 @@
             <!-- Filter dan Pencarian -->
             <div class="row mb-3">
                 <div class="col-md-3">
-                    <select class="form-control" id="transactionType">
+                    <select class="form-control" id="transactionType" style="cursor: pointer;">
                         <option value="">Semua Transaksi</option>
                         <option value="TopUp">TopUp</option>
                         <option value="Menabung">Menabung</option>
@@ -157,9 +157,20 @@
                 </div>
 
                 <div class="col-md-3">
-                    <input type="text" id="searchInput" placeholder="Cari NIS/Nama..." class="form-control">
+                    <input type="text" id="searchInput" placeholder="Cari Nama..." class="form-control">
                 </div>
 
+                <div id="rowsPerPageContainer">
+                    <select id="rowsPerPage" style="cursor: pointer;">
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="all">All</option>
+                    </select>
+                    <span style="margin-left: 10px;">Data per halaman</span>
+                </div>
             </div>
 
             <!-- Tabel Riwayat Transaksi -->
@@ -175,39 +186,47 @@
                     </tr>
                 </thead>
                 <tbody id="transaksiBody">
-                    @foreach($riwayatadmin as $transaksi)
+                    @forelse($riwayatadmin as $transaksi)
                     <tr class="transaksi-row {{ $transaksi->tipe }}">
                         <td>{{ $transaksi->namalengkap }}</td>
                         <td>{{ $transaksi->created_at }}</td>
                         <td>{{ number_format($transaksi->jumlah, 0, ',', '.') }}</td>
-                        <td>{{ $transaksi->tipe }}</td> <!-- Akan menampilkan 'Top Up', 'Menabung', atau 'Penarikan' -->
+                        <td>{{ $transaksi->tipe }}</td>
                         <td>{{ $transaksi->id_tabungan }}</td>
                         <td>{{ $transaksi->status }}</td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr id="noDataRow">
+                        <td colspan="6" class="text-center">Belum ada data</td>
+                    </tr>
+                    @endforelse
+                    <tr id="notFoundRow" style="display: none;">
+                        <td colspan="6" class="text-center">Tidak dapat menemukan data</td>
+                    </tr>
                 </tbody>
             </table>
+
+            <!-- Perhitungan data -->
+            <div id="dataCountText" class="mt-2 text-muted small"></div>
+
+            <div class="pagination-controls d-flex justify-content-end align-items-center gap-2 mt-3" id="paginationControls">
+                <button id="firstPage" class="btn btn-outline-secondary btn-sm">&laquo;</button>
+                <button id="prevPage" class="btn btn-outline-secondary btn-sm">&lsaquo;</button>
+                <span id="currentPage" class="mx-2">Page 1</span>
+                <button id="nextPage" class="btn btn-outline-secondary btn-sm">&rsaquo;</button>
+                <button id="lastPage" class="btn btn-outline-secondary btn-sm">&raquo;</button>
+            </div>
+
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <!-- bila perlu -->
+                </div>
+            </footer>
         </div>
     </div>
 
-    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
-    <script>
-        document.getElementById("transactionType").addEventListener("change", function() {
-            let selectedType = this.value; // Ambil nilai yang dipilih
-            let rows = document.querySelectorAll(".transaksi-row"); // Ambil semua baris transaksi
-
-            rows.forEach(row => {
-                if (selectedType === "" || row.classList.contains(selectedType)) {
-                    row.style.display = ""; // Tampilkan jika sesuai
-                } else {
-                    row.style.display = "none"; // Sembunyikan jika tidak sesuai
-                }
-            });
-        });
-    </script>
-
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
             const table = document.getElementById('riwayatTable');
@@ -229,7 +248,13 @@
                 }
             });
         });
-    </script>
+    </script> -->
+
+    <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+    <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+
+    <script src="{{asset('dashboard/dist/assets/js/myjs/riwayatadmin.js')}}"></script>
+
 </body>
 
 </html>

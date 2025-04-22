@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         amountInput.value = formatNumber(rawValue);
         amountHidden.value = rawValue; // Pastikan hidden input selalu diperbarui
     });
-    
+
 
     // Tombol Tarik Semua
     if (tarikSemuaButton) {
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     depositButton.addEventListener("click", function (event) {
         event.preventDefault();
         let currentAmount = parseInt(amountInput.value.replace(/\./g, "")) || 0;
-    
+
         if (currentAmount < 20000) {
             Swal.fire({
                 icon: "error",
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             return;
         }
-    
+
         if (currentAmount % 500 !== 0) {
             Swal.fire({
                 icon: "error",
@@ -101,16 +101,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             return;
         }
-    
-        if (sessionStorage.getItem("withdrawalPending") === "true") {
-            Swal.fire({
-                icon: "error",
-                title: "Gagal!",
-                text: "Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!",
+
+        fetch('/cek-status-penarikan')
+            .then(response => response.json())
+            .then(data => {
+                if (data.pending) {
+                    sessionStorage.setItem("withdrawalPending", "true");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal!",
+                        text: "Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!",
+                    });
+                } else {
+                    sessionStorage.removeItem("withdrawalPending");
+                }
             });
-            return;
-        }
-    
+
         Swal.fire({
             title: "Konfirmasi Penarikan",
             text: `Anda akan menarik Rp${formatNumber(currentAmount)}. Lanjutkan?`,
@@ -122,10 +128,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.isConfirmed) {
                 showLoading();
                 sessionStorage.setItem("withdrawalPending", "true");
-        
+
+                const userRoute = document.getElementById("userRoute")
+                    ? document.getElementById("userRoute").value
+                    : "/user";
+
                 const form = document.querySelector("form");
                 const formData = new FormData(form);
-    
+
                 fetch(form.action, {
                     method: form.method,
                     body: formData,
@@ -135,37 +145,37 @@ document.addEventListener("DOMContentLoaded", function () {
                             .getAttribute("content")
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    hideLoading();
-                    if (data.success) {
-                        sessionStorage.setItem("withdrawalSuccess", "true");
-                        Swal.fire({
-                            icon: "info",
-                            title: "Berhasil!",
-                            text: data.message,
-                        }).then(() => {
-                            window.location.href = userRoute;
-                        });
-                    } else {
+                    .then(response => response.json())
+                    .then(data => {
+                        hideLoading();
+                        if (data.success) {
+                            sessionStorage.setItem("withdrawalSuccess", "true");
+                            Swal.fire({
+                                icon: "info",
+                                title: "Berhasil!",
+                                text: data.message,
+                            }).then(() => {
+                                window.location.href = userRoute;
+                            });
+                        } else {
+                            sessionStorage.removeItem("withdrawalPending");
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal!",
+                                text: data.message,
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        hideLoading();
                         sessionStorage.removeItem("withdrawalPending");
+                        console.error("Error:", error);
                         Swal.fire({
                             icon: "error",
                             title: "Gagal!",
-                            text: data.message,
+                            text: "Terjadi kesalahan saat memproses!",
                         });
-                    }
-                })
-                .catch(error => {
-                    hideLoading();
-                    sessionStorage.removeItem("withdrawalPending");
-                    console.error("Error:", error);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Gagal!",
-                        text: "Terjadi kesalahan saat memproses!",
                     });
-                });
             }
         });
     });

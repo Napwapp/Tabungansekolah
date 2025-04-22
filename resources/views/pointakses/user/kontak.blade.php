@@ -113,7 +113,7 @@
                                     <span>Log Out</span>
                                 </button>
                             </form>
-                        </li>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -291,7 +291,6 @@
                                                     <!-- pagination and page count -->
 
                                                     <!-- Tombol Hapus Semua Notifikasi -->
-                                                    <!-- Tombol Hapus Semua Notifikasi yang lebih responsif -->
                                                     <button class="btn btn-danger btn-sm" onclick="hapusSemuaPesanDibaca()">
                                                         <span class="text-label d-none d-md-inline">Hapus Semua Pesan yang Dibaca</span>
                                                         <span class="text-label d-none d-sm-inline d-md-none">Hapus Dibaca</span>
@@ -667,37 +666,46 @@
     <!-- Script Konfirmasi Hapus Semua -->
     <script>
         function hapusSemuaPesanDibaca() {
-            Swal.fire({
-                title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
-                text: "Pesan yang telah dibaca akan dihapus.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Hapus Semua',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Kirim request hapus pesan yang sudah dibaca
-                    fetch('/pesan/hapus-semua-dibaca', {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({}) // Tambahkan body kosong
-                        })
+            // Cek dulu apakah ada pesan 'Dibaca'
+            fetch('/cek-pesan-dibaca')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.ada) {
+                        Swal.fire('Gagal', 'Tidak dapat menemukan pesan yg sudah dibaca', 'error');
+                        return;
+                    }
 
-                        .then(response => response.json())
-                        .then(data => {
-                            Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success');
-                            // Reload atau update tampilan notifikasi
-                            location.reload(); // Atau bisa menggunakan update tampilan AJAX
-                        })
-                        .catch(error => {
-                            Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
-                        });
-                }
-            });
+                    // Jika ada, baru tampilkan konfirmasi
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
+                        text: "Pesan yang telah dibaca akan dihapus.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Hapus Semua',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Kirim request hapus
+                            fetch('/pesan/hapus-semua-dibaca', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({})
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success')
+                                        .then(() => location.reload());
+                                })
+                                .catch(error => {
+                                    Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
+                                });
+                        }
+                    });
+                });
         }
     </script>
 
@@ -789,7 +797,7 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
-    </script>    
+    </script>
 </body>
 
 </html>

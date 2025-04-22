@@ -26,12 +26,15 @@ class AdminController extends Controller
         $tahunSekarang = Carbon::now()->year;
 
         // Total saldo masuk hari ini
-        $totalSaldoHariIni = TransaksiTopup::whereDate('created_at', Carbon::today())
+        // Total saldo hari ini (termasuk yang soft deleted)
+        $totalSaldoHariIni = TransaksiTopup::withTrashed()
+            ->whereDate('created_at', Carbon::today())
             ->where('status', 'Sukses')
             ->sum('jumlah');
 
-        // Total tabungan bulanan
-        $totalTabunganBulanan = TransaksiMenabungUser::whereMonth('created_at', Carbon::now()->month)
+        // Total tabungan bulanan (termasuk yang soft deleted)
+        $totalTabunganHariIni = TransaksiMenabungUser::withTrashed()
+            ->whereDate('created_at', Carbon::today())
             ->where('status', 'Sukses')
             ->sum('jumlah');
 
@@ -255,7 +258,7 @@ class AdminController extends Controller
         return view('pointakses/admin/index', array_merge(
             compact(
                 'totalSaldoHariIni',
-                'totalTabunganBulanan',
+                'totalTabunganHariIni',
                 'totalPenarikan',
                 'totalSaldoMasuk',
                 'totalTabunganMasuk',

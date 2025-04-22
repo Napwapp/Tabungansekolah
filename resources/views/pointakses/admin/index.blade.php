@@ -29,11 +29,6 @@
     <link rel="stylesheet" href="{{asset ('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/css/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('dashboard_admin/dist/assets/css/style-preset.css') }}">
-
-    <!-- js -->
-    <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
-
-
 </head>
 
 <body>
@@ -44,7 +39,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -171,43 +166,59 @@
                 </header>
 
                 @if (session('error'))
-                <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
+                <div id="error-alert"
+                    class="alert alert-danger"
+                    data-clear-url="{{ route('clear.errors') }}"
+                    data-token="{{ csrf_token() }}"
+                    style="position: relative;">
+
+                    <button type="button" id="close-alert" style="
+                            padding: 0;
+							position: absolute;
+							top: 1px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 30px;
+							color: black;
+							cursor: pointer;
+						">&times;
+                    </button>
                     {{ session('error') }}
                 </div>
                 @endif
 
-                <body>
-                    <!-- Profil singkat -->
-                    <div class="profil-container">
-                        <div class="profil">
-                            <div class="profil-picture">
-                                <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="Foto profil">
-                            </div>
-                            <div class="profil-detail"> <!-- Tambahkan div pembungkus -->
-                                <h2 class="username">{{ Auth::user()->namalengkap }}</h2>
-                                <p class="role">Role : <strong style="font-size: 16px; text-transform: capitalize;">{{ Auth::user()->role }}</strong></p>
-                            </div>
+                <!-- Profil singkat -->
+                <div class="profil-container">
+                    <div class="profil">
+                        <div class="profil-picture">
+                            <img src="{{ asset('picture/accounts/' . Auth::user()->gambar) }}" alt="Foto profil">
                         </div>
-
-                        <div class="profile-info">
-                            <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p>
-                        </div>
-
-                        <!-- Total Saldo dan Tabungan yang masuk -->
-
-                        <div class="total-container">
-                            <div class="total-box">
-                                <h5 class="card-title" style="color: white;"><strong>Total Saldo Masuk</strong></h5>
-                                <h3 style="color: white;">Rp {{ number_format($totalSaldoMasuk, 0, ',', '.') }}</h3>
-                            </div>
-                            <div class="total-box">
-                                <h5 class="card-title" style="color: white;">Total Tabungan Masuk</strong></h5>
-                                <h3 style="color: white;">Rp {{ number_format($totalTabunganMasuk, 0, ',', '.') }}</h3>
-                            </div>
+                        <div class="profil-detail"> <!-- Tambahkan div pembungkus -->
+                            <h2 class="username">{{ Auth::user()->namalengkap }}</h2>
+                            <p class="role">Role : <strong style="font-size: 16px; text-transform: capitalize;">{{ Auth::user()->role }}</strong></p>
                         </div>
                     </div>
 
-                    <p><!-- Content -->
+                    <div class="profile-info">
+                        <p><strong>Kelas:</strong> {{Auth::user() -> kelas}}</p>
+                    </div>
+
+                    <!-- Total Saldo dan Tabungan yang masuk -->
+
+                    <div class="total-container">
+                        <div class="total-box">
+                            <h5 class="card-title" style="color: white;"><strong>Total saldo masuk hari ini</strong></h5>
+                            <h3 style="color: white;">Rp {{ number_format($totalSaldoHariIni, 0, ',', '.') }}</h3>
+                        </div>
+                        <div class="total-box">
+                            <h5 class="card-title" style="color: white;">Total tabungan masuk hari ini</strong></h5>
+                            <h3 style="color: white;">Rp {{ number_format($totalTabunganHariIni, 0, ',', '.') }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <body><!-- Content -->
                     <div class="content" style="margin-left: 30px;">
                         <h3>Informasi Pengguna</h3>
 
@@ -226,7 +237,7 @@
                                         </h4>
                                         <p class="mb-0 text-sm">
                                             Total Pengguna yang mendaftar {{ $trendStatus === 'naik' ? 'lebih' : 'kurang' }}
-                                            <span class="{{ $textClass }}">{{ $selisihAbs }}</span> Tahun ini
+                                            <span class="{{ $textClass }}">{{ $selisihAbs }}</span> daripada tahun sebelumnya
                                         </p>
                                     </div>
                                 </div>
@@ -336,7 +347,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <h4 class="display-6 text-center mb-0">Data transaksi</h4>
+                                <h4 class="display-6 text-center mb-4">Data transaksi</h4>
                             </div>
                         </div>
 
@@ -367,22 +378,13 @@
                             </div>
                         </div>
                     </div>
-                </body>
 
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                    <footer>
+                        <div class="footer clearfix mb-0 text-muted">
+                            <!-- bila perlu -->
                         </div>
-                        <div class="float-end">
-                            <p>Crafted by
-                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                            </p>
-                        </div>
-                    </div>
-                </footer>
+                    </footer>
+                </body>
             </div>
         </div>
 
@@ -408,6 +410,9 @@
         <script src="{{ asset('dashboard_admin/dist/assets/js/pcoded.js') }}"></script>
         <script src="{{ asset('dashboard_admin/dist/assets/js/plugins/feather.min.js') }}"></script>
 
+        <!-- js -->
+        <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
+        <script src="{{asset ('landingpage/Halamanlogin/js/myjs/registrasi.js')}}"></script>
 </body>
 
 </html>

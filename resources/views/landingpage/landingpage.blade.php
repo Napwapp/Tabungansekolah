@@ -145,7 +145,6 @@
       </div><!-- End Section Title -->
 
       <div class="container">
-
         <div class="row gy-4 align-items-center features-item">
           <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h3>1. Tentunya Kamu dapat Menabung</h3>
@@ -321,6 +320,7 @@
             <li><a href="#hero">Beranda</a></li>
             <li><a href="#about">Tentang Kami</a></li>
             <li><a href="#features">Panduan</a></li>
+            <li><a href="#contact">Kontak</a></li>
           </ul>
         </div>
 

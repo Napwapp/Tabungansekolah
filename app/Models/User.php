@@ -92,9 +92,9 @@ class User extends Authenticatable
             // Hapus relasi langsung
             $user->notifikasi()->delete();
             $user->laporan()->delete();
-            $user->transaksiTopup()->delete();
-
+            
             // Hapus transaksi dan penarikan yang lewat tabungan
+            $user->transaksiTopup()->delete();
             $user->transaksiMenabung()->delete();
             $user->penarikan()->delete();
 

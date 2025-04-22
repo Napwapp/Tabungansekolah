@@ -33,7 +33,7 @@ class RiwayatAdminController extends Controller
         $totalPenarikan = $penarikan->sum('jumlah');
 
         // Gabungkan semua transaksi dalam satu collection & urutkan berdasarkan tanggal terbaru
-        $riwayatadmin = $topup->concat($menabung)->concat($penarikan)->sortByDesc('tanggal');
+        $riwayatadmin = $topup->concat($menabung)->concat($penarikan)->sortByDesc('created_at');
 
         // Kirim semua data ke view
         return view('pointakses.admin.riwayatadmin', compact('riwayatadmin', 'totalTopup', 'totalMenabung', 'totalPenarikan'));

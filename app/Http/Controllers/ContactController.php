@@ -269,4 +269,14 @@ class ContactController extends Controller
 
         return response()->json($notifikasi); // Kembalikan semua notifikasi dalam format JSON
     }
+
+    // cek pesan dibaca
+    public function cekPesanDibaca()
+    {
+        $ada = NotifikasiUser::where('user_id', auth()->id())
+            ->where('status', 'Dibaca')
+            ->exists();
+
+        return response()->json(['ada' => $ada]);
+    }
 }

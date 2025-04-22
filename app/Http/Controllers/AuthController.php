@@ -68,7 +68,9 @@ class AuthController extends Controller
                 'required',
                 'min:8',
                 'regex:/\d/', // Harus ada angka
+                'same:re_password' 
             ],
+            're_password' => 'required',
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ], [
             'namalengkap.required' => 'Nama lengkap wajib diisi',
@@ -88,11 +90,13 @@ class AuthController extends Controller
             'password.required' => 'Password harus diisi',
             'password.min' => 'Password setidaknya berisi 8 karakter',
             'password.regex' => 'Password harus memiliki angka setidaknya 1 angka',
+            'password.same' => 'Password dan konfirmasi password harus sama',
+            
+            're_password.required' => 'Tolong Konfirmasi password mu!',
 
             'gambar.required' => 'Gambar wajib diupload',
             'gambar.image' => 'Gambar yang diupload harus berupa file gambar',
         ]);
-
 
         Log::info('Validasi berhasil.');
 

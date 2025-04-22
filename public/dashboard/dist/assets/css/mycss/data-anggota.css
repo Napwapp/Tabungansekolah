@@ -1,55 +1,734 @@
-/* Tabel Styling */
-.table {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-collapse: collapse; /* Menyatukan border antar sel */
-    width: 100%;
-}
-.table th {
-    background: #007bff;
-    color: white;
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-.table td {
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid #ddd; /* Tambahkan border ke setiap sel */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-/* Tombol Styling */
-.btn-sm {
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    text-decoration: none;
+body {
+    background-color: #f9fafb;
+    padding: 10px;
 }
-.btn-danger {
-    background-color: #dc3545;
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-x: auto;
+}
+
+h1,
+h2 {
+    color: #111827;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+.add-btn {
+    background-color: #4f46e5;
     color: white;
     border: none;
-}
-.btn-danger:hover {
-    background-color: #c82333;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    text-decoration: none;
 }
 
-/* Card styling */
-.card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
+.add-btn:hover {
+    color: white;
+    background-color: #3f37e5;
+}
+
+form .table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+form .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+form .table-container th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    white-space: nowrap;
+}
+
+form .table-container th:first-child {
+    width: 40px;
+}
+
+form .table-container th span {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+form .table-container th span::after {
+    content: "↓";
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+form .table-container td {
+    padding: 12px 16px;
+    font-size: 14px;
+    max-width: 300px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #1f2937;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+}
+
+/* Hide and show chcekbox */
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    min-width: 45px; /* Menambahkan min-width supaya tidak menggepeng */
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0; /* Mencegah gambar mengecil saat container menyempit */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    max-width: 100%; /* Memastikan tidak melebihi lebar parent */
+}
+
+.user-name {
+    font-weight: 500;
+    white-space: nowrap; /* Pilihan 1: Teks tetap 1 baris */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Tambahkan ... jika terpotong */
+}
+
+.pagination {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    background-color: #4f46e5;
+    color: white;
+    border-color: #4f46e5;
+}
+
+.page-btn.arrow {
+    color: #9ca3af;
+}
+
+.city-text {
+    color: #ea580c;
+}
+
+.chat-demo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    padding: 10px 16px;
+    border-radius: 50px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 100;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+}
+
+.customize-icon {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 100;
+}
+
+option.back-option {
+    font-style: italic;
+    color: #555;
+}
+
+/* Card View for Mobile */
+.cards-container {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    overflow-y: scroll;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+
+.card-header .checkbox {
+    margin-right: 12px;
+}
+
+.card-body {
+    padding: 12px;
+}
+
+.card-row {
+    display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.card-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.card-value {
+    font-size: 14px;
+    color: #1f2937;
+}
+
+/* Add Member Form */
+.add-member-form {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.select-role.form-control {
+    width: auto !important;
+    min-width: 100px; /* Set a minimum width */
+    max-width: 100%; /* Prevent overflow */
+    padding-right: 30px !important; /* Make room for the arrow */
+    text-overflow: ellipsis; /* Add ellipsis for text overflow */
+    box-sizing: border-box;
+}
+
+/* Style the select container to show a custom arrow that won't overlap */
+td .select-role {
+    position: relative;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Add custom arrow */
+td .select-role::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #555;
+    pointer-events: none;
+}
+
+/* Alternatively, you can use a background image for the arrow */
+td .select-role {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: white;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+label[for="gambar"] {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: auto !important;
+    max-width: 500px;
+    display: inline-block !important; /* Override template's display: block */
+    padding-right: 10px;
+}
+
+.form-control input[type="file"] {
+    width: auto;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-container {
+        max-width: 100%;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table-container {
+        display: none;
+    }
+
+    .cards-container {
+        display: flex;
+    }
+
+    .pagination {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chat-demo {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .customize-icon {
+        right: 10px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+    .search-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pagination {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+
+    .form-group {
+        flex: 1;
+    }
+}
+
+/* Animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Mode Gelap */
-body.theme-dark .table {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-collapse: collapse; /* Menyatukan border antar sel */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body.theme-dark input,
+body.theme-dark select {
+    background-color: #111827;
+    color: white;
+    border: 1px solid gray;
+}
+
+body.theme-dark .add-btn {
+    color: white;
+}
+
+body.theme-dark .add-btn:hover {
+    color: white;
+    background-color: #3f37e5;
+}
+
+body.theme-dark form .table-container {
+    overflow-x: auto;
     width: 100%;
+}
+
+body.theme-dark form .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+body.theme-dark form .table-container th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    border: none;
+    border-bottom: 1px solid gray;
+    position: relative;
+    white-space: nowrap;
+}
+
+body.theme-dark form .table-container th:first-child {
+    width: 40px;
+}
+
+body.theme-dark form .table-container th span {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: white;
+}
+
+body.theme-dark form .table-container th span::after {
+    content: "↓";
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+body.theme-dark form .table-container td {
+    padding: 12px 16px;
+    font-size: 14px;
+    max-width: 300px;
+    border: none;
+    border-bottom: 1px solid gray;
+    color: white;
+    background-color: #1e1e2d;
+}
+
+body.theme-dark .checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+}
+
+/* Hilangkan tampilan default browser */
+.select-role {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg fill='black' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+}
+
+/* Mode gelap */
+body.theme-dark .select-role {
+    background-color: #1e1e2d;
+    color: #fff;
+    border-color: #444;
+    background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+body.theme-dark .select-role:hover {
+    background-color: #1e1e2d;
+}
+
+body.theme-dark .form-control input#gambar {
+    border: none;
+    color: grey;
+}
+
+body.theme-dark .form-group select#kelas {
+    color: gray;
+}
+
+.select-kelas {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg fill='black' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+}
+
+/* Mode gelap */
+body.theme-dark .select-kelas {
+    color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+body.theme-dark .submit-btn {
+    border-radius: 6px;
+}
+
+body.theme-dark label[for="gambar"] {
+    display: block;
+    margin-bottom: 5px;
+}
+
+body.theme-dark .form-control {
+    width: auto !important;
+    max-width: 500px;
+    display: inline-block !important; /* Override template's display: block */
+    padding-right: 10px;
+}
+
+body.theme-dark .form-control input[type="file"] {
+    width: auto;
+    display: inline-block;
+}
+
+body.theme-dark .page-btn{
+    border-radius: 6px;
+}
+
+body.theme-dark .card {
+    border-radius: 8px;
+    border: 1px solid gray;
+    overflow-y: scroll;
+}
+
+body.theme-dark .card-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid gray !important;
+}
+
+body.theme-dark .card-header .checkbox {
+    margin-right: 12px;
+}
+
+body.theme-dark .card-body {
+    padding: 12px;
+}
+
+body.theme-dark .card-row {
+    display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+body.theme-dark .card-label {
+    font-size: 12px;
+    font-weight: 500;
+    width: 100px;
+    color: white;
+    flex-shrink: 0;
+}
+
+body.theme-dark .card-value {
+    font-size: 14px;
+    color: white;
+}
+
+body.theme-dark form .table-container th {
+    text-align: left;
+}
+
+body.theme-dark form .table-container td {
+    text-align: left;
 }

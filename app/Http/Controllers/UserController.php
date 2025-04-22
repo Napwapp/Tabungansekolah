@@ -45,12 +45,17 @@ class UserController extends Controller
         $persenTabungan = min($persenTabungan, 100);
 
         // Periksa apakah user sudah mencapai target tabungan
-        if ($totalTabungan !== null && $targetTabungan !== null && $totalTabungan >= $targetTabungan) {
+        if (
+            $totalTabungan !== null &&
+            $targetTabungan !== null &&
+            $targetTabungan > 0 && // Ini kunci utamanya
+            $totalTabungan >= $targetTabungan
+        ) {
             // Cek apakah sudah pernah mengirim notifikasi untuk target yang sekarang
             $existingNotification = DB::table('notifikasi_users')
                 ->where('user_id', $user->id)
                 ->where('tipe', 'Target Tercapai')
-                ->where('target_yang_dicapai', $targetTabungan) // cek apakah target ini sudah pernah dikirim
+                ->where('target_yang_dicapai', $targetTabungan)
                 ->exists();
 
             if (!$existingNotification) {
@@ -65,7 +70,7 @@ class UserController extends Controller
                             👉 <a href='" . route('menarik') . "' style='color: #28a745;'>Lakukan Penarikan</a>",
                     'status' => 'Belum Dibaca',
                     'tipe' => 'Target Tercapai',
-                    'target_yang_dicapai' => $targetTabungan, // inilah kunci logikanya
+                    'target_yang_dicapai' => $targetTabungan,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

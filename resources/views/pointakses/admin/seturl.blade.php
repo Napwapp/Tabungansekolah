@@ -28,7 +28,7 @@
         <div class="sidebar-header position-relative">
           <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-              <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+              <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
               <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -88,11 +88,7 @@
                 <i class="bi bi-basket-fill"></i>
                 <span>Tabungan</span>
               </a>
-              <ul class="submenu ">
-                <li class="submenu-item ">
-                  <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
-                </li>
-
+              <ul class="submenu ">              
                 <li class="submenu-item ">
                   <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                 </li>
@@ -287,19 +283,19 @@
                     <div class="mb-2">
                       <label for="anggota_1-github" class="form-label">GitHub</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="github" id="anggota_1-github" placeholder="{{ $informasiSosmed->github ? $informasiSosmed->github : 'Belum ada data' }}" value="{{ $informasiSosmed->github ?? '' }}">
+                        <input type="url" class="form-control" name="github" id="anggota_1-github" placeholder="{{optional($informasiSosmed)->github ? $informasiSosmed->github : 'Belum ada data' }}" value="{{optional($informasiSosmed)->github ?? '' }}">
                       </div>
                     </div>
                     <div class="mb-2">
                       <label for="anggota_1-instagram" class="form-label">Instagram</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="instagram" id="anggota_1-instagram" placeholder="{{ $informasiSosmed->instagram ? $informasiSosmed->instagram : 'Belum ada data' }}" value="{{ $informasiSosmed->instagram ?? '' }}">
+                        <input type="url" class="form-control" name="instagram" id="anggota_1-instagram" placeholder="{{optional($informasiSosmed)->instagram ? $informasiSosmed->instagram : 'Belum ada data' }}" value="{{optional($informasiSosmed)->instagram ?? '' }}">
                       </div>
                     </div>
                     <div class="mb-2">
                       <label for="anggota_1-linkedin" class="form-label">LinkedIn</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="linkedin" id="anggota_1-linkedin" placeholder="{{ $informasiSosmed->linkedin ? $informasiSosmed->linkedin : 'Belum ada data' }}" value="{{ $informasiSosmed->linkedin ?? '' }}">
+                        <input type="url" class="form-control" name="linkedin" id="anggota_1-linkedin" placeholder="{{optional($informasiSosmed)->linkedin ? $informasiSosmed->linkedin : 'Belum ada data' }}" value="{{optional($informasiSosmed)->linkedin ?? '' }}">
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="btn-simpan-anggota_1" disabled>Simpan Perubahan</button>
@@ -321,19 +317,19 @@
                     <div class="mb-2">
                       <label for="anggota_2-github" class="form-label">GitHub</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="github" id="anggota_2-github" placeholder="{{ $informasiSosmed2->github ? $informasiSosmed2->github : 'Belum ada data' }}" value="{{ $informasiSosmed2->github ?? '' }}">
+                        <input type="url" class="form-control" name="github" id="anggota_2-github" placeholder="{{ optional($informasiSosmed2)->github ? $informasiSosmed2->github : 'Belum ada data' }}" value="{{ optional($informasiSosmed2)->github ?? '' }}">
                       </div>
                     </div>
                     <div class="mb-2">
                       <label for="anggota_2-instagram" class="form-label">Instagram</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="instagram" id="anggota_2-instagram" placeholder="{{ $informasiSosmed2->instagram ? $informasiSosmed2->instagram : 'Belum ada data' }}" value="{{ $informasiSosmed2->instagram ?? '' }}">
+                        <input type="url" class="form-control" name="instagram" id="anggota_2-instagram" placeholder="{{ optional($informasiSosmed2)->instagram ? $informasiSosmed2->instagram : 'Belum ada data' }}" value="{{ optional($informasiSosmed2)->instagram ?? '' }}">
                       </div>
                     </div>
                     <div class="mb-2">
                       <label for="anggota_2-linkedin" class="form-label">LinkedIn</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="linkedin" id="anggota_2-linkedin" placeholder="{{ $informasiSosmed2->linkedin ? $informasiSosmed2->linkedin : 'Belum ada data' }}" value="{{ $informasiSosmed2->linkedin ?? '' }}">
+                        <input type="url" class="form-control" name="linkedin" id="anggota_2-linkedin" placeholder="{{ optional($informasiSosmed2)->linkedin ? $informasiSosmed2->linkedin : 'Belum ada data' }}" value="{{ optional($informasiSosmed2)->linkedin ?? '' }}">
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="btn-simpan-anggota_2" disabled>Simpan Perubahan</button>
@@ -356,21 +352,21 @@
                     <div class="mb-2">
                       <label for="anggota_3-github" class="form-label">GitHub</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="github" id="anggota_3-github" placeholder="{{ $informasiSosmed3->github ? $informasiSosmed3->github : 'Belum ada data' }}" value="{{ $informasiSosmed3->github ?? '' }}">
+                        <input type="url" class="form-control" name="github" id="anggota_3-github" placeholder="{{ optional($informasiSosmed3)->github ? $informasiSosmed3->github : 'Belum ada data' }}" value="{{ optional($informasiSosmed3)->github ?? '' }}">
                       </div>
                     </div>
 
                     <div class="mb-2">
                       <label for="anggota_3-instagram" class="form-label">Instagram</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="instagram" id="anggota_3-instagram" placeholder="{{ $informasiSosmed3->instagram ? $informasiSosmed3->instagram : 'Belum ada data' }}" value="{{ $informasiSosmed3->instagram ?? '' }}">
+                        <input type="url" class="form-control" name="instagram" id="anggota_3-instagram" placeholder="{{ optional($informasiSosmed3)->instagram ? $informasiSosmed3->instagram : 'Belum ada data' }}" value="{{ optional($informasiSosmed3)->instagram ?? '' }}">
                       </div>
                     </div>
 
                     <div class="mb-2">
                       <label for="anggota_3-linkedin" class="form-label">LinkedIn</label>
                       <div class="input-group">
-                        <input type="url" class="form-control" name="linkedin" id="anggota_3-linkedin" placeholder="{{ $informasiSosmed3->linkedin ? $informasiSosmed3->linkedin : 'Belum ada data' }}" value="{{ $informasiSosmed3->linkedin ?? '' }}">
+                        <input type="url" class="form-control" name="linkedin" id="anggota_3-linkedin" placeholder="{{ optional($informasiSosmed3)->linkedin ? $informasiSosmed3->linkedin : 'Belum ada data' }}" value="{{ optional($informasiSosmed3)->linkedin ?? '' }}">
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="btn-simpan-anggota_3" disabled>Simpan Perubahan</button>
@@ -378,25 +374,18 @@
                 </div>
               </div>
             </div>
-          </div><!-- end row team -->
+          </div>
+          <!-- end row team -->
         </div>
       </div>
-    </div>
-
-    <footer>
+      <footer>
       <div class="footer clearfix mb-0 text-muted">
-        <div class="float-start">
-          <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-        </div>
-        <div class="float-end">
-          <p>Crafted by
-            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-          </p>
-        </div>
+        <!-- bila perlu -->
       </div>
     </footer>
+    </div>
+
+    
   </div>
 
 
