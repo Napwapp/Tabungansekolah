@@ -412,11 +412,9 @@
                         </div>
                     </section>
 
-                    <!-- Pastikan Chart.js sudah dimuat -->
+                    <!-- Grafik Tabungan -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     @vite(['resources/js/app.js'])
-
-
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             fetch('/tabungan/bulanan') // Panggil API dari Laravel

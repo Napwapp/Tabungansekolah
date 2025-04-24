@@ -73,7 +73,7 @@ class PlusController extends Controller
 
             if ($existingTopup) {
                 return response()->json([
-                    'message' => 'Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!'
+                    'message' => 'Anda sudah memiliki transaksi yg belum di bayar. Harap segera datangi staff khusus untuk melakukan pembayaran dan meminta staff untuk menyetujui transaksi!'
                 ], 400);
             }
 
@@ -95,9 +95,8 @@ class PlusController extends Controller
                 'isi_pesan' => 'Top up sebesar Rp' . number_format($request->jumlah, 0, ',', '.') .  'Berhasil, Namun masih Menunggu persetujuan . Dimohon untuk mendatangi staff terkait untuk melakukan Pembayaran.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
-                'id_transaksi' => $topup->id, // Simpan ID transaksi    topup 
+                'id_transaksi' => $topup->id, // Simpan ID transaksi topup 
                 'status_transaksi' => $topup->status, // Langsung ambil dari kolom status transaksi
-
             ]);
 
             return response()->json([

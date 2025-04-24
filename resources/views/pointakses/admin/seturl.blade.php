@@ -88,7 +88,7 @@
                 <i class="bi bi-basket-fill"></i>
                 <span>Tabungan</span>
               </a>
-              <ul class="submenu ">              
+              <ul class="submenu ">
                 <li class="submenu-item ">
                   <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
                 </li>
@@ -150,6 +150,51 @@
     </div>
 
     <div id="main">
+      <!-- session success -->
+      @if(session('success'))
+      <div id="success-alert"
+        class="alert alert-success"
+        data-clear-url="{{ route('clear.success') }}"
+        data-token="{{ csrf_token() }}"
+        style="position: relative;">
+
+        <button type="button" id="close-success" style="
+							position: absolute;
+							top: 5px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 20px;
+							color: white; /* warna hijau pesan success */
+							cursor: pointer;">&times;
+        </button>
+        {{ session('success') }}
+      </div>
+      @endif
+
+      <!-- session gagal -->
+      @if (session('error'))
+      <div id="error-alert"
+        class="alert alert-danger"
+        data-clear-url="{{ route('clear.errors') }}"
+        data-token="{{ csrf_token() }}"
+        style="position: relative;">
+
+        <button type="button" id="close-alert" style="
+							position: absolute;
+							top: 3px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 30px;
+							color: white;
+							cursor: pointer;
+						">&times;
+        </button>
+        {{ session('error') }}
+      </div>
+      @endif
+
       <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1050;"></div>
       <header class="mb-3">
         <a href="#" class="burger-btn d-block d-xl-none">
@@ -157,12 +202,12 @@
         </a>
       </header>
       <div class="container my-4">
-        <h1 class="mb-4">Pengaturan Landing Page</h1>
+        <h2 class="mb-4">Pengaturan Konten informasi umum landing page</h2>
 
         <!-- Section: Informasi Kontak & Email -->
         <div class="card mb-4">
           <div class="card-header">
-            <h3>Informasi Kontak & Email</h3>
+            <h3>Informasi-informasi Umum</h3>
           </div>
           <div class="card-body">
 
@@ -172,9 +217,9 @@
               <form method="POST" action="{{ $alamat ? route('admin.landing.alamat.update') : route('admin.landing.alamat.store') }}">
                 @csrf
                 <div class="mb-3">
-                  <textarea class="form-control" name="alamat" placeholder="Masukkan alamat baru" rows="4" required>{{ $alamat->alamat ?? '' }}</textarea>
+                  <textarea class="form-control" name="alamat" id="input-alamat" placeholder="Masukkan alamat baru" rows="4" required>{{ $alamat->alamat ?? '' }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="btn-submit-alamat" disabled>
                   {{ $alamat ? 'Update Alamat' : 'Tambah Alamat' }}
                 </button>
               </form>
@@ -379,13 +424,11 @@
         </div>
       </div>
       <footer>
-      <div class="footer clearfix mb-0 text-muted">
-        <!-- bila perlu -->
-      </div>
-    </footer>
+        <div class="footer clearfix mb-0 text-muted">
+          <!-- bila perlu -->
+        </div>
+      </footer>
     </div>
-
-    
   </div>
 
 
@@ -406,9 +449,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <!-- myjs -->
+  <script src="{{ asset('dashboard/dist/assets/js/myjs/setalamat.js') }}"></script>
   <script src="{{ asset('dashboard/dist/assets/js/myjs/seturl.js') }}"></script>
   <script src="{{ asset('dashboard/dist/assets/js/myjs/setemail.js') }}"></script>
   <script src="{{ asset('dashboard/dist/assets/js/myjs/setsosmed.js') }}"></script>
+  <script src="{{ asset('landingpage/Halamanlogin/js/myjs/registrasi.js') }}"></script>
 
   <!-- Confirm -->
   <div id="confirmModal" class="modal">

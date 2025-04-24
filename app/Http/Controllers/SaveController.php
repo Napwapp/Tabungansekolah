@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\TabunganUser;
+use App\Models\TransaksiMenabungUser;
 use App\Models\User;
 
 class SaveController extends Controller
@@ -51,19 +52,16 @@ class SaveController extends Controller
     // Mengambil data tabungan per bulan (semua user atau user tertentu)
     public function getTabunganPerBulan()
     {
-        // Ambil user yang sedang login
         $userId = Auth::id();
 
-        // Ambil total tabungan per bulan hanya untuk user yang sedang login
-        $tabungan = DB::table('transaksi_menabung_users')
+        $tabungan = TransaksiMenabungUser::withTrashed()
             ->selectRaw('COALESCE(SUM(jumlah), 0) as total, MONTH(created_at) as bulan')
-            ->where('user_id', $userId) // Filter berdasarkan user_id
-            ->where('status', 'Sukses') // Hanya hitung transaksi yang sudah disetujui
+            ->where('user_id', $userId)
+            ->where('status', 'Sukses')
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('bulan')
             ->get();
 
-        // Buat array lengkap 1-12 (Januari-Desember) dengan nilai default 0
         $tabunganLengkap = [];
         for ($i = 1; $i <= 12; $i++) {
             $tabunganLengkap[] = [
@@ -74,4 +72,5 @@ class SaveController extends Controller
 
         return response()->json($tabunganLengkap);
     }
+
 }

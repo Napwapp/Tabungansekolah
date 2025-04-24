@@ -27,7 +27,7 @@ class UserAkses
 
         // 3. Batasi admin hanya bisa mengakses halaman admin
         if ($userRole === 'admin' && $requiredRole !== 'admin') {
-            return redirect()->route('admin')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+            return redirect()->route('admin')->with('error', 'Role anda tidak memiliki izin untuk mengakses halaman ini. ');
         }
 
         // 4. Batasi user hanya bisa mengakses halaman sesuai rolenya

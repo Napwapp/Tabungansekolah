@@ -37,24 +37,23 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="https://smkn1binong.sch.id" class="logo d-flex align-items-center me-auto me-xl-0">
+      <div class="logo d-flex align-items-center me-auto me-xl-0" style="margin-left: 15px;">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="">
         <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
-      </a>
+      </div>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
           <li><a href="#about">Tentang Kami</a></li>
           <li><a href="#features">Panduan</a></li>
-          <li><a href="blog.html"></a></li>
           <li><a href="#contact">Kontak</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="{{route('auth')}}">Login</a>
+      <a class="btn-getstarted" href="{{route('auth')}}" style="margin-right: 15px;">Login</a>
 
     </div>
   </header>
