@@ -36,18 +36,9 @@ class AdminController extends Controller
         $totalTabunganHariIni = TransaksiMenabungUser::withTrashed()
             ->whereDate('created_at', Carbon::today())
             ->where('status', 'Sukses')
-            ->sum('jumlah');
+            ->sum('jumlah');        
 
-        // Total penarikan
-        $totalPenarikan = PenarikanUser::where('status', 'Sukses')->sum('jumlah');
-
-        // Semua total saldo masuk
-        $totalSaldoMasuk = TransaksiTopup::where('status', 'Sukses')->sum('jumlah');
-
-        // Semua total tabungan masuk
-        $totalTabunganMasuk = TransaksiMenabungUser::where('status', 'Sukses')->sum('jumlah');
-
-        // Jumlah user (role = user) per tahun
+        // Jumlah user (menghitung semua datanya tanpna ada batas tanggal)
         $totalUsers = User::where('role', 'user')
             ->count();
 
@@ -258,10 +249,7 @@ class AdminController extends Controller
         return view('pointakses/admin/index', array_merge(
             compact(
                 'totalSaldoHariIni',
-                'totalTabunganHariIni',
-                'totalPenarikan',
-                'totalSaldoMasuk',
-                'totalTabunganMasuk',
+                'totalTabunganHariIni',                
                 'totalUsers',
                 'userThisYear',
                 'userLastYear',

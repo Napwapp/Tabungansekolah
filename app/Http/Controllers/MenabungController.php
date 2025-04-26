@@ -99,7 +99,7 @@ class MenabungController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Menabung dalam Proses',
-                'isi_pesan' => 'Transaksi menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . 'Berhasil. Mohon untuk menunggu persetujuan dari admin.',
+                'isi_pesan' => 'Transaksi menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') .  ' Berhasil. Mohon untuk menunggu persetujuan dari admin.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $menabung->id, 

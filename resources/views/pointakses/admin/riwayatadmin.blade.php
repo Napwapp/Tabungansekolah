@@ -78,16 +78,11 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Tabungan</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('kelasmin')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
+                                <span>Data tabungan siswa</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
@@ -217,39 +212,23 @@
                 <button id="lastPage" class="btn btn-outline-secondary btn-sm">&raquo;</button>
             </div>
 
-
-            <footer>
+            <footer style="margin-top: 15px;">
                 <div class="footer clearfix mb-0 text-muted">
-                    <!-- bila perlu -->
+                    <div class="float-start">
+                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
+                    </div>
                 </div>
             </footer>
         </div>
     </div>
-
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const table = document.getElementById('riwayatTable');
-            const rows = table.getElementsByTagName('tr');
-
-            searchInput.addEventListener('keyup', function() {
-                const filter = searchInput.value.toLowerCase();
-
-                for (let i = 1; i < rows.length; i++) {
-                    const row = rows[i];
-                    const cells = row.getElementsByTagName('td');
-
-                    const nis = cells[0]?.textContent.toLowerCase() || '';
-                    const nama = cells[1]?.textContent.toLowerCase() || '';
-
-                    const match = nis.includes(filter) || nama.includes(filter);
-
-                    row.style.display = match ? '' : 'none';
-                }
-            });
-        });
-    </script> -->
-
+    
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
 

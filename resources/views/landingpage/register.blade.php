@@ -160,17 +160,7 @@
 						<label for="gambar" style="margin-bottom: 10px; font-size: 13pt; color: #666666; ">Gambar</label>
 						<input type="file" class="form-input" name="gambar" id="gambar" style="margin-left: -20px;" />
 					</div>
-
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-					</div>
-
-
+				
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
 							Sign Up

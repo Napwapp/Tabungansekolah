@@ -27,10 +27,6 @@ class PaymentRequestController extends Controller
 
     public function updateTransaksi($id, $status, Request $request)
     {
-        if (!in_array($status, ['Sukses', 'Gagal'])) {
-            return response()->json(['success' => false, 'message' => 'Status tidak valid!'], 400);
-        }
-
         $jenis = $request->input('jenis_transaksi');
         $table = $this->getTableName($jenis);
 
@@ -56,10 +52,19 @@ class PaymentRequestController extends Controller
             }
 
             // Update status transaksi
-            DB::table($table)->where('id', $transaksi->id)->update([
+            $transaksiData = DB::table($table)->where('id', $transaksi->id)->first();
+
+            $updateData = [
                 'status' => $status,
                 'updated_at' => now(),
-            ]);
+            ];
+
+            if ($transaksiData->deleted_at !== null) {
+                $updateData['deleted_at'] = null;
+            }
+
+            DB::table($table)->where('id', $transaksi->id)->update($updateData);
+
 
             // Judul yg diupdate
             $judul_messages = [
@@ -94,7 +99,7 @@ class PaymentRequestController extends Controller
             ];
 
             $judulBaru = $judul_messages[$table][$status];
-        
+
             // Update notifikasi untuk transaksi yang relevan
             $affected = DB::table('notifikasi_users')
                 ->where('user_id', $transaksi->user_id)
@@ -136,7 +141,7 @@ class PaymentRequestController extends Controller
                     'user_id' => $transaksi->user_id,
                     'nama_pengirim' => 'Tabungan sekolah',
                     'foto_pengirim' => null,
-                    'judul' => $judulBaru,                    
+                    'judul' => $judulBaru,
                     'isi_pesan' => $messages[$table][$status],
                     'status' => 'Belum Dibaca',
                     'tipe' => 'Transaksi',

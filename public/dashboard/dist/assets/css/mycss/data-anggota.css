@@ -21,6 +21,10 @@ body {
     overflow-x: auto;
 }
 
+.sidebar-link {
+    font-weight: normal;
+}
+
 h1,
 h2 {
     color: #111827;
@@ -731,4 +735,48 @@ body.theme-dark form .table-container th {
 
 body.theme-dark form .table-container td {
     text-align: left;
+}
+
+body.theme-dark .select-role.form-control {
+    width: auto !important;
+    min-width: 100px; /* Set a minimum width */
+    max-width: 100%; /* Prevent overflow */
+    padding-right: 30px !important; /* Make room for the arrow */
+    text-overflow: ellipsis; /* Add ellipsis for text overflow */
+    box-sizing: border-box;
+}
+
+/* Style the select container to show a custom arrow that won't overlap */
+body.theme-dark td .select-role {
+    position: relative;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Add custom arrow */
+body.theme-dark td .select-role::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #555;
+    pointer-events: none;
+}
+
+/* Alternatively, you can use a background image for the arrow */
+body.theme-dark td .select-role {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+body.theme-dark .sidebar-link {
+    font-weight: normal;
 }

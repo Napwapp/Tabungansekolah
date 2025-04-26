@@ -168,7 +168,6 @@
 /* Style for the message title inside the flex container */
 .message-title {
     font-size: clamp(18px, 4vw, 22px);
-    font-weight: bold;
     flex: 1;
     margin-right: 15px; /* Space between title and button */
     text-align: left;
@@ -668,8 +667,4 @@
 
 .sidebar-filter li:hover {
     cursor: pointer;
-}
-
-.sidebar-filter li.active {
-    
 }

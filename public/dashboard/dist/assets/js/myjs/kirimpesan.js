@@ -5,8 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const judulLabel = document.getElementById("judulLabel");
     const judul = document.getElementById("judul");
     const reportForm = document.getElementById("reportForm");
+    const deskripsi = document.getElementById("deskripsi"); // kalau kamu punya textarea untuk isi laporan/saran
 
     function updateForm() {
+        // Reset semua field kecuali kategori
+        judul.value = "";    
+        if (deskripsi) deskripsi.value = "";   
+
         if (kategori.value === "laporan") {
             jenisLaporanDiv.classList.remove("hidden");
             judulLabel.textContent = "Masalah";

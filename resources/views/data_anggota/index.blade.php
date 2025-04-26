@@ -97,17 +97,11 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Tabungan</span>
+                            class="sidebar-item ">
+                            <a href="{{route('kelasmin')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
+                                <span>Data tabungan siswa</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
-                                </li>
-
-                            </ul>
                         </li>
 
                         <li
@@ -415,12 +409,21 @@
                             <!-- <button type="button" class="cancel-btn">Batal</button> -->
                         </div>
                     </form>
-                </div>  
-                <footer>
+                </div>
+                <footer style="margin-top: 15px;">
                     <div class="footer clearfix mb-0 text-muted">
-                        <!-- bila perlu -->
+                        <div class="float-start">
+                            <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Crafted by
+                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                            </p>
+                        </div>
                     </div>
-                </footer>              
+                </footer>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
