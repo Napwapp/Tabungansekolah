@@ -31,7 +31,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -86,20 +86,11 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Tabungan</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('kelasmin')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
+                                <span>Data tabungan siswa</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
-                                </li>
-
-                                <li class="submenu-item ">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
@@ -122,7 +113,7 @@
                         <li class="sidebar-item">
                             <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
                                 @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
                                 <span class="badge-notif">
                                     <h2>{{ $unreadLaporanCount }}</h2>
@@ -184,11 +175,11 @@
                                                         <th>No</th>
                                                         <th>Nama</th>
                                                         <th>Kelas</th>
-                                                        <th style="width: 120px;">ID Tabungan</th>
-                                                        <th style="width: 140px;">Jenis Transaksi</th>
-                                                        <th style="width: 150px">Jumlah</th>
+                                                        <th>ID Tabungan</th>
+                                                        <th>Jenis Transaksi</th>
+                                                        <th>Jumlah</th>
                                                         <th style="text-align: center;">Status</th>
-                                                        <th style="width: 120px; text-align: center;">Tanggal</th>
+                                                        <th style="text-align: center;">Tanggal</th>
                                                         <th style="text-align: center;">Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -232,7 +223,6 @@
                                                     </tr>
                                                     @endforelse
                                                 </tbody>
-
                                             </table>
                                         </div>
                                     </div>
@@ -240,13 +230,12 @@
                             </div>
                         </div>
                     </section>
-                    <!-- Contextual classes end -->
-
                 </div>
-                <footer>
+                
+                <footer style="margin-top: 15px;">
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
-                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                            <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
                         </div>
                         <div class="float-end">
                             <p>Crafted by

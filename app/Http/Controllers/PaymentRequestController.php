@@ -27,10 +27,6 @@ class PaymentRequestController extends Controller
 
     public function updateTransaksi($id, $status, Request $request)
     {
-        if (!in_array($status, ['Sukses', 'Gagal'])) {
-            return response()->json(['success' => false, 'message' => 'Status tidak valid!'], 400);
-        }
-
         $jenis = $request->input('jenis_transaksi');
         $table = $this->getTableName($jenis);
 
@@ -56,25 +52,53 @@ class PaymentRequestController extends Controller
             }
 
             // Update status transaksi
-            DB::table($table)->where('id', $transaksi->id)->update([
+            $transaksiData = DB::table($table)->where('id', $transaksi->id)->first();
+
+            $updateData = [
                 'status' => $status,
                 'updated_at' => now(),
-            ]);
+            ];
 
-            $messages = [
+            if ($transaksiData->deleted_at !== null) {
+                $updateData['deleted_at'] = null;
+            }
+
+            DB::table($table)->where('id', $transaksi->id)->update($updateData);
+
+
+            // Judul yg diupdate
+            $judul_messages = [
                 'transaksi_topup' => [
-                    'Sukses' => 'Top-Up telah disetujui. Saldo berhasil ditambahkan',
-                    'Gagal' => 'Top-Up ditolak oleh admin.'
+                    'Sukses' => 'Top-Up Saldo Berhasil',
+                    'Gagal' => 'Top-Up Saldo Gagal'
                 ],
                 'transaksi_menabung_users' => [
-                    'Sukses' => 'Berhasil Menabung. Saldo berkurang dan tabungan berhasil ditambahkan.',
-                    'Gagal' => 'Transaksi menabung ditolak oleh admin.'
+                    'Sukses' => 'Berhasil Menabung',
+                    'Gagal' => 'Gagal Menabung'
                 ],
                 'penarikan_users' => [
-                    'Sukses' => 'Pengajuan penarikan Telah disetujui.',
-                    'Gagal' => 'Pengajuan penarikan ditolak oleh admin.'
+                    'Sukses' => 'Berhasil Menarik Tabungan',
+                    'Gagal' => 'Gagal Menarik Tabungan'
                 ]
             ];
+
+            // Pesan yg diupdate
+            $messages = [
+                'transaksi_topup' => [
+                    'Sukses' => 'Top-Up Saldo telah disetujui dan Berhasil. Saldo berhasil ditambahkan',
+                    'Gagal' => 'Transaksi Gagal, Transaksi ditolak oleh admin.'
+                ],
+                'transaksi_menabung_users' => [
+                    'Sukses' => 'Berhasil Menabung. Saldomu berhasil ditabung!.',
+                    'Gagal' => 'Transaksi Menabung Gagal, Transaksi ditolak oleh admin.'
+                ],
+                'penarikan_users' => [
+                    'Sukses' => 'Berhasil Menarik Tabungan. Selamat menikmati hasil Tabunganmu',
+                    'Gagal' => 'Pengajuan Penarikan Gagal. Transaksi ditolak oleh admin.'
+                ]
+            ];
+
+            $judulBaru = $judul_messages[$table][$status];
 
             // Update notifikasi untuk transaksi yang relevan
             $affected = DB::table('notifikasi_users')
@@ -85,8 +109,9 @@ class PaymentRequestController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->limit(1)
                 ->update([
-                    'status_transaksi' => $status,
+                    'judul' => $judulBaru,
                     'isi_pesan' => $messages[$table][$status],
+                    'status_transaksi' => $status,
                     'status' => 'Belum Dibaca',
                     'updated_at' => now(),
                 ]);
@@ -102,8 +127,9 @@ class PaymentRequestController extends Controller
                     ->limit(1)
                     ->update([
                         'deleted_at' => null, // Restore notifikasi
-                        'status_transaksi' => $status,
+                        'judul' => $judulBaru,
                         'isi_pesan' => $messages[$table][$status],
+                        'status_transaksi' => $status,
                         'status' => 'Belum Dibaca',
                         'updated_at' => now(),
                     ]);
@@ -115,7 +141,7 @@ class PaymentRequestController extends Controller
                     'user_id' => $transaksi->user_id,
                     'nama_pengirim' => 'Tabungan sekolah',
                     'foto_pengirim' => null,
-                    'judul' => "Transaksi $jenis - $status",
+                    'judul' => $judulBaru,
                     'isi_pesan' => $messages[$table][$status],
                     'status' => 'Belum Dibaca',
                     'tipe' => 'Transaksi',
@@ -126,7 +152,7 @@ class PaymentRequestController extends Controller
             }
         });
 
-        return response()->json(['success' => true, 'message' => "Berhasil mengubah status menjadi $status!", 'new_status' => $status, 'id' => $id]);
+        return response()->json(['success' => true, 'message' => "Berhasil Men$status kan Transaksi!", 'new_status' => $status, 'id' => $id]);
     }
 
     private function updateSaldo($transaksi, $table)

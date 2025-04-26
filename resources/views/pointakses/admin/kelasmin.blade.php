@@ -8,13 +8,10 @@
 
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/pages/data-keuangan-kelas.css')}}">
-    <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logoSMK_.png')}}" type="image/png">
 
-    <!-- mycss -->
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css')}}">
-
-    <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/main/app-dark.css') }}">
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app-dark.css')}}">
 
 </head>
 
@@ -26,7 +23,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -80,19 +77,11 @@
                         </li>
 
                         <li
-                            class="sidebar-item  has-sub active">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Tabungan</span>
+                            class="sidebar-item  active">
+                            <a href="{{route('kelasmin')}}" class='sidebar-link'>
+                                <i class="bi bi-wallet-fill"></i>
+                                <span>Data tabungan siswa</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item active">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Kelas</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="{{route('kelasmin')}}">Data Tabungan Siswa</a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li
@@ -117,7 +106,7 @@
                         <li class="sidebar-item">
                             <a href="{{ route('pesan') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Pesan</span>
+                                <span>Pesan Masuk</span>
                                 @if (isset($unreadLaporanCount) && $unreadLaporanCount > 0)
                                 <span class="badge-notif">
                                     <h2>{{ $unreadLaporanCount }}</h2>
@@ -149,85 +138,52 @@
         </div>
 
         <div id="main">
-            <table class="container">
-                <h1>Data Keuangan Kelas</h1>
-                <tr>
-                    <h2>Kelas 10</h2>
-                    <th>Jurusan</th>
-                    <th>Pengeluaran Total</th>
-                    <th>Pemasukan Total</th>
-                    <th>Dana Total</th>
-                    <th>Total Akhir</th>
-                    <th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jurusan</td>
-                        <td>Rp </td>
-                        <td>Rp </td>
-                        <td>Rp </td>
-                        <td>Rp </td>
-                        <td>
-                            <button type="submit" class="btn-hapus">Hapus</button>
-                        </td>
-                    </tr>
-
-                    <table class="container">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <div class="container">
+                <h1>Data Keuangan Siswa</h1>
+                <p class="text-subtitle">Data-data Keuangan Siswa Tabungan Sekolah SMKN 1 Binong</p>
+                <!-- <div class="col-md-3">
+                    <select class="form-control" id="transactionType">
+                        <option value="">Semua Kelas</option>
+                        <option value="kelas X">Kelas 10</option>
+                        <option value="kelas XI">Kelas 11</option>
+                        <option value="kelas XII">Kelas 12</option>
+                    </select>
+                </div> -->
+                <table class="container">
+                    <thead>
                         <tr>
-                            <h2>Kelas 11</h2>
-                            <th>Jurusan</th>
-                            <th>Pengeluaran Total</th>
-                            <th>Pemasukan Total</th>
-                            <th>Dana Total</th>
-                            <th>Total Akhir</th>
-                            <th>Aksi</th>
+                            <th>Nama</th>
+                            <th>ID Tabungan</th>
+                            <th>Kelas</th>
+                            <th>Saldo</th>
+                            <th>Tabungan</th>
+                            <th>Penarikan</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jurusan</td>
-                                <td>Rp </td>
-                                <td>Rp </td>
-                                <td>Rp </td>
-                                <td>Rp </td>
-                                <td>
-                                    <button type="submit" class="btn-hapus">Hapus</button>
-                                </td>
-                            </tr>
-
-                            <table class="container">
-                                <tr>
-                                    <h2>Kelas 12</h2>
-                                    <th>Jurusan</th>
-                                    <th>Pengeluaran Total</th>
-                                    <th>Pemasukan Total</th>
-                                    <th>Dana Total</th>
-                                    <th>Total Akhir</th>
-                                    <th>Aksi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Jurusan</td>
-                                        <td>Rp </td>
-                                        <td>Rp </td>
-                                        <td>Rp </td>
-                                        <td>Rp </td>
-                                        <td>
-                                            <button type="submit" class="btn-hapus">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </tbody>
-                    </table>
-                </tbody>
-            </table>
-            <footer>
+                    </thead>
+                    <tbody>
+                        @foreach($dataKeuangan as $data)
+                        <tr>
+                            <td data-title="Nama">{{ $data->namalengkap }}</td>
+                            <td data-title="ID Tabungan">{{ $data->id_tabungan }}</td>
+                            <td data-title="Kelas">{{ $data->kelas }}</td>
+                            <td data-title="Saldo">Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
+                            <td data-title="Tabungan">Rp {{ number_format($data->total_tabungan, 0, ',', '.') }}</td>
+                            <td data-title="Penarikan">Rp {{ number_format($data->penarikan, 0, ',', '.') }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            
+            <footer style="margin-top: 15px;">
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                        <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted by

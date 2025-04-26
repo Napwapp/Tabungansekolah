@@ -1,3 +1,12 @@
+:root { 
+  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #32353a; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #e84545; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
 /* CSS untuk membuat ukuran kotak kontak sama */
 #contact .col-lg-6 {
     width: 100%;
@@ -126,3 +135,60 @@
 
 /* Styling untuk bagian sekolah */
 
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  background: 
+  color-mix(in srgb, var(--default-color), transparent 96%);
+  border-radius: 6px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.faq-question {
+  background: 
+  color-mix(in srgb, var(--default-color), transparent 96%);  padding: 15px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  transition: transform 0.3s ease-in;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  transition: max-height 0.4s ease;
+  padding: 0 20px;
+}
+
+.faq-answer p {
+  padding: 15px 0;
+}
+
+input[type="checkbox"]:checked ~ .faq-answer {
+  max-height: 200px;
+}
+
+input[type="checkbox"]:checked ~ .faq-question::after {
+  content: '-';
+  transform: rotate(180deg);
+}

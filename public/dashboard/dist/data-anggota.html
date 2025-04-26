@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f9fafb;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 15px;
+            overflow-x: auto;
+        }
+        
+        h1, h2 {
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 22px;
+        }
+        
+        h2 {
+            font-size: 18px;
+            margin-top: 30px;
+        }
+        
+        .search-bar {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+        
+        .add-btn {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-start;
+            text-decoration: none;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4b5563;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        th:first-child {
+            width: 40px;
+        }
+        
+        th span {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        th span::after {
+            content: "↓";
+            margin-left: 4px;
+            font-size: 12px;
+        }
+        
+        td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #1f2937;
+        }
+        
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 12px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-name {
+            font-weight: 500;
+        }
+        
+        .pagination {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .page-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background-color: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        
+        .page-btn.arrow {
+            color: #9ca3af;
+        }
+        
+        .city-text {
+            color: #ea580c;
+        }
+        
+        .chat-demo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+        }
+        
+        .customize-icon {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            background-color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        /* Card View for Mobile */
+        .cards-container {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+        }
+        
+        .card-header .checkbox {
+            margin-right: 12px;
+        }
+        
+        .card-body {
+            padding: 12px;
+        }
+        
+        .card-row {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        
+        .card-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            width: 100px;
+            flex-shrink: 0;
+        }
+        
+        .card-value {
+            font-size: 14px;
+            color: #1f2937;
+        }
+        
+        /* Add Member Form */
+        .add-member-form {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .submit-btn {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background-color: white;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            h2 {
+                font-size: 16px;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .add-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .table-container {
+                display: none;
+            }
+            
+            .cards-container {
+                display: flex;
+            }
+            
+            .pagination {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .chat-demo {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .customize-icon {
+                right: 10px;
+                width: 36px;
+                height: 36px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .submit-btn, .cancel-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .search-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .pagination {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .form-row {
+                display: flex;
+                gap: 15px;
+            }
+            
+            .form-group {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Members</h1>
+        
+        <div class="search-bar">
+            <div class="search-container">
+                <span class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search members">
+            </div>
+            
+            <a href="#add-member-form" class="add-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Add member
+            </a>
+        </div>
+        
+        <!-- Table View for Desktop -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="checkbox"></th>
+                        <th><span>PENGGUNA</span></th>
+                        <th><span>USERNAME</span></th>
+                        <th><span>EMAIL</span></th>
+                        <th><span>ID TABUNGAN</span></th>
+                        <th><span>KELAS</span></th>
+                        <th><span>TANGGAL BERGABUNG</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td>
+                            <div class="user-info">
+                                <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                                <span class="user-name">Carry Anna</span>
+                            </div>
+                        </td>
+                        <td>carry_anna</td>
+                        <td>annac34@gmail.com</td>
+                        <td>+91234578</td>
+                        <td><span class="city-text">Budapest</span></td>
+                        <td>Dec 12, 12:56 PM</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td>
+                            <div class="user-info">
+                                <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                                <span class="user-name">Milind Mikuja</span>
+                            </div>
+                        </td>
+                        <td>milind_m</td>
+                        <td>mimiku@yahoo.com</td>
+                        <td>+8801564769976</td>
+                        <td><span class="city-text">Manchester</span></td>
+                        <td>Dec 9, 2:28 PM</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td>
+                            <div class="user-info">
+                                <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                                <span class="user-name">Stanly Drinkwater</span>
+                            </div>
+                        </td>
+                        <td>stanly_d</td>
+                        <td>stritewasser@hotmail.com</td>
+                        <td>+76675436798</td>
+                        <td><span class="city-text">Smallville</span></td>
+                        <td>Dec 4, 12:56 PM</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td>
+                            <div class="user-info">
+                                <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                                <span class="user-name">Josef Stravinsky</span>
+                            </div>
+                        </td>
+                        <td>josef_s</td>
+                        <td>josefsky@ani.it</td>
+                        <td>+118796567894</td>
+                        <td><span class="city-text">Metropolis</span></td>
+                        <td>Dec 1, 4:07 AM</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td>
+                            <div class="user-info">
+                                <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                                <span class="user-name">Igor Borvibson</span>
+                            </div>
+                        </td>
+                        <td>igor_b</td>
+                        <td>vibigorr@technext.it</td>
+                        <td>+65899655678</td>
+                        <td><span class="city-text">Central city</span></td>
+                        <td>Nov 28, 7:28 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Card View for Mobile -->
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-header">
+                    <input type="checkbox" class="checkbox">
+                    <div class="user-info">
+                        <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                        <span class="user-name">Carry Anna</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-row">
+                        <div class="card-label">USERNAME:</div>
+                        <div class="card-value">carry_anna</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">EMAIL:</div>
+                        <div class="card-value">annac34@gmail.com</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">ID TABUNGAN:</div>
+                        <div class="card-value">+91234578</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">KELAS:</div>
+                        <div class="card-value city-text">Budapest</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">BERGABUNG:</div>
+                        <div class="card-value">Dec 12, 12:56 PM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <input type="checkbox" class="checkbox">
+                    <div class="user-info">
+                        <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                        <span class="user-name">Milind Mikuja</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-row">
+                        <div class="card-label">USERNAME:</div>
+                        <div class="card-value">milind_m</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">EMAIL:</div>
+                        <div class="card-value">mimiku@yahoo.com</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">ID TABUNGAN:</div>
+                        <div class="card-value">+8801564769976</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">KELAS:</div>
+                        <div class="card-value city-text">Manchester</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">BERGABUNG:</div>
+                        <div class="card-value">Dec 9, 2:28 PM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <input type="checkbox" class="checkbox">
+                    <div class="user-info">
+                        <img src="/api/placeholder/32/32" alt="Avatar" class="avatar">
+                        <span class="user-name">Stanly Drinkwater</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-row">
+                        <div class="card-label">USERNAME:</div>
+                        <div class="card-value">stanly_d</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">EMAIL:</div>
+                        <div class="card-value">stritewasser@hotmail.com</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">ID TABUNGAN:</div>
+                        <div class="card-value">+76675436798</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">KELAS:</div>
+                        <div class="card-value city-text">Smallville</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-label">BERGABUNG:</div>
+                        <div class="card-value">Dec 4, 12:56 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <div>1 to 5 items of 15</div>
+            <div class="pagination-controls">
+                <button class="page-btn arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Add Member Form -->
+        <div id="add-member-form" class="add-member-form">
+            <h2>Tambah Anggota Baru</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullname">Nama Lengkap</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan alamat email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class">Kelas</label>
+                        <select id="class" name="class" required>
+                            <option value="">Pilih Kelas</option>
+                            <option value="Budapest">Budapest</option>
+                            <option value="Manchester">Manchester</option>
+                            <option value="Smallville">Smallville</option>
+                            <option value="Metropolis">Metropolis</option>
+                            <option value="Central city">Central city</option>
+                            <option value="Gotham">Gotham</option>
+                            <option value="Vancouver">Vancouver</option>
+                            <option value="Viena">Viena</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Chittagong">Chittagong</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Simpan</button>
+                    <button type="button" class="cancel-btn">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="chat-demo">
+        Chat demo
+        <span class="online-dot"></span>
+    </div>
+    
+    <div class="customize-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4f46e5" viewBox="0 0 16 16">
+            <path d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z"/>
+        </svg>
+    </div>
+</body>
+</html>

@@ -12,7 +12,11 @@ body {
 }
 .profile-header {
     width: 100%;
-    background: linear-gradient(to right, #1c53df, #11e9da); /* Warna gradasi yang lebih lembut */
+    background: linear-gradient(
+        to right,
+        #1c53df,
+        #11e9da
+    ); /* Warna gradasi yang lebih lembut */
     padding: 40px 20px;
     text-align: center;
     color: white;
@@ -35,6 +39,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .profile-avatar img {
@@ -42,6 +48,172 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect Styles */
+.avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+.camera-icon {
+    color: white;
+    font-size: 40px;
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+}
+
+.profile-avatar:hover .avatar-overlay {
+    opacity: 1;
+}
+
+/* Enhanced Modal Styles */
+.profile-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.profile-modal.show {
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 380px;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.profile-modal.show .modal-content {
+    transform: scale(1);
+}
+
+.close-button-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+}
+
+.close-button {
+    background-color: #035fc1;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: .1s;
+}
+
+.close-button:hover {
+    background-color: #007bff;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 30px 20px;
+    text-align: center;
+    border: 2px solid #e1d1ff;
+    background-color: #f9f7ff;
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.modal-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    margin-top: 10px;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.profile-role {
+    margin-top: -5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.profile-bio {
+    margin: 0 0 25px;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.edit-profile-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.edit-profile-button:hover {
+    background-color: #0069d9;
+}
+
+/* Animation for the image transformation */
+.profile-avatar.clicked img {
+    border-radius: 0;
 }
 
 .profile-basic-info {
@@ -190,13 +362,55 @@ body {
         padding-left: 0.75rem;
         padding-right: 0.75rem;
     }
-    
+
     .card {
         margin-bottom: 1.5rem; /* Margin lebih besar di mobile */
     }
-    
+
     .finance-cards .row {
         margin-left: -0.75rem;
         margin-right: -0.75rem;
     }
+}
+
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-item > span:first-child {
+    flex-shrink: 0;
+    margin-right: 15px;
+    font-weight: 500;
+    min-width: 150px; /* Adjust this value based on your longest label */
+}
+
+.profile-value {
+    flex-grow: 1;
+    text-align: right;
+    transition: all 0.3s ease;
+}
+
+.profile-value.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* loading spinner */
+/* Spinner (untuk loadingBox) */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Efek blur saat loading preview gambar */
+.loading-image {
+    filter: blur(2px);
+    transition: filter 0.3s ease;
 }

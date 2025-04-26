@@ -29,7 +29,7 @@
         </div>
         <button class="button-tabung-semua" onclick="tabungSemua('{{ $saldoTersedia }}')">Tabung Semua</button>
       </div>
-      <p class="note">Kamu harus menyisakan setidaknya 10.000 dari saldomu. Supaya akun kamu bisa tetap aktif. Jika kamu tidak memenuhi sarat maka saldo yg dapat ditabung kamu akan menampilkan 0.</p>
+      <p class="note">Diatas, kamu dapat melihat berapa jumlah saldo yg dapat kamu tabung. Kamu harus menyisakan setidaknya 10.000 dari saldomu. Jika kamu tidak memenuhi syarat tersebut maka saldo yg dapat ditabung kamu akan menampilkan angka 0.</p>
     </div>
 
     <div class="parent-container">
@@ -56,7 +56,7 @@
           </svg>
           <!-- Teks Informasi -->
           <p class="info-text">
-            Minimal saldo yang dapat ditabung adalah Rp10.000. <br> Harus menyisakan saldo Anda setidaknya Rp10.000 supaya saldo Anda tetap aktif. Diatas sudah tersedia berapa jumlah maximal saldo yang dapat kamu tabung.<br> Jika melebihi itu tombol akan terblokir dan kamu tidak akan bisa menabung!
+            Minimal saldo yang dapat ditabung adalah Rp10.000. <br> Kamu harus menyisakan saldo kamu setidaknya Rp10.000 untuk keuntungan pihak kami. Diatas kamu dapat melihat berapa jumlah maksimal saldo yang dapat kamu tabung.
           </p>
         </div>
       </div>

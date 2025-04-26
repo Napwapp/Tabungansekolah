@@ -34,7 +34,7 @@ class SendMassageController extends Controller
             'tipe'          => $request->kategori === 'laporan' ? 'Laporan' : 'Saran',
             'judul'         => $request->judul,
             'isi_pesan'     => $request->deskripsi,
-            'status_laporan' => 'Terkirim',
+            'status_laporan'=> 'Terkirim',
             'created_at'    => now(),
             'updated_at'    => now(),
         ]);

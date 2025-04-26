@@ -21,14 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
         return errors;
     };
 
-    if (sessionStorage.getItem("topupPending") === "true") {
-        Swal.fire({
-            icon: "error",
-            title: "Gagal!",
-            text: "Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!",
-        });
-        return;
-    }
+    fetch('/cek-status-topup')
+    .then(response => response.json())
+    .then(data => {
+        if (data.pending) {
+            sessionStorage.setItem("withdrawalPending", "true");
+            Swal.fire({
+                icon: "error",
+                title: "Gagal!",
+                text: "Anda sudah memiliki transaksi yg masih Menunggu Persetujuan. Harap segera datangi staff khusus untuk melakukan pembayaran!",
+            });
+        } else {
+            sessionStorage.removeItem("withdrawalPending");
+        }
+    });
 
 
     // 2. Fungsi Format
@@ -99,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (validationErrors.length > 0) {
             Swal.fire({
                 icon: "error",
-                title: "Validasi Gagal!",
+                title: "Gagal!",
                 html: validationErrors.join("<br>"),
                 confirmButtonColor: "#007bff"
             });
@@ -110,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
         payButton.disabled = true;
         loadingIndicator.style.display = 'block';
 
-        // Kirim request via fetch
         // Kirim request via fetch
         fetch('/isi-saldo', {
             method: 'POST',

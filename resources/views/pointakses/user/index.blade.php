@@ -29,7 +29,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -113,7 +113,7 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
+                            <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="sidebar-link btn-logout">
                                     <i class="bi bi-door-open-fill"></i>
@@ -133,14 +133,44 @@
             </header>
 
             @if (session('error'))
-            <div style="padding: 10px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px; margin-bottom: 10px;">
+            <div id="error-alert"
+                class="alert alert-danger"
+                data-clear-url="{{ route('clear.errors') }}"
+                data-token="{{ csrf_token() }}"
+                style="position: relative;">
+
+                <button type="button" id="close-alert" style="
+							position: absolute;
+							top: 3px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 30px;
+							color: white;
+							cursor: pointer;
+						">&times;
+                </button>
                 {{ session('error') }}
             </div>
             @endif
 
-            <!-- flash massage target tabungan -->
             @if(session('success'))
-            <div class="alert alert-success">
+            <div id="success-alert"
+                class="alert alert-success"
+                data-clear-url="{{ route('clear.success') }}"
+                data-token="{{ csrf_token() }}"
+                style="position: relative;">
+
+                <button type="button" id="close-success" style="
+							position: absolute;
+							top: 5px;
+							right: 15px;
+							background: transparent;
+							border: none;
+							font-size: 20px;
+							color: #155724; /* warna hijau pesan success */
+							cursor: pointer;">&times;
+                </button>
                 {{ session('success') }}
             </div>
             @endif
@@ -173,10 +203,17 @@
                             </svg>
                             <p class="progress-percentage">0%</p>
                         </div>
-                        <p class="target-info"><strong>Target Tabungan:</strong> Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                        <!-- info target tabungan -->
+                        <p class="target-info">
+                            <strong>Target Tabungan:</strong>
+                            @if ($targetTabungan > 0)
+                            Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                            @else
+                            <span>Belum memiliki target</span>
+                            @endif
                             <i id="icon-target-tercapai" class="bi bi-check-circle-fill text-success" style="display: none;"></i>
                         </p>
-                        <button class="atur-target-btn">Atur Target</button>
+                    <button class="atur-target-btn">Atur Target</button>
                     </div>
 
                     <!-- Menyembunyikan total tabungan dengan menggunakan data-atribut untuk JS -->
@@ -205,15 +242,12 @@
                             <button type="submit" class="save-btn">Simpan</button>
                             <button type="button" id="closeModal" class="close-btn">Tutup</button>
                         </form>
-
-
-
                     </div>
                 </div>
 
 
 
-                <p><!-- Content -->
+                <!-- Content -->
                 <div class="content" style="margin-left: 30px;">
                     <p>Selamat datang di dashboard dist/tabungan sekolah SMKN 1 BINONG</p>
                     <h2 class="mb-4">Informasi Tabungan Anda</h2>
@@ -374,13 +408,9 @@
                         </div>
                     </section>
 
-                    </p>
-
-                    <!-- Pastikan Chart.js sudah dimuat -->
+                    <!-- Grafik Tabungan -->
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     @vite(['resources/js/app.js'])
-
-
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             fetch('/tabungan/bulanan') // Panggil API dari Laravel
@@ -424,7 +454,7 @@
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                        <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted by
@@ -444,7 +474,7 @@
     <!-- myjs -->
     <script src="{{asset ('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
     <script src="{{asset ('dashboard/dist/assets/js/myjs/dashboard.js')}}"></script>
-    <!-- <script src="{{asset ('dashboard/dist/assets/js/myjs/riwayat.js')}}"></script> -->
+    <script src="{{asset ('landingpage/Halamanlogin/js/myjs/registrasi.js')}}"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

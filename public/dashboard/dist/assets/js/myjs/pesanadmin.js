@@ -1,3 +1,15 @@
+// function str limit reusable
+function strLimit(text, limit) {
+    if (text.length > limit) {
+        return text.substring(0, limit) + '...';
+    }
+    return text;
+}
+
+// Cache search
+const searchCacheAdmin = {};
+let currentFetchController = null;
+
 document.addEventListener("DOMContentLoaded", function () {
     // Logika Filter Notifikasi
     const sidebarFilters = document.querySelectorAll(".sidebar-filter li[data-filter]");
@@ -58,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 html += `
                     <li class="${liClass}" data-id="${item.id}" onclick="openMessageOverlay(${item.id})" id="notification-${item.id}">
+                        <span>
+                            ${item.status_laporan === 'Terkirim' ? `<span class="bullet-unread" id="bullet-${item.id}"></span>` : ''}
+                        </span>
+                    
                         <div class="pr-50">
                             <div class="avatar">
                                 <img src="${userImage}" alt="avatar">
@@ -68,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div class="wrapper-name-mail">
                                     <div class="sender-name">
                                         <strong>${userName}</strong>
+                                        <span class="mail-date-mobile">${formatDate(item.created_at)}</span>
                                     </div>
                                     <div class="mail-items">
                                         <span class="list-group-item-text"><strong>${item.email}</strong></span>
@@ -75,8 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <div class="mail-items">
                                         <span class="list-group-item-text text-truncate">${item.tipe}</span>
                                     </div>
+                                    <div class="mail-items">
+                                        <span class="list-group-item-text text-truncate">${highlightText(strLimit(item.judul, 30))}</span>
+                                    </div>
                                 </div>
-                                <div class="mail-meta-item">
+                                <div class="mail-meta-item desktop-only">
                                     <span class="mail-meta-content float-right">
                                         <span class="mail-date">${formatDate(item.created_at)}</span>
                                         <span id="status-laporan-${item.id}" class="status-icon">
@@ -87,13 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
                             <div class="mail-message">
                                 <p class="list-group-item-text truncate mb-0">
-                                    ${item.isi_pesan ? item.isi_pesan : 'Tidak ada isi pesan'}
-                                </p>
-                                <div class="mail-meta-item">
-                                    <span>
-                                        ${item.status_laporan === 'Terkirim' ? `<span class="bullet-unread" id="bullet-${item.id}"></span>` : ''}
+                                    ${highlightText(strLimit(item.isi_pesan || 'Tidak ada isi pesan', 50))}
+
+                                    <span id="status-laporan-${item.id}" class="status-icon-mobile">
+                                            ${getStatusLaporanIcon(item.status_laporan)}
                                     </span>
-                                </div>
+                                </p>                                   
                             </div>
                         </div>
                     </li>
@@ -118,11 +137,19 @@ document.addEventListener("DOMContentLoaded", function () {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(function () {
             performSearch(event);
-        }, 300);
+        }, 200);
     });
 
     function performSearch(event) {
-        const query = event.target.value.trim();
+        const query = event.target.value.trim().toLowerCase(); // Lowercase untuk konsistensi cache key
+
+        // Batalkan fetch sebelumnya jika masih berjalan
+        if (currentFetchController) {
+            currentFetchController.abort();
+        }
+
+        currentFetchController = new AbortController();
+        const signal = currentFetchController.signal;
 
         // Jika query kosong, tampilkan kembali data sesuai filter aktif
         if (query.length === 0) {
@@ -130,14 +157,23 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Pencarian tidak terpengaruh filter aktif, selalu cari di semua data
-        fetch(`/search-notifications/admin?query=` + encodeURIComponent(query))
+        // ✅ Gunakan cache jika sudah ada
+        if (searchCacheAdmin[query]) {
+            updateSearchResults(searchCacheAdmin[query], query);
+            return;
+        }
+
+        // Jika belum ada di cache → fetch baru
+        fetch(`/search-notifications/admin?query=${encodeURIComponent(query)}`, { signal })
             .then(response => response.json())
             .then(data => {
+                searchCacheAdmin[query] = data; // Simpan hasil ke cache
                 updateSearchResults(data, query);
             })
             .catch(error => {
-                console.error('Error:', error);
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
             });
     }
 
@@ -176,6 +212,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Buat struktur HTML untuk masing-masing laporan
             let liHtml = `
             <li class="${liClass}" data-id="${item.id}" onclick="openMessageOverlay(${item.id})" id="notification-${item.id}">
+                <span>
+                    ${item.status_laporan === 'Terkirim' ? `<span class="bullet-unread" id="bullet-${item.id}"></span>` : ''}
+                </span>
                 <div class="pr-50">
                     <div class="avatar">
                         <img src="${senderImage}" alt="avatar">
@@ -186,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="wrapper-name-mail">
                             <div class="sender-name">
                                 <strong>${highlightText(senderName, query)}</strong>
+                                <span class="mail-date-mobile">${formattedDate}</span>
                             </div>
                             <div class="mail-items">
                                 <span class="list-group-item-text"><strong>${highlightText(item.email, query)}</strong></span>
@@ -193,8 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="mail-items">
                                 <span class="list-group-item-text text-truncate">${highlightText(item.tipe, query)}</span>
                             </div>
+                            <div class="mail-items">
+                                <span class="list-group-item-text text-truncate">${highlightText(strLimit(item.judul, 30), query)}</span>
+                            </div>
                         </div>
-                        <div class="mail-meta-item">
+                        <div class="mail-meta-item desktop-only">
                             <span class="mail-meta-content float-right">
                                 <span class="mail-date">${formattedDate}</span>
                                 <span id="status-laporan-${item.id}" class="status-icon">
@@ -204,12 +247,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                     <div class="mail-message">
-                        <p class="list-group-item-text truncate mb-0">${highlightText(item.isi_pesan || 'Tidak ada isi pesan', query)}</p>
-                        <div class="mail-meta-item">
-                            <span>
-                                ${item.status_laporan === 'Terkirim' ? `<span class="bullet-unread" id="bullet-${item.id}"></span>` : ''}
-                            </span>
-                        </div>
+                        <p class="list-group-item-text truncate mb-0">${highlightText(strLimit(item.isi_pesan || 'Tidak ada isi pesan', 50), query)}</p>
+
+                        <span id="status-laporan-${item.id}" class="status-icon-mobile">
+                            ${statusIcon}
+                        </span>
                     </div>
                 </div>
             </li>

@@ -25,7 +25,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -119,162 +119,175 @@
                     </ul>
                 </div>
             </div>
-            <div id="main">
-                <header class="mb-3">
-                    <a href="#" class="burger-btn d-block d-xl-none">
-                        <i class="bi bi-justify fs-3"></i>
-                    </a>
-                </header>
+        </div>
 
-                <p><!-- Content -->
-                <div class="content" style="margin-left: 30px;">
-                    <h2 class="mb-4">Informasi Tabungan Anda</h2>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
-                    <!-- Kartu Informasi -->
-                    <div class="row card-btn-row">
-                        <!-- Saldo Tersisa Card and Button -->
-                        <div class="col-md-4 card-btn-column">
-                            <div class="card bg-warning text-white mb-2 equal-height-card">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title text-white">Saldo Tersisa</h5>
-                                    <h3 class="text-white mb-2">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
-                                    <p class="card-footer-text">Saldo yang anda miliki</p>
-                                </div>
+            <p><!-- Content -->
+            <div class="content" style="margin-left: 30px;">
+                <h2 class="mb-4">Informasi Tabungan Anda</h2>
+
+                <!-- Kartu Informasi -->
+                <div class="row card-btn-row">
+                    <!-- Saldo Tersisa Card and Button -->
+                    <div class="col-md-4 card-btn-column">
+                        <div class="card bg-warning text-white mb-2 equal-height-card">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-white">Saldo Tersisa</h5>
+                                <h3 class="text-white mb-2">Rp {{ number_format($saldo, 0, ',', '.') }}</h3>
+                                <p class="card-footer-text">Saldo yang anda miliki</p>
                             </div>
-                            <a href="{{route('plus')}}" class="btn-link mt-2 mb-4">
-                                <button class="btn-action btn-yellow equal-height-btn" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-plus-50.png')}}" alt="">
-                                    <span class="btn-text">Tambah Saldo</span>
-                                </button>
-                            </a>
                         </div>
-
-                        <!-- Total Tabungan Card and Button -->
-                        <div class="col-md-4 card-btn-column">
-                            <div class="card bg-primary text-white mb-2 equal-height-card">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title text-white">Total Tabungan Anda</h5>
-                                    <h3 class="text-white mb-2">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</h3>
-                                    <p class="card-footer-text">Tabungan hingga saat ini.</p>
-                                </div>
-                            </div>
-                            <a href="{{route('menabung')}}" class="btn-link mt-2 mb-4">
-                                <button class="btn-action btn-blue equal-height-btn" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-money-32.png')}}" alt="">
-                                    <span class="btn-text">Menabung</span>
-                                </button>
-                            </a>
-                        </div>
-
-                        <!-- Penarikan Card and Button -->
-                        <div class="col-md-4 card-btn-column">
-                            <div class="card bg-success text-white mb-2 equal-height-card">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title text-white">Penarikan Bulan Ini</h5>
-                                    <h3 class="text-white mb-2">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
-                                    <p class="card-footer-text">Total Penarikan Anda bulan ini.</p>
-                                </div>
-                            </div>
-                            <a href="{{route('menarik')}}" class="btn-link mt-2 mb-4">
-                                <button class="btn-action btn-green equal-height-btn" type="button">
-                                    <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">
-                                    <span class="btn-text">Tarik Tabungan</span>
-                                </button>
-                            </a>
-                        </div>
+                        <a href="{{route('plus')}}" class="btn-link mt-2 mb-4">
+                            <button class="btn-action btn-yellow equal-height-btn" type="button">
+                                <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-plus-50.png')}}" alt="">
+                                <span class="btn-text">Tambah Saldo</span>
+                            </button>
+                        </a>
                     </div>
 
-                    <!-- Target Tabungan -->
-                    <h2 class="target-tabungan-title" style="margin-top: 80px;">Selesaikan targetmu, dan dapatkan Bonus menarik</h2>
-                    <p class="target-tabungan-desc">Kamu dapat melihat progres tabunganmu disini. Sesuai dari target yg kamu atur sebelumnya.</p>
-
-                    <div class="target-tabungan" style="margin-bottom: 50px;">
-                        <div class="target-circle">
-                            <svg class="progress-ring" width="120" height="120">
-                                <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                                <circle class="ring-progress" cx="60" cy="60" r="54" stroke-linecap="round"></circle>
-                            </svg>
-                            <p class="progress-percentage">0%</p>
+                    <!-- Total Tabungan Card and Button -->
+                    <div class="col-md-4 card-btn-column">
+                        <div class="card bg-primary text-white mb-2 equal-height-card">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-white">Total Tabungan Anda</h5>
+                                <h3 class="text-white mb-2">Rp {{ number_format($totalTabungan, 0, ',', '.') }}</h3>
+                                <p class="card-footer-text">Tabungan hingga saat ini.</p>
+                            </div>
                         </div>
-                        <p class="target-info"><strong>Target Tabungan:</strong> Rp {{ number_format($targetTabungan, 0, ',', '.') }}</p>
-
-                        <!-- Menyembunyikan total tabungan dan target tabungan untuk diakses JS -->
-                        <p id="total-tabungan" data-total="{{ $totalTabungan ?? 0 }}" style="display: none;"></p>
-                        <p id="target-tabungan" data-target="{{ $targetTabungan ?? 0 }}" style="display: none;"></p>
+                        <a href="{{route('menabung')}}" class="btn-link mt-2 mb-4">
+                            <button class="btn-action btn-blue equal-height-btn" type="button">
+                                <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-money-32.png')}}" alt="">
+                                <span class="btn-text">Menabung</span>
+                            </button>
+                        </a>
                     </div>
 
-                    <!-- Grafik Tabungan -->
-                    <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
-                            <canvas id="tabunganChart" height="100"></canvas>
+                    <!-- Penarikan Card and Button -->
+                    <div class="col-md-4 card-btn-column">
+                        <div class="card bg-success text-white mb-2 equal-height-card">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-white">Penarikan Bulan Ini</h5>
+                                <h3 class="text-white mb-2">Rp {{ number_format($penarikanDisetujuiBulanIni, 0, ',', '.') }}</h3>
+                                <p class="card-footer-text">Total Penarikan Anda bulan ini.</p>
+                            </div>
                         </div>
+                        <a href="{{route('menarik')}}" class="btn-link mt-2 mb-4">
+                            <button class="btn-action btn-green equal-height-btn" type="button">
+                                <img class="icon-btn" src="{{asset ('dashboard/dist/assets/images/icons/icons8-withdraw-money-32.png')}}" alt="">
+                                <span class="btn-text">Tarik Tabungan</span>
+                            </button>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Pastikan Chart.js sudah dimuat -->
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                @vite(['resources/js/app.js'])
+                <!-- Target Tabungan -->
+                <h2 class="target-tabungan-title" style="margin-top: 80px;">Selesaikan targetmu, Amankan masa depanmu</h2>
+                <p class="target-tabungan-desc">Kamu dapat melihat progres tabunganmu disini. Sesuai dari target yg kamu atur sebelumnya.</p>
 
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        fetch('/tabungan/bulanan') // Panggil API dari Laravel
-                            .then(response => response.json())
-                            .then(data => {
-                                const bulanLabels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                                const tabunganData = data.map(item => item.total_tabungan); // Ambil total tabungan sesuai bulan
-
-                                // Buat Chart.js
-                                const ctx = document.getElementById('tabunganChart').getContext('2d');
-                                new Chart(ctx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: bulanLabels,
-                                        datasets: [{
-                                            label: 'Jumlah Tabungan',
-                                            data: tabunganData,
-                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                            borderColor: 'rgba(54, 162, 235, 1)',
-                                            borderWidth: 2,
-                                            fill: true
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true
-                                            }
-                                        }
-                                    }
-                                });
-                            })
-                            .catch(error => console.error('Error:', error));
-                    });
-                </script>
-
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
-                        </div>
-                        <div class="float-end">
-                            <p>Crafted by
-                                <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
-                                <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
-                                <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
-                            </p>
-                        </div>
+                <div class="target-tabungan" style="margin-bottom: 50px;">
+                    <div class="target-circle">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+                            <circle class="ring-progress" cx="60" cy="60" r="54" stroke-linecap="round"></circle>
+                        </svg>
+                        <p class="progress-percentage">0%</p>
                     </div>
-                </footer>
+                    <p class="target-info">
+                        <strong>Target Tabungan:</strong>
+                        @if ($targetTabungan > 0)
+                        Rp {{ number_format($targetTabungan, 0, ',', '.') }}
+                        @else
+                        <span>Belum memiliki target</span>
+                        @endif
+                        <i id="icon-target-tercapai" class="bi bi-check-circle-fill text-success" style="display: none;"></i>
+                    </p>
+                    <!-- Menyembunyikan total tabungan dan target tabungan untuk diakses JS -->
+                    <p id="total-tabungan" data-total="{{ $totalTabungan ?? 0 }}" style="display: none;"></p>
+                    <p id="target-tabungan" data-target="{{ $targetTabungan ?? 0 }}" style="display: none;"></p>
+                </div>
+
+                <!-- Grafik Tabungan -->
+                <!-- akan menghitung data total tabungan Pengguna setiap bulannya -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Grafik Perkembangan Tabungan Anda</h5>
+                        <canvas id="tabunganChart" height="100"></canvas>
+                    </div>
+                </div>
             </div>
 
-            <script src="{{asset('dashboard/dist/tabungan/assets/js/tabungansiswa.js')}}"></script>
-            <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
-            <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+            <!-- Pastikan Chart.js sudah dimuat -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            @vite(['resources/js/app.js'])
+
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    fetch('/tabungan/bulanan') // Panggil API dari Laravel
+                        .then(response => response.json())
+                        .then(data => {
+                            const bulanLabels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                            const tabunganData = data.map(item => item.total_tabungan); // Ambil total tabungan sesuai bulan
+
+                            // Buat Chart.js
+                            const ctx = document.getElementById('tabunganChart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: bulanLabels,
+                                    datasets: [{
+                                        label: 'Jumlah Tabungan',
+                                        data: tabunganData,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 2,
+                                        fill: true
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            </script>
+
+            <footer style="margin-top: 15px;">
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted by
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="{{asset('dashboard/dist/tabungan/assets/js/tabungansiswa.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
+        <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
+
+        <!-- myjs -->
+        <script src="{{asset('dashboard/dist/assets/js/myjs/target-tabungan.js')}}"></script>
+    </div>
 </body>
 
 </html>

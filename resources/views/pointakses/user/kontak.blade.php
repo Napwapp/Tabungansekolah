@@ -17,17 +17,17 @@
     <!-- mycss -->
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/emailcustom.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/dist/assets/css/mycss/default.css') }}">
-
 </head>
 
 <body>
     <div id="app">
+        <!-- sidebar -->
         <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
+            <div class="sidebar-wrapper active ">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -82,7 +82,7 @@
                         </li>
 
                         <li
-                            class="sidebar-item ">
+                            class="sidebar-item  ">
                             <a href="{{route('riwayat')}}" class='sidebar-link'>
                                 <i class="bi bi-clock-fill"></i>
                                 <span>Riwayat Transaksi</span>
@@ -90,7 +90,7 @@
                         </li>
 
                         <li
-                            class="sidebar-item active">
+                            class="sidebar-item  active">
                             <a href="{{route('contact')}}" class='sidebar-link'>
                                 <i class="bi bi-envelope-fill"></i>
                                 <span>Pesan</span>
@@ -105,7 +105,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <lclass="sidebar-item">
                             <form action="{{ route('logout') }}" method="POST" style="margin: 0; padding: 0;">
                                 @csrf
                                 <button type="submit" class="sidebar-link btn-logout">
@@ -113,11 +113,12 @@
                                     <span>Log Out</span>
                                 </button>
                             </form>
-                        </li>
+                            </li>
                     </ul>
                 </div>
             </div>
         </div>
+
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -138,10 +139,8 @@
                                 style="display: none;">
                                 Tandai Semua Dibaca
                             </button>
-
                         </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first"></div>
                     </div>
                 </div>
 
@@ -292,7 +291,6 @@
                                                     <!-- pagination and page count -->
 
                                                     <!-- Tombol Hapus Semua Notifikasi -->
-                                                    <!-- Tombol Hapus Semua Notifikasi yang lebih responsif -->
                                                     <button class="btn btn-danger btn-sm" onclick="hapusSemuaPesanDibaca()">
                                                         <span class="text-label d-none d-md-inline">Hapus Semua Pesan yang Dibaca</span>
                                                         <span class="text-label d-none d-sm-inline d-md-none">Hapus Dibaca</span>
@@ -333,7 +331,6 @@
                                                                 <img src="{{ asset('dashboard/dist/assets/images/logo/logoSMK_.png') }}" alt="avatar">
                                                                 @endif
                                                             </div>
-
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
@@ -456,17 +453,15 @@
                     </div>
                     <div class="float-end">
                         <p>Crafted by
-                            <a href="#">Nawaf</a>,
-                            <a href="#">Bayu</a>,
-                            <a href="#">Samuel</a>
+                            <a href="https://napwapp.github.io/Revisi-Portofolio-Mnawaf/" target="_blank">Nawaf</a>,
+                            <a href="https://by-hp.github.io/Portofolio-Bayu/" target="_blank">Bayu</a>,
+                            <a href="https://samuel1234-pp.github.io/revisi-portofoliosamuel/" target="_blank">Samuel</a>
                         </p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-    </div>
-
     <!-- Sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -476,6 +471,7 @@
     <!-- myjs -->
     <script src="{{ asset('dashboard/dist/assets/js/myjs/emailcustom.js') }}"></script>
     <script src="{{ asset('dashboard/dist/assets/js/myjs/pesanuser.js') }}"></script>
+
 
     <!-- untuk buka tutup sidebar -->
     <script>
@@ -670,37 +666,46 @@
     <!-- Script Konfirmasi Hapus Semua -->
     <script>
         function hapusSemuaPesanDibaca() {
-            Swal.fire({
-                title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
-                text: "Pesan yang telah dibaca akan dihapus.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Hapus Semua',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Kirim request hapus pesan yang sudah dibaca
-                    fetch('/pesan/hapus-semua-dibaca', {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({}) // Tambahkan body kosong
-                        })
+            // Cek dulu apakah ada pesan 'Dibaca'
+            fetch('/cek-pesan-dibaca')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.ada) {
+                        Swal.fire('Gagal', 'Tidak dapat menemukan pesan yg sudah dibaca', 'error');
+                        return;
+                    }
 
-                        .then(response => response.json())
-                        .then(data => {
-                            Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success');
-                            // Reload atau update tampilan notifikasi
-                            location.reload(); // Atau bisa menggunakan update tampilan AJAX
-                        })
-                        .catch(error => {
-                            Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
-                        });
-                }
-            });
+                    // Jika ada, baru tampilkan konfirmasi
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus semua pesan yang sudah dibaca?',
+                        text: "Pesan yang telah dibaca akan dihapus.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Hapus Semua',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Kirim request hapus
+                            fetch('/pesan/hapus-semua-dibaca', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({})
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    Swal.fire('Dihapus!', 'Semua pesan yang telah dibaca telah dihapus.', 'success')
+                                        .then(() => location.reload());
+                                })
+                                .catch(error => {
+                                    Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus pesan.', 'error');
+                                });
+                        }
+                    });
+                });
         }
     </script>
 
@@ -793,7 +798,6 @@
                 .catch(error => console.error("Error:", error));
         }
     </script>
-
 </body>
 
 </html>

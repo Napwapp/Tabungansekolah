@@ -46,14 +46,10 @@ class SetUrlController extends Controller
     {
         $request->validate([
             'alamat' => 'required|string|max:255',
-        ]);
-
-        if (Auth::user()->role !== 'admin') {
-            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan ini.');
-        }
+        ]);        
 
         if (InformasiAlamat::where('user_id', Auth::id())->exists()) {
-            return redirect()->back()->with('error', 'Alamat sudah ada, gunakan fitur edit.');
+            return redirect()->back()->with('error', 'Alamat sudah digunakan sebelumnya.');
         }
 
         InformasiAlamat::create([
@@ -101,13 +97,9 @@ class SetUrlController extends Controller
                 'min:11',
                 'max:12'
             ],
-        ]);
+        ]);        
 
-        if (Auth::user()->role !== 'admin') {
-            return response()->json(['error' => 'Anda tidak memiliki izin untuk melakukan ini.'], 403);
-        }
-
-        // Jika form mengirimkan id_informasi_kontak (dari list-kontak), gunakan slot itu
+        // Jika form mengirimkan id_informasi_kontak (dari input pada list-kontak), gunakan slot itu
         if ($request->has('id_informasi_kontak')) {
             $slot = $request->input('id_informasi_kontak');
         } else {
@@ -150,11 +142,7 @@ class SetUrlController extends Controller
                 'min:11',
                 'max:12'
             ],
-        ]);
-
-        if (Auth::user()->role !== 'admin') {
-            return response()->json(['error' => 'Anda tidak memiliki izin untuk melakukan ini.'], 403);
-        }
+        ]);        
 
         // Cari data nomor berdasarkan user_id dan slot
         $kontak = InformasiKontak::where('user_id', Auth::id())

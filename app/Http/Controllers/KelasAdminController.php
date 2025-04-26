@@ -2,40 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataKelas;
+use Illuminate\Support\Facades\Auth;
+use App\Models\PenarikanUser;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\TabunganUser;
 use Illuminate\Http\Request;
 
 class KelasAdminController extends Controller
 {
-    // Menampilkan data keuangan
-    public function kelasmin() {
-        return view('pointakses.admin.kelasmin');
-    }
+    // Menampilkan data keuangan berdasarkan kelas
+    public function kelasmin(Request $request)
+    {
+        // Ambil semua user beserta relasi tabungan dan penarikan
+        $users = User::with(['tabungan.penarikan'])->get();
 
-    // Menyimpan data baru
-    public function edit(Request $request) {
-        $request->validate([
-            'pemasukan' => 'required|numeric',
-            'pengeluaran' => 'required|numeric',
-            'dana' => 'required|numeric',
-        ]);
+        // Buat koleksi data keuangan tiap user
+        $dataKeuangan = $users->map(function ($user) {
+            $saldo = $user->saldo;
+            $tabungan = $user->tabungan;
+            $penarikan = $tabungan?->penarikan->where('status', 'Sukses')->sum('jumlah') ?? 0;
 
-        $akhir = ($request->dana + $request->pemasukan) - $request->pengeluaran;
+            return (object) [
+                'id_tabungan'   => $tabungan->id_tabungan ?? '-',
+                'namalengkap'   => $user->namalengkap,
+                'kelas'         => $user->kelas,
+                'total_tabungan'=> $tabungan->total_tabungan,
+                'saldo'         => $tabungan->saldo ?? 0,
+                'penarikan'     => $penarikan,
+            ];
+        });
 
-        // DataKelas::create([
-        //     'pemasukan' => $request->pemasukan,
-        //     'pengeluaran' => $request->pengeluaran,
-        //     'dana' => $request->dana,
-        //     'akhir' => $akhir,
-        // ]);
-
-        return redirect()->back()->with('success', 'Data berhasil ditambahkan!');
-    }
-
-    // Menghapus data
-    public function hapus($id) {
-        // DataKelas::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus!');
+        return view('pointakses.admin.kelasmin', compact('dataKeuangan'));
     }
 }
-

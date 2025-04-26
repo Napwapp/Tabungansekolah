@@ -25,21 +25,19 @@ class UserAkses
         $userRole = strtolower($user->role);
         $requiredRole = strtolower($role);
 
-        if ($userRole === $requiredRole) {
-            return $next($request);
+        // 3. Batasi admin hanya bisa mengakses halaman admin
+        if ($userRole === 'admin' && $requiredRole !== 'admin') {
+            return redirect()->route('admin')->with('error', 'Role anda tidak memiliki izin untuk mengakses halaman ini. ');
         }
 
-        // 3. Redirect ke route sesuai role (jika ada)
-        $routeName = $userRole; // Misal: role 'user' mengarah ke route('user')
-
-        if (Route::has($routeName)) {
-            return redirect()->route($routeName)->with(
-                'error', 
+        // 4. Batasi user hanya bisa mengakses halaman sesuai rolenya
+        if ($userRole !== 'admin' && $userRole !== $requiredRole) {
+            return redirect()->route($userRole)->with(
+                'error',
                 "Akses ditolak. Role Anda adalah: " . ucfirst($userRole)
             );
         }
 
-        // 4. Fallback ke halaman landing page jika route tidak ditemukan
-        return redirect('/')->with('error', 'Akses tidak valid untuk role Anda.');
+        return $next($request);
     }
 }

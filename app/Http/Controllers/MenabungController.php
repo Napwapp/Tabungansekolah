@@ -33,8 +33,6 @@ class MenabungController extends Controller
         ]);
     }
 
-
-
     public function tabungUang(Request $request)
     {
         $request->validate([
@@ -101,7 +99,7 @@ class MenabungController extends Controller
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
                 'judul' => 'Menabung dalam Proses',
-                'isi_pesan' => 'Transaksi menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') . ' sedang menunggu persetujuan admin.',
+                'isi_pesan' => 'Transaksi menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') .  ' Berhasil. Mohon untuk menunggu persetujuan dari admin.',
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $menabung->id, 

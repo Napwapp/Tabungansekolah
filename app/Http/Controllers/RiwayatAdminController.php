@@ -6,40 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\TransaksiTopup;
 use App\Models\TransaksiMenabungUser;
 use App\Models\PenarikanUser;
+use Illuminate\Support\Facades\DB;
 
 class RiwayatAdminController extends Controller
 {
     public function riwayatadmin()
     {
-        $topup = TransaksiTopup::where('status', 'Menunggu Persetujuan')->get();
-        $menabung = TransaksiMenabungUser::where('status', 'Menunggu Persetujuan')->get();
-        $penarikan = PenarikanUser::where('status', 'Menunggu Persetujuan')->get();
+        // Ambil data dari tabel transaksi topup
+        $topup = TransaksiTopup::select('id', 'namalengkap', 'created_at', 'jumlah', 'id_tabungan', 'status')
+            ->addSelect(DB::raw("'TopUp' as tipe"))
+            ->get();
 
-        return view('pointakses.admin.riwayatadmin', compact('topup', 'menabung', 'penarikan'));
-    }
+        // Ambil data dari tabel transaksi menabung
+        $menabung = TransaksiMenabungUser::select('id', 'namalengkap', 'created_at', 'jumlah', 'id_tabungan', 'status')
+            ->addSelect(DB::raw("'Menabung' as tipe"))
+            ->get();
 
-    public function updateStatus($id, $type, $status)
-    {
-        if (!in_array($status, ['Sukses', 'Gagal'])) {
-            return redirect()->back()->with('error', 'Status tidak valid!');
-        }
+        // Ambil data dari tabel transaksi penarikan
+        $penarikan = PenarikanUser::select('id', 'namalengkap', 'created_at', 'jumlah', 'id_tabungan', 'status')
+            ->addSelect(DB::raw("'Penarikan' as tipe"))
+            ->get();
 
-        switch ($type) {
-            case 'topup':
-                $transaksi = TransaksiTopup::findOrFail($id);
-                break;
-            case 'menabung':
-                $transaksi = TransaksiMenabungUser::findOrFail($id);
-                break;
-            case 'penarikan':
-                $transaksi = PenarikanUser::findOrFail($id);
-                break;
-            default:
-                return redirect()->back()->with('error', 'Jenis transaksi tidak valid!');
-        }
+        // Hitung total per jenis transaksi
+        $totalTopup = $topup->sum('jumlah');
+        $totalMenabung = $menabung->sum('jumlah');
+        $totalPenarikan = $penarikan->sum('jumlah');
 
-        $transaksi->update(['status' => $status]);
+        // Gabungkan semua transaksi dalam satu collection & urutkan berdasarkan tanggal terbaru
+        $riwayatadmin = $topup->concat($menabung)->concat($penarikan)->sortByDesc('created_at');
 
-        return redirect()->back()->with('success', 'Status transaksi diperbarui!');
+        // Kirim semua data ke view
+        return view('pointakses.admin.riwayatadmin', compact('riwayatadmin', 'totalTopup', 'totalMenabung', 'totalPenarikan'));
     }
 }

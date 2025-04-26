@@ -16,43 +16,90 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'namalengkap', 
-        'kelas', 
-        'username', 
-        'email', 
-        'password', 
-        'gambar', 
-        'verify_key', 
-        'role', 
+        'namalengkap',
+        'kelas',
+        'username',
+        'email',
+        'password',
+        'gambar',
+        'verify_key',
+        'role',
         'id_tabungan'
     ];
 
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token'
     ];
     protected $casts = ['email_verified_at' => 'datetime'];
 
-    // Relasi satu-ke-satu antara User dan TabunganUser
-    public function tabunganUser()
+    // Relasi
+
+    // Relasi ke tabungan (satu user punya satu tabungan)
+    public function tabungan()
     {
         return $this->hasOne(TabunganUser::class, 'user_id');
     }
 
-    public function transaksiTabungan()
+    // Relasi ke penarikan lewat tabungan (harus via tabungan_id)
+    public function penarikan()
     {
-        return $this->hasMany(TabunganTransaction::class);
+        return $this->hasManyThrough(
+            PenarikanUser::class,
+            TabunganUser::class,
+            'user_id', // Foreign key di TabunganUser
+            'id_tabungan', // Foreign key di PenarikanUser
+            'id', // Primary key di User
+            'id'  // Primary key di TabunganUser
+        );
     }
 
-    public function ensureIdTabungan()
+    // Relasi ke transaksi menabung
+    public function transaksiMenabung()
     {
-        if (!$this->id_tabungan) {
-            $id_tabungan = TabunganUser::where('user_id', $this->id)->value('id_tabungan');
-            if ($id_tabungan) {
-                $this->id_tabungan = $id_tabungan;
-                $this->save();
-            }
-        }
+        return $this->hasManyThrough(
+            TransaksiMenabungUser::class,
+            TabunganUser::class,
+            'user_id', // Foreign key di TabunganUser
+            'id_tabungan', // Foreign key di TransaksiMenabungUser
+            'id',
+            'id'
+        );
+    }
+
+    // Relasi ke top-up
+    public function transaksiTopup()
+    {
+        return $this->hasMany(TransaksiTopup::class, 'user_id');
+    }
+
+    // Relasi ke notifikasi
+    public function notifikasi()
+    {
+        return $this->hasMany(NotifikasiUser::class, 'user_id');
+    }
+
+    // Relasi ke laporan
+    public function laporan()
+    {
+        return $this->hasMany(LaporanUser::class, 'user_id');
+    }
+
+    // Untuk hapus otomatis data terkait apabila ada akun yg dihapus
+    protected static function booted()
+    {
+        static::deleting(function ($user) {
+            // Hapus relasi langsung
+            $user->notifikasi()->delete();
+            $user->laporan()->delete();
+            
+            // Hapus transaksi dan penarikan yang lewat tabungan
+            $user->transaksiTopup()->delete();
+            $user->transaksiMenabung()->delete();
+            $user->penarikan()->delete();
+
+            // Terakhir, hapus tabungan
+            $user->tabungan()->delete();
+        });
     }
 }
-

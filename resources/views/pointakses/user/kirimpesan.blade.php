@@ -31,7 +31,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;"></a>
+                            <img src="{{asset('dashboard/dist/assets/images/logo/logoSMK_.png')}}" alt="Logo" srcset="" style="width: 50px; height: auto; max-width: 100%;">
                             <h1 style="font-size: 1rem; margin-top: 10px;">TABUNGAN SMKN 1 BINONG</h1>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -79,9 +79,9 @@
 
                         <li
                             class="sidebar-item  ">
-                            <a href="{{route('tabungan')}}" class='sidebar-link'>
+                            <a href="{{route('kelasmin')}}" class='sidebar-link'>
                                 <i class="bi bi-wallet-fill"></i>
-                                <span>Tabungan</span>
+                                <span>Data tabungan siswa</span>
                             </a>
                         </li>
 
@@ -183,10 +183,11 @@
 
                 <button type="submit" class="btn btn-primary">Kirim</button>
             </form>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted" style="margin-top: 15px;">
+
+            <footer style="margin-top: 15px;">
+                <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2025 &copy;XI RPL, SMKN1 BINONG SUBANG</p>
+                        <p>2025 XI RPL, SMKN1 BINONG SUBANG</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted by
@@ -199,7 +200,6 @@
             </footer>
         </div>
     </div>
-    </div>
 
     <script src="{{asset('dashboard/dist/assets/js/bootstrap.js')}}"></script>
     <script src="{{asset('dashboard/dist/assets/js/app.js')}}"></script>
@@ -207,7 +207,6 @@
     <!-- my js -->
     <script src="{{ asset('dashboard/dist/assets/js/myjs/kirimpesan.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>

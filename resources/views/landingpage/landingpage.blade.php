@@ -37,24 +37,24 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="https://smkn1binong.sch.id" class="logo d-flex align-items-center me-auto me-xl-0">
+      <div class="logo d-flex align-items-center me-auto me-xl-0" style="margin-left: 15px;">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{asset('landingpage/assets/img/smkn1_binong.png')}}" alt="">
         <h1 class="sitename">SMKN1 BINONG SUBANG</h1><span>.</span>
-      </a>
+      </div>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Beranda</a></li>
           <li><a href="#about">Tentang Kami</a></li>
           <li><a href="#features">Panduan</a></li>
-          <li><a href="blog.html"></a></li>
           <li><a href="#contact">Kontak</a></li>
+          <li><a href="#faq">FAQ</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="{{route('auth')}}">Login</a>
+      <a class="btn-getstarted" href="{{route('auth')}}" style="margin-right: 15px;">Login</a>
 
     </div>
   </header>
@@ -145,7 +145,6 @@
       </div><!-- End Section Title -->
 
       <div class="container">
-
         <div class="row gy-4 align-items-center features-item">
           <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h3>1. Tentunya Kamu dapat Menabung</h3>
@@ -297,10 +296,91 @@
           </div>
         </div>
       </div>
-
     </section>
     <!-- /Contact Section -->
 
+    <section id="faq">
+      <div class="faq-container">
+        <h1 class="text-center" style="margin-bottom: 20px;">FAQ</h1>
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Apa itu Tabungansekolah?</div>
+            <div class="faq-answer">
+              <p>Tabungan sekolah adalah aplikasi yang memudahkan siswa untuk menabung. Melalui website ini, siswa SMK Negeri 1 Binong bisa langsung menabung tanpa harus menunggu pihak terkait menawarkan "apa ada yg mau menabung?" mendatangi kelasnya masing-masing.</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Bagaimana cara menabung di aplikasi ini?</div>
+            <div class="faq-answer">
+              <p>Kamu bisa menabung melalui fitur “Menabung” dari beranda kamu setelah kamu sudah login di website ini. Namun sebelum menabung, kamu harus punya saldo terlebih dahulu untuk ditabung.</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Bagaimana cara mengisi saldo?</div>
+            <div class="faq-answer">
+              <p>Kamu bisa mengisi dengan mengklik tombol "Top Up saldo” dari beranda kamu. Disitu kamu bisa memilih nominal saldo yg ingin kamu isi. Kamu juga bisa mengaturnya sendiri secara bebas</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Kenapa transaksi saya bertuliskan “Menunggu Persetujuan”?</div>
+            <div class="faq-answer">
+              <p>Artinya transaksi kamu masih dalam proses verifikasi oleh sistem atau admin. Kemungkinan kamu belum melakukan pembayaran. Harap segera datangi staff kami untuk melakukan pembayaran dan meminta transaksimu untuk diverifikasi. </p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Saya bisa menabung, apakah saya bisa melakukan penarikan?</div>
+            <div class="faq-answer">
+              <mu>Tentunya bisa dong!. Kamu bisa melakukan penarikan asalkan kamu sudah mempunyai tabungan. Kamu dapat mengajukan penarikan dengan mengklik Tombol "Tarik Tabungan" di beranda kamu. Dan kamu bisa memasukan berapa tabungan yg ingin kamu tarik uangnya. Setelah itu silahkan datangi staff kami di ruang guru untuk mengambil uangnya. Disitu kamu bisa melihat dan memantau transaksimu, beserta dengan status transaksi mu juga.</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Apa untungnya menabung bagi saya?</div>
+            <div class="faq-answer">
+              <p>Dengan kamu menabung disekolahan ini, uang tabunganmu bisa kamu ambil atau kamu gunakan langsung untuk biaya-biaya lain yg diharuskan dari pihak sekolah. Dengan itu, kamu bisa meringankan biaya yg perlu dikeluarkan orang tuamu, walaupun hanya sedikit. Namun itu sangat berefek!.</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <label>
+            <input type="checkbox">
+            <div class="faq-question">Apakah saya bisa memantau transaksi saya?</div>
+            <div class="faq-answer">
+              <p>Kamu bisa memantau transaksi mu dengan cara pergi kehalaman riwayat transaksi. Caranya bagaimana? KAmu hanya perlu mengklik Navigasi bertuliskan "Riwayat Transaksi" Di sisi kiri.</p>
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer id="footer" class="footer position-relative light-background">
@@ -321,6 +401,7 @@
             <li><a href="#hero">Beranda</a></li>
             <li><a href="#about">Tentang Kami</a></li>
             <li><a href="#features">Panduan</a></li>
+            <li><a href="#contact">Kontak</a></li>
           </ul>
         </div>
 
@@ -348,7 +429,7 @@
               @endforeach
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   </footer>

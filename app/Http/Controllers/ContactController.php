@@ -252,7 +252,7 @@ class ContactController extends Controller
                 $queryBuilder->where('status_laporan', 'Dibalas');
                 break;
             default:
-
+                        
                 break;
         }
 
@@ -268,5 +268,15 @@ class ContactController extends Controller
             ->get();
 
         return response()->json($notifikasi); // Kembalikan semua notifikasi dalam format JSON
+    }
+
+    // cek pesan dibaca
+    public function cekPesanDibaca()
+    {
+        $ada = NotifikasiUser::where('user_id', auth()->id())
+            ->where('status', 'Dibaca')
+            ->exists();
+
+        return response()->json(['ada' => $ada]);
     }
 }
