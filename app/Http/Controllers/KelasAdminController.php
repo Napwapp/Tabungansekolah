@@ -15,7 +15,9 @@ class KelasAdminController extends Controller
     public function kelasmin(Request $request)
     {
         // Ambil semua user beserta relasi tabungan dan penarikan
-        $users = User::with(['tabungan.penarikan'])->get();
+        $users = User::with(['tabungan.penarikan'])
+             ->where('role', 'user')
+             ->get();
 
         // Buat koleksi data keuangan tiap user
         $dataKeuangan = $users->map(function ($user) {
