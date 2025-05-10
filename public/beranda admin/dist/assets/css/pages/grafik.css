@@ -1,0 +1,93 @@
+
+.grafik {
+    text-align: center;
+    width: 100%;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #435ebe;
+}
+
+.chart-wrapper {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.pengguna    {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 10px;
+}
+
+.user {
+    background: #909090;
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.stat p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #a0aec0;
+}
+
+.stat h2 {
+    margin: 5px 0 0;
+    font-size: 1.3rem;
+}
+
+.trend-up {
+    color: #00ff08; /* Warna hijau untuk tren naik */
+}
+
+.header {
+    margin-top: 100px;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.dashboard {
+    max-width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    max-width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h2 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px 0;
+}

@@ -1,0 +1,85 @@
+
+.header {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.main {
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+}
+
+.profile-img ul {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+}
+
+.main-container{
+    padding: 10px;
+    width: 100%;
+    list-style: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+} 
+
+ul li {
+    list-style: none;
+    margin: 0.5rem 0;
+}
+
+.tasks .vision {
+    margin-bottom: 2rem;
+}
+
+.tasks {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.tasks ul {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.vision {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .main {
+        padding: 0.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+}
