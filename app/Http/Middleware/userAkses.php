@@ -4,21 +4,40 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-class userAkses
+class UserAkses
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (auth()->user()->role === $role) {
-            return $next($request);
+        $user = auth()->user();
+
+        // 1. Pastikan user sudah login (fallback jika middleware auth gagal)
+        if (!$user) {
+            return redirect()->route('auth')->with('error', 'Silakan login terlebih dahulu.');
         }
-        $url = "/" . auth()->user()->role;
-        return redirect($url)->with('error', "Anda tidak dapat mengakses halaman ini, karena role anda adalah " . auth()->user()->role);
+
+        // 2. Periksa role dengan case-insensitive
+        $userRole = strtolower($user->role);
+        $requiredRole = strtolower($role);
+
+        // 3. Batasi admin hanya bisa mengakses halaman admin
+        if ($userRole === 'admin' && $requiredRole !== 'admin') {
+            return redirect()->route('admin')->with('error', 'Role anda tidak memiliki izin untuk mengakses halaman ini. ');
+        }
+
+        // 4. Batasi user hanya bisa mengakses halaman sesuai rolenya
+        if ($userRole !== 'admin' && $userRole !== $requiredRole) {
+            return redirect()->route($userRole)->with(
+                'error',
+                "Akses ditolak. Role Anda adalah: " . ucfirst($userRole)
+            );
+        }
+
+        return $next($request);
     }
 }

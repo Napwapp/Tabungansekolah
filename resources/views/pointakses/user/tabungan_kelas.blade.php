@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/main/app.css')}}">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('dashboard/dist/tabungan/assets/images/logo/logosekolah.png')}}" type="image/png">
+
+    <link rel="stylesheet" href="{{asset('dashboard/dist/assets/css/mycss/default.css') }}">
     
 </head>
 
@@ -61,10 +63,7 @@
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Tabungan</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item active">
-                                    <a href="{{route('kelas')}}">Tabungan Kelas</a>
-                                </li>
+                            <ul class="submenu ">                                
                                 <li class="submenu-item ">
                                     <a href="{{route('tabungan')}}">Tabunganku</a>
                                 </li>
@@ -80,75 +79,31 @@
                         </li>
 
                                     
-                        <li
-                            class="sidebar-item  ">
-                            <a href="{{route('contact')}}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="{{ route('contact') }}" class="sidebar-link">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span>Kontak Kami</span>
+                                <span>Pesan</span>
+                                @if (!Request::is('contact') && isset($unreadCount) && $unreadCount > 0)
+                                <span class="badge-notif">
+                                    <h2>{{ $unreadCount }}</h2>
+                                </span>
+                                @endif
                             </a>
                         </li>
 
-                        <!-- saya nonaktifkan (sementara) karna siapa tau penting suatu saat -->
-                        <!-- <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        -->
-                        
-                        <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-                        
                         <li
-                            class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
+                            class="sidebar-item  ">
+                            <a href="{{route('sendmassage')}}" class='sidebar-link'>
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>Laporan & Saran</span>
                             </a>
-                            <ul class="submenu active">
-                                <li class="submenu-item ">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                            </ul>
-                        </li> -->
-                    
+                        </li>
+                        
                         <form action="{{route('logout')}}" method="post" type="submit" class="sidebar-item" style="margin-left: 15px; color:rgb(124, 141, 181)">
                             @csrf
                             <i class="bi bi-x-octagon-fill"></i>
                             <button style="border: none; padding: 10px; background-color: white;">Log Out</button>               
+                        </form>
                     </ul>
                 </div>
             </div>

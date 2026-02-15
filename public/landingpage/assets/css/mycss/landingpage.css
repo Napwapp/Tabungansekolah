@@ -1,0 +1,194 @@
+:root { 
+  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #32353a; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #e84545; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+/* CSS untuk membuat ukuran kotak kontak sama */
+#contact .col-lg-6 {
+    width: 100%;
+  }
+  
+  #contact .col-lg-6 .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  
+  #contact .col-md-6 {
+    width: 32%; /* Memberikan sedikit ruang di antara kotak-kotak */
+    flex: 0 0 auto;
+  }
+  
+  #contact .info-item {
+    height: 100%; /* Membuat tinggi kotak mengikuti kotak tertinggi */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Menggunakan flex untuk mengatur tinggi kotak dengan jumlah konten berbeda */
+  #contact .row {
+    display: flex;
+    align-items: stretch; /* Membuat semua item mengisi tinggi yang sama */
+  }
+  
+  /* Responsif untuk layar kecil */
+  @media (max-width: 768px) {
+    #contact .col-lg-6 .row {
+      flex-wrap: wrap;
+    }
+    
+    #contact .col-md-6 {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+
+
+/* grid sendiri untuk footer  */
+
+/* CSS untuk merapikan alignment di footer */
+.footer-top {
+  padding: 40px 0;
+}
+
+/* Menyejajarkan semua judul h4 */
+.footer h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/* Menyejajarkan semua konten */
+.footer-about,
+.footer-links,
+.footer-contact {
+  display: flex;
+  flex-direction: column;  
+}
+
+/* Mengatur list di footer links */
+.footer-links ul {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+/* Mengatur grid untuk informasi kontak */
+.informasi-kontak {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+.informasi-kontak .section {
+  display: flex;
+  flex-direction: column;
+}
+
+.informasi-kontak h5 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Mengatur nomor telepon */
+.phone-number .country-code {
+  display: inline;
+  font-weight: bold;
+}
+
+/* Spacing untuk konten */
+.phone-number, 
+.email {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Vertical alignment untuk semua konten */
+.footer p {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .informasi-kontak {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .footer-top .row > div {
+    margin-bottom: 30px;
+  }
+}
+
+/* Styling untuk bagian sekolah */
+
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  background: 
+  color-mix(in srgb, var(--default-color), transparent 96%);
+  border-radius: 6px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.faq-question {
+  background: 
+  color-mix(in srgb, var(--default-color), transparent 96%);  padding: 15px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  transition: transform 0.3s ease-in;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  transition: max-height 0.4s ease;
+  padding: 0 20px;
+}
+
+.faq-answer p {
+  padding: 15px 0;
+}
+
+input[type="checkbox"]:checked ~ .faq-answer {
+  max-height: 200px;
+}
+
+input[type="checkbox"]:checked ~ .faq-question::after {
+  content: '-';
+  transform: rotate(180deg);
+}
