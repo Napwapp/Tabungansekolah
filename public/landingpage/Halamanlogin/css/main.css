@@ -332,6 +332,14 @@ input.input100 {
   transition: all 0.4s;
 }
 
+select.input100 {
+  height: 100%;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
 /*---------------------------------------------*/
 
 .focus-input100 {
@@ -379,6 +387,12 @@ input.input100 {
   -moz-transform: scale(1);
   -ms-transform: scale(1);
   -o-transform: scale(1);
+  transform: scale(1);
+}
+
+.wrap-input100.eff-focus-selection .focus-input100 {
+  visibility: visible;
+  opacity: 1;
   transform: scale(1);
 }
 

@@ -50,4 +50,30 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(err => console.error(err));
         });
     }
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const select = document.getElementById("kelasJurusanSelect");
+		const wrapper = select.closest(".wrap-input100");
+
+		// Toggle has-val class
+		function checkValue() {
+			if (select.value) {
+				select.classList.add("has-val");
+			} else {
+				select.classList.remove("has-val");
+			}
+		}
+
+		// Tambah class fokus ke .wrap-input100 saat select difokuskan
+		select.addEventListener("focus", function () {
+			wrapper.classList.add("eff-focus-selection");
+		});
+		select.addEventListener("blur", function () {
+			wrapper.classList.remove("eff-focus-selection");
+			checkValue();
+		});
+
+		// Tambah .has-val jika ada value dari awal (misalnya old input)
+		checkValue();
+	});
 });
