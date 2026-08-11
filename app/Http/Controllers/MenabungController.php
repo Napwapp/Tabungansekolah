@@ -77,29 +77,32 @@ class MenabungController extends Controller
             if ($tabungan->saldo < $request->jumlah) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Saldo tidak mencukupi untuk menabung.'
+                    'message' => 'Saldo tidak mencukupi untuk ditabung.'
                 ], 400);
             }
     
             Log::info('Sebelum transaksi: ' . $tabungan->total_tabungan);
     
-            // CATAT TRANSAKSI MENABUNG (Status: Menunggu Persetujuan)
+            // CATAT TRANSAKSI MENABUNG (Langsung Sukses)
             $menabung = TransaksiMenabungUser::create([
                 'user_id'      => $user->id,
                 'id_tabungan'  => $tabungan->id_tabungan,
                 'jumlah'       => $request->jumlah,
-                'status'       => 'Menunggu Persetujuan', 
+                'status'       => 'Sukses', 
                 'namalengkap'  => $user->namalengkap,
                 'kelas'        => $user->kelas,
             ]);
-    
-            // KIRIM NOTIFIKASI TRANSAKSI
+
+            // UPDATE SALDO DAN TOTAL TABUNGAN PADA TABUNGAN_USER
+            $tabungan->saldo -= $request->jumlah;
+            $tabungan->total_tabungan += $request->jumlah;
+            $tabungan->save();
             NotifikasiUser::create([
                 'user_id' => $user->id,
                 'nama_pengirim' => 'Tabungan Sekolah',
                 'foto_pengirim' => null,
-                'judul' => 'Menabung dalam Proses',
-                'isi_pesan' => 'Transaksi menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.') .  ' Berhasil. Mohon untuk menunggu persetujuan dari admin.',
+                'judul' => 'Berhasil Menabung!',
+                'isi_pesan' => 'Kamu berhasil menabung sebesar Rp' . number_format($request->jumlah, 0, ',', '.'),
                 'status' => 'Belum Dibaca',
                 'tipe' => 'Transaksi',
                 'id_transaksi' => $menabung->id, 
@@ -112,7 +115,7 @@ class MenabungController extends Controller
     
             return response()->json([
                 'success' => true,
-                'message' => 'Transaksi menabung sedang diproses. Menunggu persetujuan dari admin.'
+                'message' => 'Berhasil Menabung!.'
             ]);
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan transaksi jika ada kesalahan

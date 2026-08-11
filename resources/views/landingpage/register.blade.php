@@ -95,7 +95,6 @@
 					</div>
 					@endif
 
-
 					<!-- inputan -->
 					<div class="wrap-input100 validate-input" data-validate="Nama Lengkap Wajib diisi">
 						<input
@@ -118,7 +117,7 @@
 						<span class="focus-input100"></span>
 						<span class="label-input100">Kelas & Jurusan</span>
 					</div>
-
+										
 					<div class="wrap-input100 validate-input" data-validate="Username wajib diisi">
 						<input
 							class="input100 {{ old('username') ? 'has-val' : '' }}"
@@ -160,7 +159,7 @@
 						<label for="gambar" style="margin-bottom: 10px; font-size: 13pt; color: #666666; ">Gambar</label>
 						<input type="file" class="form-input" name="gambar" id="gambar" style="margin-left: -20px;" />
 					</div>
-				
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
 							Sign Up

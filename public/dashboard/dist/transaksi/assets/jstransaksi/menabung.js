@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(data => {
                 Swal.fire({
-                    icon: "info",  // Menampilkan ikon info jika transaksi berhasil
+                    icon: "success",  // Menampilkan ikon sukses jika transaksi berhasil
                     title: "Berhasil!",
-                    text: "Berhasil Menabung! Menunggu persetujuan dari admin.",
+                    text: "Selamat! Kamu berhasil menabung sebesar Rp" + depositAmount.toLocaleString("id-ID") + ".",
                     confirmButtonColor: "#007bff"
                 }).then(() => {
                     window.location.href = userRoute;
